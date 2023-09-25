@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Firebase Write Data</title>
+  <!-- Include the Firebase SDK -->
+  <!-- Replace 'YOUR_FIREBASE_CONFIG_OBJECT' with your actual Firebase configuration -->
+  <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-database.js"></script>
+  <script>
+    // Your Firebase configuration object
+    const firebaseConfig = {
+        apiKey: "AIzaSyBOOdW1SHCwBZSchUJ7DfJZ1a7-dEYTvuQ",
+
+authDomain: "crowdcount-678c8.firebaseapp.com",
+
+databaseURL: "https://crowdcount-678c8-default-rtdb.europe-west1.firebasedatabase.app",
+
+projectId: "crowdcount-678c8",
+
+storageBucket: "crowdcount-678c8.appspot.com",
+
+messagingSenderId: "1020533758948",
+
+appId: "1:1020533758948:web:23ec6e175dff3b5eedc5f1",
+
+measurementId: "G-00674BETEZ"
+
+    };
+set_pos =[0,0];
+
+
+        
+set_name ="ds"
+   set_area="oben"
+      set_dens="unk"
+set_tens = "unk"
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Function to write data to the Firebase database
+    function writeToFirebase() {
+
+      navigator.geolocation.getCurrentPosition(
+            (position) => {
+                // Extract latitude and longitude from the position object
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+             set_pos =[latitude,longitude]
+ 
+              // Display the user's position information
+             //  console.log(`Latitude: ${latitude}, Longitude: ${longitude}`)
+            },
+            (error) => {
+                // Handle any errors that occur during geolocation
+                console.log(`Error: ${error.message}`)
+            }
+         
+        );
+
+
+        setTimeout(function (){
+      jetzt = new Date()
+      
+      const database = firebase.database();
+
+      // Replace 'your-data' with the path where you want to write the data in the database
+      // For example, if you want to write data to 'https://your-project-id.firebaseio.com/users', use 'users'
+      const databaseRef = database.ref('soundstorm').child('SS23').child(jetzt.getTime());
+
+      // Data you want to write to the database
+
+
+
+      const dataToWrite = {
+        zeit: jetzt.getTime(),
+        name: set_name,
+        area: set_area,
+        density: set_dens,
+        position: set_pos,
+        tension: set_tens,
+      };
+
+     // Push the data to the database
+      databaseRef.set(dataToWrite)
+        .then(() => {
+          console.log("Data was successfully written to the Firebase database.");
+        })
+        .catch((error) => {
+          console.error("Error writing data to the Firebase database:", error);
+        });
+},3000)
+
+
+    }
+
+
+
+  </script>
+</head>
+<body>
+  Reporting: <input type="text" value="Meldender" style="width:40%" onchange="set_name=this.value;console.log('meldender geändert auf: '+set_name)">
+<br>
+  <label for="numberInput">dens:</label>
+<input type="number" id="numberInput" name="numberInput" min="0" max="9" value =5 style="width:10%" onchange="set_dens= this.value">
+<br>
+<label for="numberInput2">tens:</label>
+<input type="number" id="numberInput2" name="numberInput" min="0" max="9" value =5 style="width:10%" onchange="set_tens= this.value">
+<br>
+<label for="dropdown">Zone:</label>
+<select id="dropdown" name="dropdown" onchange="set_area = this.value;">
+    <option value="bigbeast">bigbeast</option>
+    <option value="vendor">vendor</option>
+    <option value="downbeast">downbeast</option>
+</select>
+<br><br><br>
+  <!-- Button to trigger the data write -->
+  <button onclick="writeToFirebase()">Write Data to Firebase</button>
+</body>
+</html>
