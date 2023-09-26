@@ -44,11 +44,14 @@
 </body>
 
 <script>
+// hohlt die eigene pos vom browser
 update_ownpos()
+// wiederholt alle 10 sek 
 setInterval(function() {
  update_ownpos()
-  }, 5000);
+  }, 10000);
 
+// hohlt die eigene pos vom browser
 function update_ownpos(){
   navigator.geolocation.getCurrentPosition(
             (position) => {
@@ -108,11 +111,12 @@ mymap.getContainer().addEventListener("touchstart", function (e) {
 mymap.getContainer().addEventListener("touchend", function (e) {
     touchEndX = e.changedTouches[0].clientX;
     touchEndY = e.changedTouches[0].clientY;
-    ort = mymap.containerPointToLatLng([touchEndX,touchEndY]);
-  console.log(touchEndX,touchEndY)
-  console.log(ort)
+    ort = mymap.containerPointToLatLng([touchStartX,touchStartY]);
+    ort2 = mymap.containerPointToLatLng([touchEndX,touchEndY]);
+ 
 
-  L.marker(ort).addTo(mymap);
+  var polyline = L.polyline([ort,ort2]).addTo(mymap);
+
   })
 
 
