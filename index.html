@@ -17,7 +17,7 @@
   <div id="map_div" style="width:100%;height:500px; background-color: blueviolet;"></div>
 
   
-  <table>
+  <table style="width:100%">
     <tr><td>reporting:</td>
       <td><input type="text" value="Meldender" style="width:100%" onchange="set_name=this.value;console.log('meldender geändert auf: '+set_name)">
       </td>
@@ -25,23 +25,26 @@
     </tr>
     <tr>
       <td>dens:</td>
-      <td> <input type="range" id="numberInput" name="numberInput" min="0" max="10" value =5 style="width:10%" onchange="set_dens= this.value;d3.select('#dens_p').text(set_dens)"></td>
+      <td> <input type="range" id="numberInput" name="numberInput" min="0" max="10" value =5  onchange="set_dens= this.value;d3.select('#dens_p').text(set_dens)"></td>
     <td> <span id="dens_p"> 5</span></td>
     </tr>
     <tr>
 <td>tens:</td>
-<td>   <input type="range" id="numberInput2" name="numberInput" min="0" max="10" value =5 style="width:10%" onchange="set_tens= this.value;d3.select('#tens_p').text(set_tens)"></td>
+<td>   <input type="range" id="numberInput2" name="numberInput" min="0" max="10" value =5  onchange="set_tens= this.value;d3.select('#tens_p').text(set_tens)"></td>
  <td> <span id="tens_p"> 5</span></td>
 
     </tr>
+
+    <tr>
+      <td>usage:</td>
+      <td><input type="range" id="numberInput3" name="numberInput" min="0" max="100" step=5 value =50 onchange="set_usage= this.value;d3.select('#usage_p').text(set_usage + ' %')">
+      </td>
+      <td>  <span id="usage_p"> 10%</span></td>
+    </tr>
   </table>
   
-  <br>
-  <label for="numberInput2">tens:</label>
-  <br>
-  <label for="numberInput3">usage:</label>
-  <input type="range" id="numberInput3" name="numberInput" min="0" max="100" step=5 value =50 style="width:10%" onchange="set_usage= this.value;d3.select('#usage_p').text(set_usage + ' %')">
-  <span id="usage_p"> 10%</span>
+
+ 
   <br>
   <label for="dropdown">Zone:</label>
   <select id="dropdown" name="dropdown" onchange="set_area = this.value;">
