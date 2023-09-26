@@ -45,6 +45,13 @@
 </body>
 
 <script>
+    farbskala =
+         ["lightblue",
+            "#00B0F0",
+            "#92D050",
+            "#FFFF00"
+            ,"#FF9201"
+            ,"#FF0000",'red','red','red','red','red','red','red','red','red','red']
 stages=[{title:"bigbeast",coords:[
             [50.958411347755174,
               6.962090532208862
@@ -198,7 +205,7 @@ ref.once('value', (snapshot) => {
   
 
 });
-console.table(current)
+console.table(current.length)
 for (i=0;i<current.length;i++){
   console.log('g'+i)
   stages_geo[i].setStyle({
