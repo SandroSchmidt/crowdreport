@@ -215,6 +215,12 @@ for (i=0;i<current.length;i++){
   })
 }
 
+stages_geo[0].setStyle({
+        fillColor: "blue",
+        color: "green"
+     //   , "weight": liniendicke
+  })
+
   }
 
   var mymap = L.map('map_div',{zoomSnap: 0.1, dragging: false}).setView(set_pos,15 )
