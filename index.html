@@ -206,7 +206,7 @@ for (i=0;i<data.length;i++){
 
   }
 
-  var mymap = L.map('map_div',{zoomSnap: 0.1, dragging: false}).setView(set_pos,20 )
+  var mymap = L.map('map_div',{zoomSnap: 0.1, dragging: false}).setView(set_pos,15 )
  //        mymap.on('zoomend', function() {setviewzoom = mymap.getZoom()});
    //   mymap.on('moveend', function() { mapaa = (mymap.getCenter(),mymap.getCenter());setviewmap=[mapaa.lat,mapaa.lng]});
    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
@@ -236,9 +236,9 @@ mymap.getContainer().addEventListener("touchend", function (e) {
 stages_geo=[]
   for(i=0;i<stages.length;i++)
 {let zi =i 
-  stages_geo.push(
-    L.polygon(stages[i].coords, {color: 'red'}).on('click',function(){set_area=stages[zi].title;d3.select('#dropdown').property('value',set_area)}).addTo(mymap)
-  )
+  f= L.polygon(stages[i].coords, {color: 'red'}).on('click',function(){set_area=stages[zi].title;d3.select('#dropdown').property('value',set_area)}).addTo(mymap)
+
+  stages_geo.push(f)
 }
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
