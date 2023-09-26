@@ -21,6 +21,9 @@
   <label for="numberInput2">tens:</label>
   <input type="number" id="numberInput2" name="numberInput" min="0" max="9" value =5 style="width:10%" onchange="set_tens= this.value">
   <br>
+  <label for="numberInput3">usage:</label>
+  <input type="number" id="numberInput3" name="numberInput" min="0" max="100" step=5 value =50 style="width:10%" onchange="set_usage= this.value">
+  <br>
   <label for="dropdown">Zone:</label>
   <select id="dropdown" name="dropdown" onchange="set_area = this.value;">
   <option value="bigbeast">bigbeast</option>
@@ -29,10 +32,10 @@
   </select>
   <br><br><br>
   <!-- Button to trigger the data write -->
-  <button onclick="writeToFirebase()">Write Data to Firebase</button>
-  <button onclick="window.open('swipes.html');">swipes</button>
-  <button onclick="window.open('/CrowdReport/swipes.html');">swipes2</button>
-<div id="map_div" style="width:500px;height:500px;background-color: blueviolet;"></div>
+  <button onclick="writeToFirebase()">Send report</button>
+  <div id="map_div" style="width:500px;height:500px;background-color: blueviolet;"></div>
+<hr>
+
   wo bleibt das commit?
 </body>
 
@@ -62,6 +65,18 @@
      // opacity: 0.5,
       attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
     }).addTo(mymap);
+
+    let touchStartX, touchEndX;
+
+map.getContainer().addEventListener("touchstart", function (e) {
+    touchStartX = e.touches[0].clientX;
+});
+
+map.getContainer().addEventListener("touchend", function (e) {
+    touchEndX = e.changedTouches[0].clientX;
+  console.log(touchStartX,touchEndX)
+  })
+
 
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
