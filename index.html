@@ -13,6 +13,7 @@
 </head>
 
 <body>
+  <div>
   <div id="map_div" style="width:500px;height:500px;background-color: blueviolet;"></div>
 
   Reporting: <input type="text" value="Meldender" style="width:40%" onchange="set_name=this.value;console.log('meldender geändert auf: '+set_name)">
@@ -35,8 +36,10 @@
   <br><br><br>
   <!-- Button to trigger the data write -->
   <button onclick="writeToFirebase()">Send report</button>
+  <hr>
+  <p id="infotag">loaded</p>
  <hr>
-
+</div>
   wo bleibt das commit?
 </body>
 
@@ -50,8 +53,8 @@ setInterval(function() {
                 const longitude = position.coords.longitude;
              set_pos =[latitude,longitude]
     mymap.setView(set_pos)
-    ownmarker.position(set_pos)
-              // Display the user's position information
+    ownmarker.setLatLng(set_pos)
+              // Displnay the user's position information
              //  console.log(`Latitude: ${latitude}, Longitude: ${longitude}`)
             },
             (error) => {
@@ -60,6 +63,8 @@ setInterval(function() {
             }
          
         );
+        a = new Date()
+        d3.select('#infotag').text('own loc upt at '+ a.getHours())
   }, 5000);
 
 
