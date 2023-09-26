@@ -133,7 +133,7 @@ mymap.getContainer().addEventListener("touchend", function (e) {
 
       // Replace 'your-data' with the path where you want to write the data in the database
       // For example, if you want to write data to 'https://your-project-id.firebaseio.com/users', use 'users'
-      const databaseRef = database.ref('soundstorm').child('SS23').child(jetzt.getTime());
+       databaseRef = database.ref('soundstorm').child('SS23').child(jetzt.getTime());
 
       // Data you want to write to the database
 
@@ -159,6 +159,12 @@ mymap.getContainer().addEventListener("touchend", function (e) {
 
         d3.select('#infotag').text('status: report sent at '+ a.getHours()+":"+a.getMinutes()+":"+a.getSeconds())
 
+        databaseRef = database.ref('soundstorm').child('aktuell').child(sel_area);
+        databaseRef.set({zeit:jetzt.getTime(),  name: set_name,
+        area: set_area,
+        density: set_dens,
+        position: set_pos,
+        tension: set_tens})
     }
 
 
