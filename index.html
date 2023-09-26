@@ -178,7 +178,7 @@ const firebaseConfig = {
         appId: "1:1020533758948:web:23ec6e175dff3b5eedc5f1",
         measurementId: "G-00674BETEZ"
         };
-        
+
         const database = firebase.database();
   set_pos =[0,0];
   set_name ="ds"
@@ -225,7 +225,7 @@ mymap.getContainer().addEventListener("touchend", function (e) {
   for(i=0;i<stages.length;i++)
 {let zi =i 
   f = L.polygon(stages[i].coords, {color: 'red'})
-  //.on('click',function(){    set_area=stages[zi].title;    d3.select('#dropdown').value(set_area)});
+  .on('click',function(){    set_area=stages[zi].title;    d3.select('#dropdown').value(set_area)});
 
  f.addTo(mymap);
 }
