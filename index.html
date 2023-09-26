@@ -187,16 +187,19 @@ const firebaseConfig = {
 
 
   function read_current (){
+    current=0
     database = firebase.database();
   
 const ref = database.ref('/soundstorm/aktuell');
 
 ref.once('value', (snapshot) => {
   const data = snapshot.val();
-  console.log(data); // Your JSON data
+  current = snapshot.val()
+  
 
 });
-for (i=0;i<data.length;i++){
+console.table(current)
+for (i=0;i<current.length;i++){
   {stages_geo[i].setStyle({
         fillColor: "blue",
         color: "green"
