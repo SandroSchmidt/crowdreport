@@ -187,7 +187,10 @@ const firebaseConfig = {
 
 
   function read_current (){
+    databaseRef = database.ref('soundstorm').child('SS23').child('aktuell');
 
+   xx = databaseRef.get()
+   console.table(xx)
   }
 
   var mymap = L.map('map_div',{zoomSnap: 0.1, dragging: false}).setView(set_pos,10 )
