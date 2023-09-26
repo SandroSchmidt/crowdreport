@@ -215,7 +215,8 @@ mymap.getContainer().addEventListener("touchend", function (e) {
   f = L.geoJSON(stages[i].coords, {color: 'red'}).on('click',function(){
     set_area=stages[zi].title;
     d3.select('#dropdown').value(set_area)});
- f.coordsToLatLng().addTo('mymap')
+ f.geoJSON.coordsToLatLng()
+ f.addTo('mymap')
 }
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
