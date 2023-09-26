@@ -41,20 +41,21 @@
       </td>
       <td>  <span id="usage_p"> 10%</span></td>
     </tr>
+
+    <tr>
+      <td>zone:</td>
+      <td><select id="dropdown" name="dropdown" onchange="set_area = this.value;">
+  <option value="bigbeast">bigbeast</option>
+  <option value="vendor">vendor</option>
+  <option value="downbeast">downbeast</option>
+  </select></td>
+      <td><button onclick="writeToFirebase()">Send report</button></td>
+    </tr>
   </table>
   
 
  
-  <br>
-  <label for="dropdown">Zone:</label>
-  <select id="dropdown" name="dropdown" onchange="set_area = this.value;">
-  <option value="bigbeast">bigbeast</option>
-  <option value="vendor">vendor</option>
-  <option value="downbeast">downbeast</option>
-  </select>
-  <br><br><br> 
-  <!-- Button to trigger the data write -->
-  <button onclick="writeToFirebase()">Send report</button>
+
   <hr>
   <p id="infotag">loaded</p>
  <hr>
