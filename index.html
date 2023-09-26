@@ -200,11 +200,12 @@ ref.once('value', (snapshot) => {
 });
 console.table(current)
 for (i=0;i<current.length;i++){
-  {stages_geo[i].setStyle({
+  console.log('g'+i)
+  stages_geo[i].setStyle({
         fillColor: "blue",
         color: "green"
      //   , "weight": liniendicke
-  })}
+  })
 }
 
   }
