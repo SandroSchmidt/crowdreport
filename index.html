@@ -57,7 +57,7 @@
   set_dens="unk"
   set_tens = "unk"
 
-  var mymap = L.map('map_div',{zoomSnap: 0.001}).setView(set_pos,15 )
+  var mymap = L.map('map_div',{zoomSnap: 0.1, dragging: false}).setView(set_pos,20 )
  //        mymap.on('zoomend', function() {setviewzoom = mymap.getZoom()});
    //   mymap.on('moveend', function() { mapaa = (mymap.getCenter(),mymap.getCenter());setviewmap=[mapaa.lat,mapaa.lng]});
    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
