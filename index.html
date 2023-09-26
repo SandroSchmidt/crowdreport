@@ -19,14 +19,17 @@
   Reporting: <input type="text" value="Meldender" style="width:40%" onchange="set_name=this.value;console.log('meldender geändert auf: '+set_name)">
   <br>
   <label for="numberInput">dens:</label><button>-</button>
-  <input type="range" id="numberInput" name="numberInput" min="0" max="10" value =5 style="width:10%" onchange="set_dens= this.value">
+  <input type="range" id="numberInput" name="numberInput" min="0" max="10" value =5 style="width:10%" onchange="set_dens= this.value;d3.select('#dens_p').text(set_dens)">
   <button onclick="d3.select('#numberInput').value++">+</button>
+  <span id="dens_p"> 5</span>
   <br>
   <label for="numberInput2">tens:</label>
-  <input type="range" id="numberInput2" name="numberInput" min="0" max="10" value =5 style="width:10%" onchange="set_tens= this.value">
+  <input type="range" id="numberInput2" name="numberInput" min="0" max="10" value =5 style="width:10%" onchange="set_tens= this.value;d3.select('#tens_p').text(set_tens)">
+  <span id="tens_p"> 5</span>
   <br>
   <label for="numberInput3">usage:</label>
-  <input type="number" id="numberInput3" name="numberInput" min="0" max="100" step=5 value =50 style="width:10%" onchange="set_usage= this.value">
+  <input type="range" id="numberInput3" name="numberInput" min="0" max="100" step=5 value =50 style="width:10%" onchange="set_usage= this.value;d3.select('#usage_p').text(set_usage)">
+  <span id="usage_p"> 10%</span>
   <br>
   <label for="dropdown">Zone:</label>
   <select id="dropdown" name="dropdown" onchange="set_area = this.value;">
@@ -191,6 +194,7 @@ const firebaseConfig = {
   set_area="bigbeast"
   set_dens=0
   set_tens = 0
+  usage_p=0
   current=0
 //zu
   function read_current (){
@@ -205,15 +209,17 @@ ref.once('value', (snapshot) => {
   
 
 });
-console.table(current.length)
-for (i=0;i<current.length;i++){
-  console.log('g'+i)
-  stages_geo[i].setStyle({
-        fillColor: "blue",
-        color: "green"
+temp =Math.round(current.bigbeast.usage/20)
+col = farbskala[temp]
+temp =Math.round(current.bigbeast.density/2)
+col2 = farbskala[temp]
+
+  stages_geo[0].setStyle({
+        fillColor: col,
+        color: col2
      //   , "weight": liniendicke
   })
-}
+
 
 stages_geo[0].setStyle({
         fillColor: "blue",
