@@ -76,8 +76,9 @@ mymap.getContainer().addEventListener("touchstart", function (e) {
 mymap.getContainer().addEventListener("touchend", function (e) {
     touchEndX = e.changedTouches[0].clientX;
     touchEndY = e.changedTouches[0].clientY;
-    //ort = mymap.containerPointToLatLng([0, mymap.getSize().x]);
+    ort = mymap.containerPointToLatLng([touchEndX,touchEndY]);
   console.log(touchEndX,touchEndY)
+  console.log(ort)
   })
 
 
