@@ -178,7 +178,8 @@ const firebaseConfig = {
         appId: "1:1020533758948:web:23ec6e175dff3b5eedc5f1",
         measurementId: "G-00674BETEZ"
         };
-
+        
+        const database = firebase.database();
   set_pos =[0,0];
   set_name ="ds"
   set_area="bigbeast"
@@ -237,7 +238,7 @@ mymap.getContainer().addEventListener("touchend", function (e) {
 
       jetzt = new Date()
       
-      const database = firebase.database();
+  
 
       // Replace 'your-data' with the path where you want to write the data in the database
       // For example, if you want to write data to 'https://your-project-id.firebaseio.com/users', use 'users'
