@@ -13,6 +13,8 @@
 </head>
 
 <body>
+  <div id="map_div" style="width:500px;height:500px;background-color: blueviolet;"></div>
+
   Reporting: <input type="text" value="Meldender" style="width:40%" onchange="set_name=this.value;console.log('meldender geändert auf: '+set_name)">
   <br>
   <label for="numberInput">dens:</label>
@@ -33,8 +35,7 @@
   <br><br><br>
   <!-- Button to trigger the data write -->
   <button onclick="writeToFirebase()">Send report</button>
-  <div id="map_div" style="width:500px;height:500px;background-color: blueviolet;"></div>
-<hr>
+ <hr>
 
   wo bleibt das commit?
 </body>
