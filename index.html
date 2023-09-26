@@ -42,6 +42,25 @@
 
 <script>
 
+setInterval(function() {
+  navigator.geolocation.getCurrentPosition(
+            (position) => {
+                // Extract latitude and longitude from the position object
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+             set_pos =[latitude,longitude]
+    mymap.setView(set_pos)
+    ownmarker.position(set_pos)
+              // Display the user's position information
+             //  console.log(`Latitude: ${latitude}, Longitude: ${longitude}`)
+            },
+            (error) => {
+                // Handle any errors that occur during geolocation
+                console.log(`Error: ${error.message}`)
+            }
+         
+        );
+  }, 5000);
 
 
     const firebaseConfig = {
@@ -71,6 +90,7 @@
       attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
     }).addTo(mymap);
 
+    ownmarker = L.marker(set_pos).addTo(mymap);
     let touchStartX, touchEndX;
 
 mymap.getContainer().addEventListener("touchstart", function (e) {
@@ -95,22 +115,7 @@ mymap.getContainer().addEventListener("touchend", function (e) {
     // Function to write data to the Firebase database
     function writeToFirebase() {
 
-      navigator.geolocation.getCurrentPosition(
-            (position) => {
-                // Extract latitude and longitude from the position object
-                const latitude = position.coords.latitude;
-                const longitude = position.coords.longitude;
-             set_pos =[latitude,longitude]
-    mymap.setView(set_pos)
-              // Display the user's position information
-             //  console.log(`Latitude: ${latitude}, Longitude: ${longitude}`)
-            },
-            (error) => {
-                // Handle any errors that occur during geolocation
-                console.log(`Error: ${error.message}`)
-            }
-         
-        );
+
 
 
         setTimeout(function (){
