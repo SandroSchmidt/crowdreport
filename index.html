@@ -223,11 +223,10 @@ mymap.getContainer().addEventListener("touchend", function (e) {
 
   for(i=0;i<stages.length;i++)
 {let zi =i 
-  f = L.polygon(stages[i].coords, {color: 'red'}).on('click',function(){
-    set_area=stages[zi].title;
-    d3.select('#dropdown').value(set_area)});
+  f = L.polygon(stages[i].coords, {color: 'red'})
+  //.on('click',function(){    set_area=stages[zi].title;    d3.select('#dropdown').value(set_area)});
 
- f.addTo('mymap')
+ f.addTo(mymap);
 }
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
