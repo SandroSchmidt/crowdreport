@@ -72,12 +72,12 @@
 
     let touchStartX, touchEndX;
 
-mymap.getContainer().addEventListener("touchstart", function (e) {
+mymap.addEventListener("touchstart", function (e) {
     touchStartX = e.touches[0].clientX;
     touchStartY = e.touches[0].clientY;
 });
 
-mymap.getContainer().addEventListener("touchend", function (e) {
+mymap.addEventListener("touchend", function (e) {
     touchEndX = e.changedTouches[0].clientX;
     touchEndY = e.changedTouches[0].clientY;
     ort = mymap.containerPointToLatLng([touchEndX,touchEndY]);
