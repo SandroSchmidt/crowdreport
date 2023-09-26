@@ -57,7 +57,7 @@
   set_dens="unk"
   set_tens = "unk"
 
-  var mymap = L.map('map_div',{zoomSnap: 0.001}).setView(set_pos,10 )
+  var mymap = L.map('map_div',{zoomSnap: 0.001}).setView(set_pos,15 )
  //        mymap.on('zoomend', function() {setviewzoom = mymap.getZoom()});
    //   mymap.on('moveend', function() { mapaa = (mymap.getCenter(),mymap.getCenter());setviewmap=[mapaa.lat,mapaa.lng]});
    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
@@ -70,11 +70,14 @@
 
 mymap.getContainer().addEventListener("touchstart", function (e) {
     touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
 });
 
 mymap.getContainer().addEventListener("touchend", function (e) {
     touchEndX = e.changedTouches[0].clientX;
-  console.log(touchStartX,touchEndX)
+    touchEndY = e.changedTouches[0].clientY;
+    //ort = mymap.containerPointToLatLng([0, mymap.getSize().x]);
+  console.log(touchEndX,touchEndY)
   })
 
 
