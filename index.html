@@ -187,6 +187,7 @@ const firebaseConfig = {
 
 
   function read_current (){
+    database = firebase.database();
     databaseRef = database.ref('soundstorm').child('SS23').child('aktuell');
 
    xx = databaseRef.get()
@@ -224,7 +225,7 @@ mymap.getContainer().addEventListener("touchend", function (e) {
   for(i=0;i<stages.length;i++)
 {let zi =i 
   f = L.polygon(stages[i].coords, {color: 'red'})
-  .on('click',function(){    set_area=stages[zi].title;    d3.select('#dropdown').value(set_area)});
+  .on('click',function(){    set_area=stages[zi].title;    d3.select('#dropdown').attr('value',set_area)});
 
  f.addTo(mymap);
 }
