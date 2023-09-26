@@ -18,8 +18,9 @@
 
   Reporting: <input type="text" value="Meldender" style="width:40%" onchange="set_name=this.value;console.log('meldender geändert auf: '+set_name)">
   <br>
-  <label for="numberInput">dens:</label>
-  <input type="slider" id="numberInput" name="numberInput" min="0" max="10" value =5 style="width:10%" onchange="set_dens= this.value">
+  <label for="numberInput">dens:</label><button>-</button>
+  <input type="range" id="numberInput" name="numberInput" min="0" max="10" value =5 style="width:10%" onchange="set_dens= this.value">
+  <button onclick="d3.select('#numberInput').value++">+</button>
   <br>
   <label for="numberInput2">tens:</label>
   <input type="range" id="numberInput2" name="numberInput" min="0" max="10" value =5 style="width:10%" onchange="set_tens= this.value">
@@ -33,7 +34,7 @@
   <option value="vendor">vendor</option>
   <option value="downbeast">downbeast</option>
   </select>
-  <br><br><br>
+  <br><br><br> 
   <!-- Button to trigger the data write -->
   <button onclick="writeToFirebase()">Send report</button>
   <hr>
