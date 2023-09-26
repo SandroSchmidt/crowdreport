@@ -260,6 +260,7 @@ mymap.getContainer().addEventListener("touchend", function (e) {
 
   })
 stages_geo=[]
+//ff
   for(i=0;i<stages.length;i++)
 {let zi =i 
   f= L.polygon(stages[i].coords, {color: 'red'}).on('click',function(){set_area=stages[zi].title;d3.select('#dropdown').property('value',set_area)}).addTo(mymap)
