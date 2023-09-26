@@ -13,10 +13,10 @@
 </head>
 
 <body>
-  <div style="width:100%;height:100%">
-  <div id="map_div" style="width:500px;height:500px;background-color: blueviolet;"></div>
+  <div style="width:30%;height:100%">
+  <div id="map_div" style="width:100%;background-color: blueviolet;"></div>
 
-  Reporting: <input type="text" value="Meldender" style="width:40%" onchange="set_name=this.value;console.log('meldender geändert auf: '+set_name)">
+  Reporting: <input type="text" value="Meldender" style="width:100%" onchange="set_name=this.value;console.log('meldender geändert auf: '+set_name)">
   <br>
   <label for="numberInput">dens:</label><button>-</button>
   <input type="range" id="numberInput" name="numberInput" min="0" max="10" value =5 style="width:10%" onchange="set_dens= this.value;d3.select('#dens_p').text(set_dens)">
