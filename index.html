@@ -184,10 +184,10 @@ const firebaseConfig = {
   set_area="bigbeast"
   set_dens=0
   set_tens = 0
-
+  current=0
 
   function read_current (){
-    current=0
+
     database = firebase.database();
   
 const ref = database.ref('/soundstorm/aktuell');
