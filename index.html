@@ -9,11 +9,11 @@
   <link rel="stylesheet" type="text/css" href="./js/leaflet.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
   <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
-
+  <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 
 <body>
-  <div>
+  <div style="width:100%;height:100%">
   <div id="map_div" style="width:500px;height:500px;background-color: blueviolet;"></div>
 
   Reporting: <input type="text" value="Meldender" style="width:40%" onchange="set_name=this.value;console.log('meldender geändert auf: '+set_name)">
@@ -64,7 +64,7 @@ setInterval(function() {
          
         );
         a = new Date()
-        d3.select('#infotag').text('own loc upt at '+ a.getHours())
+        d3.select('#infotag').text('own loc upt at '+ a.getHours()+":"+a.getMinutes()+":"+a.getSeconds())
   }, 5000);
 
 
