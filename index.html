@@ -212,7 +212,7 @@ mymap.getContainer().addEventListener("touchend", function (e) {
 
   for(i=0;i<stages.length;i++)
 {
-  L.polygon(stages[i], {color: 'red'}).addTo(mymap).on('click',this.color('green'));
+  L.polygon(stages[i], {color: 'red'}).addTo(mymap)//.on('click',this.color('green'));
 
 }
     // Initialize Firebase
