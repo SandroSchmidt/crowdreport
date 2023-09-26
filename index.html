@@ -6,7 +6,7 @@
 
   <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-database.js"></script>
-  <link rel="stylesheet" type="text/css" href="./js/leaflet.css" />
+
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
   <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
   <script src="https://d3js.org/d3.v7.min.js"></script>
@@ -44,8 +44,12 @@
 </body>
 
 <script>
-
+update_ownpos()
 setInterval(function() {
+ update_ownpos()
+  }, 5000);
+
+function update_ownpos(){
   navigator.geolocation.getCurrentPosition(
             (position) => {
                 // Extract latitude and longitude from the position object
@@ -64,10 +68,8 @@ setInterval(function() {
          
         );
         a = new Date()
-        d3.select('#infotag').text('own loc upt at '+ a.getHours()+":"+a.getMinutes()+":"+a.getSeconds())
-  }, 5000);
-
-
+        d3.select('#infotag').text('status: own loc upt at '+ a.getHours()+":"+a.getMinutes()+":"+a.getSeconds())
+}
     const firebaseConfig = {
         apiKey: "AIzaSyBOOdW1SHCwBZSchUJ7DfJZ1a7-dEYTvuQ",
         authDomain: "crowdcount-678c8.firebaseapp.com",
@@ -121,9 +123,6 @@ mymap.getContainer().addEventListener("touchend", function (e) {
     function writeToFirebase() {
 
 
-
-
-        setTimeout(function (){
       jetzt = new Date()
       
       const database = firebase.database();
@@ -153,8 +152,8 @@ mymap.getContainer().addEventListener("touchend", function (e) {
         .catch((error) => {
           console.error("Error writing data to the Firebase database:", error);
         });
-},3000)
 
+        d3.select('#infotag').text('status: report sent at '+ a.getHours()+":"+a.getMinutes()+":"+a.getSeconds())
 
     }
 
