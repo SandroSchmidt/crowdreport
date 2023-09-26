@@ -188,17 +188,12 @@ const firebaseConfig = {
 
   function read_current (){
     database = firebase.database();
-    databaseRef = database.ref('soundstorm').child('SS23').child('aktuell');
+  
+const ref = database.ref('/soundstorm/aktuell');
 
-   xx = databaseRef.get().then((doc) => {
-  if (doc.exists) {
-    const data = doc.data();
-    console.log(data); // Your JSON data
-  } else {
-    console.log('No such document!');
-  }
-}).catch((error) => {
-  console.log('Error getting document:', error);
+ref.once('value', (snapshot) => {
+  const data = snapshot.val();
+  console.log(data); // Your JSON data
 });
 
   }
