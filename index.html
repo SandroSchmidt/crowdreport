@@ -45,7 +45,7 @@
 </body>
 
 <script>
-stages=[[
+stages=[{title:"bigbeast",coords:[
             [
               6.962090532208862,
               50.958411347755174
@@ -70,8 +70,8 @@ stages=[[
               6.962090532208862,
               50.958411347755174
             ]
-          ],
-          [
+          ]
+        },  {title:"vendor",coords:[
             [
               6.9568647887585655,
               50.95753190069374
@@ -96,9 +96,9 @@ stages=[[
               6.9568647887585655,
               50.95753190069374
             ]
-          ]
+          ]}
        ,
-          [
+       {title:"downbeast",coords:[
             [
               6.963610816686554,
               50.954114462489514
@@ -132,7 +132,7 @@ stages=[[
               50.954114462489514
             ]
           ]
-        ]
+        }]
 
 
 // hohlt die eigene pos vom browser
@@ -211,8 +211,8 @@ mymap.getContainer().addEventListener("touchend", function (e) {
   })
 
   for(i=0;i<stages.length;i++)
-{
-  L.polygon(stages[i], {color: 'red'}).addTo(mymap)//.on('click',this.color('green'));
+{let zi =i 
+  L.GeoJSON(stages[i].coords, {color: 'red'}).addTo(mymap).on('click',function(){set_area=stages[zi].title;d3.select('#dropdown').value(set_area)});
 
 }
     // Initialize Firebase
