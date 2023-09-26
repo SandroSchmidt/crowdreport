@@ -40,6 +40,9 @@
 </body>
 
 <script>
+
+
+
     const firebaseConfig = {
         apiKey: "AIzaSyBOOdW1SHCwBZSchUJ7DfJZ1a7-dEYTvuQ",
         authDomain: "crowdcount-678c8.firebaseapp.com",
@@ -57,6 +60,7 @@
   set_dens="unk"
   set_tens = "unk"
 
+  
   var mymap = L.map('map_div',{zoomSnap: 0.1, dragging: false}).setView(set_pos,10 )
  //        mymap.on('zoomend', function() {setviewzoom = mymap.getZoom()});
    //   mymap.on('moveend', function() { mapaa = (mymap.getCenter(),mymap.getCenter());setviewmap=[mapaa.lat,mapaa.lng]});
@@ -79,6 +83,8 @@ mymap.getContainer().addEventListener("touchend", function (e) {
     ort = mymap.containerPointToLatLng([touchEndX,touchEndY]);
   console.log(touchEndX,touchEndY)
   console.log(ort)
+
+  L.marker(ort).addTo(map);
   })
 
 
