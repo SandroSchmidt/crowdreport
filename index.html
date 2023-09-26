@@ -32,7 +32,7 @@
   <button onclick="writeToFirebase()">Write Data to Firebase</button>
   <button onclick="window.open('swipes.html');">swipes</button>
   <button onclick="window.open('/CrowdReport/swipes.html');">swipes2</button>
-<div id="mapdiv" style="width:500px;height:500px;background-color: blueviolet;"></div>
+<div id="map_div" style="width:500px;height:500px;background-color: blueviolet;"></div>
   wo bleibt das commit?
 </body>
 
@@ -57,7 +57,11 @@
   var mymap = L.map('map_div',{zoomSnap: 0.001}).setView(set_pos,5 )
  //        mymap.on('zoomend', function() {setviewzoom = mymap.getZoom()});
    //   mymap.on('moveend', function() { mapaa = (mymap.getCenter(),mymap.getCenter());setviewmap=[mapaa.lat,mapaa.lng]});
-
+   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+      
+     // opacity: 0.5,
+      attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+    }).addTo(layer_tile);
 
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
