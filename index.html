@@ -194,11 +194,19 @@ const ref = database.ref('/soundstorm/aktuell');
 ref.once('value', (snapshot) => {
   const data = snapshot.val();
   console.log(data); // Your JSON data
+
 });
+for (i=0;i<data.length;i++){
+  {stages_geo[i].setStyle({
+        fillColor: "blue",
+        color: "green"
+     //   , "weight": liniendicke
+  })}
+}
 
   }
 
-  var mymap = L.map('map_div',{zoomSnap: 0.1, dragging: false}).setView(set_pos,10 )
+  var mymap = L.map('map_div',{zoomSnap: 0.1, dragging: false}).setView(set_pos,20 )
  //        mymap.on('zoomend', function() {setviewzoom = mymap.getZoom()});
    //   mymap.on('moveend', function() { mapaa = (mymap.getCenter(),mymap.getCenter());setviewmap=[mapaa.lat,mapaa.lng]});
    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
@@ -225,13 +233,12 @@ mymap.getContainer().addEventListener("touchend", function (e) {
   var polyline = L.polyline([ort,ort2]).addTo(mymap);
 
   })
-
+stages_geo=[]
   for(i=0;i<stages.length;i++)
 {let zi =i 
-  f = L.polygon(stages[i].coords, {color: 'red'})
-  .on('click',function(){    set_area=stages[zi].title;    d3.select('#dropdown').property('value',set_area)});
-
- f.addTo(mymap);
+  stages_geo.push(
+    L.polygon(stages[i].coords, {color: 'red'}).on('click',function(){set_area=stages[zi].title;d3.select('#dropdown').property('value',set_area)}).addTo(mymap)
+  )
 }
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
