@@ -19,10 +19,10 @@
   Reporting: <input type="text" value="Meldender" style="width:40%" onchange="set_name=this.value;console.log('meldender geändert auf: '+set_name)">
   <br>
   <label for="numberInput">dens:</label>
-  <input type="number" id="numberInput" name="numberInput" min="0" max="9" value =5 style="width:10%" onchange="set_dens= this.value">
+  <input type="slider" id="numberInput" name="numberInput" min="0" max="10" value =5 style="width:10%" onchange="set_dens= this.value">
   <br>
   <label for="numberInput2">tens:</label>
-  <input type="number" id="numberInput2" name="numberInput" min="0" max="9" value =5 style="width:10%" onchange="set_tens= this.value">
+  <input type="range" id="numberInput2" name="numberInput" min="0" max="10" value =5 style="width:10%" onchange="set_tens= this.value">
   <br>
   <label for="numberInput3">usage:</label>
   <input type="number" id="numberInput3" name="numberInput" min="0" max="100" step=5 value =50 style="width:10%" onchange="set_usage= this.value">
@@ -161,11 +161,7 @@ mymap.getContainer().addEventListener("touchend", function (e) {
 
         // hier wird versucht zusätzlich einen report über die aktuelle alge zusammenzustellen
         databaseRef = database.ref('soundstorm').child('aktuell').child(set_area);
-        databaseRef.set({zeit:jetzt.getTime(),  name: set_name,
-        area: set_area,
-        density: set_dens,
-        position: set_pos,
-        tension: set_tens})
+        databaseRef.set({zeit:jetzt.getTime(), area: set_area, density: set_dens, tension: set_tens})
     }
 
 
