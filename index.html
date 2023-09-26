@@ -190,8 +190,17 @@ const firebaseConfig = {
     database = firebase.database();
     databaseRef = database.ref('soundstorm').child('SS23').child('aktuell');
 
-   xx = databaseRef.get()
-   console.table(xx)
+   xx = databaseRef.get().then((doc) => {
+  if (doc.exists) {
+    const data = doc.data();
+    console.log(data); // Your JSON data
+  } else {
+    console.log('No such document!');
+  }
+}).catch((error) => {
+  console.log('Error getting document:', error);
+});
+
   }
 
   var mymap = L.map('map_div',{zoomSnap: 0.1, dragging: false}).setView(set_pos,10 )
