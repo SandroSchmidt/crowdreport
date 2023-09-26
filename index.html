@@ -60,7 +60,7 @@
   set_dens="unk"
   set_tens = "unk"
 
-  
+
   var mymap = L.map('map_div',{zoomSnap: 0.1, dragging: false}).setView(set_pos,10 )
  //        mymap.on('zoomend', function() {setviewzoom = mymap.getZoom()});
    //   mymap.on('moveend', function() { mapaa = (mymap.getCenter(),mymap.getCenter());setviewmap=[mapaa.lat,mapaa.lng]});
@@ -84,7 +84,7 @@ mymap.getContainer().addEventListener("touchend", function (e) {
   console.log(touchEndX,touchEndY)
   console.log(ort)
 
-  L.marker(ort).addTo(map);
+  L.marker(ort).addTo(mymap);
   })
 
 
