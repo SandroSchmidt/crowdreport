@@ -6,6 +6,10 @@
 
   <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-database.js"></script>
+  <link rel="stylesheet" type="text/css" href="./js/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+
 </head>
 
 <body>
@@ -28,7 +32,7 @@
   <button onclick="writeToFirebase()">Write Data to Firebase</button>
   <button onclick="window.open('swipes.html');">swipes</button>
   <button onclick="window.open('/CrowdReport/swipes.html');">swipes2</button>
-
+<div id="mapdiv" style="width:500px;height:500px;background-color: blueviolet;"></div>
   wo bleibt das commit?
 </body>
 
@@ -50,6 +54,11 @@
   set_dens="unk"
   set_tens = "unk"
 
+  var mymap = L.map('map_div',{zoomSnap: 0.001}).setView(set_pos,5 )
+ //        mymap.on('zoomend', function() {setviewzoom = mymap.getZoom()});
+   //   mymap.on('moveend', function() { mapaa = (mymap.getCenter(),mymap.getCenter());setviewmap=[mapaa.lat,mapaa.lng]});
+
+
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
 
@@ -62,7 +71,7 @@
                 const latitude = position.coords.latitude;
                 const longitude = position.coords.longitude;
              set_pos =[latitude,longitude]
- 
+    mymap.setView(set_pos,5)
               // Display the user's position information
              //  console.log(`Latitude: ${latitude}, Longitude: ${longitude}`)
             },
