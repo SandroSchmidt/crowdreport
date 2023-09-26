@@ -159,7 +159,8 @@ mymap.getContainer().addEventListener("touchend", function (e) {
 
         d3.select('#infotag').text('status: report sent at '+ a.getHours()+":"+a.getMinutes()+":"+a.getSeconds())
 
-        databaseRef = database.ref('soundstorm').child('aktuell').child(sel_area);
+        // hier wird versucht zusätzlich einen report über die aktuelle alge zusammenzustellen
+        databaseRef = database.ref('soundstorm').child('aktuell').child(set_area);
         databaseRef.set({zeit:jetzt.getTime(),  name: set_name,
         area: set_area,
         density: set_dens,
