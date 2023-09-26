@@ -1,39 +1,52 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Firebase Write Data</title>
-  <!-- Include the Firebase SDK -->
-  <!-- Replace 'YOUR_FIREBASE_CONFIG_OBJECT' with your actual Firebase configuration -->
+  <title>SS23 crowd-report</title>
+
   <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-database.js"></script>
-  <script>
-    // Your Firebase configuration object
+</head>
+
+<body>
+  Reporting: <input type="text" value="Meldender" style="width:40%" onchange="set_name=this.value;console.log('meldender geändert auf: '+set_name)">
+  <br>
+  <label for="numberInput">dens:</label>
+  <input type="number" id="numberInput" name="numberInput" min="0" max="9" value =5 style="width:10%" onchange="set_dens= this.value">
+  <br>
+  <label for="numberInput2">tens:</label>
+  <input type="number" id="numberInput2" name="numberInput" min="0" max="9" value =5 style="width:10%" onchange="set_tens= this.value">
+  <br>
+  <label for="dropdown">Zone:</label>
+  <select id="dropdown" name="dropdown" onchange="set_area = this.value;">
+  <option value="bigbeast">bigbeast</option>
+  <option value="vendor">vendor</option>
+  <option value="downbeast">downbeast</option>
+  </select>
+  <br><br><br>
+  <!-- Button to trigger the data write -->
+  <button onclick="writeToFirebase()">Write Data to Firebase</button>
+  <button onclick="window.open('/swipes.html');">swipes</button>
+  wo bleibt das commit?
+</body>
+
+<script>
     const firebaseConfig = {
         apiKey: "AIzaSyBOOdW1SHCwBZSchUJ7DfJZ1a7-dEYTvuQ",
+        authDomain: "crowdcount-678c8.firebaseapp.com",
+        databaseURL: "https://crowdcount-678c8-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "crowdcount-678c8",
+        storageBucket: "crowdcount-678c8.appspot.com",
+        messagingSenderId: "1020533758948",
+        appId: "1:1020533758948:web:23ec6e175dff3b5eedc5f1",
+        measurementId: "G-00674BETEZ"
+        };
 
-authDomain: "crowdcount-678c8.firebaseapp.com",
-
-databaseURL: "https://crowdcount-678c8-default-rtdb.europe-west1.firebasedatabase.app",
-
-projectId: "crowdcount-678c8",
-
-storageBucket: "crowdcount-678c8.appspot.com",
-
-messagingSenderId: "1020533758948",
-
-appId: "1:1020533758948:web:23ec6e175dff3b5eedc5f1",
-
-measurementId: "G-00674BETEZ"
-
-    };
-set_pos =[0,0];
-
-
-        
-set_name ="ds"
-   set_area="oben"
-      set_dens="unk"
-set_tens = "unk"
+  set_pos =[0,0];
+  set_name ="ds"
+  set_area="oben"
+  set_dens="unk"
+  set_tens = "unk"
 
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
@@ -97,27 +110,5 @@ set_tens = "unk"
 
 
   </script>
-</head>
-<body>
-  Reporting: <input type="text" value="Meldender" style="width:40%" onchange="set_name=this.value;console.log('meldender geändert auf: '+set_name)">
-<br>
-  <label for="numberInput">dens:</label>
-<input type="number" id="numberInput" name="numberInput" min="0" max="9" value =5 style="width:10%" onchange="set_dens= this.value">
-<br>
-<label for="numberInput2">tens:</label>
-<input type="number" id="numberInput2" name="numberInput" min="0" max="9" value =5 style="width:10%" onchange="set_tens= this.value">
-<br>
-<label for="dropdown">Zone:</label>
-<select id="dropdown" name="dropdown" onchange="set_area = this.value;">
-    <option value="bigbeast">bigbeast</option>
-    <option value="vendor">vendor</option>
-    <option value="downbeast">downbeast</option>
-</select>
-<br><br><br>
-  <!-- Button to trigger the data write -->
-  <button onclick="writeToFirebase()">Write Data to Firebase</button>
 
-
-  <button onclick="window.open('/swipes.html');">swipes</button>
-</body>
 </html>
