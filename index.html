@@ -62,6 +62,7 @@
 </body>
 
 <script>
+   const database = firebase.database()
 set_area=0
     farbskala =
          ["lightblue","lightblue",
@@ -294,7 +295,7 @@ stages_geo=[]
 
       jetzt = new Date()
       
-      const database = firebase.database();
+     
 
       // Replace 'your-data' with the path where you want to write the data in the database
       // For example, if you want to write data to 'https://your-project-id.firebaseio.com/users', use 'users'
