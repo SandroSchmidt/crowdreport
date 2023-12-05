@@ -168,8 +168,8 @@ update_ownpos()
 // wiederholt alle 10 sek 
 setInterval(function() {
  update_ownpos()
- read_current()
-  }, 1000);
+// read_current()
+  }, 6000);
 
 
 // hohlt die eigene pos vom browser
@@ -180,6 +180,9 @@ function update_ownpos(){
                 const latitude = position.coords.latitude;
                 const longitude = position.coords.longitude;
              set_pos =[latitude,longitude]
+             set_pos=[50.958411347755174,6.962090532208862] 
+              // das hier muss weg wenn wir vor ort sind, das ist der platzhalter wenn mann von woanders ausprobieren will
+
     mymap.setView(set_pos)
     ownmarker.setLatLng(set_pos)
               // Displnay the user's position information
