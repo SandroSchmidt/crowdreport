@@ -233,10 +233,10 @@ ref.once('value', (snapshot) => {
 
 for(i=0;i<stages.length;i++){
    
-    temp = current[stages[i].title]
-    fcol = farbskala[Math.round(temp.usage/10)]
-    col = farbskala[temp.density]
-    console.log(temp.dens)
+   // temp = current[stages[i].title]
+   // fcol = farbskala[Math.round(temp.usage/10)]
+   // col = farbskala[temp.density]
+   // console.log(temp.dens)
     stages[i].geo.setStyle({
        opacity:1,
         fillOpacity:0.6,
@@ -271,10 +271,11 @@ mymap.getContainer().addEventListener("touchend", function (e) {
     touchEndY = e.changedTouches[0].clientY;
     ort = mymap.containerPointToLatLng([touchStartX,touchStartY]);
     ort2 = mymap.containerPointToLatLng([touchEndX,touchEndY]);
- 
-
-  var polyline = L.polyline([ort,ort2]).addTo(mymap);
-
+    var polyline = L.polyline([ort,ort2]).addTo(mymap);
+    ntemp = new Date()
+    ntemp = ntemp.getTime()
+    databaseRef = database.ref('soundstorm').child('swipes').child(ntemp);
+        databaseRef.set({meldender:set_name,von:ort1, nach:ort2,zeit:ntemp})
   })
 stages_geo=[]
 //ff
