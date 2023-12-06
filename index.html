@@ -150,10 +150,11 @@ ref.once('value', (snapshot) => {
   
 //console.table(current)
 });
-/*
+
 for(i=0;i<stages_list.length;i++){
-   
-    temp = current[stages_list[i].name
+   if(current[stages_list[i].name] != undefined){
+    temp = current[stages_list[i].name]
+
     fcol = farbskala[Math.round(temp.usage/10)]
     col = farbskala[temp.density]
     stages_list[i].geo.setStyle({
@@ -162,9 +163,9 @@ for(i=0;i<stages_list.length;i++){
         fillColor: fcol,
         color: col,
         "weight": 5
-  })
+  })}
 }
-*/
+
 
   }
 
@@ -256,7 +257,7 @@ stages_geo=[]
 {if(stages_list[i].coords != "donotdraw"){
   
   let zi =i 
-  f= L.polygon(stages_list[i].coords, {color: '#99ff66'})
+  f = L.polygon(stages_list[i].coords, {color: '#99ff66'})
   .on('mouseover',function(){this.setStyle({color:"red"})})
   
   .on('click',function(){
@@ -280,7 +281,7 @@ stages_geo=[]
       // For example, if you want to write data to 'https://your-project-id.firebaseio.com/users', use 'users'
        databaseRef = database.ref('soundstorm').child('SS23').child(jetzt.getTime());
       // Data you want to write to the database
-      console.log(set_area)
+
       const dataToWrite = {
         zeit: jetzt.getTime(),
         name: set_name,
