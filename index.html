@@ -151,13 +151,13 @@ ref.once('value', (snapshot) => {
 console.table(current)
 });
 
-for(i=0;i<stages.length;i++){
+for(i=0;i<stages_list.length;i++){
    
    // temp = current[stages[i].title]
    // fcol = farbskala[Math.round(temp.usage/10)]
    // col = farbskala[temp.density]
    // console.log(temp.dens)
-    stages[i].geo.setStyle({
+    stages_list[i].geo.setStyle({
        opacity:1,
         fillOpacity:0.6,
         fillColor: fcol,
@@ -257,10 +257,11 @@ stages_geo=[]
 {if(stages_list[i].coords != "donotdraw"){
   
   let zi =i 
-  f= L.polygon(stages_list[i].coords, {color: '#99ff66'}).on('mouseover',function(){this.setStyle({color:"red"})}).on('click',function(){
+  f= L.polygon(stages_list[i].coords, {color: '#99ff66'})
+  .on('hover',function(){this.setStyle({color:"red"})}).on('click',function(){
   this.setStyle({color:"green"})
   
-  set_area=stages[zi].title;d3.select('#dropdown').property('value',zi)
+  set_area=stages_list[zi].title;d3.select('#dropdown').property('value',zi)
 
   }).addTo(stages_layer)
 
@@ -307,7 +308,7 @@ stages_geo=[]
         d3.select('#infotag').text('status: report sent at '+ a.getHours()+":"+a.getMinutes()+":"+a.getSeconds())
 
         // hier wird versucht zusätzlich einen report über die aktuelle alge zusammenzustellen
-        databaseRef = database.ref('soundstorm').child('aktuell').child(stages[set_area].title);
+        databaseRef = database.ref('soundstorm').child('aktuell').child(stages_list[set_area].title);
         databaseRef.set({zeit:jetzt.getTime(), density: set_dens, tension: set_tens,  usage: set_usage})
     }
 
