@@ -181,12 +181,12 @@ function update_ownpos(){
                 // Extract latitude and longitude from the position object
                 const latitude = position.coords.latitude;
                 const longitude = position.coords.longitude;
-             set_pos =[latitude,longitude]
+            // set_pos =[latitude,longitude]
              set_pos=[50.958411347755174,6.962090532208862] 
               // das hier muss weg wenn wir vor ort sind, das ist der platzhalter wenn mann von woanders ausprobieren will
 
-    mymap.setView(set_pos)
-    ownmarker.setLatLng(set_pos)
+    mymap.setView([50.958411347755174,6.962090532208862] )
+    ownmarker.setLatLng([50.958411347755174,6.962090532208862] )
               // Displnay the user's position information
              //  console.log(`Latitude: ${latitude}, Longitude: ${longitude}`)
             },
@@ -293,7 +293,7 @@ mymap.getContainer().addEventListener("touchend", function (e) {
   setTimeout(function () {
     mymap.removeLayer(polyline);
     mymap.removeLayer(arrowHead);
-  }, 10000);
+  }, 5000);
 
     ntemp = new Date()
     ntemp = ntemp.getTime()
