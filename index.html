@@ -65,7 +65,8 @@
 </body>
 
 <script>
-set_area=0
+  alert("V0.1")
+  set_area=0
     farbskala =
          ["lightblue","lightblue",
             "#00B0F0","#00B0F0",
@@ -252,7 +253,10 @@ for(i=0;i<stages.length;i++){
 
   }
 
-  var mymap = L.map('map_div',{zoomSnap: 0.1, dragging: false}).setView(set_pos,15 )
+  var mymap = L.map('map_div',{zoomSnap: 0.1, dragging: false}).setView(  [50.958411347755174,
+              6.962090532208862
+              
+            ],15 )
  //        mymap.on('zoomend', function() {setviewzoom = mymap.getZoom()});
    //   mymap.on('moveend', function() { mapaa = (mymap.getCenter(),mymap.getCenter());setviewmap=[mapaa.lat,mapaa.lng]});
    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
@@ -261,7 +265,10 @@ for(i=0;i<stages.length;i++){
       attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
     }).addTo(mymap);
 
-    ownmarker = L.marker(set_pos).addTo(mymap);
+    ownmarker = L.marker(  [50.958411347755174,
+              6.962090532208862
+              
+            ]).addTo(mymap);
     let touchStartX, touchEndX;
 
 mymap.getContainer().addEventListener("touchstart", function (e) {
