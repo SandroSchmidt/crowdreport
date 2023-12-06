@@ -10,16 +10,18 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
   <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
   <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://unpkg.com/leaflet-polylinedecorator/dist/leaflet.polylineDecorator.js"></script>
+
 </head>
 
 <body>
-  <div style="width:30%;height:100%">
-  <div id="map_div" style="width:100%;height:500px; background-color: blueviolet;"></div>
+  <div style="width:100%;height:100%;overflow:hidden">
+  <div id="map_div" style="width:100%;height:500px; background-color: rgb(43, 128, 226);"></div>
 
   
   <table style="width:100%">
     <tr><td>reporting:</td>
-      <td><input type="text" value="Meldender" style="width:100%" onchange="set_name=parseInt(this.value);console.log('meldender geändert auf: '+set_name)">
+      <td><input type="text" value="Meldender" style="width:100%" onchange="set_name=this.value;console.log('meldender geändert auf: '+set_name)">
       </td>
       <td>unlocked</td>
     </tr>
@@ -62,7 +64,6 @@
 </body>
 
 <script>
-   const database = firebase.database()
 set_area=0
     farbskala =
          ["lightblue","lightblue",
@@ -265,24 +266,51 @@ for(i=0;i<stages.length;i++){
 mymap.getContainer().addEventListener("touchstart", function (e) {
     touchStartX = e.touches[0].clientX;
     touchStartY = e.touches[0].clientY;
+    start_time = new Date()
 });
 
+// hier werden die swipes aufgenommen und gespeichert in der firebase  
 mymap.getContainer().addEventListener("touchend", function (e) {
     touchEndX = e.changedTouches[0].clientX;
     touchEndY = e.changedTouches[0].clientY;
-    ort = mymap.containerPointToLatLng([touchStartX,touchStartY]);
+    ort1 = mymap.containerPointToLatLng([touchStartX,touchStartY]);
     ort2 = mymap.containerPointToLatLng([touchEndX,touchEndY]);
-    var polyline = L.polyline([ort,ort2]).addTo(mymap);
+    minmove = 0.005
+   if((Math.abs(ort1.lat - ort2.lat) + Math.abs(ort1.lng - ort2.lng)) > minmove)
+   { end_date = new Date()
+   
+    diff = (end_date.getTime()-start_time.getTime())/1000
+    www = 10*(0.5+diff)
+       const database = firebase.database()
+       var polyline = L.polyline([ort1,ort2],{weight:www}).addTo(mymap);
+
+       var arrowHead = L.polylineDecorator(polyline, {
+    patterns: [
+      { offset: '100%', repeat: 0, symbol: L.Symbol.arrowHead({ pixelSize: 30, polygon: false, pathOptions: { fillOpacity: 1, weight:www } }) }
+    ]
+  }).addTo(mymap);
+
+  setTimeout(function () {
+    mymap.removeLayer(polyline);
+    mymap.removeLayer(arrowHead);
+  }, 10000);
+
     ntemp = new Date()
     ntemp = ntemp.getTime()
     databaseRef = database.ref('soundstorm').child('swipes').child(ntemp);
-        databaseRef.set({meldender:set_name,von:ort1, nach:ort2,zeit:ntemp})
+        databaseRef.set({meldender:set_name,von:ort1, nach:ort2,zeit:ntemp,dicke:www})
+}
   })
 stages_geo=[]
 //ff
   for(i=0;i<stages.length;i++)
 {let zi =i 
-  f= L.polygon(stages[i].coords, {color: 'red'}).on('click',function(){set_area=stages[zi].title;d3.select('#dropdown').property('value',zi)}).addTo(mymap)
+  f= L.polygon(stages[i].coords, {color: 'red'}).on('click',function(){
+  this.setStyle({color:"green"})
+  set_area=stages[zi].title;d3.select('#dropdown').property('value',zi)
+
+ 
+  }).addTo(mymap)
 
   stages[i].geo = f
 }
@@ -295,7 +323,7 @@ stages_geo=[]
 
       jetzt = new Date()
       
-     
+      const database = firebase.database();
 
       // Replace 'your-data' with the path where you want to write the data in the database
       // For example, if you want to write data to 'https://your-project-id.firebaseio.com/users', use 'users'
