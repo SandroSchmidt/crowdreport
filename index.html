@@ -21,7 +21,7 @@
 
   
   <table style="width:100%">
-    <tr><td>V2 - reporting:</td>
+    <tr><td>V2.1 - reporting:</td>
       <td><input type="text" value="Meldender" style="width:100%" onchange="set_name=this.value;console.log('meldender geändert auf: '+set_name)">
       </td>
       <td>unlocked</td>
@@ -169,8 +169,7 @@ for(i=0;i<stages_list.length;i++){
 
   }
 
-  var mymap = L.map('map_div',{zoomSnap: 0.1, dragging: false}).setView(  [50.958411347755174,
-              6.962090532208862
+  var mymap = L.map('map_div',{zoomSnap: 0.1, dragging: false}).setView(  [  24.997496213866462,46.51234272528364
               
             ],15 )
  //        mymap.on('zoomend', function() {setviewzoom = mymap.getZoom()});
@@ -308,6 +307,8 @@ stages_geo=[]
        
         databaseRef = database.ref('soundstorm').child('aktuell').child(stages_list[set_area].name);
         databaseRef.set({zeit:jetzt.getTime(), density: set_dens, tension: set_tens,  usage: set_usage})
+
+        read_current()
     }
 
     
