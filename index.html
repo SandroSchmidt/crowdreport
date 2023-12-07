@@ -3,21 +3,30 @@
 
 <head>
   <title>SS23 crowd-report</title>
-  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
-  
+
   <script src="./data.js"></script>
+  <script src="./js/d3.min.js"></script>
+  <script src="./js/leaflet.js"></script>
+  <link rel="stylesheet" type="text/css" href="./js/leaflet.css" />
+
+  <!--
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+
   <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://unpkg.com/leaflet-polylinedecorator/dist/leaflet.polylineDecorator.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+
+  -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
   <div style="width:100%;height:100%;overflow:hidden">
-  <div id="map_div" style="width:100%;height:500px; background-color: rgb(43, 128, 226);"></div>
+  <div id="map_div" style="width:100%;height:500px;"></div>
 
   
   <table style="width:100%">
@@ -28,29 +37,29 @@
     </tr>
     <tr>
       <td>dens:</td>
-      <td> <input type="range" id="numberInput" name="numberInput" min="0" max="10" value =5  onchange="set_dens= parseInt(this.value);d3.select('#dens_p').text(set_dens)"></td>
+      <td> <input type="range" id="densInput" min="0" max="10" value =5  onchange="set_dens= parseInt(this.value);infotag.text('dens '+this.value);d3.select('#dens_p').text(set_dens)"></td>
     <td> <span id="dens_p"> 5</span></td>
     </tr>
     <tr>
-<td>tens:</td>
-<td>   <input type="range" id="numberInput2" name="numberInput" min="0" max="10" value =5  onchange="set_tens= parseInt(this.value);d3.select('#tens_p').text(set_tens)"></td>
- <td> <span id="tens_p"> 5</span></td>
+  <td>tens:</td>
+  <td>   <input type="range" id="tensInput" min="0" max="10" value =5  onchange="set_tens= parseInt(this.value);d3.select('#tens_p').text(set_tens)"></td>
+  <td> <span id="tens_p"> 5</span></td>
 
     </tr>
 
     <tr>
       <td>usage:</td>
-      <td><input type="range" id="numberInput3" name="numberInput" min="0" max="100" step=5 value =50 onchange="set_usage= parseInt(this.value);d3.select('#usage_p').text(set_usage + ' %')">
+      <td><input type="range" id="usageInput" min="0" max="100" step=5 value =50 onchange="set_usage= parseInt(this.value);d3.select('#usage_p').text(set_usage + ' %')">
       </td>
       <td>  <span id="usage_p"> 10%</span></td>
     </tr>
 
     <tr>
       <td>zone:</td>
-      <td><select id="dropdown" name="dropdown" onchange="set_area = parseInt(this.value);">
+      <td><select id="dropdown" name="dropdown" onchange="set_area = parseInt(this.value);select_area(this.value)">
 
   </select></td>
-      <td><button onclick="writeToFirebase()">Send report</button></td>
+      <td><button onclick="writeReportToFirebase()">Send report</button></td>
     </tr>
   </table>
   
@@ -65,31 +74,41 @@
 </body>
 
 <script>
-
-  set_area=0
-    farbskala =
-         ["lightblue","lightblue",
-            "#00B0F0","#00B0F0",
-            "#92D050","#92D050",
-            "#FFFF00","#FFFF00",
-            ,"#FF9201","#FF9201",
-            ,"#FF0000",'red','red','red','red','red','red','red','red','red','red']
-      
-      
-            for(i=0;i<stages_list.length;i++){
+   infotag =    d3.select('#infotag')
+set_area=0
+set_pos= [24.99,46.51]
+set_name ="falsereporter"
+set_dens=0
+set_tens = 0
+set_usage=0
+current ={
+  "Big Beast Circle":{density:7,usage:7,tension:7},
+  "Big Beast North":{density:7,usage:7,tension:7},
+  "Big Beast South":{density:7,usage:7,tension:7},
+  "Dance Tent":{density:7,usage:7,tension:7},
+  "Down Beast":{density:7,usage:7,tension:7},
+  "MDL Town":{density:7,usage:7,tension:7},
+  "Underground 1":{density:7,usage:7,tension:7},
+  "Underground 2":{density:7,usage:7,tension:7},
+  "Underground 3":{density:7,usage:7,tension:7},
+  "Underground 4":{density:7,usage:7,tension:7},
+  }
+farbskala = ["lightblue","#00B0F0","#00B0F0","#92D050","#92D050","#FFFF00","#FFFF00","#FF9201","#FF9201","#FF0000",'red']
+  
+for(i=0;i<stages_list.length;i++){if(stages_list[i].coords != "donotdraw"){
     d3.select('#dropdown').append('option').attr('value',i).text(stages_list[i].name)
-    }
+    }}
 
-// hohlt die eigene pos vom browser
-update_ownpos()
-// wiederholt alle 10 sek 
 setInterval(function() {
- update_ownpos()
-read_current()
+// update_ownpos()
+//read_current()
   }, 6000);
 
+// initialise_firebase()
+initialise_map()
 
-// hohlt die eigene pos vom browser
+  
+
 function update_ownpos(){
   navigator.geolocation.getCurrentPosition(
             (position) => {
@@ -97,10 +116,7 @@ function update_ownpos(){
                 const latitude = position.coords.latitude;
                 const longitude = position.coords.longitude;
             // set_pos =[latitude,longitude]
-             set_pos= [
-      
-      24.997496213866462,46.51234272528364
-    ]
+             
               // das hier muss weg wenn wir vor ort sind, das ist der platzhalter wenn mann von woanders ausprobieren will
 
     mymap.setView(set_pos)
@@ -115,10 +131,9 @@ function update_ownpos(){
          
         );
         a = new Date()
-        d3.select('#infotag').text('status: own loc upt at '+ a.getHours()+":"+a.getMinutes()+":"+a.getSeconds())
+   infotag.text('status: own loc upt at '+ a.getHours()+":"+a.getMinutes()+":"+a.getSeconds())
 }
-   
-
+function initialise_firebase(){
 const firebaseConfig = {
         apiKey: "AIzaSyBOOdW1SHCwBZSchUJ7DfJZ1a7-dEYTvuQ",
         authDomain: "crowdcount-678c8.firebaseapp.com",
@@ -129,16 +144,12 @@ const firebaseConfig = {
         appId: "1:1020533758948:web:23ec6e175dff3b5eedc5f1",
         measurementId: "G-00674BETEZ"
         };
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
 
-  set_pos =[0,0];
-  set_name ="ds"
-  //set_area="bigbeast"
-  set_dens=0
-  set_tens = 0
-  set_usage=0
-  current=0
-//zu
-  function read_current (){
+
+      }  
+function read_current (){
 
     database = firebase.database();
   
@@ -147,7 +158,7 @@ const ref = database.ref('/soundstorm/aktuell');
 ref.once('value', (snapshot) => {
 
   current = snapshot.val()
-  
+  console.table(current)
 //console.table(current)
 });
 
@@ -155,61 +166,78 @@ for(i=0;i<stages_list.length;i++){
    if(current[stages_list[i].name] != undefined){
     temp = current[stages_list[i].name]
 
-    fcol = farbskala[Math.round(temp.usage/10)]
-    col = farbskala[temp.density]
+    fcol = farbskala[Math.round(temp.usage)]
+    col = farbskala[Math.round(temp.density)]
     stages_list[i].geo.setStyle({
        opacity:1,
         fillOpacity:0.6,
         fillColor: fcol,
         color: col,
-        "weight": 5
+        "weight": 4
   })}
 }
 
 
   }
+function select_area(areanumber){
+    ausgew_area = stages_list[areanumber].name
+          d3.select('#densInput').attr('value',current[ausgew_area].density)
+          d3.select('#dens_p').text(current[ausgew_area].density)
 
-  var mymap = L.map('map_div',{zoomSnap: 0.1, dragging: false}).setView(  [  24.997496213866462,46.51234272528364
-              
-            ],15 )
- //        mymap.on('zoomend', function() {setviewzoom = mymap.getZoom()});
-   //   mymap.on('moveend', function() { mapaa = (mymap.getCenter(),mymap.getCenter());setviewmap=[mapaa.lat,mapaa.lng]});
-  tl1= L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-      
-     // opacity: 0.5,
-      attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+          d3.select('#tensInput').attr('value',current[ausgew_area].tension)
+          d3.select('#tens_p').text(current[ausgew_area].tension)
+
+          d3.select('#usageInput').attr('value',current[ausgew_area].usage)
+          d3.select('#usage_p').text(current[ausgew_area].usage+" %")
+
+          //dens_slider.node().dispatchEvent(new Event('input'));
+
+  }
+function initialise_map(){
+
+  // Karte und Hintergründe
+  var mymap = L.map('map_div',{zoomSnap: 0.1, dragging: false}).setView([24.997496213866462,46.51234272528364],15 )
+   // mymap.on('zoomend', function() {setviewzoom = mymap.getZoom()});
+   // mymap.on('moveend', function() { mapaa = (mymap.getCenter(),mymap.getCenter());setviewmap=[mapaa.lat,mapaa.lng]});
+
+tl1= L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{      
+      opacity: 0.5,      attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
     }).addTo(mymap);
-    var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-})
+
+var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+	  attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    })
+
 var Jawg_Matrix =  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
 	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
 	subdomains: 'abcd',
 	maxZoom: 20
 });
-    const imageUrl = './map1.png';
 
+const imageUrl = './map1.png';
 // Define the bounds of the image
-stages_layer = L.layerGroup().addTo(mymap)
-const imageBounds = [
-    [      
-    25.013387588253057, 46.47974227667108],  // South West corner of the image
-    [   
-    24.988092848232725, 46.53216767460525]   // North East corner of the image
-];
-
-// Create the image overlay
+const imageBounds = [ [25.013387588253057, 46.47974227667108],[24.988092848232725, 46.53216767460525]];
 const imageOverlay = L.imageOverlay(imageUrl, imageBounds);
 
-// Add the image overlay to the map
+stages_layer = L.layerGroup().addTo(mymap)
+green_layer = L.layerGroup().addTo(mymap)
 
-L.control.layers({"OSM": tl1,"img": imageOverlay,"dark":Jawg_Matrix ,"sat":Esri_WorldImagery},{"stages":stages_layer}).addTo(mymap);
+// alles einmalen das keine Bühnen sind
+for (f=0;f<parking_arr.length;f++)  {L.polygon(parking_arr[f], {color: 'blue'}).addTo(mymap)}
+for (f=0;f<walking_arr.length;f++)  {L.polygon(walking_arr[f], {color: 'grey'}).addTo(green_layer)}
+for (f=0;f<greening_arr.length;f++) {L.polygon(greening_arr[f], {color: 'green'}).addTo(green_layer)}
+for (f=0;f<blocking_arr.length;f++) {L.polygon(blocking_arr[f], {color: 'grey'}).addTo(green_layer)}
+for (f=0;f<hinter.length;f++)       {L.polygon(hinter[f], {color: 'grey'}).addTo(green_layer)}
+for (f=0;f<vib_arr.length;f++)      {L.polygon(vib_arr[f], {color: 'gold'}).addTo(mymap)}
 
+// Layercontroll
+L.control.layers(
+  {"OSM": tl1,"img": imageOverlay,"dark":Jawg_Matrix ,"sat":Esri_WorldImagery},
+  {"stages":stages_layer,"blocks":green_layer}).addTo(mymap);
 
-    ownmarker = L.marker(  [50.958411347755174,
-              6.962090532208862
-              
-            ]).addTo(mymap);
+ownmarker = L.marker(  [24.996,46.508]).addTo(mymap);
+
+// Swipefunktion
     let touchStartX, touchEndX;
 
 mymap.getContainer().addEventListener("touchstart", function (e) {
@@ -224,21 +252,20 @@ mymap.getContainer().addEventListener("touchend", function (e) {
     touchEndY = e.changedTouches[0].clientY;
     ort1 = mymap.containerPointToLatLng([touchStartX,touchStartY]);
     ort2 = mymap.containerPointToLatLng([touchEndX,touchEndY]);
-    minmove = 0.005
-   if((Math.abs(ort1.lat - ort2.lat) + Math.abs(ort1.lng - ort2.lng)) > minmove)
-   { end_date = new Date()
-   
+    minmove = 0.001
+    maxmove = 0.01
+    move = Math.abs(ort1.lat - ort2.lat) + Math.abs(ort1.lng - ort2.lng)
+    
+   if(move> minmove && move <maxmove)
+   { end_date = new Date()   
     diff = (end_date.getTime()-start_time.getTime())/1000
     www = 10*(0.5+diff)
-       const database = firebase.database()
-       var polyline = L.polyline([ort1,ort2],{weight:www}).addTo(mymap);
-
-       var arrowHead = L.polylineDecorator(polyline, {
-    patterns: [
-      { offset: '100%', repeat: 0, symbol: L.Symbol.arrowHead({ pixelSize: 30, polygon: false, pathOptions: { fillOpacity: 1, weight:www } }) }
-    ]
-  }).addTo(mymap);
-
+      
+  //malen des Swipes und des Pfeilkopfes
+      var polyline = L.polyline([ort1,ort2],{weight:www}).addTo(mymap);
+    //   var arrowHead = L.polylineDecorator(polyline, {    patterns: [      { offset: '100%', repeat: 0, symbol: L.Symbol.arrowHead({ pixelSize: 30, polygon: false, pathOptions: { fillOpacity: 1, weight:www } }) }    ]}).addTo(mymap);
+      infotag.text("swipe gespeichert!"+ diff)
+  // timeer der eingegebene Swipes vernichtet
   setTimeout(function () {
     mymap.removeLayer(polyline);
     mymap.removeLayer(arrowHead);
@@ -246,33 +273,30 @@ mymap.getContainer().addEventListener("touchend", function (e) {
 
     ntemp = new Date()
     ntemp = ntemp.getTime()
-    databaseRef = database.ref('soundstorm').child('swipes').child(ntemp);
-        databaseRef.set({meldender:set_name,von:ort1, nach:ort2,zeit:ntemp,dicke:www})
-}
+
+    // !!!! hier sit das speichern des swipes deaktiviert !!!!!!!!!!!!
+    // const database = firebase.database()
+    // databaseRef = database.ref('soundstorm').child('swipes').child(ntemp);
+    //databaseRef.set({meldender:set_name,von:ort1, nach:ort2,zeit:ntemp,dicke:www})
+    }
   })
+
+// Bühnen einmalen
 stages_geo=[]
-//ff
-  for(i=0;i<stages_list.length;i++)
+for(i=0;i<stages_list.length;i++)
 {if(stages_list[i].coords != "donotdraw"){
-  
   let zi =i 
   f = L.polygon(stages_list[i].coords, {color: '#99ff66'})
-  .on('mouseover',function(){this.setStyle({color:"red"})})
-  
-  .on('click',function(){
-  this.setStyle({color:"green"})
-  
-  set_area=zi;d3.select('#dropdown').property('value',zi)
-
+      //.on('mouseover',function(){this.setStyle({color:"red"})})
+      .on('click',function(){
+      // this.setStyle({color:"green"})
+      select_area(zi)
+      set_area=zi;d3.select('#dropdown').property('value',zi)
   }).addTo(stages_layer)
-
   stages_list[i].geo = f
-}}
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
+}}}
 
-    // Function to write data to the Firebase database
-    function writeToFirebase() {
+function writeReportToFirebase() {
       jetzt = new Date()
    
       const database = firebase.database();
