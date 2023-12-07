@@ -3,14 +3,7 @@
 
 <head>
   <title>SS23 crowd-report</title>
-
-  <script src="./data.js"></script>
-  <script src="./js/d3.min.js"></script>
-  <script src="./js/leaflet.js"></script>
-  <link rel="stylesheet" type="text/css" href="./js/leaflet.css" />
-
-  <!--
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
 
   <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
   <script src="https://d3js.org/d3.v7.min.js"></script>
@@ -19,6 +12,13 @@
   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+  <script src="./data.js"></script>
+ 
+  <!--
+   <script src="./js/d3.min.js"></script>
+  <script src="./js/leaflet.js"></script>
+  <link rel="stylesheet" type="text/css" href="./js/leaflet.css" />
+
 
   -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,16 +40,19 @@
       <td> <input type="range" id="densInput" min="0" max="10" value =5  onchange="set_dens= parseInt(this.value);infotag.text('dens '+this.value);d3.select('#dens_p').text(set_dens)"></td>
     <td> <span id="dens_p"> 5</span></td>
     </tr>
+ 
+     <!-- 
     <tr>
+  
   <td>tens:</td>
   <td>   <input type="range" id="tensInput" min="0" max="10" value =5  onchange="set_tens= parseInt(this.value);d3.select('#tens_p').text(set_tens)"></td>
   <td> <span id="tens_p"> 5</span></td>
 
     </tr>
-
+-->
     <tr>
       <td>usage:</td>
-      <td><input type="range" id="usageInput" min="0" max="100" step=5 value =50 onchange="set_usage= parseInt(this.value);d3.select('#usage_p').text(set_usage + ' %')">
+      <td><input type="range" id="usageInput" min="0" max="140" step=5 value =50 onchange="set_usage= parseInt(this.value);d3.select('#usage_p').text(set_usage + ' %')">
       </td>
       <td>  <span id="usage_p"> 10%</span></td>
     </tr>
@@ -68,9 +71,9 @@
 
   <hr>
   <p id="infotag">loaded</p>
- <hr>
+
 </div>
-  wo bleibt das commit?
+ 
 </body>
 
 <script>
@@ -99,13 +102,21 @@ for(i=0;i<stages_list.length;i++){if(stages_list[i].coords != "donotdraw"){
     d3.select('#dropdown').append('option').attr('value',i).text(stages_list[i].name)
     }}
 
+    initialise_map()
+    initialise_firebase()
+    read_current()
 setInterval(function() {
+
+read_current()
+  }, 5000);
+
+  setInterval(function() {
 // update_ownpos()
-//read_current()
-  }, 6000);
+
+  }, 60000);
 
 // initialise_firebase()
-initialise_map()
+
 
   
 
@@ -158,8 +169,7 @@ const ref = database.ref('/soundstorm/aktuell');
 ref.once('value', (snapshot) => {
 
   current = snapshot.val()
-  console.table(current)
-//console.table(current)
+  
 });
 
 for(i=0;i<stages_list.length;i++){
@@ -263,8 +273,9 @@ mymap.getContainer().addEventListener("touchend", function (e) {
       
   //malen des Swipes und des Pfeilkopfes
       var polyline = L.polyline([ort1,ort2],{weight:www}).addTo(mymap);
-    //   var arrowHead = L.polylineDecorator(polyline, {    patterns: [      { offset: '100%', repeat: 0, symbol: L.Symbol.arrowHead({ pixelSize: 30, polygon: false, pathOptions: { fillOpacity: 1, weight:www } }) }    ]}).addTo(mymap);
+      var arrowHead = L.polylineDecorator(polyline, {    patterns: [      { offset: '100%', repeat: 0, symbol: L.Symbol.arrowHead({ pixelSize: 30, polygon: false, pathOptions: { fillOpacity: 1, weight:www } }) }    ]}).addTo(mymap);
       infotag.text("swipe gespeichert!"+ diff)
+
   // timeer der eingegebene Swipes vernichtet
   setTimeout(function () {
     mymap.removeLayer(polyline);
@@ -275,9 +286,9 @@ mymap.getContainer().addEventListener("touchend", function (e) {
     ntemp = ntemp.getTime()
 
     // !!!! hier sit das speichern des swipes deaktiviert !!!!!!!!!!!!
-    // const database = firebase.database()
-    // databaseRef = database.ref('soundstorm').child('swipes').child(ntemp);
-    //databaseRef.set({meldender:set_name,von:ort1, nach:ort2,zeit:ntemp,dicke:www})
+     const database = firebase.database()
+     databaseRef = database.ref('soundstorm').child('swipes').child(ntemp);
+    databaseRef.set({meldender:set_name,von:ort1, nach:ort2,zeit:ntemp,dicke:www})
     }
   })
 
@@ -324,7 +335,7 @@ function writeReportToFirebase() {
           console.error("Error writing data to the Firebase database:", error);
         });
 
-        d3.select('#infotag').text('status: report sent at '+ a.getHours()+":"+a.getMinutes()+":"+a.getSeconds())
+        d3.select('#infotag').text('status: report sent at '+ jetzt.getHours()+":"+jetzt.getMinutes()+":"+jetzt.getSeconds())
 
         // hier wird versucht zusätzlich einen report über die aktuelle alge zusammenzustellen
 
