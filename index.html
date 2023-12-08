@@ -30,8 +30,8 @@
 
   
   <table style="width:100%">
-    <tr><td>V2.1 - reporting:</td>
-      <td><input type="text" value="Meldender" style="width:100%" onchange="set_name=this.value;console.log('meldender geändert auf: '+set_name)">
+    <tr><td>reporting:</td>
+      <td><input type="text" value="spotter-name" style="width:100%" onchange="set_name=this.value;console.log('meldender geändert auf: '+set_name)">
       </td>
       <td>unlocked</td>
     </tr>
@@ -70,7 +70,7 @@
  
 
   <hr>
-  <p id="infotag">loaded</p>
+  <p id="infotag">V2.1 - loaded</p>
 
 </div>
  
@@ -255,13 +255,22 @@ mymap.getContainer().addEventListener("touchstart", function (e) {
     touchStartY = e.touches[0].clientY;
     start_time = new Date()
 });
+mymap.on('zoomstart', function() {
+    isZooming = true;
+});
+
+mymap.on('zoomend', function() {
+    isZooming = false;
+});
 
 // hier werden die swipes aufgenommen und gespeichert in der firebase  
 mymap.getContainer().addEventListener("touchend", function (e) {
+  if(!isZooming){
     touchEndX = e.changedTouches[0].clientX;
     touchEndY = e.changedTouches[0].clientY;
     ort1 = mymap.containerPointToLatLng([touchStartX,touchStartY]);
     ort2 = mymap.containerPointToLatLng([touchEndX,touchEndY]);
+
     minmove = 0.001
     maxmove = 0.01
     move = Math.abs(ort1.lat - ort2.lat) + Math.abs(ort1.lng - ort2.lng)
@@ -290,7 +299,7 @@ mymap.getContainer().addEventListener("touchend", function (e) {
      databaseRef = database.ref('soundstorm').child('swipes').child(ntemp);
     databaseRef.set({meldender:set_name,von:ort1, nach:ort2,zeit:ntemp,dicke:www})
     }
-  })
+  }})
 
 // Bühnen einmalen
 stages_geo=[]
