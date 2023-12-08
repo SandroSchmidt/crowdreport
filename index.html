@@ -77,6 +77,7 @@
 </body>
 
 <script>
+  isZooming = false
    infotag =    d3.select('#infotag')
 set_area=0
 set_pos= [24.99,46.51]
@@ -105,15 +106,21 @@ for(i=0;i<stages_list.length;i++){if(stages_list[i].coords != "donotdraw"){
     initialise_map()
     initialise_firebase()
     read_current()
+   // update_ownpos()
+
 setInterval(function() {
 
 read_current()
   }, 5000);
 
   setInterval(function() {
-// update_ownpos()
+ update_ownpos()
 
   }, 60000);
+
+  setTimeout(function () {
+    update_ownpos()
+  }, 3000);
 
 // initialise_firebase()
 
@@ -126,11 +133,11 @@ function update_ownpos(){
                 // Extract latitude and longitude from the position object
                 const latitude = position.coords.latitude;
                 const longitude = position.coords.longitude;
-            // set_pos =[latitude,longitude]
+               set_pos =[latitude,longitude]
              
               // das hier muss weg wenn wir vor ort sind, das ist der platzhalter wenn mann von woanders ausprobieren will
 
-    mymap.setView(set_pos)
+    //mymap.setView(set_pos)
     ownmarker.setLatLng(set_pos )
               // Displnay the user's position information
              //  console.log(`Latitude: ${latitude}, Longitude: ${longitude}`)
@@ -226,7 +233,7 @@ var Jawg_Matrix =  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{
 
 const imageUrl = './map1.png';
 // Define the bounds of the image
-const imageBounds = [ [25.013387588253057, 46.47974227667108],[24.988092848232725, 46.53216767460525]];
+const imageBounds = [ [25.013,46.4805],[24.988092848232725, 46.53216767460525]];
 const imageOverlay = L.imageOverlay(imageUrl, imageBounds);
 
 stages_layer = L.layerGroup().addTo(mymap)
@@ -255,6 +262,16 @@ mymap.getContainer().addEventListener("touchstart", function (e) {
     touchStartY = e.touches[0].clientY;
     start_time = new Date()
 });
+
+mymap.on('zoomlevelschange', function () {
+    // This event is triggered when the zoom level changes (e.g., button press)
+    // You can handle button press logic here
+    isZooming = true;
+    setTimeout(function () {
+isZooming = false
+  }, 200);
+});
+
 mymap.on('zoomstart', function() {
     isZooming = true;
 });
