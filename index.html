@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="en">
 
 <head>
   <title>SS23 crowd-report</title>
@@ -74,7 +75,7 @@
 infotag.text('icident reported at : '+[e.latlng.lat,e.latlng.lng])
 })
   ">report incident  </button>
-
+<button onclick="update_ownpos()">GPS</button>
 </td>
       <td><button onclick="writeReportToFirebase()">Send report</button></td>
     </tr>
@@ -132,12 +133,12 @@ for(i=0;i<stages_list.length;i++){if(stages_list[i].coords != "donotdraw"){
   setInterval(function() {
  update_ownpos()
  read_current()
-  }, 5000);
+  }, 500000);
 
   setTimeout(function () {
     update_ownpos()
     read_current()
-  }, 3000);
+  }, 300000);
 
 // initialise_firebase()
     }
@@ -156,6 +157,7 @@ function update_ownpos(){
         function showPosition(position) {
             var latitude = position.coords.latitude;
             var longitude = position.coords.longitude;
+            set_pos=[latitude,longitude]
             a = new Date()
    infotag.text('status: own loc upt at '+ set_pos +" " + a.getHours()+":"+a.getMinutes()+":"+a.getSeconds())
    a =a.getTime()
@@ -340,7 +342,7 @@ function select_area(set_area){
 function initialise_map(){
 
   // Karte und Hintergründe
-  mymap = L.map('map_div',{zoomSnap: 0.1, dragging: false,minzoom:10}).setView([24.997496213866462,46.51234272528364],15 )
+  mymap = L.map('map_div',{zoomSnap: 0.1, dragging: false,minZoom:14,maxZoom:18}).setView([24.997496213866462,46.51234272528364],15 )
    // mymap.on('zoomend', function() {setviewzoom = mymap.getZoom()});
    // mymap.on('moveend', function() { mapaa = (mymap.getCenter(),mymap.getCenter());setviewmap=[mapaa.lat,mapaa.lng]});
 
