@@ -25,18 +25,23 @@
 </head>
 
 <body>
-  <div style="width:100%;height:100%;overflow:hidden">
+  <div id ="maindiv" style="width:100%;height:100%;overflow:hidden">
   <div id="map_div" style="width:100%;height:500px;"></div>
 
   
   <table style="width:100%">
     <tr><td>reporting:</td>
-      <td><input type="text" value="spotter-name" style="width:100%" onchange="set_name=this.value;console.log('meldender geändert auf: '+set_name)">
+      <td><input type="text" value="spotter-name" style="width:50%;" oninput="
+        set_name=this.value;console.log('meldender geändert auf: '+set_name)
+        if (allowed_users.includes(this.value)){
+        d3.select('#lock').text('UNLOCKED!')}
+       
+        ">
       </td>
-      <td>unlocked</td>
+      <td ><span id="lock">LOCKED</span></td>
     </tr>
     <tr>
-      <td>dens:</td>
+      <td>density:</td>
       <td> <input type="range" id="densInput" min="0" max="10" value =5  onchange="set_dens= parseInt(this.value);infotag.text('dens '+this.value);d3.select('#dens_p').text(set_dens)"></td>
     <td> <span id="dens_p"> 5</span></td>
     </tr>
@@ -59,7 +64,7 @@
 
     <tr>
       <td>zone:</td>
-      <td><select id="dropdown" name="dropdown" onchange="set_area = parseInt(this.value);select_area(this.value)">
+      <td><select id="dropdown" name="dropdown" onchange="set_area = parseInt(this.value);console.log(this.value);select_area(this.value)">
 
   </select></td>
       <td><button onclick="writeReportToFirebase()">Send report</button></td>
@@ -70,16 +75,18 @@
  
 
   <hr>
-  <p id="infotag">V2.5 - loaded</p>
+  <p id="infotag">Version 1.8 - loaded</p>
 
 </div>
  
 </body>
 
 <script>
+  allowed_users=["sandro","marc","test1","test2","test3"]
+  existing_markers=[]
   isZooming = false
    infotag =    d3.select('#infotag')
-set_area=0
+  set_area=0
 set_pos= [24.99,46.51]
 set_name ="falsereporter"
 set_dens=0
@@ -97,37 +104,55 @@ current ={
   "Underground 3":{density:7,usage:7,tension:7},
   "Underground 4":{density:7,usage:7,tension:7},
   }
-farbskala = ["lightblue","#00B0F0","#00B0F0","#92D050","#92D050","#FFFF00","#FFFF00","#FF9201","#FF9201","#FF0000",'red']
+farbskala = ["lightblue","#00B0F0","#00B0F0","#92D050","#92D050","#FFFF00","#FFFF00","#FF9201","#FF9201","#FF0000",'red',"#ee00ff","#ee00ff","#ee00ff","#ee00ff","#ee00ff"]
   
 for(i=0;i<stages_list.length;i++){if(stages_list[i].coords != "donotdraw"){
     d3.select('#dropdown').append('option').attr('value',i).text(stages_list[i].name)
     }}
 
+    start_everything()
+
+    function start_everything(){
     initialise_map()
     initialise_firebase()
-    read_current()
+   
    // update_ownpos()
 
-setInterval(function() {
-
-read_current()
-  }, 5000);
 
   setInterval(function() {
  update_ownpos()
-
+ read_current()
   }, 60000);
 
   setTimeout(function () {
     update_ownpos()
+    read_current()
   }, 3000);
 
 // initialise_firebase()
-
+    }
 
   
 
 function update_ownpos(){
+
+  /*
+  navigator.geolocation.watchPosition(
+  (position) => {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    // Handle the updated position here
+    set_pos =[latitude,longitude]
+    console.log("updateted becaus of change" +`Latitude: ${latitude}, Longitude: ${longitude}`);
+  },
+  (error) => {
+    // Handle any errors that occur during geolocation
+    console.error(`Error: ${error.message}`);
+  }
+);
+
+ */
+
   navigator.geolocation.getCurrentPosition(
             (position) => {
                 // Extract latitude and longitude from the position object
@@ -145,11 +170,19 @@ function update_ownpos(){
             (error) => {
                 // Handle any errors that occur during geolocation
                 console.log(`Error: ${error.message}`)
+                infotag.text("no gps!!")
             }
          
         );
+
+        const database = firebase.database()
         a = new Date()
-   infotag.text('status: own loc upt at '+ a.getHours()+":"+a.getMinutes()+":"+a.getSeconds())
+   infotag.text('status: own loc upt at '+ set_pos +" " + a.getHours()+":"+a.getMinutes()+":"+a.getSeconds())
+   a =a.getTime()
+     databaseRef = database.ref('soundstorm').child('locations').child(set_name);
+    databaseRef.set({zeit:a,ort:set_pos})
+       
+  
 }
 function initialise_firebase(){
 const firebaseConfig = {
@@ -171,22 +204,23 @@ function read_current (){
 
     database = firebase.database();
   
-const ref = database.ref('/soundstorm/aktuell');
+ref = database.ref('/soundstorm/aktuell');
 
-ref.once('value', (snapshot) => {
+ref.on('value', (snapshot) => {
 
   current = snapshot.val()
   
-});
+
 
 for(i=0;i<stages_list.length;i++){
    if(current[stages_list[i].name] != undefined){
     temp = current[stages_list[i].name]
 
-    fcol = farbskala[Math.round(temp.usage)]
-    col = farbskala[Math.round(temp.density)]
+    console.log(temp.usage, temp.density)
+   let  fcol = farbskala[Math.round(temp.usage/15)]
+   let col = farbskala[Math.round(temp.density)]
     stages_list[i].geo.setStyle({
-       opacity:1,
+    //   opacity:1,
         fillOpacity:0.6,
         fillColor: fcol,
         color: col,
@@ -194,19 +228,66 @@ for(i=0;i<stages_list.length;i++){
   })}
 }
 
+select_area(set_area)
+});
+
+ref = database.ref('/soundstorm/locations');
+
+ref.on('value', (snapshot) => {
+
+  locations = snapshot.val()
+
+
+
+  Object.keys(locations).forEach((key) => {
+    a = new Date()
+      a =a.getTime()
+      
+      if(existing_markers.includes(key)) {
+  eval(key+"_marker.setLatLng(locations[key].ort)")
+}else{
+  eval(key+"_marker = L.marker(locations[key].ort).bindPopup(key).addTo(eigensymbole_layer)")
+    // hier die marker einmalen
+  existing_markers.push(key)
+}
+    
+
+})
+})
+
+
+ref = database.ref('/soundstorm/swipes');
+
+ref.on('value', (snapshot) => {
+
+  movement_layer.clearLayers();
+  swipes_arr = snapshot.val()
+  a = new Date()
+      a =a.getTime()
+      
+  Object.keys(swipes_arr).forEach((key) => {
+    x = (a -swipes_arr[key].zeit )
+    
+    if(x < 10000){
+      var polyline = L.polyline([swipes_arr[key].von,swipes_arr[key].nach],{weight:swipes_arr[key].dicke,color:"red"}).addTo(movement_layer);
+      var arrowHead = L.polylineDecorator(polyline, {    patterns: [      { offset: '100%', repeat: 0, symbol: L.Symbol.arrowHead({ pixelSize: 30, polygon: false, pathOptions: { fillOpacity: 1, weight:swipes_arr[key].dicke,color:"red" } }) }    ]}).addTo(movement_layer);
+    
+    }
+  })
+
+})
+
 
   }
-function select_area(areanumber){
-    ausgew_area = stages_list[areanumber].name
+function select_area(set_area){
+    ausgew_area = stages_list[set_area].name
           d3.select('#densInput').attr('value',current[ausgew_area].density)
           d3.select('#dens_p').text(current[ausgew_area].density)
-
-          d3.select('#tensInput').attr('value',current[ausgew_area].tension)
-          d3.select('#tens_p').text(current[ausgew_area].tension)
-
           d3.select('#usageInput').attr('value',current[ausgew_area].usage)
           d3.select('#usage_p').text(current[ausgew_area].usage+" %")
 
+          set_dens = current[ausgew_area].density
+          set_usage = current[ausgew_area].usage
           //dens_slider.node().dispatchEvent(new Event('input'));
 
   }
@@ -238,6 +319,8 @@ const imageOverlay = L.imageOverlay(imageUrl, imageBounds);
 
 stages_layer = L.layerGroup().addTo(mymap)
 green_layer = L.layerGroup().addTo(mymap)
+eigensymbole_layer = L.layerGroup().addTo(mymap)
+movement_layer = L.layerGroup().addTo(mymap)
 
 // alles einmalen das keine Bühnen sind
 for (f=0;f<parking_arr.length;f++)  {L.polygon(parking_arr[f], {color: 'blue'}).addTo(mymap)}
@@ -250,7 +333,7 @@ for (f=0;f<vib_arr.length;f++)      {L.polygon(vib_arr[f], {color: 'gold'}).addT
 // Layercontroll
 L.control.layers(
   {"OSM": tl1,"img": imageOverlay,"dark":Jawg_Matrix ,"sat":Esri_WorldImagery},
-  {"stages":stages_layer,"blocks":green_layer}).addTo(mymap);
+  {"stages":stages_layer,"blocks":green_layer,"spotter":eigensymbole_layer,"movement":movement_layer}).addTo(mymap);
 
 ownmarker = L.marker(  [24.996,46.508]).addTo(mymap);
 
@@ -323,12 +406,13 @@ stages_geo=[]
 for(i=0;i<stages_list.length;i++)
 {if(stages_list[i].coords != "donotdraw"){
   let zi =i 
-  f = L.polygon(stages_list[i].coords, {color: '#99ff66'})
+  f = L.polygon(stages_list[i].coords, {color: '#99ff66'}).bindPopup(stages_list[i].name)
       //.on('mouseover',function(){this.setStyle({color:"red"})})
       .on('click',function(){
       // this.setStyle({color:"green"})
-      select_area(zi)
       set_area=zi;d3.select('#dropdown').property('value',zi)
+      select_area(zi)
+      
   }).addTo(stages_layer)
   stages_list[i].geo = f
 }}}
@@ -359,6 +443,7 @@ function writeReportToFirebase() {
         })
         .catch((error) => {
           console.error("Error writing data to the Firebase database:", error);
+          infotag.text("no connection!!")
         });
 
         d3.select('#infotag').text('status: report sent at '+ jetzt.getHours()+":"+jetzt.getMinutes()+":"+jetzt.getSeconds())
@@ -373,8 +458,15 @@ function writeReportToFirebase() {
     }
 
     
-  
+function zeige_farbskala(){
+md =d3.select('#maindiv')
 
+for (i=0;i<farbskala.length;i++){
+  md.append('p').style('background-color',farbskala[i]).text("density:" + i + " / usage: " + i * 10 + " %")
+
+}}
+
+//ab 100 rot
   </script>
 
 </html>
