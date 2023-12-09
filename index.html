@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>SS23 crowd-report</title>
+  <title>(X) SS23 crowd-report</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
 
   <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
@@ -145,7 +145,39 @@ for(i=0;i<stages_list.length;i++){if(stages_list[i].coords != "donotdraw"){
   
 
 function update_ownpos(){
+  
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                infotag.text( 'Geolocation is not supported by this browser.');
+            }
+        }
 
+        function showPosition(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+
+            infotag.text( 'Latitude: ' + latitude + '<br>Longitude: ' + longitude);
+        }
+
+        function showError(error) {
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    infotag.text( 'User denied the request for Geolocation.');
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    infotag.text( 'Location information is unavailable.');
+                    break;
+                case error.TIMEOUT:
+                    infotag.text( 'The request to get user location timed out.');
+                    break;
+                case error.UNKNOWN_ERROR:
+                    infotag.text( 'An unknown error occurred.');
+                    break;
+            }
+        }
+
+      
   /*
   navigator.geolocation.watchPosition(
   (position) => {
@@ -161,7 +193,7 @@ function update_ownpos(){
   }
 );
 
- */
+
 
   navigator.geolocation.getCurrentPosition(
             (position) => {
@@ -197,6 +229,7 @@ function update_ownpos(){
  
   
 }
+ */
 function initialise_firebase(){
 const firebaseConfig = {
         apiKey: "AIzaSyBOOdW1SHCwBZSchUJ7DfJZ1a7-dEYTvuQ",
