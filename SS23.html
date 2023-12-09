@@ -191,7 +191,7 @@ endfest = new Date ("2022-12-04T06:00")
       temp.append("th").text("usage").style('width',"17%")
       //temp.append("th").text("tension")
       temp.append("th").text("density").style('width',"17%")
-      temp.append("th").text("tension").style('width',"17%")
+    //tensiongehtweg  temp.append("th").text("tension").style('width',"17%")
       temp.append("th").text("patrons").style('width',"17%")
       tuc =[]
       ttc = [      ]
@@ -208,16 +208,16 @@ endfest = new Date ("2022-12-04T06:00")
        tuc.push(temp.append("td").text("u"+i).style("font-weight",700))
        // ttc.push(temp.append("td").text("t"+i))
         tdc.push(temp.append("td").text("d"+i).style("font-weight",700))
-        ttc.push(temp.append("td").text("d"+i).style("font-weight",700))
+      //tensiongehtweg ttc.push(temp.append("td").text("d"+i).style("font-weight",700))
         tpc.push(temp.append("td").text("p"+i).style("font-weight",700))
       }
      
       tdc[3].style('color',"white")
       tdc[10].style('color',"white")
       tdc[12].style('color',"white")
-      ttc[3].style('color',"white")
-      ttc[10].style('color',"white")
-      ttc[12].style('color',"white")
+     //tensiongehtweg ttc[3].style('color',"white")
+     //tensiongehtweg ttc[10].style('color',"white")
+     //tensiongehtweg ttc[12].style('color',"white")
       reo.append('br')
       tabero2 = reo.append('table').style('width',"100%").style('margin','auto').style('width','95%')//.style('margin-top',"5px")
 
@@ -331,7 +331,7 @@ pfeil =" ◄"//~"
 if (graph_data[q].tens[settim_slot] > oldtens[q]){pfeil = " ▲"}
 if (graph_data[q].tens[settim_slot] < oldtens[q]){pfeil = " ▼"}  // ↓
 
-ttc[q].text(graph_data[q].tens[settim_slot]+" "+pfeil)
+//tensiongehtweg ttc[q].text(graph_data[q].tens[settim_slot]+" "+pfeil)
 oldtens[q] = graph_data[q].tens[settim_slot]
 
 // karte einfärben
@@ -349,7 +349,7 @@ if(stages_list[q].coords != "donotdraw")
   
   tuc[q].style('background-color',col)
 tdc[q].style('background-color',farbskala[tx])
-ttc[q].style('background-color',farbskala[Math.ceil(graph_data[q].tens[settim_slot]/2) ])
+//tensiongehtweg ttc[q].style('background-color',farbskala[Math.ceil(graph_data[q].tens[settim_slot]/2) ])
 
 
  }

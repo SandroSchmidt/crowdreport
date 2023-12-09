@@ -24,8 +24,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body>
-  <div id ="maindiv" style="width:100%;height:100%;overflow:hidden">
+<body style="width:100%;height:100%;overflow:hidden">
+  <div id ="maindiv" style="width:100%;height:100%;overflow:hidden; ">
   <div id="map_div" style="width:100%;height:500px;"></div>
 
   
@@ -57,7 +57,7 @@
 -->
     <tr>
       <td>usage:</td>
-      <td><input type="range" id="usageInput" min="0" max="140" step=5 value =50 onchange="set_usage= parseInt(this.value);d3.select('#usage_p').text(set_usage + ' %')">
+      <td><input type="range" id="usageInput" min="0" max="150" step=10 value =50 onchange="set_usage= parseInt(this.value);d3.select('#usage_p').text(set_usage + ' %')">
       </td>
       <td>  <span id="usage_p"> 10%</span></td>
     </tr>
@@ -65,8 +65,9 @@
     <tr>
       <td>zone:</td>
       <td><select id="dropdown" name="dropdown" onchange="set_area = parseInt(this.value);console.log(this.value);select_area(this.value)">
-
-  </select></td>
+  </select>
+<button onclick=" mymap.on('click',function(e){ newarea.push([e.latlng.lat,e.latlng.lng]); console.log(newarea)})">new aera</button>
+</td>
       <td><button onclick="writeReportToFirebase()">Send report</button></td>
     </tr>
   </table>
@@ -82,6 +83,7 @@
 </body>
 
 <script>
+  newarea =[];
   allowed_users=["sandro","marc","test1","test2","test3"]
   existing_markers=[]
   isZooming = false
@@ -163,7 +165,7 @@ function update_ownpos(){
               // das hier muss weg wenn wir vor ort sind, das ist der platzhalter wenn mann von woanders ausprobieren will
 
     //mymap.setView(set_pos)
-    ownmarker.setLatLng(set_pos )
+//    ownmarker.setLatLng(set_pos )
               // Displnay the user's position information
              //  console.log(`Latitude: ${latitude}, Longitude: ${longitude}`)
             },
@@ -216,7 +218,7 @@ for(i=0;i<stages_list.length;i++){
    if(current[stages_list[i].name] != undefined){
     temp = current[stages_list[i].name]
 
-    console.log(temp.usage, temp.density)
+
    let  fcol = farbskala[Math.round(temp.usage/15)]
    let col = farbskala[Math.round(temp.density)]
     stages_list[i].geo.setStyle({
@@ -268,7 +270,7 @@ ref.on('value', (snapshot) => {
   Object.keys(swipes_arr).forEach((key) => {
     x = (a -swipes_arr[key].zeit )
     
-    if(x < 10000){
+    if(x < 60000){
       var polyline = L.polyline([swipes_arr[key].von,swipes_arr[key].nach],{weight:swipes_arr[key].dicke,color:"red"}).addTo(movement_layer);
       var arrowHead = L.polylineDecorator(polyline, {    patterns: [      { offset: '100%', repeat: 0, symbol: L.Symbol.arrowHead({ pixelSize: 30, polygon: false, pathOptions: { fillOpacity: 1, weight:swipes_arr[key].dicke,color:"red" } }) }    ]}).addTo(movement_layer);
     
@@ -294,7 +296,7 @@ function select_area(set_area){
 function initialise_map(){
 
   // Karte und Hintergründe
-  var mymap = L.map('map_div',{zoomSnap: 0.1, dragging: false}).setView([24.997496213866462,46.51234272528364],15 )
+  mymap = L.map('map_div',{zoomSnap: 0.1, dragging: false,minzoom:10}).setView([24.997496213866462,46.51234272528364],15 )
    // mymap.on('zoomend', function() {setviewzoom = mymap.getZoom()});
    // mymap.on('moveend', function() { mapaa = (mymap.getCenter(),mymap.getCenter());setviewmap=[mapaa.lat,mapaa.lng]});
 
@@ -312,30 +314,46 @@ var Jawg_Matrix =  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{
 	maxZoom: 20
 });
 
-const imageUrl = './map1.png';
-// Define the bounds of the image
-const imageBounds = [ [25.013,46.4805],[24.988092848232725, 46.53216767460525]];
+//const imageUrl = './map1.png';
+//const imageBounds = [ [25.013,46.4805],[24.988092848232725, 46.53216767460525]];
+imageUrl ="./himapcut.jpg"
+imageBounds = [[ 25.01322659611521, 46.4798932072461],[24.984476969706886,46.52926520707613]];
+
+
 const imageOverlay = L.imageOverlay(imageUrl, imageBounds);
 
 stages_layer = L.layerGroup().addTo(mymap)
 green_layer = L.layerGroup().addTo(mymap)
 eigensymbole_layer = L.layerGroup().addTo(mymap)
 movement_layer = L.layerGroup().addTo(mymap)
-
+parkinglot_layer = L.layerGroup().addTo(mymap)
+zones_layer = L.layerGroup()
+back_layer = L.layerGroup().addTo(mymap)
 // alles einmalen das keine Bühnen sind
-for (f=0;f<parking_arr.length;f++)  {L.polygon(parking_arr[f], {color: 'blue'}).addTo(mymap)}
-for (f=0;f<walking_arr.length;f++)  {L.polygon(walking_arr[f], {color: 'grey'}).addTo(green_layer)}
+for (f=0;f<parking_arr.length;f++)  {
+  let l = eval(parking_arr[f].layer)
+  polygon = L.polygon(parking_arr[f].coords, {color: parking_arr[f].color}).addTo(l)
+
+var tooltip = L.tooltip({permanent: true, direction: 'center'})
+    .setContent(parking_arr[f].name)
+    .setLatLng(polygon.getBounds().getCenter())
+    .addTo(l);
+
+}
+
 for (f=0;f<greening_arr.length;f++) {L.polygon(greening_arr[f], {color: 'green'}).addTo(green_layer)}
 for (f=0;f<blocking_arr.length;f++) {L.polygon(blocking_arr[f], {color: 'grey'}).addTo(green_layer)}
-for (f=0;f<hinter.length;f++)       {L.polygon(hinter[f], {color: 'grey'}).addTo(green_layer)}
+for (f=0;f<hinter.length;f++)       {L.polygon(hinter[f], {color: 'grey'}).addTo(back_layer)}
 for (f=0;f<vib_arr.length;f++)      {L.polygon(vib_arr[f], {color: 'gold'}).addTo(mymap)}
+for (f=0;f<walkway_arr.length;f++)      {L.polygon(walkway_arr[f], {color: 'grey'}).addTo(mymap)}
+//for (f=0;f<walking_arr.length;f++)  {L.polygon(walking_arr[f], {color: 'red'}).addTo(green_layer)}
 
 // Layercontroll
 L.control.layers(
   {"OSM": tl1,"img": imageOverlay,"dark":Jawg_Matrix ,"sat":Esri_WorldImagery},
-  {"stages":stages_layer,"blocks":green_layer,"spotter":eigensymbole_layer,"movement":movement_layer}).addTo(mymap);
+  {"stages":stages_layer,"blocks":green_layer,"spotter":eigensymbole_layer,"movement" :movement_layer,"parking lots":parkinglot_layer,"op-zones":zones_layer}).addTo(mymap);
 
-ownmarker = L.marker(  [24.996,46.508]).addTo(mymap);
+//ownmarker = L.marker(  [24.996,46.508]).addTo(mymap);
 
 // Swipefunktion
     let touchStartX, touchEndX;
