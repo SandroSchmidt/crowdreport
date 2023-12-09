@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>(X) SS23 crowd-report</title>
+  <title>SS23 crowd-report</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
 
   <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
@@ -84,7 +84,7 @@ infotag.text('icident reported at : '+[e.latlng.lat,e.latlng.lng])
  
 
   <hr>
-  <p id="infotag">Version 1.8 - loaded</p>
+  <p id="infotag">Version 1.1 - loaded</p>
 
 </div>
  
@@ -156,8 +156,13 @@ function update_ownpos(){
         function showPosition(position) {
             var latitude = position.coords.latitude;
             var longitude = position.coords.longitude;
-
-            infotag.text( 'Latitude: ' + latitude + '<br>Longitude: ' + longitude);
+            a = new Date()
+   infotag.text('status: own loc upt at '+ set_pos +" " + a.getHours()+":"+a.getMinutes()+":"+a.getSeconds())
+   a =a.getTime()
+   const database = firebase.database()
+     databaseRef = database.ref('soundstorm').child('locations').child(set_name);
+    databaseRef.set({zeit:a,ort:set_pos})
+           
         }
 
         function showError(error) {
@@ -209,12 +214,7 @@ function update_ownpos(){
               // Displnay the user's position information
              //  console.log(`Latitude: ${latitude}, Longitude: ${longitude}`)
 
-             a = new Date()
-   infotag.text('status: own loc upt at '+ set_pos +" " + a.getHours()+":"+a.getMinutes()+":"+a.getSeconds())
-   a =a.getTime()
-   const database = firebase.database()
-     databaseRef = database.ref('soundstorm').child('locations').child(set_name);
-    databaseRef.set({zeit:a,ort:set_pos})
+   
        
             },
             (error) => {
