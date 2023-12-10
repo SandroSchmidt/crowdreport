@@ -72,14 +72,34 @@
 
 </td>
       <td><button onclick="writeReportToFirebase()">Send report</button>
-      <button onclick="eventmarkertoggle =true; mymap.on('click',function(e){ 
-     if (eventmarkertoggle){
-     eventmarker.setLatLng([e.latlng.lat,e.latlng.lng])
+        <button onclick="eventmarkertoggle =true; mymap.on('click',function(e){ 
+          if (eventmarkertoggle){
+           let eventloc = [e.latlng.lat,e.latlng.lng]
+          eventmarker.setLatLng([e.latlng.lat,e.latlng.lng])
+          eventmarker.on('click',function(){
+           userInput = prompt('describe incident:', 'minimal info, prioritise radio coms');
      
-     eventmarkertoggle = false
-      infotag.text('incident reported at : '+[e.latlng.lat,e.latlng.lng])}
-      })
-        ">report incident  </button>
+     // Check if the user clicked 
+     if (userInput !== null) {
+       jetzt = new Date()
+       databaseRef = database.ref('soundstorm').child('locations').child('incident');
+             databaseRef.set({zeit:jetzt.getTime(),melder :set_name,ort:eventloc,text:userInput})
+     
+       infotag.text('the incident has been reported')
+       
+     } else {
+       infotag.text('the incident report was canceled')
+     
+     }
+     
+     })
+     
+          
+     
+          eventmarkertoggle = false
+           infotag.text('incident reported at : '+[e.latlng.lat,e.latlng.lng])}
+           })
+             ">report incident  </button>
       </td>
     </tr>
   </table>

@@ -6,7 +6,7 @@ isZooming = false
 set_area=0
 set_name ="wrong reporter"
 farbskala = ["lightblue","#00B0F0","#00B0F0","#92D050","#92D050","#FFFF00","#FFFF00","#FF9201","#FF9201","#FF0000",'red',"#ee00ff","#ee00ff","#ee00ff","#ee00ff","#ee00ff"]
-  
+  eventloc = [0,0]
 list_of_reporters = ["sandro","marcel","marc","sasha","eric","tester"]
 set_pos=[9,9]
 da1 = new Date("2023-12-14T10:00")
@@ -104,14 +104,14 @@ locations = snapshot.val()
 Object.keys(locations).forEach((key) => {
   a = new Date()
     a =a.getTime()
-    
-    if(existing_markers.includes(key)) {
+    if(key =="incident"){eventmarker.setLatLng(locations[key].ort)}else
+    {if(existing_markers.includes(key)) {
 eval(key+"_marker.setLatLng(locations[key].ort)")
 }else{
 eval(key+"_marker = L.marker(locations[key].ort).bindPopup(key).addTo(eigensymbole_layer)")
   // hier die marker einmalen
 existing_markers.push(key)
-}
+}}
   
 
 })
