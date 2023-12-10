@@ -6,13 +6,17 @@
 
         <script src="./js/d3.min.js"></script>
         <script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
-        <script src="./functionold.js"></script>
-        <script src="./dataold.js"></script>
+    
+        <script src="./data.js"></script>
         <script src="./tickets.js"></script>
         <link rel="stylesheet" type="text/css" href="./js/leaflet.css" />
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
         <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
 
+        <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+            <script src="./function.js"></script>
       </head>
     <style>
         table, th, td{border:2px solid black;border-collapse: collapse;padding-left: 5px;padding-right: 5px;text-align: center;
@@ -24,7 +28,7 @@
 
 <body >
 
-      <div id="lio_div" style="float:left;width:60%;height:60%;"></div>
+      <div id="lio_div" style="float:left;width:60%;height:60%;"><div id="map_div" style="width:100%;height:500px;"></div></div>
       <div id="reo_div" style="float:left;width:40%;height:60%;text-align: center;">
         <img src="./logo.PNG" style="width: 60%" onclick="selected_area =99; make_cul_graph()">
       <!--  <img src=".//safe_events_logo-1.png" style="width: 30%" id ="evtlog" onclick="d3.select('#evtlog').remove()" >
@@ -34,11 +38,35 @@
           
       </div>
       <div id="reu_div" style="float:left;width:40%;height:40%;text-align: center;"><br></div>
+      <p id="infotag">Version 1.1 - loaded</p>
+
      </body>
 
 
     <script>
-
+      
+infotag =    d3.select('#infotag')
+ 
+ initialise_firebase()
+database = firebase.database();
+    ref = database.ref('/soundstorm/SS23');
+    ref.on('value', (snapshot) => {
+    reportsdata = snapshot.val()
+    ss23data={"Big Beast Circle":[],  "Big Beast North":[] , "Big Beast South":[],  "Dance Tent":[],  "Down Beast":[],  "MDL Town":[],  "Underground 1":[],  "Underground 2":[],  "Underground 3":[], "Underground 4":[],  "parking lot 1":[],  "parking lot 2":[],
+  "parking lot 3":[],
+  "parking lot 4":[],
+  "parking lot 5":[],
+  "parking lot 6":[],
+  "parking lot 7":[]}
+    Object.keys(reportsdata).forEach((key) => {
+    temp = reportsdata[key]
+      ss23data[temp.area].push({zeit:key,usage:temp.usage,density:temp.density})
+    
+    })
+    setTimeout(function () {console.table(ss23data)},3000)
+  })
+  
+  
 
 initialise_settings()
 // vorabberechnung der Graphdaten in 15 min intervalle
@@ -48,6 +76,8 @@ oldxutil=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 olddens=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 oldtens=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 // geht alle stages durch
+
+/*
 for (q=0;q<stages_list.length;q++){
   graph_15.push({data_time:[],dens_time:[],data:[],time:[],dens:[],tens:[],tens_time:[]})
 if (q == 3||q == 10||q==12){continue;} // hier werden die summen aus dm loop genommen weil diese nich interpoliert werden, sondern später aufaddiert
@@ -70,6 +100,7 @@ if (q == 3||q == 10||q==12){continue;} // hier werden die summen aus dm loop gen
     
    }
 }
+
 
 
 
@@ -122,8 +153,7 @@ diftotcurve ={data:[],time:[]}
 
 graph_data = graph_15
 
-//console.log(graph_data[12].data_time)
-//console.log(graph_data[12].data)
+*/
 /*
 graph_data[12].data_time.pop()
   graph_data[12].data.pop()
@@ -133,9 +163,10 @@ graph_data[12].data_time.pop()
   */
 initialise_map()
 settim = new Date ()
-initialise_chart()
-
-refresh()
+//initialise_chart()
+read_current( )
+//refresh()
+//setInterval(mytimer, 1000*60*5);
 
 function initialise_settings(){
   ruckschau = 2
@@ -423,217 +454,6 @@ function nowbutton(){
     refresh()
 
 }
-function initialise_map(){
-   var mymap = L.map('lio_div',{zoomSnap: 0.001}).setView(setviewmap,setviewzoom )
-         mymap.on('zoomend', function() {setviewzoom = mymap.getZoom()});
-      mymap.on('moveend', function() { mapaa = (mymap.getCenter(),mymap.getCenter());setviewmap=[mapaa.lat,mapaa.lng]});
-
-      layer_tile3=  L.layerGroup()
-      layer_tile=  L.layerGroup()
-      layer_tile2=  L.layerGroup()
-       layer_walkway=  L.layerGroup().addTo(mymap)
-  layer_stages =  L.layerGroup().addTo(mymap)
-     
-  layer_icons=  L.layerGroup()    
-  layer_pfeile=  L.layerGroup()
-  layer_operz=  L.layerGroup()
-  layer_onsite=  L.layerGroup().addTo(mymap)
-      layer_back=  L.layerGroup().addTo(mymap)
-       layer_parking=  L.layerGroup()
-
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-      
-        opacity: 0.5,
-        attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
-      }).addTo(layer_tile);
-
-      
-
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-
-        
-        attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
-      }).addTo(layer_tile2);
-
-
-      layer_tile.addTo(mymap)
-      layer_tile2.addTo(mymap)
-
-      layerscontrol=L.control.layers({"none": layer_tile3,"half": layer_tile,"full": layer_tile2},
-      {"Stages":layer_stages,"non stage area":layer_onsite,"parking":layer_parking,"Walkways":layer_walkway,
-      "OpZones":layer_operz,"Icons":layer_icons,"arrows":layer_pfeile}).addTo(mymap);
-
-      
-  
-onsite = L.geoJSON(
-  {
-    "type": "Polygon",
-    "coordinates": [polystrtoco(nonstage)]
-  } , {style:  {"weight": 0,"opacity": 0.65,fillOpacity:0.3 }
-  
-}).addTo(layer_onsite)
-     
-
-
-var meicon = L.icon({
-    iconUrl: './medicon.png',
-   
-    iconSize:     [20, 20], // size of the icon
-  //  shadowSize:   [50, 64], // size of the shadow
-  //  iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-  //  shadowAnchor: [4, 62],  // the same for the shadow
-  //  popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-});
-
-for (g=0;g<med_arr.length;g++)
-
-{
-
- 
-
-  xx = svgcordtolat(med_arr[g].grid)
-  L.marker(xx,{icon:meicon}).bindPopup("Clilinc "+g+ " - cap: " + med_arr[g].capacity[0]+"/"+med_arr[g].capacity[1]).openPopup().addTo(layer_icons); //{icon: greenIcon}
-}  
-
-
-
-
-
-
-      for (g=0;g<green_arr.length;g++)
-
-{L.geoJSON(
-  {
-    "type": "Polygon",
-    "coordinates": [polystrtoco(green_arr[g])]
-}
-  
-  , {style:  {"color": "green", "weight": 1,"opacity": 0.65 }
-  
-}).bindPopup("G"+g).addTo(layer_back)
-}
-for (g=0;g<block_arr.length;g++)
-  {L.geoJSON(  {
-      "type": "Polygon","coordinates": [polystrtoco(block_arr[g])]
-  } , {style:  {"color": "black", "weight": 1,"opacity": 1 }}
-  ).bindPopup("bl"+g).addTo(layer_back)
-}
-
-for (g=0;g<vib_arr.length;g++)
-{L.geoJSON(
-  {
-    "type": "Polygon",
-    "coordinates": [polystrtoco(vib_arr[g])]
-  }  , {style:  {"color": "black","fillColor":"grey",fillOpacity:0.6, "weight": 1,"opacity": 0.7 } //"#c874e1"
-  }).bindPopup("vib"+g).addTo(layer_back)
-  }
-
-     
-for (g=0;g<park_arr.length;g++)
-
-{L.geoJSON(
-  {
-    "type": "Polygon",
-    "coordinates": [polystrtoco(park_arr[g])]
-}
-  
-  , {style:  {"color": "steelblue", "weight": 1,"opacity": 0.65 }
-  
-}).bindPopup("P"+g).addTo(layer_parking)
-}
-
-{L.geoJSON(
-  {
-    "type": "Polygon",
-    "coordinates": [polystrtoco(hinter)]
-}
-  
-  , {style:  {"color": "grey", "weight": 1,"opacity": 0.65 }
-  
-}).addTo(layer_back)
-}
-{L.geoJSON(
-  {
-    "type": "Polygon",
-    "coordinates": [polystrtoco(hinter2)]
-}
-  
-  , {style:  {"color": "grey", "weight": 1,"opacity": 0.65 }
-  
-}).addTo(layer_back)
-}
-
-for (g=0;g<zones_arr.length;g++)
-
-{F=L.geoJSON(
-  {
-    "type": "Polygon",
-    "coordinates": [polystrtoco(zones_arr[g][2])]
-}
-  
-  , {style:  {color:"black",fillColor: zones_arr[g][1], "weight": 3,"opacity": 0.65,fillOpacity :0.65 }
-  
-}).bindPopup(zones_arr[g][0]).openPopup()
-.on('mouseover', function (e) {
-      this.openPopup();
-        })
-  .on('mouseout', function (e) {
-      this.closePopup();
-  })
-.addTo(layer_operz)
-
-}
-stag_geo=[]
-      for (ii=0;ii<stages_list.length;ii++){
-        stag_geo.push([])
-     if(stages_list[ii].coords != "donotdraw") {
-      g=L.geoJSON(
-       {
-      "type": "Polygon",
-      "coordinates": [polystrtoco(stages_list[ii].coords)]
-      }
-    , {style: {"color": "black", "weight": liniendicke,"opacity": 0.5,fillOpacity :0.9 }}).bindPopup(stages_list[ii].name)
-
-      .on('mouseover', function (e) {
-      this.openPopup();
-        })
-  .on('mouseout', function (e) {
-      this.closePopup();
-  })
-  
-  let kk=ii
-   g.on('click',function(){selected_area = kk ;refresh()})
-g.addTo(layer_stages)
-stag_geo[ii]=g
-}
-}
-pfeil_symbole =[]
-for (g=0;g<pfeile_arr.length;g++)
-{
-pfeil_symbole.push(L.geoJSON(
-  {    "type": "Polygon",
-    "coordinates": [polystrtoco(pfeile_arr[g])]
-}  , {style:  {"color": "black", fillColor: "brown",fillOpacity:1, "weight": 2,"opacity": 0.7 } //"fillColor":"#c874e1",fillOpacity:0.6,
- }).addTo(layer_pfeile))
-
-
-}
-for (g=0;g<walkway_arr.length;g++)
-
-{L.geoJSON(
-  {
-    "type": "Polygon",
-    "coordinates": [polystrtoco(walkway_arr[g])]
-}
-  
-  , {style:  {"color": "black","fillColor":"#c874e1",fillOpacity:0.6, "weight": 1,"opacity": 0.7 }
-  
-}).bindPopup("W"+g).addTo(layer_walkway)
-}
-
-
-}
-
 function update_map(){
 
 /*
@@ -1066,8 +886,6 @@ function rechnen(){
 
 
   }
-
-
 function interpolate(u){
 
 
@@ -1101,9 +919,6 @@ function interpolate(u){
      
    
   return temp}
-
-
-  
 function interpolate_dens(u){
 
 //temp=0
@@ -1127,8 +942,6 @@ aa2 = settim.getTime()
 
 
  return Math.round(temper)}
-
-
  function interpolate_general(set,timeset){
 
 
@@ -1155,8 +968,6 @@ aa2 = settim.getTime()
    }}
    
  return Math.round(found)}
-
- setInterval(mytimer, 1000*60*5);
  function mytimer(){
 if (timer == true)
 {settim = new Date()
