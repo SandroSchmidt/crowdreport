@@ -5,11 +5,10 @@
         <title>SS23 - start right (tm)</title>
 
         <script src="./js/d3.min.js"></script>
-        <script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
+        <script src="./js/plotly-2.16.1.min.js"></script>
     
         <script src="./data.js"></script>
-        <script src="./tickets.js"></script>
-        <link rel="stylesheet" type="text/css" href="./js/leaflet.css" />
+
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
         <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
         <script src="https://unpkg.com/leaflet-polylinedecorator/dist/leaflet.polylineDecorator.js"></script>
@@ -46,39 +45,24 @@
 
     <script>
       
-infotag =    d3.select('#infotag')
+infotag = d3.select('#infotag')
  
  initialise_firebase()
-database = firebase.database();
-    ref = database.ref('/soundstorm/SS23');
-    ref.on('value', (snapshot) => {
-    reportsdata = snapshot.val()
-    ss23data={"Big Beast Circle":[],  "Big Beast North":[] , "Big Beast South":[],  "Dance Tent":[],  "Down Beast":[],  "MDL Town":[],  "Underground 1":[],  "Underground 2":[],  "Underground 3":[], "Underground 4":[],  "parking lot 1":[],  "parking lot 2":[],
-  "parking lot 3":[],
-  "parking lot 4":[],
-  "parking lot 5":[],
-  "parking lot 6":[],
-  "parking lot 7":[]}
-    Object.keys(reportsdata).forEach((key) => {
-    temp = reportsdata[key]
-      ss23data[temp.area].push({zeit:key,usage:temp.usage,density:temp.density})
-    
-    })
-   // setTimeout(function () {console.table(ss23data)},3000)
-  })
   
   
 
 initialise_settings()
-// vorabberechnung der Graphdaten in 15 min intervalle
 
+
+// vorabberechnung der Graphdaten in 15 min intervalle
+/*
 graph_15 = []
 oldxutil=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 olddens=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 oldtens=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 // geht alle stages durch
 
-/*
+
 for (q=0;q<stages_list.length;q++){
   graph_15.push({data_time:[],dens_time:[],data:[],time:[],dens:[],tens:[],tens_time:[]})
 if (q == 3||q == 10||q==12){continue;} // hier werden die summen aus dm loop genommen weil diese nich interpoliert werden, sondern später aufaddiert
@@ -154,7 +138,7 @@ diftotcurve ={data:[],time:[]}
 
 graph_data = graph_15
 
-*/
+
 /*
 graph_data[12].data_time.pop()
   graph_data[12].data.pop()
@@ -164,10 +148,27 @@ graph_data[12].data_time.pop()
   */
 initialise_map()
 settim = new Date ()
-//initialise_chart()
+
 read_current( )
 //refresh()
 //setInterval(mytimer, 1000*60*5);
+daydata = read_a_day(22,2)
+setTimeout(function(){initialise_chart()},1000)
+kkkk=0
+reu.append('button').text("XX").on('click',function(){
+ kkkk++
+ initialise_chart()
+})
+
+function read_a_day(jahr,tager){
+                database = firebase.database();
+                ref = database.ref('/soundstorm/SS'+jahr+'/day'+tager);
+                ref.on('value', (snapshot) => {
+                daydata = snapshot.val()
+                       
+
+              })//.then(() => {                console.table(daydata) }         )
+            }
 
 function initialise_settings(){
   ruckschau = 2
@@ -181,15 +182,7 @@ startfest = new Date ("2022-12-01T12:00")
 endfest = new Date ("2022-12-04T06:00")
   timer = false
   
-  farbskala =
-         ["lightblue",
-            "#00B0F0",
-            "#92D050",
-            "#FFFF00"
-            ,"#FF9201"
-            ,"#FF0000",'red','red','red','red','red','red','red','red','red','red']
-
-      
+ 
       
         setviewzoom =16.9
     setviewmap= [  24.996, 46.5079
@@ -205,8 +198,8 @@ endfest = new Date ("2022-12-04T06:00")
     settim  = a
     settim_slot =0
     layout = 1//0.6
-      lio =  d3.select('#lio_div').style('width',fenster.breite*0.6+"px").style('height',fenster.hoehe*0.55+"px")
-      reo =  d3.select('#reo_div').style('width',fenster.breite*0.4+"px").style('height',fenster.hoehe*0.55+"px").style('overflow',"hidden")
+      lio =  d3.select('#lio_div').style('width',fenster.breite*0.6+"px").style('height',"60%")
+      reo =  d3.select('#reo_div').style('width',fenster.breite*0.4+"px").style('height',"60%").style('overflow',"hidden")
       liu =  d3.select('#liu_div').style('width',fenster.breite*layout+"px").style('height',fenster.hoehe*0.45+"px")
       reu =  d3.select('#reu_div').style('width',fenster.breite*(1-layout)+"px").style('height',fenster.hoehe*0.45+"px")
  
@@ -285,9 +278,9 @@ endfest = new Date ("2022-12-04T06:00")
       but_div = d3.select('body').append('div')//.style("position", "absolute").style("bottom", "35px")
       but_div.append('br')
           
-      but_div.append('button').text("Day 1").style("font-size", "0.65vw").on('click',  function(){a = new Date("2022-12-01T14:00");b = new Date ("2022-12-02T04:00");settim.setDate(01);refresh() })
+      but_div.append('button').text("Day 1").style("font-size", "0.65vw").on('click',  function(){a = new Date("2022-12-01T14:00");b = new Date ("2022-12-02T04:00");settim.setDate(0o1);refresh() })
       but_div.append('button').text("Day 2").style("font-size", "0.65vw").on('click',  function(){a = new Date("2022-12-02T14:00");b = new Date ("2022-12-03T04:00");settim.setDate(2);refresh() })
-      but_div.append('button').text("Day 3").style("font-size", "0.65vw").on('click',  function(){a = new Date("2022-12-03T14:00");b = new Date ("2022-12-04T04:00");settim.setDate(03);refresh() })
+      but_div.append('button').text("Day 3").style("font-size", "0.65vw").on('click',  function(){a = new Date("2022-12-03T14:00");b = new Date ("2022-12-04T04:00");settim.setDate(0o3);refresh() })
       
       but_div.append('button').text("show cap").style("font-size", "0.65vw").on('click',  function(){show_cap = !show_cap;refresh() })
       but_div.append('button').text("show scans").style("font-size", "0.65vw").on('click',  function(){selected_area=90;refresh() })
@@ -455,6 +448,7 @@ function nowbutton(){
     refresh()
 
 }
+ 
 function update_map(){
 
 /*
@@ -477,6 +471,21 @@ width = fenster.breite*layout- margin.left - margin.right
    height = fenster.hoehe*0.4- margin.top - margin.bottom;
    slider.style('width',(width+10)+"px").style('margin-left',"35px")
 
+   const values = [];
+const times = [];
+
+// Iterate through the original data and extract values and times
+daydata["Big Beast Left"].forEach(entry => {
+  values.push(entry.value);
+  times.push(entry.time);
+});
+   gr_data = [{
+      x: times,
+      y: values,
+      type: 'scatter',
+      mode: 'lines+markers',
+      name: 'Series 1 (Updated)'
+    }];
    var gr_layout = {hovermode: "x",  //title: 'Basic Time Series', 
   // font: {size: 40},
      margin: {l: 40,  r: 40,b: 25,t: 10,  pad: 4},  
@@ -498,6 +507,7 @@ width = fenster.breite*layout- margin.left - margin.right
    // yaxis: {range: [2, 5]}
    };
 
+   /*
    if(selected_area<25){
     gr_layout.range=[0,stages_list[selected_area].capacity]
    }
@@ -567,7 +577,7 @@ opacity: 0.5,  }
 
    if(selected_area < 25){
 
-    zz= interpolate(selected_area)
+    //zz= interpolate(selected_area)
     
     if(show_progress == true)
 
@@ -597,7 +607,7 @@ if(show_progress23 == true)
          temp = new Date()
         temp.setTime(settim.getTime())
   temp.setHours(23)
-  temp.setMinutes(00)
+  temp.setMinutes(0o0)
   ttt = (settim.getTime()-temp.getTime())/(60*1000*15)
 gr_layout.shapes.push(  {
       type: 'line',
@@ -705,6 +715,7 @@ if (selected_area==12){
     type: 'scatter'    },
   )
 */
+/*
   data.push({
     x: ref2dec.time,
     y: ref2dec.data,
@@ -726,7 +737,7 @@ if (selected_area==12){
     name: "crowd count total",
     line: {shape: 'spline',color:"green"},
     type: 'scatter'    }
-  )
+  )*/
   /*
   data.push({
     x: reference_17.data_time,
@@ -736,7 +747,7 @@ if (selected_area==12){
     line: {shape: 'spline',color:"black",dash: 'dashdot',},
     type: 'scatter'    })
 
-  */}
+  */
 // Graph für scans
 if (selected_area==90){
   data.push({
@@ -875,7 +886,7 @@ data.push({
 
 
 
-Plotly.newPlot('liu_div', data,gr_layout,{
+Plotly.newPlot('liu_div', gr_data,gr_layout,{
   //displayModeBar: false, // this is the line that hides the bar.
 })
 //ply = document.getElementById('liu_div')

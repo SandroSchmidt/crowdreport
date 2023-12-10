@@ -7,17 +7,17 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
 
   <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
-  <script src="https://d3js.org/d3.v7.min.js"></script>
-  <script src="https://unpkg.com/leaflet-polylinedecorator/dist/leaflet.polylineDecorator.js"></script>
+   <script src="https://unpkg.com/leaflet-polylinedecorator/dist/leaflet.polylineDecorator.js"></script>
 
   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
   <script src="./data.js"></script>
   <script src="./function.js"></script>
- 
+ <script src="./js/d3.min.js"></script>
   <!--
-   <script src="./js/d3.min.js"></script>
+   <script src="https://d3js.org/d3.v7.min.js"></script>
+ 
   <script src="./js/leaflet.js"></script>
   <link rel="stylesheet" type="text/css" href="./js/leaflet.css" />
 
@@ -34,12 +34,8 @@
   
   <table style="width:100%">
     <tr><td>reporting:</td>
-      <td><input type="text" value="spotter-name" style="width:50%;" oninput="
-        set_name=this.value;infotag.text('new reporting person: '+set_name)
-        if (allowed_users.includes(this.value)){
-        d3.select('#lock').text('UNLOCKED!')}
-       
-        ">
+      <td>
+        <select id="dropdownrep"  onchange="set_name=list_of_reporters[this.value];infotag.text('new reporting person: '+set_name)"></select>
       </td>
       <td ><span id="lock">LOCKED</span></td>
     </tr>
@@ -69,16 +65,22 @@
       <td>zone:</td>
       <td><select id="dropdown" name="dropdown" onchange="set_area = parseInt(this.value);console.log(this.value);select_area(this.value)">
   </select>
-<button onclick=" mymap.on('click',function(e){ newarea.push([e.latlng.lat,e.latlng.lng]); console.log(newarea)})">new aera</button>
-<button onclick=" mymap.on('click',function(e){ 
-  L.marker([e.latlng.lat,e.latlng.lng],{icon:eventicon}).addTo(mymap);
- // mymap.on('click','console.log(12)')
-infotag.text('icident reported at : '+[e.latlng.lat,e.latlng.lng])
-})
-  ">report incident  </button>
+
+<!--
+  <button onclick=" mymap.on('click',function(e){ newarea.push([e.latlng.lat,e.latlng.lng]); console.log(newarea)})">new aera</button>
+-->
 
 </td>
-      <td><button onclick="writeReportToFirebase()">Send report</button></td>
+      <td><button onclick="writeReportToFirebase()">Send report</button>
+      <button onclick="eventmarkertoggle =true; mymap.on('click',function(e){ 
+     if (eventmarkertoggle){
+     eventmarker.setLatLng([e.latlng.lat,e.latlng.lng])
+     
+     eventmarkertoggle = false
+      infotag.text('incident reported at : '+[e.latlng.lat,e.latlng.lng])}
+      })
+        ">report incident  </button>
+      </td>
     </tr>
   </table>
   
@@ -94,7 +96,7 @@ infotag.text('icident reported at : '+[e.latlng.lat,e.latlng.lng])
 
 <script>
 
-infotag =    d3.select('#infotag')
+infotag = d3.select('#infotag')
  
 //set_pos= [24.99,46.51]
 set_name ="falsereporter"
@@ -121,12 +123,13 @@ current ={
   "parking lot 7":{usage:0}
   
   }
-farbskala = ["lightblue","#00B0F0","#00B0F0","#92D050","#92D050","#FFFF00","#FFFF00","#FF9201","#FF9201","#FF0000",'red',"#ee00ff","#ee00ff","#ee00ff","#ee00ff","#ee00ff"]
-  
+
 for(i=0;i<stages_list.length;i++){if(stages_list[i].coords != "donotdraw"){
     d3.select('#dropdown').append('option').attr('value',i).text(stages_list[i].name)
     }}
-
+    for(i=0;i<list_of_reporters.length;i++){
+    d3.select('#dropdownrep').append('option').attr('value',i).text(list_of_reporters[i])
+    }
     start_everything()
 
     function start_everything(){
@@ -241,25 +244,61 @@ function update_ownpos(){
 
 function writeReportToFirebase() {
       jetzt = new Date()
+      jetzte=jetzt.getTime()
    
-      const database = firebase.database();
       // Replace 'your-data' with the path where you want to write the data in the database
       // For example, if you want to write data to 'https://your-project-id.firebaseio.com/users', use 'users'
-       databaseRef = database.ref('soundstorm').child('SS23').child(jetzt.getTime());
+
+      if(jetzte<da1.getTime()){tag=0}
+      if(jetzte>da1.getTime()&& jetzte<da2.getTime()){tag=1}
+if(jetzte>da2.getTime()&& jetzte<da3.getTime()){tag=2}
+if(jetzte>da3.getTime()&& jetzte<da4.getTime()){tag=3}
+
+
+const database = firebase.database();
+
+       databaseRef = database.ref('soundstorm/SS23/day'+tag+'/'+stages_list[set_area].name)
       // Data you want to write to the database
 
+
+
+
+
+
+
       const dataToWrite = {
-      //  zeit: jetzt.getTime(),
-        name: set_name,
-        area: stages_list[set_area].name,
+       zeit: jetzte,
+        melder: set_name,
+      //  area: stages_list[set_area].name,
         density: set_dens,
         position: set_pos,
        // tension: set_tens,
         usage: set_usage,
       };
 
+
+
+      const newItem = "newItemValue";
+
+// Update the array
+databaseRef.transaction(currentArray => {
+  if (currentArray) {
+    currentArray.push(dataToWrite)}
+    else{currentArray = [dataToWrite]}
+    console.log(currentArray)
+    return currentArray;
+    
+}).then(() => {
+  console.log('Item added successfully!');
+}).catch(error => {
+  console.error('Error adding item:', error);
+});
+  
+
+/*
+
      // Push the data to the database
-      databaseRef.set(dataToWrite)
+      databaseRef.push(dataToWrite)
         .then(() => {
           console.log("Data was successfully written to the Firebase database.");
         })
@@ -269,7 +308,7 @@ function writeReportToFirebase() {
         });
 
         d3.select('#infotag').text('status: report sent at '+ jetzt.getHours()+":"+jetzt.getMinutes()+":"+jetzt.getSeconds())
-
+*/
         // hier wird versucht zusätzlich einen report über die aktuelle alge zusammenzustellen
 
        
@@ -288,7 +327,6 @@ for (i=0;i<farbskala.length;i++){
 
 }}
 
-//ab 100 rot
   </script>
 
 </html>

@@ -85,16 +85,32 @@ function read_swipes (){
 
     database = firebase.database();
   
-const ref = database.ref('/soundstorm/swipes');
+ref = database.ref('/soundstorm/swipes');
 
 ref.on('value', (snapshot) => {
 
   swipes_db = snapshot.val()
-  list_swipes()
+
 });
  }
   
 
+ database = firebase.database();
+  
+  ref = database.ref('/soundstorm/SS23/day0/Dance Tent');
+  
+  ref.on('value', (snapshot) => {
+  
+    swes_db = snapshot.val()
+  
+  })
+  
+  setTimeout(function(){console.table(swes_db)
+  
+  console.log(swes_db.length)
+  console.table(swes_db[3])
+  
+  },5000)
   </script>
 
 </html>

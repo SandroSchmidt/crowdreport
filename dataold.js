@@ -1,6 +1,14731 @@
-
-
-
+SS22_data = {
+  "day1": {
+    "Big Beast Right": [
+      {
+        "zeit": 1669892400000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669899600000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669906800000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669908600000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669911000000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669913160000,
+        "usage": 10,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669913160000,
+        "usage": 10,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669914960000,
+        "usage": 10,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669916460000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669917960000,
+        "usage": 25,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1669919400000,
+        "usage": 40,
+        "density": 3,
+        "tension": 2
+      },
+      {
+        "zeit": 1669922100000,
+        "usage": 60,
+        "density": 3,
+        "tension": 4
+      },
+      {
+        "zeit": 1669923000000,
+        "usage": 70,
+        "density": 4,
+        "tension": 4
+      },
+      {
+        "zeit": 1669924020000,
+        "usage": 70,
+        "density": 4,
+        "tension": 4
+      },
+      {
+        "zeit": 1669925340000,
+        "usage": null,
+        "density": 5,
+        "tension": 6
+      },
+      {
+        "zeit": 1669927080000,
+        "usage": 65,
+        "density": 4,
+        "tension": 4
+      },
+      {
+        "zeit": 1669929780000,
+        "usage": 60,
+        "density": 4,
+        "tension": 4
+      },
+      {
+        "zeit": 1669932780000,
+        "usage": 80,
+        "density": 4,
+        "tension": 3
+      },
+      {
+        "zeit": 1669936560000,
+        "usage": 70,
+        "density": 4,
+        "tension": 3
+      },
+      {
+        "zeit": 1669950000000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669950000000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669938540000,
+        "usage": 40,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1669939620000,
+        "usage": 35,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1669944960000,
+        "usage": 35,
+        "density": 2,
+        "tension": 3
+      },
+      {
+        "zeit": 1669946400000,
+        "usage": 25,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1669946400000,
+        "usage": 25,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1669941840000,
+        "usage": 40,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1669950000000,
+        "usage": 1,
+        "density": 0,
+        "tension": 0
+      }
+    ],
+    "Big Beast Left": [
+      {
+        "zeit": 1669899600000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669906800000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669908600000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669911000000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669914900000,
+        "usage": 10,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1669916400000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669917960000,
+        "usage": 30,
+        "density": 3,
+        "tension": 2
+      },
+      {
+        "zeit": 1669919340000,
+        "usage": 55,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1669922100000,
+        "usage": 65,
+        "density": 3,
+        "tension": 4
+      },
+      {
+        "zeit": 1669923000000,
+        "usage": 70,
+        "density": 4,
+        "tension": 4
+      },
+      {
+        "zeit": 1669924020000,
+        "usage": 70,
+        "density": 5,
+        "tension": 5
+      },
+      {
+        "zeit": 1669927080000,
+        "usage": 65,
+        "density": 5,
+        "tension": 4
+      },
+      {
+        "zeit": 1669929780000,
+        "usage": 60,
+        "density": 4,
+        "tension": 4
+      },
+      {
+        "zeit": 1669932780000,
+        "usage": 80,
+        "density": 4,
+        "tension": 3
+      },
+      {
+        "zeit": 1669936560000,
+        "usage": 70,
+        "density": 4,
+        "tension": 3
+      },
+      {
+        "zeit": 1669950000000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669938540000,
+        "usage": 40,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1669939620000,
+        "usage": 35,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1669944960000,
+        "usage": 30,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1669946340000,
+        "usage": 15,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1669946340000,
+        "usage": 15,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1669941780000,
+        "usage": 40,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1669950000000,
+        "usage": 1,
+        "density": 0,
+        "tension": 0
+      }
+    ],
+    "Big Beast Circle": [
+      {
+        "zeit": 1669899600000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669906800000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669908600000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669911000000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669913220000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669914960000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669916460000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669918020000,
+        "usage": 10,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669919400000,
+        "usage": 20,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669921860000,
+        "usage": 30,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669924020000,
+        "usage": 30,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1669927080000,
+        "usage": 40,
+        "density": 2,
+        "tension": 3
+      },
+      {
+        "zeit": 1669930380000,
+        "usage": 65,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1669936560000,
+        "usage": 40,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1669950000000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669939680000,
+        "usage": 40,
+        "density": 1,
+        "tension": 2
+      },
+      {
+        "zeit": 1669944960000,
+        "usage": 25,
+        "density": 1,
+        "tension": 4
+      },
+      {
+        "zeit": 1669946400000,
+        "usage": 20,
+        "density": 2,
+        "tension": 3
+      },
+      {
+        "zeit": 1669946400000,
+        "usage": 20,
+        "density": 2,
+        "tension": 3
+      },
+      {
+        "zeit": 1669941900000,
+        "usage": 35,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1669950000000,
+        "usage": 1,
+        "density": 0,
+        "tension": 0
+      }
+    ],
+    "MDL Town": [
+      {
+        "zeit": 1669912680000,
+        "usage": 0,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669914780000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669916460000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669920300000,
+        "usage": 15,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669922520000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669924380000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669926000000,
+        "usage": 10,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669926780000,
+        "usage": 20,
+        "density": 1,
+        "tension": 2
+      },
+      {
+        "zeit": 1669928640000,
+        "usage": 40,
+        "density": 2,
+        "tension": 3
+      },
+      {
+        "zeit": 1669931040000,
+        "usage": 50,
+        "density": 3,
+        "tension": 4
+      },
+      {
+        "zeit": 1669933320000,
+        "usage": 25,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1669936080000,
+        "usage": 20,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1669939080000,
+        "usage": 40,
+        "density": 2,
+        "tension": 3
+      },
+      {
+        "zeit": 1669943940000,
+        "usage": 15,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1669946160000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669950000000,
+        "usage": 1,
+        "density": 0,
+        "tension": 0
+      }
+    ],
+    "Dance Tent": [
+      {
+        "zeit": 1669899600000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669906800000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669908960000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669910640000,
+        "usage": 2,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669912620000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669913940000,
+        "usage": 10,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1669915800000,
+        "usage": 5,
+        "density": 1,
+        "tension": 2
+      },
+      {
+        "zeit": 1669917960000,
+        "usage": 25,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1669919820000,
+        "usage": 30,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1669921260000,
+        "usage": 25,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1669921920000,
+        "usage": 40,
+        "density": 3,
+        "tension": 4
+      },
+      {
+        "zeit": 1669922940000,
+        "usage": 30,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1669924980000,
+        "usage": 25,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1669926600000,
+        "usage": 25,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1669927440000,
+        "usage": 40,
+        "density": 3,
+        "tension": 4
+      },
+      {
+        "zeit": 1669929300000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669937580000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669937880000,
+        "usage": 70,
+        "density": 4,
+        "tension": 4
+      },
+      {
+        "zeit": 1669938480000,
+        "usage": 85,
+        "density": 4,
+        "tension": 4
+      },
+      {
+        "zeit": 1669938780000,
+        "usage": 90,
+        "density": 4,
+        "tension": 5
+      },
+      {
+        "zeit": 1669939800000,
+        "usage": 90,
+        "density": 4,
+        "tension": 5
+      },
+      {
+        "zeit": 1669945500000,
+        "usage": 50,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1669947300000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669941240000,
+        "usage": 85,
+        "density": 4,
+        "tension": 5
+      },
+      {
+        "zeit": 1669942440000,
+        "usage": 85,
+        "density": 4,
+        "tension": 4
+      },
+      {
+        "zeit": 1669942680000,
+        "usage": 40,
+        "density": 2,
+        "tension": 3
+      },
+      {
+        "zeit": 1669944660000,
+        "usage": 45,
+        "density": 3,
+        "tension": 4
+      },
+      {
+        "zeit": 1669950000000,
+        "usage": 1,
+        "density": 0,
+        "tension": 0
+      }
+    ],
+    "Underground 1": [
+      {
+        "zeit": 1669899600000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669906800000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669908960000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669910640000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669913160000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669914120000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669917960000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669919700000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669921920000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669923000000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669924740000,
+        "usage": 15,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669926480000,
+        "usage": 20,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669928340000,
+        "usage": 20,
+        "density": 2,
+        "tension": 1
+      },
+      {
+        "zeit": 1669930200000,
+        "usage": 70,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1669932300000,
+        "usage": 70,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1669933860000,
+        "usage": 60,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1669935780000,
+        "usage": 50,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1669938600000,
+        "usage": 60,
+        "density": 2,
+        "tension": 1
+      },
+      {
+        "zeit": 1669940880000,
+        "usage": 70,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1669950000000,
+        "usage": 1,
+        "density": 0,
+        "tension": 0
+      }
+    ],
+    "Underground 2": [
+      {
+        "zeit": 1669899600000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669906800000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669908960000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669910640000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669914120000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669917960000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669919700000,
+        "usage": 20,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669921920000,
+        "usage": 15,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669923000000,
+        "usage": 20,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669924740000,
+        "usage": 20,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669926480000,
+        "usage": 20,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669928340000,
+        "usage": 35,
+        "density": 2,
+        "tension": 1
+      },
+      {
+        "zeit": 1669930200000,
+        "usage": 70,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1669932300000,
+        "usage": 70,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1669933860000,
+        "usage": 60,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1669935780000,
+        "usage": 50,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1669938600000,
+        "usage": 60,
+        "density": 2,
+        "tension": 1
+      },
+      {
+        "zeit": 1669940880000,
+        "usage": 60,
+        "density": 2,
+        "tension": 1
+      },
+      {
+        "zeit": 1669945080000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669950000000,
+        "usage": 1,
+        "density": 0,
+        "tension": 0
+      }
+    ],
+    "Underground 3": [
+      {
+        "zeit": 1669899600000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669906800000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669908960000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669910640000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669914120000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669917960000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669919700000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669921920000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669923000000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669924740000,
+        "usage": 10,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669926480000,
+        "usage": 15,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669928340000,
+        "usage": 10,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669930200000,
+        "usage": 70,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1669932300000,
+        "usage": 70,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1669933860000,
+        "usage": 40,
+        "density": 2,
+        "tension": 1
+      },
+      {
+        "zeit": 1669935780000,
+        "usage": 65,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1669938600000,
+        "usage": 50,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669940880000,
+        "usage": 50,
+        "density": 2,
+        "tension": 1
+      },
+      {
+        "zeit": 1669945080000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669950000000,
+        "usage": 1,
+        "density": 0,
+        "tension": 0
+      }
+    ],
+    "Underground 4": [
+      {
+        "zeit": 1669899600000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669906800000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669908960000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669910640000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669914120000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669917960000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669919700000,
+        "usage": 10,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669921920000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669923000000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669924740000,
+        "usage": 15,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669926480000,
+        "usage": 20,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669928340000,
+        "usage": 20,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669930200000,
+        "usage": 70,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1669932300000,
+        "usage": 70,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1669933860000,
+        "usage": 40,
+        "density": 2,
+        "tension": 1
+      },
+      {
+        "zeit": 1669935780000,
+        "usage": 50,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1669938600000,
+        "usage": 50,
+        "density": 2,
+        "tension": 1
+      },
+      {
+        "zeit": 1669940880000,
+        "usage": 30,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669945080000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669950000000,
+        "usage": 1,
+        "density": 0,
+        "tension": 0
+      }
+    ],
+    "Down Beast": [
+      {
+        "zeit": 1669899600000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669906800000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669909620000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669910880000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669912980000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669915740000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669918020000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669919640000,
+        "usage": 3,
+        "density": 2,
+        "tension": 1
+      },
+      {
+        "zeit": 1669922100000,
+        "usage": 4,
+        "density": 2,
+        "tension": 1
+      },
+      {
+        "zeit": 1669923840000,
+        "usage": 20,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1669926300000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669928580000,
+        "usage": 5,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1669930200000,
+        "usage": 2,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669933200000,
+        "usage": 30,
+        "density": 4,
+        "tension": 3
+      },
+      {
+        "zeit": 1669934760000,
+        "usage": 45,
+        "density": 4,
+        "tension": 3
+      },
+      {
+        "zeit": 1669936200000,
+        "usage": 65,
+        "density": 4,
+        "tension": 3
+      },
+      {
+        "zeit": 1669940400000,
+        "usage": 20,
+        "density": 2,
+        "tension": 3
+      },
+      {
+        "zeit": 1669944300000,
+        "usage": 25,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1669950000000,
+        "usage": 1,
+        "density": 0,
+        "tension": 0
+      }
+    ]
+  },
+  "day2": {
+    "Big Beast Right": [
+      {
+        "zeit": 1669986000000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669993200000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669998900000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670000340000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670002140000,
+        "usage": 5,
+        "density": 2,
+        "tension": 1
+      },
+      {
+        "zeit": 1670003820000,
+        "usage": 15,
+        "density": 2,
+        "tension": 1
+      },
+      {
+        "zeit": 1670004840000,
+        "usage": 40,
+        "density": 3,
+        "tension": 2
+      },
+      {
+        "zeit": 1670007120000,
+        "usage": 60,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670007780000,
+        "usage": 70,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670008620000,
+        "usage": 65,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670010660000,
+        "usage": 40,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670012820000,
+        "usage": 45,
+        "density": 3,
+        "tension": 2
+      },
+      {
+        "zeit": 1670014560000,
+        "usage": 50,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670016900000,
+        "usage": 85,
+        "density": 5,
+        "tension": 5
+      },
+      {
+        "zeit": 1670018580000,
+        "usage": null,
+        "density": 5,
+        "tension": 4
+      },
+      {
+        "zeit": 1670022240000,
+        "usage": 40,
+        "density": 3,
+        "tension": 2
+      },
+      {
+        "zeit": 1670024880000,
+        "usage": 40,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670025600000,
+        "usage": 40,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670026740000,
+        "usage": 35,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670027400000,
+        "usage": 25,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670036400000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      }
+    ],
+    "Big Beast Left": [
+      {
+        "zeit": 1669986000000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669993200000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669998900000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670000340000,
+        "usage": 10,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670002140000,
+        "usage": 15,
+        "density": 2,
+        "tension": 1
+      },
+      {
+        "zeit": 1670003820000,
+        "usage": 35,
+        "density": 2,
+        "tension": 1
+      },
+      {
+        "zeit": 1670004840000,
+        "usage": 55,
+        "density": 3,
+        "tension": 2
+      },
+      {
+        "zeit": 1670006940000,
+        "usage": 65,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670007780000,
+        "usage": 75,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670008560000,
+        "usage": 70,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670010600000,
+        "usage": 45,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670012640000,
+        "usage": 55,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670014560000,
+        "usage": 60,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670016900000,
+        "usage": 85,
+        "density": 5,
+        "tension": 5
+      },
+      {
+        "zeit": 1670018580000,
+        "usage": null,
+        "density": 6,
+        "tension": 6
+      },
+      {
+        "zeit": 1670022240000,
+        "usage": 45,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670024880000,
+        "usage": 45,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670025600000,
+        "usage": 40,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670026740000,
+        "usage": 35,
+        "density": 2,
+        "tension": 3
+      },
+      {
+        "zeit": 1670027400000,
+        "usage": 25,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670036400000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      }
+    ],
+    "Big Beast Circle": [
+      {
+        "zeit": 1669986000000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669993200000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669998900000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670000640000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670002140000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670003820000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670008620000,
+        "usage": 30,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670010660000,
+        "usage": 40,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670012220000,
+        "usage": 45,
+        "density": 1,
+        "tension": 2
+      },
+      {
+        "zeit": 1670014680000,
+        "usage": 40,
+        "density": 2,
+        "tension": 1
+      },
+      {
+        "zeit": 1670017200000,
+        "usage": 75,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670025600000,
+        "usage": 40,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670026800000,
+        "usage": 30,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670036400000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      }
+    ],
+    "MDL Town": [
+      {
+        "zeit": 1669986000000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669993200000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669996200000,
+        "usage": 0,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669999800000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670001000000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670002800000,
+        "usage": 10,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670005800000,
+        "usage": 10,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670007900000,
+        "usage": 10,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670009340000,
+        "usage": 15,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670010780000,
+        "usage": 20,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670013420000,
+        "usage": 30,
+        "density": 2,
+        "tension": 3
+      },
+      {
+        "zeit": 1670014980000,
+        "usage": 35,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670016960000,
+        "usage": 30,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670019060000,
+        "usage": 40,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670022600000,
+        "usage": 40,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670023800000,
+        "usage": 50,
+        "density": 3,
+        "tension": 2
+      },
+      {
+        "zeit": 1670026680000,
+        "usage": 40,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670030160000,
+        "usage": 40,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670036400000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      }
+    ],
+    "Dance Tent": [
+      {
+        "zeit": 1669986000000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669993200000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669997580000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669998840000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670000040000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670000400000,
+        "usage": 8,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670005020000,
+        "usage": 20,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670005800000,
+        "usage": 20,
+        "density": 2,
+        "tension": 3
+      },
+      {
+        "zeit": 1670007900000,
+        "usage": 17,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670009340000,
+        "usage": 50,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670010120000,
+        "usage": 60,
+        "density": 3,
+        "tension": 4
+      },
+      {
+        "zeit": 1670010720000,
+        "usage": 60,
+        "density": 4,
+        "tension": 4
+      },
+      {
+        "zeit": 1670011680000,
+        "usage": 70,
+        "density": 4,
+        "tension": 4
+      },
+      {
+        "zeit": 1670014320000,
+        "usage": 65,
+        "density": 3,
+        "tension": 4
+      },
+      {
+        "zeit": 1670015880000,
+        "usage": 50,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670015880000,
+        "usage": 50,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670016540000,
+        "usage": 45,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670017500000,
+        "usage": 40,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670019120000,
+        "usage": 55,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670020440000,
+        "usage": 75,
+        "density": 4,
+        "tension": 4
+      },
+      {
+        "zeit": 1670021100000,
+        "usage": 40,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670021640000,
+        "usage": 75,
+        "density": 4,
+        "tension": 4
+      },
+      {
+        "zeit": 1670021820000,
+        "usage": 80,
+        "density": 4,
+        "tension": 4
+      },
+      {
+        "zeit": 1670022720000,
+        "usage": 85,
+        "density": 4,
+        "tension": 4
+      },
+      {
+        "zeit": 1670022960000,
+        "usage": 95,
+        "density": 5,
+        "tension": 4
+      },
+      {
+        "zeit": 1670023800000,
+        "usage": 95,
+        "density": 4,
+        "tension": 4
+      },
+      {
+        "zeit": 1670025600000,
+        "usage": 95,
+        "density": 4,
+        "tension": 4
+      },
+      {
+        "zeit": 1670025960000,
+        "usage": 90,
+        "density": 4,
+        "tension": 4
+      },
+      {
+        "zeit": 1670027400000,
+        "usage": 90,
+        "density": 4,
+        "tension": 4
+      },
+      {
+        "zeit": 1670029560000,
+        "usage": 90,
+        "density": 4,
+        "tension": 4
+      },
+      {
+        "zeit": 1670030700000,
+        "usage": 90,
+        "density": 4,
+        "tension": 4
+      },
+      {
+        "zeit": 1670031900000,
+        "usage": 90,
+        "density": 4,
+        "tension": 4
+      },
+      {
+        "zeit": 1670033100000,
+        "usage": 90,
+        "density": 4,
+        "tension": 4
+      },
+      {
+        "zeit": 1670033400000,
+        "usage": 15,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670036400000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      }
+    ],
+    "Underground 1": [
+      {
+        "zeit": 1669986000000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669993200000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669995300000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669998840000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670000760000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670002080000,
+        "usage": 10,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670004840000,
+        "usage": 15,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670006400000,
+        "usage": 15,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670009880000,
+        "usage": 10,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670014320000,
+        "usage": 30,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670013120000,
+        "usage": 40,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670014680000,
+        "usage": 40,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670016480000,
+        "usage": 30,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670018580000,
+        "usage": 20,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670020440000,
+        "usage": 30,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670022000000,
+        "usage": 50,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670023800000,
+        "usage": 80,
+        "density": 4,
+        "tension": 2
+      },
+      {
+        "zeit": 1670025600000,
+        "usage": 70,
+        "density": 4,
+        "tension": 2
+      },
+      {
+        "zeit": 1670026860000,
+        "usage": 70,
+        "density": 3,
+        "tension": 2
+      },
+      {
+        "zeit": 1670036400000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      }
+    ],
+    "Underground 2": [
+      {
+        "zeit": 1669986000000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669993200000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669995300000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669998840000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670000760000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670002080000,
+        "usage": 10,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670004840000,
+        "usage": 10,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670006400000,
+        "usage": 20,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670009880000,
+        "usage": 15,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670014320000,
+        "usage": 45,
+        "density": 2,
+        "tension": 1
+      },
+      {
+        "zeit": 1670013120000,
+        "usage": 55,
+        "density": 2,
+        "tension": 1
+      },
+      {
+        "zeit": 1670014680000,
+        "usage": 40,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670016480000,
+        "usage": 25,
+        "density": 2,
+        "tension": 1
+      },
+      {
+        "zeit": 1670018580000,
+        "usage": 20,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670020440000,
+        "usage": 20,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670022000000,
+        "usage": 50,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670023800000,
+        "usage": 80,
+        "density": 4,
+        "tension": 2
+      },
+      {
+        "zeit": 1670025600000,
+        "usage": 74,
+        "density": 4,
+        "tension": 2
+      },
+      {
+        "zeit": 1670026860000,
+        "usage": 70,
+        "density": 3,
+        "tension": 2
+      },
+      {
+        "zeit": 1670036400000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      }
+    ],
+    "Underground 3": [
+      {
+        "zeit": 1669986000000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669993200000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669995300000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669998840000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670000760000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670002080000,
+        "usage": 10,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670004840000,
+        "usage": 10,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670006400000,
+        "usage": 15,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670009880000,
+        "usage": 15,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670014320000,
+        "usage": 20,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670013120000,
+        "usage": 35,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670014680000,
+        "usage": 35,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670016480000,
+        "usage": 20,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670018580000,
+        "usage": 20,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670020440000,
+        "usage": 20,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670022000000,
+        "usage": 50,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670023800000,
+        "usage": 70,
+        "density": 4,
+        "tension": 2
+      },
+      {
+        "zeit": 1670025600000,
+        "usage": 70,
+        "density": 3,
+        "tension": 2
+      },
+      {
+        "zeit": 1670026860000,
+        "usage": 60,
+        "density": 3,
+        "tension": 2
+      },
+      {
+        "zeit": 1670036400000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      }
+    ],
+    "Underground 4": [
+      {
+        "zeit": 1669986000000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669993200000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669995300000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1669998840000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670000760000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670002080000,
+        "usage": 10,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670004840000,
+        "usage": 15,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670006400000,
+        "usage": 20,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670009880000,
+        "usage": 20,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670014320000,
+        "usage": 15,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670013120000,
+        "usage": 20,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670014680000,
+        "usage": 20,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670016480000,
+        "usage": 15,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670018580000,
+        "usage": 35,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670020440000,
+        "usage": 40,
+        "density": 2,
+        "tension": 1
+      },
+      {
+        "zeit": 1670022000000,
+        "usage": 50,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670023800000,
+        "usage": 50,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670025600000,
+        "usage": 50,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670026860000,
+        "usage": 80,
+        "density": 3,
+        "tension": 2
+      },
+      {
+        "zeit": 1670036400000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      }
+    ],
+    "Down Beast": [
+      {
+        "zeit": 1669986000000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669993200000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1669995540000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670005800000,
+        "usage": 3,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670008560000,
+        "usage": 5,
+        "density": 2,
+        "tension": 1
+      },
+      {
+        "zeit": 1670010600000,
+        "usage": 15,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670011800000,
+        "usage": 50,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670012160000,
+        "usage": 30,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670012700000,
+        "usage": 105,
+        "density": 4,
+        "tension": 3
+      },
+      {
+        "zeit": 1670013300000,
+        "usage": 130,
+        "density": 5,
+        "tension": 3
+      },
+      {
+        "zeit": 1670014140000,
+        "usage": 145,
+        "density": 5,
+        "tension": 3
+      },
+      {
+        "zeit": 1670016000000,
+        "usage": 130,
+        "density": 5,
+        "tension": 3
+      },
+      {
+        "zeit": 1670017260000,
+        "usage": 0,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670019060000,
+        "usage": 20,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670020020000,
+        "usage": 45,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670023140000,
+        "usage": 12,
+        "density": 3,
+        "tension": 2
+      },
+      {
+        "zeit": 1670023800000,
+        "usage": 25,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670025600000,
+        "usage": 60,
+        "density": 5,
+        "tension": 3
+      },
+      {
+        "zeit": 1670027400000,
+        "usage": 55,
+        "density": 4,
+        "tension": 3
+      },
+      {
+        "zeit": 1670029860000,
+        "usage": 45,
+        "density": 4,
+        "tension": 3
+      },
+      {
+        "zeit": 1670036400000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      }
+    ]
+  },
+  "day3": {
+    "Big Beast Right": [
+      {
+        "zeit": 1670072400000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670081400000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670085180000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670088000000,
+        "usage": 2,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670090280000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670092200000,
+        "usage": 10,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670093100000,
+        "usage": 30,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670094420000,
+        "usage": 35,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670095800000,
+        "usage": 40,
+        "density": 2,
+        "tension": 3
+      },
+      {
+        "zeit": 1670097600000,
+        "usage": 15,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670099400000,
+        "usage": 15,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670103900000,
+        "usage": 65,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670110200000,
+        "usage": 65,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670111100000,
+        "usage": 40,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670112000000,
+        "usage": 40,
+        "density": 3,
+        "tension": 5
+      },
+      {
+        "zeit": 1670113800000,
+        "usage": 40,
+        "density": 2,
+        "tension": 4
+      },
+      {
+        "zeit": 1670116500000,
+        "usage": 30,
+        "density": 2,
+        "tension": 4
+      },
+      {
+        "zeit": 1670117400000,
+        "usage": 35,
+        "density": 2,
+        "tension": 4
+      },
+      {
+        "zeit": 1670124600000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670130000000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      }
+    ],
+    "Big Beast Left": [
+      {
+        "zeit": 1670072400000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670081400000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670085180000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670088000000,
+        "usage": 2,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670090280000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670092200000,
+        "usage": 15,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670093100000,
+        "usage": 30,
+        "density": 2,
+        "tension": 3
+      },
+      {
+        "zeit": 1670094420000,
+        "usage": 35,
+        "density": 2,
+        "tension": 3
+      },
+      {
+        "zeit": 1670095800000,
+        "usage": 40,
+        "density": 2,
+        "tension": 3
+      },
+      {
+        "zeit": 1670097600000,
+        "usage": 20,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670099400000,
+        "usage": 20,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670103900000,
+        "usage": 65,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670110200000,
+        "usage": 65,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670111100000,
+        "usage": 40,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670112000000,
+        "usage": 40,
+        "density": 3,
+        "tension": 4
+      },
+      {
+        "zeit": 1670113800000,
+        "usage": 40,
+        "density": 2,
+        "tension": 3
+      },
+      {
+        "zeit": 1670116500000,
+        "usage": 30,
+        "density": 2,
+        "tension": 4
+      },
+      {
+        "zeit": 1670117400000,
+        "usage": 35,
+        "density": 2,
+        "tension": 4
+      },
+      {
+        "zeit": 1670124600000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670130000000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      }
+    ],
+    "Big Beast Circle": [
+      {
+        "zeit": 1670072400000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670081400000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670085180000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670088000000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670090280000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670092200000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670093100000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670095800000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670099400000,
+        "usage": 10,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670110200000,
+        "usage": 20,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670111100000,
+        "usage": 30,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670112000000,
+        "usage": 20,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670116500000,
+        "usage": 20,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670124600000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670130000000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      }
+    ],
+    "MDL Town": [
+      {
+        "zeit": 1670072400000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670081400000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670083920000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670086020000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670087820000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670090400000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670092200000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670094720000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670096700000,
+        "usage": 10,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670099400000,
+        "usage": 15,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670103900000,
+        "usage": 15,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670105700000,
+        "usage": 7,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670111100000,
+        "usage": 30,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670115600000,
+        "usage": 25,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670119200000,
+        "usage": 15,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670124600000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670130000000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      }
+    ],
+    "Dance Tent": [
+      {
+        "zeit": 1670072400000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670081400000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670083860000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670085180000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670087100000,
+        "usage": 2,
+        "density": 2,
+        "tension": 1
+      },
+      {
+        "zeit": 1670090820000,
+        "usage": 2,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670092200000,
+        "usage": 7,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670094240000,
+        "usage": 7,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670095800000,
+        "usage": 10,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670097600000,
+        "usage": 30,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670098860000,
+        "usage": 80,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670101200000,
+        "usage": 80,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670104800000,
+        "usage": 40,
+        "density": 2,
+        "tension": 2
+      },
+      {
+        "zeit": 1670106960000,
+        "usage": 60,
+        "density": 4,
+        "tension": 3
+      },
+      {
+        "zeit": 1670108820000,
+        "usage": 60,
+        "density": 4,
+        "tension": 4
+      },
+      {
+        "zeit": 1670110200000,
+        "usage": 60,
+        "density": 4,
+        "tension": 4
+      },
+      {
+        "zeit": 1670112000000,
+        "usage": 65,
+        "density": 4,
+        "tension": 4
+      },
+      {
+        "zeit": 1670112900000,
+        "usage": 60,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670114700000,
+        "usage": 50,
+        "density": 3,
+        "tension": 2
+      },
+      {
+        "zeit": 1670115600000,
+        "usage": 50,
+        "density": 3,
+        "tension": 2
+      },
+      {
+        "zeit": 1670117400000,
+        "usage": 80,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670119200000,
+        "usage": 75,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670120520000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670124600000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670130000000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      }
+    ],
+    "Underground 1": [
+      {
+        "zeit": 1670072400000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670081400000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670083920000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670085420000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670086920000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670090520000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670092200000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670094000000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670095800000,
+        "usage": 10,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670097600000,
+        "usage": 10,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670099400000,
+        "usage": 15,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670101200000,
+        "usage": 20,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670103000000,
+        "usage": 20,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670103900000,
+        "usage": 25,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670106600000,
+        "usage": 10,
+        "density": 1,
+        "tension": null
+      },
+      {
+        "zeit": 1670108400000,
+        "usage": 10,
+        "density": 1,
+        "tension": null
+      },
+      {
+        "zeit": 1670110200000,
+        "usage": 10,
+        "density": 1,
+        "tension": null
+      },
+      {
+        "zeit": 1670113800000,
+        "usage": 40,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670115600000,
+        "usage": 40,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670124600000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670130000000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      }
+    ],
+    "Underground 2": [
+      {
+        "zeit": 1670072400000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670081400000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670083920000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670085420000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670086920000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670090520000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670092200000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670094000000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670095800000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670097600000,
+        "usage": 15,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670099400000,
+        "usage": 15,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670101200000,
+        "usage": 35,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670103000000,
+        "usage": 45,
+        "density": 2,
+        "tension": 1
+      },
+      {
+        "zeit": 1670103900000,
+        "usage": 50,
+        "density": 2,
+        "tension": 1
+      },
+      {
+        "zeit": 1670106600000,
+        "usage": 50,
+        "density": 2,
+        "tension": 1
+      },
+      {
+        "zeit": 1670108400000,
+        "usage": 50,
+        "density": 2,
+        "tension": 1
+      },
+      {
+        "zeit": 1670110200000,
+        "usage": 50,
+        "density": 2,
+        "tension": 1
+      },
+      {
+        "zeit": 1670113800000,
+        "usage": 50,
+        "density": 2,
+        "tension": 1
+      },
+      {
+        "zeit": 1670115600000,
+        "usage": 30,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670124600000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670130000000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      }
+    ],
+    "Underground 3": [
+      {
+        "zeit": 1670072400000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670081400000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670083920000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670085420000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670086920000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670090520000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670092200000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670094000000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670095800000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670097600000,
+        "usage": 10,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670099400000,
+        "usage": 10,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670101200000,
+        "usage": 20,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670103000000,
+        "usage": 15,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670103900000,
+        "usage": 15,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670106600000,
+        "usage": 15,
+        "density": 1,
+        "tension": null
+      },
+      {
+        "zeit": 1670108400000,
+        "usage": 15,
+        "density": 1,
+        "tension": null
+      },
+      {
+        "zeit": 1670110200000,
+        "usage": 15,
+        "density": 1,
+        "tension": null
+      },
+      {
+        "zeit": 1670113800000,
+        "usage": 15,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670115600000,
+        "usage": 15,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670124600000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670130000000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      }
+    ],
+    "Underground 4": [
+      {
+        "zeit": 1670072400000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670081400000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670083920000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670085420000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670086920000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670090520000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670092200000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670094000000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670095800000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670097600000,
+        "usage": 10,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670099400000,
+        "usage": 10,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670101200000,
+        "usage": 5,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670103000000,
+        "usage": 20,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670103900000,
+        "usage": 20,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670106600000,
+        "usage": 20,
+        "density": 1,
+        "tension": null
+      },
+      {
+        "zeit": 1670108400000,
+        "usage": 20,
+        "density": 1,
+        "tension": null
+      },
+      {
+        "zeit": 1670110200000,
+        "usage": 20,
+        "density": 1,
+        "tension": null
+      },
+      {
+        "zeit": 1670113800000,
+        "usage": 20,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670115600000,
+        "usage": 15,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670124600000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670130000000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      }
+    ],
+    "Down Beast": [
+      {
+        "zeit": 1670072400000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670081400000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670083080000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670086200000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670087520000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670090280000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670091660000,
+        "usage": 2,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670094000000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670095800000,
+        "usage": 3,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670098500000,
+        "usage": 10,
+        "density": 3,
+        "tension": 2
+      },
+      {
+        "zeit": 1670099100000,
+        "usage": 20,
+        "density": 3,
+        "tension": 2
+      },
+      {
+        "zeit": 1670100300000,
+        "usage": 20,
+        "density": 3,
+        "tension": 3
+      },
+      {
+        "zeit": 1670103900000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670106600000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670109300000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670110560000,
+        "usage": 2,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670112000000,
+        "usage": 2,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670114700000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670115600000,
+        "usage": 1,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670117400000,
+        "usage": 0,
+        "density": 1,
+        "tension": 1
+      },
+      {
+        "zeit": 1670124600000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      },
+      {
+        "zeit": 1670130000000,
+        "usage": 0,
+        "density": 0,
+        "tension": 0
+      }
+    ]
+  }
+}
+SS21_data = {
+  "day1": {
+    "Big Beast Right": [
+      {
+        "zeit": 1639665000000,
+        "density": 0
+      },
+      {
+        "zeit": 1639665000000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639665000000,
+        "tension": 0
+      },
+      {
+        "zeit": 1639666800000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639666800000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639666800000,
+        "density": 1
+      },
+      {
+        "zeit": 1639668600000,
+        "density": 2
+      },
+      {
+        "zeit": 1639668600000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639668600000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639670400000,
+        "density": 1
+      },
+      {
+        "zeit": 1639670400000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639670400000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639672200000,
+        "density": 2
+      },
+      {
+        "zeit": 1639672200000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639672200000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639674000000,
+        "density": 3
+      },
+      {
+        "zeit": 1639674000000,
+        "usage": 15
+      },
+      {
+        "zeit": 1639674000000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639674840000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639674840000,
+        "density": 5
+      },
+      {
+        "zeit": 1639674840000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639675980000,
+        "density": 5
+      },
+      {
+        "zeit": 1639675980000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639675980000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639677120000,
+        "density": 6
+      },
+      {
+        "zeit": 1639677120000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639677360000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639678380000,
+        "density": 6
+      },
+      {
+        "zeit": 1639678380000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639678380000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639679400000,
+        "density": 5
+      },
+      {
+        "zeit": 1639679400000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639679400000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639682280000,
+        "density": 6
+      },
+      {
+        "zeit": 1639682280000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639682280000,
+        "usage": 75
+      },
+      {
+        "zeit": 1639684200000,
+        "usage": 80
+      },
+      {
+        "zeit": 1639685700000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639685700000,
+        "density": 5
+      },
+      {
+        "zeit": 1639685700000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639688880000,
+        "density": 5
+      },
+      {
+        "zeit": 1639688880000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639688880000,
+        "usage": 85
+      },
+      {
+        "zeit": 1639692000000,
+        "density": 4
+      },
+      {
+        "zeit": 1639692000000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639692000000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639694340000,
+        "density": 4
+      },
+      {
+        "zeit": 1639694340000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639694340000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639695480000,
+        "density": 6
+      },
+      {
+        "zeit": 1639695480000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639695480000,
+        "usage": 80
+      },
+      {
+        "zeit": 1639698300000,
+        "density": 6
+      },
+      {
+        "zeit": 1639698300000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639698300000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639699200000,
+        "density": 6
+      },
+      {
+        "zeit": 1639699200000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639699200000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639701840000,
+        "density": 5
+      },
+      {
+        "zeit": 1639701840000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639701840000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639703700000,
+        "density": 5
+      },
+      {
+        "zeit": 1639703700000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639703700000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639704480000,
+        "density": 2
+      },
+      {
+        "zeit": 1639704480000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639704480000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639705560000,
+        "density": 1
+      },
+      {
+        "zeit": 1639705560000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639705560000,
+        "usage": 20
+      }
+    ],
+    "Big Beast Left": [
+      {
+        "zeit": 1639665000000,
+        "density": 0
+      },
+      {
+        "zeit": 1639665000000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639665000000,
+        "tension": 0
+      },
+      {
+        "zeit": 1639666800000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639666800000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639666800000,
+        "density": 1
+      },
+      {
+        "zeit": 1639668600000,
+        "density": 2
+      },
+      {
+        "zeit": 1639668600000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639668600000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639670400000,
+        "density": 1
+      },
+      {
+        "zeit": 1639670400000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639670400000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639672200000,
+        "density": 1
+      },
+      {
+        "zeit": 1639672200000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639672200000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639674000000,
+        "density": 2
+      },
+      {
+        "zeit": 1639674000000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639674000000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639674840000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639674840000,
+        "density": 5
+      },
+      {
+        "zeit": 1639674840000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639675980000,
+        "density": 5
+      },
+      {
+        "zeit": 1639675980000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639675980000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639677120000,
+        "density": 6
+      },
+      {
+        "zeit": 1639677120000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639677360000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639678380000,
+        "density": 6
+      },
+      {
+        "zeit": 1639678380000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639678380000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639679400000,
+        "density": 5
+      },
+      {
+        "zeit": 1639679400000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639679400000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639682280000,
+        "density": 6
+      },
+      {
+        "zeit": 1639682280000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639682280000,
+        "usage": 80
+      },
+      {
+        "zeit": 1639684200000,
+        "usage": 80
+      },
+      {
+        "zeit": 1639685700000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639685700000,
+        "density": 5
+      },
+      {
+        "zeit": 1639685700000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639687620000,
+        "density": 5
+      },
+      {
+        "zeit": 1639687620000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639687620000,
+        "usage": 75
+      },
+      {
+        "zeit": 1639688880000,
+        "density": 4
+      },
+      {
+        "zeit": 1639688880000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639688880000,
+        "usage": 80
+      },
+      {
+        "zeit": 1639690200000,
+        "density": 4
+      },
+      {
+        "zeit": 1639690200000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639690200000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639692000000,
+        "density": 5
+      },
+      {
+        "zeit": 1639692000000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639692000000,
+        "usage": 80
+      },
+      {
+        "zeit": 1639694340000,
+        "density": 4
+      },
+      {
+        "zeit": 1639694340000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639694340000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639695360000,
+        "density": 6
+      },
+      {
+        "zeit": 1639695360000,
+        "tension": 6
+      },
+      {
+        "zeit": 1639695360000,
+        "usage": 80
+      },
+      {
+        "zeit": 1639696560000,
+        "density": 6
+      },
+      {
+        "zeit": 1639696560000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639696560000,
+        "usage": 85
+      },
+      {
+        "zeit": 1639697400000,
+        "density": 6
+      },
+      {
+        "zeit": 1639697400000,
+        "tension": 7
+      },
+      {
+        "zeit": 1639697400000,
+        "usage": 85
+      },
+      {
+        "zeit": 1639698300000,
+        "density": 6
+      },
+      {
+        "zeit": 1639698300000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639698300000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639699200000,
+        "density": 6
+      },
+      {
+        "zeit": 1639699200000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639699200000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639702620000,
+        "density": 5
+      },
+      {
+        "zeit": 1639702620000,
+        "tension": 7
+      },
+      {
+        "zeit": 1639702620000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639704480000,
+        "density": 2
+      },
+      {
+        "zeit": 1639704480000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639704480000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639705560000,
+        "density": 1
+      },
+      {
+        "zeit": 1639705560000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639705560000,
+        "usage": 20
+      }
+    ],
+    "Big Beast Circle": [
+      {
+        "zeit": 1639665000000,
+        "density": 0
+      },
+      {
+        "zeit": 1639665000000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639665000000,
+        "tension": 0
+      },
+      {
+        "zeit": 1639666800000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639666800000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639666800000,
+        "density": 1
+      },
+      {
+        "zeit": 1639668600000,
+        "density": 2
+      },
+      {
+        "zeit": 1639668600000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639668600000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639670400000,
+        "density": 1
+      },
+      {
+        "zeit": 1639670400000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639670400000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639672200000,
+        "density": 1
+      },
+      {
+        "zeit": 1639672200000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639672200000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639674000000,
+        "density": 1
+      },
+      {
+        "zeit": 1639674000000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639674000000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639679400000,
+        "density": 2
+      },
+      {
+        "zeit": 1639679400000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639679400000,
+        "usage": 6
+      },
+      {
+        "zeit": 1639688400000,
+        "density": 3
+      },
+      {
+        "zeit": 1639688400000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639688400000,
+        "usage": 60
+      }
+    ],
+    "MDL Town": [
+      {
+        "zeit": 1639665000000,
+        "density": 0
+      },
+      {
+        "zeit": 1639665000000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639665000000,
+        "tension": 0
+      },
+      {
+        "zeit": 1639666800000,
+        "tension": 0
+      },
+      {
+        "zeit": 1639666800000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639666800000,
+        "density": 0
+      },
+      {
+        "zeit": 1639668600000,
+        "density": 1
+      },
+      {
+        "zeit": 1639668600000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639668600000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639670400000,
+        "density": 1
+      },
+      {
+        "zeit": 1639670400000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639670400000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639672200000,
+        "density": 1
+      },
+      {
+        "zeit": 1639672200000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639672200000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639674000000,
+        "density": 1
+      },
+      {
+        "zeit": 1639674000000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639674000000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639676400000,
+        "density": 1
+      },
+      {
+        "zeit": 1639676400000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639676400000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639677600000,
+        "density": 1
+      },
+      {
+        "zeit": 1639677600000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639677600000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639683300000,
+        "density": 1
+      },
+      {
+        "zeit": 1639683300000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639683300000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639685400000,
+        "density": 1
+      },
+      {
+        "zeit": 1639685400000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639685400000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639687260000,
+        "density": 2
+      },
+      {
+        "zeit": 1639687260000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639687260000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639688400000,
+        "density": 2
+      },
+      {
+        "zeit": 1639688400000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639688400000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639690260000,
+        "density": 2
+      },
+      {
+        "zeit": 1639690260000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639690260000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639692000000,
+        "density": 2
+      },
+      {
+        "zeit": 1639692000000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639692000000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639695540000,
+        "density": 2
+      },
+      {
+        "zeit": 1639695540000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639695540000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639697040000,
+        "density": 2
+      },
+      {
+        "zeit": 1639697040000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639697040000,
+        "usage": 45
+      },
+      {
+        "zeit": 1639698300000,
+        "density": 2
+      },
+      {
+        "zeit": 1639698300000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639698300000,
+        "usage": 45
+      },
+      {
+        "zeit": 1639699200000,
+        "density": 2
+      },
+      {
+        "zeit": 1639699200000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639699200000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639701180000,
+        "density": 2
+      },
+      {
+        "zeit": 1639701180000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639701180000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639703220000,
+        "density": 2
+      },
+      {
+        "zeit": 1639703220000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639703220000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639703820000,
+        "density": 2
+      },
+      {
+        "zeit": 1639703820000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639703820000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639704480000,
+        "density": 2
+      },
+      {
+        "zeit": 1639704480000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639704480000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639705620000,
+        "density": 2
+      },
+      {
+        "zeit": 1639705620000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639705620000,
+        "usage": 20
+      }
+    ],
+    "Dance Tent": [
+      {
+        "zeit": 1639665000000,
+        "density": 0
+      },
+      {
+        "zeit": 1639665000000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639665000000,
+        "tension": 0
+      },
+      {
+        "zeit": 1639666800000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639666800000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639666800000,
+        "density": 1
+      },
+      {
+        "zeit": 1639668600000,
+        "density": 1
+      },
+      {
+        "zeit": 1639668600000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639668600000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639670400000,
+        "density": 1
+      },
+      {
+        "zeit": 1639670400000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639670400000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639672200000,
+        "density": 1
+      },
+      {
+        "zeit": 1639672200000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639672200000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639674000000,
+        "density": 1
+      },
+      {
+        "zeit": 1639674000000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639674000000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639677600000,
+        "density": 1
+      },
+      {
+        "zeit": 1639677600000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639677600000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639679400000,
+        "density": 2
+      },
+      {
+        "zeit": 1639679400000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639679400000,
+        "usage": 6
+      },
+      {
+        "zeit": 1639681500000,
+        "density": 2
+      },
+      {
+        "zeit": 1639681500000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639681500000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639683420000,
+        "density": 4
+      },
+      {
+        "zeit": 1639683420000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639683420000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639684800000,
+        "density": 4
+      },
+      {
+        "zeit": 1639684800000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639684800000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639687560000,
+        "density": 3
+      },
+      {
+        "zeit": 1639687560000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639687560000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639688880000,
+        "density": 3
+      },
+      {
+        "zeit": 1639688880000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639688880000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639690260000,
+        "density": 3
+      },
+      {
+        "zeit": 1639690260000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639690260000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639692000000,
+        "density": 3
+      },
+      {
+        "zeit": 1639692000000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639692000000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639694700000,
+        "density": 3
+      },
+      {
+        "zeit": 1639694700000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639694700000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639695780000,
+        "density": 3
+      },
+      {
+        "zeit": 1639695780000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639695780000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639699200000,
+        "density": 2
+      },
+      {
+        "zeit": 1639699200000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639699200000,
+        "usage": 45
+      },
+      {
+        "zeit": 1639700820000,
+        "density": 2
+      },
+      {
+        "zeit": 1639700820000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639700820000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639701180000,
+        "density": 2
+      },
+      {
+        "zeit": 1639701180000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639701180000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639702680000,
+        "density": 3
+      },
+      {
+        "zeit": 1639702680000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639702680000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639703940000,
+        "density": 2
+      },
+      {
+        "zeit": 1639703940000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639703940000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639704900000,
+        "density": 1
+      },
+      {
+        "zeit": 1639704900000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639704900000,
+        "usage": 1
+      }
+    ],
+    "Underground 1": [
+      {
+        "zeit": 1639665000000,
+        "density": 0
+      },
+      {
+        "zeit": 1639665000000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639665000000,
+        "tension": 0
+      },
+      {
+        "zeit": 1639666800000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639666800000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639666800000,
+        "density": 1
+      },
+      {
+        "zeit": 1639668600000,
+        "density": 1
+      },
+      {
+        "zeit": 1639668600000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639668600000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639670400000,
+        "density": 1
+      },
+      {
+        "zeit": 1639670400000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639670400000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639672200000,
+        "density": 1
+      },
+      {
+        "zeit": 1639672200000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639672200000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639674000000,
+        "density": 1
+      },
+      {
+        "zeit": 1639674000000,
+        "usage": 3
+      },
+      {
+        "zeit": 1639674000000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639674120000,
+        "density": 1
+      },
+      {
+        "zeit": 1639674120000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639674120000,
+        "usage": 3
+      },
+      {
+        "zeit": 1639675860000,
+        "density": 1
+      },
+      {
+        "zeit": 1639675860000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639675860000,
+        "usage": 3
+      },
+      {
+        "zeit": 1639677600000,
+        "density": 1
+      },
+      {
+        "zeit": 1639677600000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639677600000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639679400000,
+        "density": 1
+      },
+      {
+        "zeit": 1639679400000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639679400000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639681200000,
+        "density": 1
+      },
+      {
+        "zeit": 1639681200000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639681200000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639683120000,
+        "density": 1
+      },
+      {
+        "zeit": 1639683120000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639683120000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639684740000,
+        "density": 1
+      },
+      {
+        "zeit": 1639684740000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639684740000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639686600000,
+        "density": 1
+      },
+      {
+        "zeit": 1639686600000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639686600000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639688580000,
+        "density": 2
+      },
+      {
+        "zeit": 1639688580000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639688580000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639690260000,
+        "density": 2
+      },
+      {
+        "zeit": 1639690260000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639690260000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639694100000,
+        "density": 2
+      },
+      {
+        "zeit": 1639694100000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639694100000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639695480000,
+        "density": 2
+      },
+      {
+        "zeit": 1639695480000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639695480000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639697580000,
+        "density": 2
+      },
+      {
+        "zeit": 1639697580000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639697580000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639698300000,
+        "density": 2
+      },
+      {
+        "zeit": 1639698300000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639698300000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639699200000,
+        "density": 2
+      },
+      {
+        "zeit": 1639699200000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639699200000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639700940000,
+        "density": 2
+      },
+      {
+        "zeit": 1639700940000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639700940000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639702860000,
+        "density": 3
+      },
+      {
+        "zeit": 1639702860000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639702860000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639703940000,
+        "density": 2
+      },
+      {
+        "zeit": 1639703940000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639703940000,
+        "usage": 50
+      }
+    ],
+    "Underground 2": [
+      {
+        "zeit": 1639665000000,
+        "density": 0
+      },
+      {
+        "zeit": 1639665000000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639665000000,
+        "tension": 0
+      },
+      {
+        "zeit": 1639666800000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639666800000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639666800000,
+        "density": 1
+      },
+      {
+        "zeit": 1639668600000,
+        "density": 1
+      },
+      {
+        "zeit": 1639668600000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639668600000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639670400000,
+        "density": 1
+      },
+      {
+        "zeit": 1639670400000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639670400000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639672200000,
+        "density": 1
+      },
+      {
+        "zeit": 1639672200000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639672200000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639674000000,
+        "density": 1
+      },
+      {
+        "zeit": 1639674000000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639674000000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639674120000,
+        "density": 1
+      },
+      {
+        "zeit": 1639674120000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639674120000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639675860000,
+        "density": 1
+      },
+      {
+        "zeit": 1639675860000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639675860000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639677600000,
+        "density": 1
+      },
+      {
+        "zeit": 1639677600000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639677600000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639679400000,
+        "density": 1
+      },
+      {
+        "zeit": 1639679400000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639679400000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639681200000,
+        "density": 1
+      },
+      {
+        "zeit": 1639681200000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639681200000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639683120000,
+        "density": 1
+      },
+      {
+        "zeit": 1639683120000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639683120000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639684740000,
+        "density": 2
+      },
+      {
+        "zeit": 1639684740000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639684740000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639686600000,
+        "density": 1
+      },
+      {
+        "zeit": 1639686600000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639686600000,
+        "usage": 35
+      },
+      {
+        "zeit": 1639688580000,
+        "density": 2
+      },
+      {
+        "zeit": 1639688580000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639690260000,
+        "density": 3
+      },
+      {
+        "zeit": 1639690260000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639690260000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639694100000,
+        "density": 3
+      },
+      {
+        "zeit": 1639694100000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639694100000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639695480000,
+        "density": 3
+      },
+      {
+        "zeit": 1639695480000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639695480000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639697580000,
+        "density": 3
+      },
+      {
+        "zeit": 1639697580000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639697580000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639698300000,
+        "density": 3
+      },
+      {
+        "zeit": 1639698300000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639698300000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639699200000,
+        "density": 3
+      },
+      {
+        "zeit": 1639699200000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639699200000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639700940000,
+        "density": 3
+      },
+      {
+        "zeit": 1639700940000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639700940000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639702860000,
+        "density": 3
+      },
+      {
+        "zeit": 1639702860000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639702860000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639703940000,
+        "density": 3
+      },
+      {
+        "zeit": 1639703940000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639703940000,
+        "usage": 50
+      }
+    ],
+    "Underground 3": [
+      {
+        "zeit": 1639665000000,
+        "density": 0
+      },
+      {
+        "zeit": 1639665000000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639665000000,
+        "tension": 0
+      },
+      {
+        "zeit": 1639666800000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639666800000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639666800000,
+        "density": 1
+      },
+      {
+        "zeit": 1639668600000,
+        "density": 1
+      },
+      {
+        "zeit": 1639668600000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639668600000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639670400000,
+        "density": 1
+      },
+      {
+        "zeit": 1639670400000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639670400000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639672200000,
+        "density": 1
+      },
+      {
+        "zeit": 1639672200000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639672200000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639674000000,
+        "density": 1
+      },
+      {
+        "zeit": 1639674000000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639674000000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639674120000,
+        "density": 1
+      },
+      {
+        "zeit": 1639674120000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639674120000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639675860000,
+        "density": 1
+      },
+      {
+        "zeit": 1639675860000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639675860000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639677600000,
+        "density": 1
+      },
+      {
+        "zeit": 1639677600000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639677600000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639679400000,
+        "density": 1
+      },
+      {
+        "zeit": 1639679400000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639679400000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639681200000,
+        "density": 1
+      },
+      {
+        "zeit": 1639681200000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639681200000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639683120000,
+        "density": 1
+      },
+      {
+        "zeit": 1639683120000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639683120000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639684740000,
+        "density": 2
+      },
+      {
+        "zeit": 1639684740000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639684740000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639686600000,
+        "density": 2
+      },
+      {
+        "zeit": 1639686600000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639686600000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639688580000,
+        "density": 2
+      },
+      {
+        "zeit": 1639688580000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639688580000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639690260000,
+        "density": 3
+      },
+      {
+        "zeit": 1639690260000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639690260000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639694100000,
+        "density": 3
+      },
+      {
+        "zeit": 1639694100000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639694100000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639695480000,
+        "density": 4
+      },
+      {
+        "zeit": 1639695480000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639695480000,
+        "usage": 80
+      },
+      {
+        "zeit": 1639697580000,
+        "density": 3
+      },
+      {
+        "zeit": 1639697580000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639697580000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639698300000,
+        "density": 3
+      },
+      {
+        "zeit": 1639698300000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639698300000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639699200000,
+        "density": 3
+      },
+      {
+        "zeit": 1639699200000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639699200000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639700940000,
+        "density": 3
+      },
+      {
+        "zeit": 1639700940000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639700940000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639702860000,
+        "density": 3
+      },
+      {
+        "zeit": 1639702860000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639702860000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639703940000,
+        "density": 2
+      },
+      {
+        "zeit": 1639703940000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639703940000,
+        "usage": 40
+      }
+    ],
+    "Underground 4": [
+      {
+        "zeit": 1639665000000,
+        "density": 0
+      },
+      {
+        "zeit": 1639665000000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639665000000,
+        "tension": 0
+      },
+      {
+        "zeit": 1639666800000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639666800000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639666800000,
+        "density": 1
+      },
+      {
+        "zeit": 1639668600000,
+        "density": 1
+      },
+      {
+        "zeit": 1639668600000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639668600000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639670400000,
+        "density": 1
+      },
+      {
+        "zeit": 1639670400000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639670400000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639672200000,
+        "density": 1
+      },
+      {
+        "zeit": 1639672200000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639672200000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639674000000,
+        "density": 1
+      },
+      {
+        "zeit": 1639674000000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639674000000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639674120000,
+        "density": 1
+      },
+      {
+        "zeit": 1639674120000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639674120000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639675860000,
+        "density": 1
+      },
+      {
+        "zeit": 1639675860000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639675860000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639677600000,
+        "density": 1
+      },
+      {
+        "zeit": 1639677600000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639677600000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639679400000,
+        "density": 1
+      },
+      {
+        "zeit": 1639679400000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639679400000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639681200000,
+        "density": 1
+      },
+      {
+        "zeit": 1639681200000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639681200000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639683120000,
+        "density": 1
+      },
+      {
+        "zeit": 1639683120000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639683120000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639684740000,
+        "density": 2
+      },
+      {
+        "zeit": 1639684740000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639684740000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639686600000,
+        "density": 2
+      },
+      {
+        "zeit": 1639686600000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639686600000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639688580000,
+        "density": 2
+      },
+      {
+        "zeit": 1639688580000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639688580000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639690260000,
+        "density": 2
+      },
+      {
+        "zeit": 1639690260000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639690260000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639694100000,
+        "density": 2
+      },
+      {
+        "zeit": 1639694100000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639694100000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639695480000,
+        "density": 2
+      },
+      {
+        "zeit": 1639695480000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639695480000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639697580000,
+        "density": 2
+      },
+      {
+        "zeit": 1639697580000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639697580000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639698300000,
+        "density": 2
+      },
+      {
+        "zeit": 1639698300000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639698300000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639699200000,
+        "density": 2
+      },
+      {
+        "zeit": 1639699200000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639699200000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639700940000,
+        "density": 2
+      },
+      {
+        "zeit": 1639700940000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639700940000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639702860000,
+        "density": 2
+      },
+      {
+        "zeit": 1639702860000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639702860000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639703940000,
+        "density": 2
+      },
+      {
+        "zeit": 1639703940000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639703940000,
+        "usage": 40
+      }
+    ],
+    "Down Beast": [
+      {
+        "zeit": 1639665000000,
+        "density": 0
+      },
+      {
+        "zeit": 1639665000000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639665000000,
+        "tension": 0
+      },
+      {
+        "zeit": 1639666800000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639666800000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639666800000,
+        "density": 1
+      },
+      {
+        "zeit": 1639668600000,
+        "density": 1
+      },
+      {
+        "zeit": 1639668600000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639668600000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639670400000,
+        "density": 1
+      },
+      {
+        "zeit": 1639670400000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639670400000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639672200000,
+        "density": 1
+      },
+      {
+        "zeit": 1639672200000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639672200000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639674000000,
+        "density": 1
+      },
+      {
+        "zeit": 1639674000000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639674000000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639676400000,
+        "density": 1
+      },
+      {
+        "zeit": 1639676400000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639676400000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639677600000,
+        "density": 1
+      },
+      {
+        "zeit": 1639677600000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639677600000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639683420000,
+        "density": 1
+      },
+      {
+        "zeit": 1639683420000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639683420000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639685400000,
+        "density": 1
+      },
+      {
+        "zeit": 1639685400000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639685400000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639687260000,
+        "density": 1
+      },
+      {
+        "zeit": 1639687260000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639687260000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639688400000,
+        "density": 1
+      },
+      {
+        "zeit": 1639688400000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639688400000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639690200000,
+        "density": 1
+      },
+      {
+        "zeit": 1639690200000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639690200000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639692000000,
+        "density": 2
+      },
+      {
+        "zeit": 1639692000000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639692000000,
+        "usage": 15
+      },
+      {
+        "zeit": 1639695540000,
+        "density": 2
+      },
+      {
+        "zeit": 1639695540000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639695540000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639697040000,
+        "density": 2
+      },
+      {
+        "zeit": 1639697040000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639697040000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639698300000,
+        "density": 2
+      },
+      {
+        "zeit": 1639698300000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639698300000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639699200000,
+        "density": 2
+      },
+      {
+        "zeit": 1639699200000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639699200000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639701180000,
+        "density": 2
+      },
+      {
+        "zeit": 1639701180000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639701180000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639703220000,
+        "density": 2
+      },
+      {
+        "zeit": 1639703220000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639703220000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639703820000,
+        "density": 2
+      },
+      {
+        "zeit": 1639703820000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639703820000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639704480000,
+        "density": 2
+      },
+      {
+        "zeit": 1639704480000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639704480000,
+        "usage": 15
+      },
+      {
+        "zeit": 1639705620000,
+        "density": 1
+      },
+      {
+        "zeit": 1639705620000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639705620000,
+        "usage": 1
+      }
+    ],
+    "VIB Area": [
+      {
+        "zeit": 1639674540000,
+        "density": 1
+      },
+      {
+        "zeit": 1639674540000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639674540000,
+        "usage": 1
+      }
+    ],
+    "Scans": [
+      {
+        "zeit": 1639666800000,
+        "usage": 62
+      },
+      {
+        "zeit": 1639667100000,
+        "usage": 86
+      },
+      {
+        "zeit": 1639667400000,
+        "usage": 139
+      },
+      {
+        "zeit": 1639667700000,
+        "usage": 222
+      },
+      {
+        "zeit": 1639668000000,
+        "usage": 358
+      },
+      {
+        "zeit": 1639668300000,
+        "usage": 522
+      },
+      {
+        "zeit": 1639668600000,
+        "usage": 735
+      },
+      {
+        "zeit": 1639668900000,
+        "usage": 939
+      },
+      {
+        "zeit": 1639669200000,
+        "usage": 1091
+      },
+      {
+        "zeit": 1639669500000,
+        "usage": 1378
+      },
+      {
+        "zeit": 1639669800000,
+        "usage": 1605
+      },
+      {
+        "zeit": 1639670100000,
+        "usage": 1959
+      },
+      {
+        "zeit": 1639670400000,
+        "usage": 2396
+      },
+      {
+        "zeit": 1639670700000,
+        "usage": 2730
+      },
+      {
+        "zeit": 1639671000000,
+        "usage": 3076
+      },
+      {
+        "zeit": 1639671300000,
+        "usage": 3321
+      },
+      {
+        "zeit": 1639671600000,
+        "usage": 3808
+      },
+      {
+        "zeit": 1639671900000,
+        "usage": 4145
+      },
+      {
+        "zeit": 1639672200000,
+        "usage": 4628
+      },
+      {
+        "zeit": 1639672500000,
+        "usage": 5223
+      },
+      {
+        "zeit": 1639672800000,
+        "usage": 5743
+      },
+      {
+        "zeit": 1639673100000,
+        "usage": 6304
+      },
+      {
+        "zeit": 1639673400000,
+        "usage": 6664
+      },
+      {
+        "zeit": 1639673700000,
+        "usage": 7137
+      },
+      {
+        "zeit": 1639674000000,
+        "usage": 7469
+      },
+      {
+        "zeit": 1639674300000,
+        "usage": 7877
+      },
+      {
+        "zeit": 1639674600000,
+        "usage": 8659
+      },
+      {
+        "zeit": 1639674900000,
+        "usage": 9365
+      },
+      {
+        "zeit": 1639675200000,
+        "usage": 10091
+      },
+      {
+        "zeit": 1639675500000,
+        "usage": 11107
+      },
+      {
+        "zeit": 1639675800000,
+        "usage": 12187
+      },
+      {
+        "zeit": 1639676100000,
+        "usage": 12832
+      },
+      {
+        "zeit": 1639676400000,
+        "usage": 13632
+      },
+      {
+        "zeit": 1639676700000,
+        "usage": 14662
+      },
+      {
+        "zeit": 1639677000000,
+        "usage": 15504
+      },
+      {
+        "zeit": 1639677300000,
+        "usage": 16192
+      },
+      {
+        "zeit": 1639677600000,
+        "usage": 16857
+      },
+      {
+        "zeit": 1639677900000,
+        "usage": 17831
+      },
+      {
+        "zeit": 1639678200000,
+        "usage": 18949
+      },
+      {
+        "zeit": 1639678500000,
+        "usage": 19728
+      },
+      {
+        "zeit": 1639678800000,
+        "usage": 20351
+      },
+      {
+        "zeit": 1639679100000,
+        "usage": 20849
+      },
+      {
+        "zeit": 1639679400000,
+        "usage": 21880
+      },
+      {
+        "zeit": 1639679700000,
+        "usage": 23030
+      },
+      {
+        "zeit": 1639680000000,
+        "usage": 24503
+      },
+      {
+        "zeit": 1639680300000,
+        "usage": 26402
+      },
+      {
+        "zeit": 1639680600000,
+        "usage": 27563
+      },
+      {
+        "zeit": 1639680900000,
+        "usage": 28909
+      },
+      {
+        "zeit": 1639681200000,
+        "usage": 30665
+      },
+      {
+        "zeit": 1639681500000,
+        "usage": 31969
+      },
+      {
+        "zeit": 1639681800000,
+        "usage": 33691
+      },
+      {
+        "zeit": 1639682100000,
+        "usage": 35333
+      },
+      {
+        "zeit": 1639682400000,
+        "usage": 36746
+      },
+      {
+        "zeit": 1639682700000,
+        "usage": 38006
+      },
+      {
+        "zeit": 1639683000000,
+        "usage": 39431
+      },
+      {
+        "zeit": 1639683300000,
+        "usage": 40583
+      },
+      {
+        "zeit": 1639683600000,
+        "usage": 41760
+      },
+      {
+        "zeit": 1639683900000,
+        "usage": 43034
+      },
+      {
+        "zeit": 1639684200000,
+        "usage": 43930
+      },
+      {
+        "zeit": 1639684500000,
+        "usage": 44703
+      },
+      {
+        "zeit": 1639684800000,
+        "usage": 46151
+      },
+      {
+        "zeit": 1639685100000,
+        "usage": 47792
+      },
+      {
+        "zeit": 1639685400000,
+        "usage": 48957
+      },
+      {
+        "zeit": 1639685700000,
+        "usage": 50026
+      },
+      {
+        "zeit": 1639686000000,
+        "usage": 51060
+      },
+      {
+        "zeit": 1639686300000,
+        "usage": 52005
+      },
+      {
+        "zeit": 1639686600000,
+        "usage": 53193
+      },
+      {
+        "zeit": 1639686900000,
+        "usage": 54308
+      },
+      {
+        "zeit": 1639687200000,
+        "usage": 55369
+      },
+      {
+        "zeit": 1639687500000,
+        "usage": 56371
+      },
+      {
+        "zeit": 1639687800000,
+        "usage": 57361
+      },
+      {
+        "zeit": 1639688100000,
+        "usage": 58421
+      },
+      {
+        "zeit": 1639688400000,
+        "usage": 59830
+      },
+      {
+        "zeit": 1639688700000,
+        "usage": 61366
+      },
+      {
+        "zeit": 1639689000000,
+        "usage": 62175
+      },
+      {
+        "zeit": 1639689300000,
+        "usage": 63053
+      },
+      {
+        "zeit": 1639689600000,
+        "usage": 64412
+      },
+      {
+        "zeit": 1639689900000,
+        "usage": 65578
+      },
+      {
+        "zeit": 1639690200000,
+        "usage": 66820
+      },
+      {
+        "zeit": 1639690500000,
+        "usage": 67909
+      },
+      {
+        "zeit": 1639690800000,
+        "usage": 68711
+      },
+      {
+        "zeit": 1639691100000,
+        "usage": 69455
+      },
+      {
+        "zeit": 1639691400000,
+        "usage": 70534
+      },
+      {
+        "zeit": 1639691700000,
+        "usage": 71581
+      },
+      {
+        "zeit": 1639692000000,
+        "usage": 72995
+      },
+      {
+        "zeit": 1639692300000,
+        "usage": 74193
+      },
+      {
+        "zeit": 1639692600000,
+        "usage": 75176
+      },
+      {
+        "zeit": 1639692900000,
+        "usage": 75996
+      },
+      {
+        "zeit": 1639693200000,
+        "usage": 76600
+      },
+      {
+        "zeit": 1639693500000,
+        "usage": 77432
+      },
+      {
+        "zeit": 1639693800000,
+        "usage": 78282
+      },
+      {
+        "zeit": 1639694100000,
+        "usage": 79188
+      },
+      {
+        "zeit": 1639694400000,
+        "usage": 80231
+      },
+      {
+        "zeit": 1639694700000,
+        "usage": 80895
+      },
+      {
+        "zeit": 1639695000000,
+        "usage": 81517
+      },
+      {
+        "zeit": 1639695300000,
+        "usage": 81912
+      },
+      {
+        "zeit": 1639695600000,
+        "usage": 82205
+      },
+      {
+        "zeit": 1639695900000,
+        "usage": 82476
+      },
+      {
+        "zeit": 1639696200000,
+        "usage": 82695
+      },
+      {
+        "zeit": 1639696500000,
+        "usage": 82955
+      },
+      {
+        "zeit": 1639696800000,
+        "usage": 83309
+      },
+      {
+        "zeit": 1639697100000,
+        "usage": 83622
+      },
+      {
+        "zeit": 1639697400000,
+        "usage": 83735
+      },
+      {
+        "zeit": 1639697700000,
+        "usage": 83831
+      },
+      {
+        "zeit": 1639698000000,
+        "usage": 84000
+      },
+      {
+        "zeit": 1639698300000,
+        "usage": 84155
+      },
+      {
+        "zeit": 1639698600000,
+        "usage": 84469
+      },
+      {
+        "zeit": 1639698900000,
+        "usage": 84796
+      },
+      {
+        "zeit": 1639699200000,
+        "usage": 84796
+      }
+    ]
+  },
+  "day2": {
+    "Big Beast Right": [
+      {
+        "zeit": 1639756140000,
+        "density": 3
+      },
+      {
+        "zeit": 1639758120000,
+        "density": 3
+      },
+      {
+        "zeit": 1639760100000,
+        "density": 5
+      },
+      {
+        "zeit": 1639761300000,
+        "density": 5
+      },
+      {
+        "zeit": 1639763880000,
+        "density": 5
+      },
+      {
+        "zeit": 1639765320000,
+        "density": 6
+      },
+      {
+        "zeit": 1639774380000,
+        "density": 5
+      },
+      {
+        "zeit": 1639775340000,
+        "density": 4
+      },
+      {
+        "zeit": 1639777140000,
+        "density": 5
+      },
+      {
+        "zeit": 1639779420000,
+        "density": 6
+      },
+      {
+        "zeit": 1639780560000,
+        "density": 6
+      },
+      {
+        "zeit": 1639781940000,
+        "density": 5
+      },
+      {
+        "zeit": 1639756140000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639758120000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639760100000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639761300000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639763880000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639765320000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639774380000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639775340000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639777140000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639779420000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639780560000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639781940000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639785420000,
+        "tension": 7
+      },
+      {
+        "zeit": 1639753200000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639756140000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639758120000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639760100000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639761300000,
+        "usage": 80
+      },
+      {
+        "zeit": 1639763880000,
+        "usage": 80
+      },
+      {
+        "zeit": 1639765320000,
+        "usage": 80
+      },
+      {
+        "zeit": 1639774380000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639775340000,
+        "usage": 55
+      },
+      {
+        "zeit": 1639777140000,
+        "usage": 80
+      },
+      {
+        "zeit": 1639779420000,
+        "usage": 85
+      },
+      {
+        "zeit": 1639780560000,
+        "usage": 85
+      },
+      {
+        "zeit": 1639781700000,
+        "usage": 75
+      },
+      {
+        "zeit": 1639781940000,
+        "usage": 80
+      },
+      {
+        "zeit": 1639794000000,
+        "usage": 5
+      }
+    ],
+    "Big Beast Left": [
+      {
+        "zeit": 1639756140000,
+        "density": 1
+      },
+      {
+        "zeit": 1639758120000,
+        "density": 4
+      },
+      {
+        "zeit": 1639759980000,
+        "density": 4
+      },
+      {
+        "zeit": 1639761420000,
+        "density": 5
+      },
+      {
+        "zeit": 1639763520000,
+        "density": 4
+      },
+      {
+        "zeit": 1639765320000,
+        "density": 6
+      },
+      {
+        "zeit": 1639769220000,
+        "density": 6
+      },
+      {
+        "zeit": 1639772520000,
+        "density": 6
+      },
+      {
+        "zeit": 1639773720000,
+        "density": 6
+      },
+      {
+        "zeit": 1639775340000,
+        "density": 4
+      },
+      {
+        "zeit": 1639776180000,
+        "density": 4
+      },
+      {
+        "zeit": 1639777200000,
+        "density": 4
+      },
+      {
+        "zeit": 1639777680000,
+        "density": 5
+      },
+      {
+        "zeit": 1639780020000,
+        "density": 4
+      },
+      {
+        "zeit": 1639780560000,
+        "density": 6
+      },
+      {
+        "zeit": 1639781940000,
+        "density": 5
+      },
+      {
+        "zeit": 1639785420000,
+        "density": 6
+      },
+      {
+        "zeit": 1639788960000,
+        "density": 4
+      },
+      {
+        "zeit": 1639790280000,
+        "density": 3
+      },
+      {
+        "zeit": 1639792200000,
+        "density": 3
+      },
+      {
+        "zeit": 1639756140000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639758120000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639759980000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639761420000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639763520000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639765320000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639769220000,
+        "tension": 6
+      },
+      {
+        "zeit": 1639772520000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639773720000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639775340000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639776180000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639777200000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639777680000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639780020000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639780560000,
+        "tension": 6
+      },
+      {
+        "zeit": 1639781940000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639785420000,
+        "tension": 6
+      },
+      {
+        "zeit": 1639788960000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639790280000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639792200000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639753200000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639756140000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639758120000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639759980000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639761420000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639763520000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639765320000,
+        "usage": 80
+      },
+      {
+        "zeit": 1639769220000,
+        "usage": 100
+      },
+      {
+        "zeit": 1639772520000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639773720000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639775340000,
+        "usage": 55
+      },
+      {
+        "zeit": 1639776180000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639777200000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639777680000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639780020000,
+        "usage": 80
+      },
+      {
+        "zeit": 1639780560000,
+        "usage": 85
+      },
+      {
+        "zeit": 1639781700000,
+        "usage": 75
+      },
+      {
+        "zeit": 1639781940000,
+        "usage": 80
+      },
+      {
+        "zeit": 1639785420000,
+        "usage": 80
+      },
+      {
+        "zeit": 1639788960000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639790280000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639792200000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639794000000,
+        "usage": 5
+      }
+    ],
+    "Big Beast Circle": [
+      {
+        "zeit": 1639756320000,
+        "density": 0
+      },
+      {
+        "zeit": 1639758300000,
+        "density": 1
+      },
+      {
+        "zeit": 1639760340000,
+        "density": 1
+      },
+      {
+        "zeit": 1639761600000,
+        "density": 1
+      },
+      {
+        "zeit": 1639763880000,
+        "density": 1
+      },
+      {
+        "zeit": 1639772520000,
+        "density": 2
+      },
+      {
+        "zeit": 1639774080000,
+        "density": 1
+      },
+      {
+        "zeit": 1639781040000,
+        "density": 1
+      },
+      {
+        "zeit": 1639783200000,
+        "density": 1
+      },
+      {
+        "zeit": 1639788960000,
+        "density": 1
+      },
+      {
+        "zeit": 1639790400000,
+        "density": 1
+      },
+      {
+        "zeit": 1639756320000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639758300000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639760340000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639761600000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639763880000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639772520000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639774080000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639781040000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639783200000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639788960000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639790400000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639753200000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639756320000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639758300000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639760340000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639761600000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639763880000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639772520000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639774080000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639781040000,
+        "usage": 45
+      },
+      {
+        "zeit": 1639783200000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639790400000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639794000000,
+        "usage": 5
+      }
+    ],
+    "MDL Town": [
+      {
+        "zeit": 1639757040000,
+        "density": 0
+      },
+      {
+        "zeit": 1639759440000,
+        "density": 2
+      },
+      {
+        "zeit": 1639763700000,
+        "density": 2
+      },
+      {
+        "zeit": 1639764600000,
+        "density": 2
+      },
+      {
+        "zeit": 1639766100000,
+        "density": 2
+      },
+      {
+        "zeit": 1639766520000,
+        "density": 2
+      },
+      {
+        "zeit": 1639767060000,
+        "density": 2
+      },
+      {
+        "zeit": 1639768860000,
+        "density": 2
+      },
+      {
+        "zeit": 1639771260000,
+        "density": 2
+      },
+      {
+        "zeit": 1639772520000,
+        "density": 2
+      },
+      {
+        "zeit": 1639773060000,
+        "density": 2
+      },
+      {
+        "zeit": 1639773900000,
+        "density": 2
+      },
+      {
+        "zeit": 1639774140000,
+        "density": 2
+      },
+      {
+        "zeit": 1639775580000,
+        "density": 3
+      },
+      {
+        "zeit": 1639775700000,
+        "density": 3
+      },
+      {
+        "zeit": 1639776240000,
+        "density": 4
+      },
+      {
+        "zeit": 1639777680000,
+        "density": 4
+      },
+      {
+        "zeit": 1639779000000,
+        "density": 2
+      },
+      {
+        "zeit": 1639782060000,
+        "density": 4
+      },
+      {
+        "zeit": 1639783980000,
+        "density": 4
+      },
+      {
+        "zeit": 1639784760000,
+        "density": 4
+      },
+      {
+        "zeit": 1639787880000,
+        "density": 3
+      },
+      {
+        "zeit": 1639790340000,
+        "density": 2
+      },
+      {
+        "zeit": 1639791300000,
+        "density": 1
+      },
+      {
+        "zeit": 1639757040000,
+        "tension": 0
+      },
+      {
+        "zeit": 1639759440000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639763700000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639764600000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639766100000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639766520000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639767060000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639768860000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639771260000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639772520000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639773060000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639773900000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639774140000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639775580000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639775700000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639776240000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639777680000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639779000000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639782060000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639783980000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639784760000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639787880000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639790340000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639791300000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639753200000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639757040000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639759440000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639763700000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639764600000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639766100000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639766520000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639767060000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639768860000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639771260000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639772520000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639773060000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639773900000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639774140000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639775580000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639775700000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639776240000,
+        "usage": 80
+      },
+      {
+        "zeit": 1639777680000,
+        "usage": 80
+      },
+      {
+        "zeit": 1639779000000,
+        "usage": 80
+      },
+      {
+        "zeit": 1639782060000,
+        "usage": 85
+      },
+      {
+        "zeit": 1639783980000,
+        "usage": 85
+      },
+      {
+        "zeit": 1639784760000,
+        "usage": 90
+      },
+      {
+        "zeit": 1639787880000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639790340000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639791300000,
+        "usage": 25
+      }
+    ],
+    "Dance Tent": [
+      {
+        "zeit": 1639756560000,
+        "density": 1
+      },
+      {
+        "zeit": 1639757940000,
+        "density": 1
+      },
+      {
+        "zeit": 1639759320000,
+        "density": 1
+      },
+      {
+        "zeit": 1639760100000,
+        "density": 1
+      },
+      {
+        "zeit": 1639764540000,
+        "density": 1
+      },
+      {
+        "zeit": 1639765200000,
+        "density": 1
+      },
+      {
+        "zeit": 1639765980000,
+        "density": 1
+      },
+      {
+        "zeit": 1639766520000,
+        "density": 2
+      },
+      {
+        "zeit": 1639766940000,
+        "density": 2
+      },
+      {
+        "zeit": 1639767720000,
+        "density": 2
+      },
+      {
+        "zeit": 1639768020000,
+        "density": 2
+      },
+      {
+        "zeit": 1639769220000,
+        "density": 2
+      },
+      {
+        "zeit": 1639769580000,
+        "density": 2
+      },
+      {
+        "zeit": 1639770000000,
+        "density": 3
+      },
+      {
+        "zeit": 1639770240000,
+        "density": 2
+      },
+      {
+        "zeit": 1639770660000,
+        "density": 4
+      },
+      {
+        "zeit": 1639771440000,
+        "density": 4
+      },
+      {
+        "zeit": 1639772280000,
+        "density": 4
+      },
+      {
+        "zeit": 1639773060000,
+        "density": 4
+      },
+      {
+        "zeit": 1639773420000,
+        "density": 4
+      },
+      {
+        "zeit": 1639773780000,
+        "density": 4
+      },
+      {
+        "zeit": 1639774380000,
+        "density": 4
+      },
+      {
+        "zeit": 1639774800000,
+        "density": 4
+      },
+      {
+        "zeit": 1639775100000,
+        "density": 4
+      },
+      {
+        "zeit": 1639775880000,
+        "density": 4
+      },
+      {
+        "zeit": 1639776720000,
+        "density": 4
+      },
+      {
+        "zeit": 1639777620000,
+        "density": 4
+      },
+      {
+        "zeit": 1639778340000,
+        "density": 4
+      },
+      {
+        "zeit": 1639779300000,
+        "density": 4
+      },
+      {
+        "zeit": 1639780260000,
+        "density": 3
+      },
+      {
+        "zeit": 1639781700000,
+        "density": 3
+      },
+      {
+        "zeit": 1639784760000,
+        "density": 3
+      },
+      {
+        "zeit": 1639786140000,
+        "density": 3
+      },
+      {
+        "zeit": 1639787400000,
+        "density": 3
+      },
+      {
+        "zeit": 1639789320000,
+        "density": 3
+      },
+      {
+        "zeit": 1639790760000,
+        "density": 3
+      },
+      {
+        "zeit": 1639756560000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639757940000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639759320000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639760100000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639764540000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639765200000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639765980000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639766520000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639766940000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639767720000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639768020000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639769220000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639769580000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639770240000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639770660000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639771440000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639772280000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639773060000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639773480000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639773780000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639774380000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639774800000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639775100000,
+        "tension": 6
+      },
+      {
+        "zeit": 1639775880000,
+        "tension": 6
+      },
+      {
+        "zeit": 1639776720000,
+        "tension": 6
+      },
+      {
+        "zeit": 1639777620000,
+        "tension": 6
+      },
+      {
+        "zeit": 1639778340000,
+        "tension": 6
+      },
+      {
+        "zeit": 1639779300000,
+        "tension": 6
+      },
+      {
+        "zeit": 1639780260000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639781700000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639784760000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639786140000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639787400000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639789320000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639790760000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639753200000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639756560000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639757940000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639760100000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639764540000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639765200000,
+        "usage": 4
+      },
+      {
+        "zeit": 1639765980000,
+        "usage": 4
+      },
+      {
+        "zeit": 1639766520000,
+        "usage": 15
+      },
+      {
+        "zeit": 1639766940000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639767720000,
+        "usage": 15
+      },
+      {
+        "zeit": 1639768020000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639769220000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639769580000,
+        "usage": 45
+      },
+      {
+        "zeit": 1639770240000,
+        "usage": 55
+      },
+      {
+        "zeit": 1639770660000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639770720000,
+        "usage": 75
+      },
+      {
+        "zeit": 1639771440000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639772280000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639773060000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639773480000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639773780000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639774380000,
+        "usage": 80
+      },
+      {
+        "zeit": 1639774800000,
+        "usage": 80
+      },
+      {
+        "zeit": 1639775100000,
+        "usage": 85
+      },
+      {
+        "zeit": 1639775880000,
+        "usage": 85
+      },
+      {
+        "zeit": 1639776720000,
+        "usage": 85
+      },
+      {
+        "zeit": 1639777620000,
+        "usage": 85
+      },
+      {
+        "zeit": 1639778340000,
+        "usage": 85
+      },
+      {
+        "zeit": 1639779300000,
+        "usage": 85
+      },
+      {
+        "zeit": 1639780260000,
+        "usage": 85
+      },
+      {
+        "zeit": 1639781700000,
+        "usage": 55
+      },
+      {
+        "zeit": 1639784760000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639786140000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639787400000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639789320000,
+        "usage": 55
+      },
+      {
+        "zeit": 1639790760000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639794000000,
+        "usage": 0
+      }
+    ],
+    "Underground 1": [
+      {
+        "zeit": 1639755180000,
+        "density": 1
+      },
+      {
+        "zeit": 1639757040000,
+        "density": 1
+      },
+      {
+        "zeit": 1639758720000,
+        "density": 1
+      },
+      {
+        "zeit": 1639764000000,
+        "density": 1
+      },
+      {
+        "zeit": 1639765920000,
+        "density": 1
+      },
+      {
+        "zeit": 1639767600000,
+        "density": 2
+      },
+      {
+        "zeit": 1639769340000,
+        "density": 2
+      },
+      {
+        "zeit": 1639771200000,
+        "density": 2
+      },
+      {
+        "zeit": 1639773060000,
+        "density": 2
+      },
+      {
+        "zeit": 1639773840000,
+        "density": 2
+      },
+      {
+        "zeit": 1639774980000,
+        "density": 2
+      },
+      {
+        "zeit": 1639775700000,
+        "density": 2
+      },
+      {
+        "zeit": 1639776780000,
+        "density": 2
+      },
+      {
+        "zeit": 1639778400000,
+        "density": 2
+      },
+      {
+        "zeit": 1639780380000,
+        "density": 2
+      },
+      {
+        "zeit": 1639781400000,
+        "density": 2
+      },
+      {
+        "zeit": 1639782060000,
+        "density": 2
+      },
+      {
+        "zeit": 1639783560000,
+        "density": 2
+      },
+      {
+        "zeit": 1639784040000,
+        "density": 2
+      },
+      {
+        "zeit": 1639785600000,
+        "density": 2
+      },
+      {
+        "zeit": 1639787400000,
+        "density": 2
+      },
+      {
+        "zeit": 1639788360000,
+        "density": 2
+      },
+      {
+        "zeit": 1639789440000,
+        "density": 2
+      },
+      {
+        "zeit": 1639790820000,
+        "density": 2
+      },
+      {
+        "zeit": 1639755180000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639757040000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639758720000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639764000000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639765920000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639767600000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639769340000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639771200000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639773060000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639773840000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639774980000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639775700000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639776780000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639778400000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639780380000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639781400000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639782060000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639783560000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639784040000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639785600000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639787400000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639788360000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639789440000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639790820000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639753200000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639755180000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639757040000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639758720000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639764000000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639765920000,
+        "usage": 15
+      },
+      {
+        "zeit": 1639767600000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639769340000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639771200000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639773060000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639773840000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639774980000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639775700000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639776780000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639778400000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639780380000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639781400000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639782060000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639783560000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639784040000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639785600000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639787400000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639788360000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639789440000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639790820000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639793400000,
+        "usage": 0
+      }
+    ],
+    "Underground 2": [
+      {
+        "zeit": 1639755180000,
+        "density": 1
+      },
+      {
+        "zeit": 1639757040000,
+        "density": 1
+      },
+      {
+        "zeit": 1639758720000,
+        "density": 1
+      },
+      {
+        "zeit": 1639764000000,
+        "density": 1
+      },
+      {
+        "zeit": 1639765920000,
+        "density": 1
+      },
+      {
+        "zeit": 1639767600000,
+        "density": 2
+      },
+      {
+        "zeit": 1639769340000,
+        "density": 2
+      },
+      {
+        "zeit": 1639771200000,
+        "density": 3
+      },
+      {
+        "zeit": 1639773060000,
+        "density": 3
+      },
+      {
+        "zeit": 1639773840000,
+        "density": 3
+      },
+      {
+        "zeit": 1639774980000,
+        "density": 3
+      },
+      {
+        "zeit": 1639775700000,
+        "density": 3
+      },
+      {
+        "zeit": 1639776780000,
+        "density": 2
+      },
+      {
+        "zeit": 1639778400000,
+        "density": 3
+      },
+      {
+        "zeit": 1639780380000,
+        "density": 3
+      },
+      {
+        "zeit": 1639781400000,
+        "density": 3
+      },
+      {
+        "zeit": 1639782060000,
+        "density": 3
+      },
+      {
+        "zeit": 1639783560000,
+        "density": 3
+      },
+      {
+        "zeit": 1639784040000,
+        "density": 3
+      },
+      {
+        "zeit": 1639785600000,
+        "density": 3
+      },
+      {
+        "zeit": 1639787400000,
+        "density": 2
+      },
+      {
+        "zeit": 1639788360000,
+        "density": 2
+      },
+      {
+        "zeit": 1639789440000,
+        "density": 2
+      },
+      {
+        "zeit": 1639790820000,
+        "density": 2
+      },
+      {
+        "zeit": 1639755180000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639757040000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639758720000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639764000000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639765920000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639767600000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639769340000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639771200000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639773060000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639773840000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639774980000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639775700000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639776780000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639778400000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639780380000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639781400000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639782060000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639783560000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639784040000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639785600000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639787400000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639788360000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639789440000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639790820000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639753200000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639755180000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639757040000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639758720000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639764000000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639765920000,
+        "usage": 15
+      },
+      {
+        "zeit": 1639767600000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639769340000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639771200000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639773060000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639773840000,
+        "usage": 75
+      },
+      {
+        "zeit": 1639774980000,
+        "usage": 75
+      },
+      {
+        "zeit": 1639775700000,
+        "usage": 75
+      },
+      {
+        "zeit": 1639776780000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639778400000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639780380000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639781400000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639782060000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639783560000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639784040000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639785600000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639787400000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639788360000,
+        "usage": 55
+      },
+      {
+        "zeit": 1639789440000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639790820000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639793400000,
+        "usage": 0
+      }
+    ],
+    "Underground 3": [
+      {
+        "zeit": 1639755180000,
+        "density": 1
+      },
+      {
+        "zeit": 1639757040000,
+        "density": 1
+      },
+      {
+        "zeit": 1639758720000,
+        "density": 1
+      },
+      {
+        "zeit": 1639764000000,
+        "density": 1
+      },
+      {
+        "zeit": 1639765920000,
+        "density": 2
+      },
+      {
+        "zeit": 1639767600000,
+        "density": 2
+      },
+      {
+        "zeit": 1639769340000,
+        "density": 2
+      },
+      {
+        "zeit": 1639771200000,
+        "density": 2
+      },
+      {
+        "zeit": 1639773060000,
+        "density": 2
+      },
+      {
+        "zeit": 1639773840000,
+        "density": 2
+      },
+      {
+        "zeit": 1639774980000,
+        "density": 3
+      },
+      {
+        "zeit": 1639775700000,
+        "density": 2
+      },
+      {
+        "zeit": 1639776780000,
+        "density": 2
+      },
+      {
+        "zeit": 1639778400000,
+        "density": 2
+      },
+      {
+        "zeit": 1639780380000,
+        "density": 2
+      },
+      {
+        "zeit": 1639781400000,
+        "density": 2
+      },
+      {
+        "zeit": 1639782060000,
+        "density": 2
+      },
+      {
+        "zeit": 1639783560000,
+        "density": 2
+      },
+      {
+        "zeit": 1639784040000,
+        "density": 2
+      },
+      {
+        "zeit": 1639785600000,
+        "density": 2
+      },
+      {
+        "zeit": 1639787400000,
+        "density": 2
+      },
+      {
+        "zeit": 1639788360000,
+        "density": 2
+      },
+      {
+        "zeit": 1639789440000,
+        "density": 2
+      },
+      {
+        "zeit": 1639790820000,
+        "density": 2
+      },
+      {
+        "zeit": 1639755180000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639757040000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639758720000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639764000000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639765920000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639767600000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639769340000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639771200000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639773060000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639773840000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639774980000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639775700000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639776780000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639778400000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639780380000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639781400000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639782060000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639783560000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639784040000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639785600000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639787400000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639788360000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639789440000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639790820000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639753200000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639755180000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639757040000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639758720000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639764000000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639765920000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639767600000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639769340000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639771200000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639773060000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639773840000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639774980000,
+        "usage": 89
+      },
+      {
+        "zeit": 1639775700000,
+        "usage": 75
+      },
+      {
+        "zeit": 1639776780000,
+        "usage": 75
+      },
+      {
+        "zeit": 1639778400000,
+        "usage": 75
+      },
+      {
+        "zeit": 1639780380000,
+        "usage": 75
+      },
+      {
+        "zeit": 1639781400000,
+        "usage": 75
+      },
+      {
+        "zeit": 1639782060000,
+        "usage": 75
+      },
+      {
+        "zeit": 1639783560000,
+        "usage": 75
+      },
+      {
+        "zeit": 1639784040000,
+        "usage": 75
+      },
+      {
+        "zeit": 1639785600000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639787400000,
+        "usage": 75
+      },
+      {
+        "zeit": 1639788360000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639789440000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639790820000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639793400000,
+        "usage": 0
+      }
+    ],
+    "Underground 4": [
+      {
+        "zeit": 1639755180000,
+        "density": 1
+      },
+      {
+        "zeit": 1639757040000,
+        "density": 1
+      },
+      {
+        "zeit": 1639758720000,
+        "density": 1
+      },
+      {
+        "zeit": 1639764000000,
+        "density": 1
+      },
+      {
+        "zeit": 1639765920000,
+        "density": 1
+      },
+      {
+        "zeit": 1639767600000,
+        "density": 2
+      },
+      {
+        "zeit": 1639769340000,
+        "density": 2
+      },
+      {
+        "zeit": 1639771200000,
+        "density": 3
+      },
+      {
+        "zeit": 1639773060000,
+        "density": 3
+      },
+      {
+        "zeit": 1639773840000,
+        "density": 3
+      },
+      {
+        "zeit": 1639774980000,
+        "density": 4
+      },
+      {
+        "zeit": 1639775700000,
+        "density": 4
+      },
+      {
+        "zeit": 1639776780000,
+        "density": 4
+      },
+      {
+        "zeit": 1639778400000,
+        "density": 4
+      },
+      {
+        "zeit": 1639780380000,
+        "density": 4
+      },
+      {
+        "zeit": 1639781400000,
+        "density": 4
+      },
+      {
+        "zeit": 1639782060000,
+        "density": 4
+      },
+      {
+        "zeit": 1639783560000,
+        "density": 3
+      },
+      {
+        "zeit": 1639784040000,
+        "density": 3
+      },
+      {
+        "zeit": 1639785600000,
+        "density": 3
+      },
+      {
+        "zeit": 1639787400000,
+        "density": 3
+      },
+      {
+        "zeit": 1639788360000,
+        "density": 2
+      },
+      {
+        "zeit": 1639789440000,
+        "density": 2
+      },
+      {
+        "zeit": 1639790820000,
+        "density": 2
+      },
+      {
+        "zeit": 1639755180000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639757040000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639758720000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639764000000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639765920000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639767600000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639769340000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639771200000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639773060000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639773840000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639774980000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639775700000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639776780000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639778400000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639780380000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639781400000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639782060000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639783560000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639784040000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639785600000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639787400000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639788360000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639789440000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639790820000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639753200000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639755180000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639757040000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639758720000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639764000000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639765920000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639767600000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639769340000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639771200000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639773060000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639773840000,
+        "usage": 85
+      },
+      {
+        "zeit": 1639774980000,
+        "usage": 85
+      },
+      {
+        "zeit": 1639775700000,
+        "usage": 80
+      },
+      {
+        "zeit": 1639776780000,
+        "usage": 80
+      },
+      {
+        "zeit": 1639778400000,
+        "usage": 75
+      },
+      {
+        "zeit": 1639780380000,
+        "usage": 86
+      },
+      {
+        "zeit": 1639781400000,
+        "usage": 85
+      },
+      {
+        "zeit": 1639782060000,
+        "usage": 80
+      },
+      {
+        "zeit": 1639783560000,
+        "usage": 75
+      },
+      {
+        "zeit": 1639784040000,
+        "usage": 75
+      },
+      {
+        "zeit": 1639785600000,
+        "usage": 80
+      },
+      {
+        "zeit": 1639787400000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639788360000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639789440000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639790820000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639793400000,
+        "usage": 0
+      }
+    ],
+    "Down Beast": [
+      {
+        "zeit": 1639757040000,
+        "density": 0
+      },
+      {
+        "zeit": 1639759440000,
+        "density": 1
+      },
+      {
+        "zeit": 1639763700000,
+        "density": 1
+      },
+      {
+        "zeit": 1639764600000,
+        "density": 1
+      },
+      {
+        "zeit": 1639766100000,
+        "density": 1
+      },
+      {
+        "zeit": 1639766520000,
+        "density": 1
+      },
+      {
+        "zeit": 1639767060000,
+        "density": 1
+      },
+      {
+        "zeit": 1639768860000,
+        "density": 1
+      },
+      {
+        "zeit": 1639771260000,
+        "density": 1
+      },
+      {
+        "zeit": 1639772520000,
+        "density": 1
+      },
+      {
+        "zeit": 1639773060000,
+        "density": 2
+      },
+      {
+        "zeit": 1639773900000,
+        "density": 1
+      },
+      {
+        "zeit": 1639774140000,
+        "density": 4
+      },
+      {
+        "zeit": 1639775160000,
+        "density": 4
+      },
+      {
+        "zeit": 1639777680000,
+        "density": 1
+      },
+      {
+        "zeit": 1639779000000,
+        "density": 1
+      },
+      {
+        "zeit": 1639782060000,
+        "density": 1
+      },
+      {
+        "zeit": 1639787880000,
+        "density": 1
+      },
+      {
+        "zeit": 1639789320000,
+        "density": 3
+      },
+      {
+        "zeit": 1639791480000,
+        "density": 1
+      },
+      {
+        "zeit": 1639757040000,
+        "tension": 0
+      },
+      {
+        "zeit": 1639759440000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639763700000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639764600000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639766100000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639766520000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639767060000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639768860000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639771260000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639772520000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639773060000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639773900000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639774140000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639775160000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639777680000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639779000000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639782060000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639787880000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639789320000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639791480000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639753200000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639757040000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639759440000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639763700000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639764600000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639766100000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639766520000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639767060000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639768860000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639771260000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639772520000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639773060000,
+        "usage": 35
+      },
+      {
+        "zeit": 1639773900000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639774140000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639775160000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639777680000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639779000000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639782060000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639787880000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639789320000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639791480000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639793400000,
+        "usage": 0
+      }
+    ],
+    "VIB Area": [
+      {
+        "zeit": 1639755480000,
+        "density": 1
+      },
+      {
+        "zeit": 1639760100000,
+        "density": 1
+      },
+      {
+        "zeit": 1639761300000,
+        "density": 1
+      },
+      {
+        "zeit": 1639763880000,
+        "density": 1
+      },
+      {
+        "zeit": 1639764900000,
+        "density": 1
+      },
+      {
+        "zeit": 1639766040000,
+        "density": 1
+      },
+      {
+        "zeit": 1639767720000,
+        "density": 2
+      },
+      {
+        "zeit": 1639769460000,
+        "density": 2
+      },
+      {
+        "zeit": 1639771260000,
+        "density": 2
+      },
+      {
+        "zeit": 1639772100000,
+        "density": 2
+      },
+      {
+        "zeit": 1639777380000,
+        "density": 5
+      },
+      {
+        "zeit": 1639777980000,
+        "density": 3
+      },
+      {
+        "zeit": 1639779060000,
+        "density": 3
+      },
+      {
+        "zeit": 1639781160000,
+        "density": 3
+      },
+      {
+        "zeit": 1639781940000,
+        "density": 3
+      },
+      {
+        "zeit": 1639784040000,
+        "density": 3
+      },
+      {
+        "zeit": 1639785600000,
+        "density": 3
+      },
+      {
+        "zeit": 1639786380000,
+        "density": 3
+      },
+      {
+        "zeit": 1639788180000,
+        "density": 3
+      },
+      {
+        "zeit": 1639790700000,
+        "density": 2
+      },
+      {
+        "zeit": 1639755480000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639760100000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639761300000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639763880000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639764900000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639766040000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639767720000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639769460000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639771260000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639772100000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639777380000,
+        "tension": 7
+      },
+      {
+        "zeit": 1639777980000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639779060000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639781160000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639781940000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639784040000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639785600000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639786380000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639788180000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639790700000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639755480000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639760100000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639761300000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639763880000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639764900000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639766040000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639767720000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639769460000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639771260000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639772100000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639777980000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639779060000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639781160000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639781940000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639784040000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639785600000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639786380000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639788180000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639790700000,
+        "usage": 50
+      }
+    ],
+    "Scans": [
+      {
+        "zeit": 1639752600000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639753200000,
+        "usage": 834
+      },
+      {
+        "zeit": 1639753500000,
+        "usage": 1732
+      },
+      {
+        "zeit": 1639753800000,
+        "usage": 2485
+      },
+      {
+        "zeit": 1639754100000,
+        "usage": 2907
+      },
+      {
+        "zeit": 1639754400000,
+        "usage": 3420
+      },
+      {
+        "zeit": 1639754700000,
+        "usage": 3855
+      },
+      {
+        "zeit": 1639755000000,
+        "usage": 4399
+      },
+      {
+        "zeit": 1639755300000,
+        "usage": 5107
+      },
+      {
+        "zeit": 1639755600000,
+        "usage": 5919
+      },
+      {
+        "zeit": 1639755900000,
+        "usage": 6752
+      },
+      {
+        "zeit": 1639756200000,
+        "usage": 7577
+      },
+      {
+        "zeit": 1639756500000,
+        "usage": 8484
+      },
+      {
+        "zeit": 1639756800000,
+        "usage": 9324
+      },
+      {
+        "zeit": 1639757100000,
+        "usage": 10325
+      },
+      {
+        "zeit": 1639757400000,
+        "usage": 11367
+      },
+      {
+        "zeit": 1639757700000,
+        "usage": 12371
+      },
+      {
+        "zeit": 1639758000000,
+        "usage": 13459
+      },
+      {
+        "zeit": 1639758300000,
+        "usage": 14478
+      },
+      {
+        "zeit": 1639758600000,
+        "usage": 15693
+      },
+      {
+        "zeit": 1639758900000,
+        "usage": 16690
+      },
+      {
+        "zeit": 1639759200000,
+        "usage": 17780
+      },
+      {
+        "zeit": 1639759500000,
+        "usage": 18860
+      },
+      {
+        "zeit": 1639759800000,
+        "usage": 20212
+      },
+      {
+        "zeit": 1639760100000,
+        "usage": 21398
+      },
+      {
+        "zeit": 1639760400000,
+        "usage": 22635
+      },
+      {
+        "zeit": 1639760700000,
+        "usage": 23702
+      },
+      {
+        "zeit": 1639761000000,
+        "usage": 24959
+      },
+      {
+        "zeit": 1639761300000,
+        "usage": 26209
+      },
+      {
+        "zeit": 1639761600000,
+        "usage": 27575
+      },
+      {
+        "zeit": 1639761900000,
+        "usage": 28677
+      },
+      {
+        "zeit": 1639762200000,
+        "usage": 29882
+      },
+      {
+        "zeit": 1639762500000,
+        "usage": 31041
+      },
+      {
+        "zeit": 1639762800000,
+        "usage": 32126
+      },
+      {
+        "zeit": 1639763100000,
+        "usage": 33342
+      },
+      {
+        "zeit": 1639763400000,
+        "usage": 34445
+      },
+      {
+        "zeit": 1639763700000,
+        "usage": 35721
+      },
+      {
+        "zeit": 1639764000000,
+        "usage": 37055
+      },
+      {
+        "zeit": 1639764300000,
+        "usage": 38496
+      },
+      {
+        "zeit": 1639764600000,
+        "usage": 39973
+      },
+      {
+        "zeit": 1639764900000,
+        "usage": 41524
+      },
+      {
+        "zeit": 1639765200000,
+        "usage": 43007
+      },
+      {
+        "zeit": 1639765500000,
+        "usage": 44399
+      },
+      {
+        "zeit": 1639765800000,
+        "usage": 45921
+      },
+      {
+        "zeit": 1639766100000,
+        "usage": 47315
+      },
+      {
+        "zeit": 1639766400000,
+        "usage": 48607
+      },
+      {
+        "zeit": 1639766700000,
+        "usage": 50073
+      },
+      {
+        "zeit": 1639767000000,
+        "usage": 51537
+      },
+      {
+        "zeit": 1639767300000,
+        "usage": 52820
+      },
+      {
+        "zeit": 1639767600000,
+        "usage": 54143
+      },
+      {
+        "zeit": 1639767900000,
+        "usage": 55347
+      },
+      {
+        "zeit": 1639768200000,
+        "usage": 56599
+      },
+      {
+        "zeit": 1639768500000,
+        "usage": 58078
+      },
+      {
+        "zeit": 1639768800000,
+        "usage": 59689
+      },
+      {
+        "zeit": 1639769100000,
+        "usage": 61327
+      },
+      {
+        "zeit": 1639769400000,
+        "usage": 62803
+      },
+      {
+        "zeit": 1639769700000,
+        "usage": 64172
+      },
+      {
+        "zeit": 1639770000000,
+        "usage": 65601
+      },
+      {
+        "zeit": 1639770300000,
+        "usage": 66996
+      },
+      {
+        "zeit": 1639770600000,
+        "usage": 68295
+      },
+      {
+        "zeit": 1639770900000,
+        "usage": 69541
+      },
+      {
+        "zeit": 1639771200000,
+        "usage": 70886
+      },
+      {
+        "zeit": 1639771500000,
+        "usage": 72195
+      },
+      {
+        "zeit": 1639771800000,
+        "usage": 73362
+      },
+      {
+        "zeit": 1639772100000,
+        "usage": 74402
+      },
+      {
+        "zeit": 1639772400000,
+        "usage": 75424
+      },
+      {
+        "zeit": 1639772700000,
+        "usage": 76319
+      },
+      {
+        "zeit": 1639773000000,
+        "usage": 77278
+      },
+      {
+        "zeit": 1639773300000,
+        "usage": 78168
+      },
+      {
+        "zeit": 1639773600000,
+        "usage": 78980
+      },
+      {
+        "zeit": 1639773900000,
+        "usage": 79926
+      },
+      {
+        "zeit": 1639774200000,
+        "usage": 80811
+      },
+      {
+        "zeit": 1639774500000,
+        "usage": 81770
+      },
+      {
+        "zeit": 1639774800000,
+        "usage": 82769
+      },
+      {
+        "zeit": 1639775100000,
+        "usage": 83771
+      },
+      {
+        "zeit": 1639775400000,
+        "usage": 84708
+      },
+      {
+        "zeit": 1639775700000,
+        "usage": 85599
+      },
+      {
+        "zeit": 1639776000000,
+        "usage": 86432
+      },
+      {
+        "zeit": 1639776300000,
+        "usage": 87275
+      },
+      {
+        "zeit": 1639776600000,
+        "usage": 88192
+      },
+      {
+        "zeit": 1639776900000,
+        "usage": 89146
+      },
+      {
+        "zeit": 1639777200000,
+        "usage": 89966
+      },
+      {
+        "zeit": 1639777500000,
+        "usage": 90772
+      },
+      {
+        "zeit": 1639777800000,
+        "usage": 91516
+      },
+      {
+        "zeit": 1639778100000,
+        "usage": 92252
+      },
+      {
+        "zeit": 1639778400000,
+        "usage": 92890
+      },
+      {
+        "zeit": 1639778700000,
+        "usage": 93326
+      },
+      {
+        "zeit": 1639779000000,
+        "usage": 93840
+      },
+      {
+        "zeit": 1639779300000,
+        "usage": 94288
+      },
+      {
+        "zeit": 1639779600000,
+        "usage": 94727
+      },
+      {
+        "zeit": 1639779900000,
+        "usage": 95031
+      },
+      {
+        "zeit": 1639780200000,
+        "usage": 95435
+      },
+      {
+        "zeit": 1639780500000,
+        "usage": 95639
+      },
+      {
+        "zeit": 1639782240000,
+        "usage": 97665
+      },
+      {
+        "zeit": 1639782720000,
+        "usage": 98033
+      },
+      {
+        "zeit": 1639783740000,
+        "usage": 98694
+      },
+      {
+        "zeit": 1639784100000,
+        "usage": 100533
+      },
+      {
+        "zeit": 1639786140000,
+        "usage": 100000
+      }
+    ]
+  },
+  "day3": {
+    "Big Beast Right": [
+      {
+        "zeit": 1639841640000,
+        "density": 2
+      },
+      {
+        "zeit": 1639844880000,
+        "density": 0
+      },
+      {
+        "zeit": 1639844940000,
+        "density": 2
+      },
+      {
+        "zeit": 1639846440000,
+        "density": 2
+      },
+      {
+        "zeit": 1639847580000,
+        "density": 4
+      },
+      {
+        "zeit": 1639848900000,
+        "density": 4
+      },
+      {
+        "zeit": 1639850520000,
+        "density": 4
+      },
+      {
+        "zeit": 1639851720000,
+        "density": 4
+      },
+      {
+        "zeit": 1639853040000,
+        "density": 5
+      },
+      {
+        "zeit": 1639854900000,
+        "density": 3
+      },
+      {
+        "zeit": 1639856640000,
+        "density": 3
+      },
+      {
+        "zeit": 1639859160000,
+        "density": 4
+      },
+      {
+        "zeit": 1639860600000,
+        "density": 4
+      },
+      {
+        "zeit": 1639862520000,
+        "density": 5
+      },
+      {
+        "zeit": 1639866360000,
+        "density": 4
+      },
+      {
+        "zeit": 1639867500000,
+        "density": 4
+      },
+      {
+        "zeit": 1639868340000,
+        "density": 4
+      },
+      {
+        "zeit": 1639869180000,
+        "density": 4
+      },
+      {
+        "zeit": 1639870560000,
+        "density": 4
+      },
+      {
+        "zeit": 1639871520000,
+        "density": 5
+      },
+      {
+        "zeit": 1639877400000,
+        "density": 4
+      },
+      {
+        "zeit": 1639877880000,
+        "density": 4
+      },
+      {
+        "zeit": 1639841640000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639844880000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639844940000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639846440000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639847580000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639848900000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639850520000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639851720000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639853040000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639854900000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639856640000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639859160000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639860600000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639865460000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639866360000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639867500000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639868340000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639869180000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639870560000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639871520000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639877400000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639877880000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639841640000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639844880000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639844940000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639846440000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639847580000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639848900000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639850520000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639851720000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639853040000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639854900000,
+        "usage": 35
+      },
+      {
+        "zeit": 1639856640000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639859160000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639860600000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639866360000,
+        "usage": 75
+      },
+      {
+        "zeit": 1639867500000,
+        "usage": 75
+      },
+      {
+        "zeit": 1639868340000,
+        "usage": 75
+      },
+      {
+        "zeit": 1639869180000,
+        "usage": 75
+      },
+      {
+        "zeit": 1639870560000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639871520000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639877400000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639877880000,
+        "usage": 20
+      }
+    ],
+    "Big Beast Left": [
+      {
+        "zeit": 1639841640000,
+        "density": 2
+      },
+      {
+        "zeit": 1639844880000,
+        "density": 0
+      },
+      {
+        "zeit": 1639846440000,
+        "density": 2
+      },
+      {
+        "zeit": 1639846560000,
+        "density": 4
+      },
+      {
+        "zeit": 1639848900000,
+        "density": 4
+      },
+      {
+        "zeit": 1639850520000,
+        "density": 4
+      },
+      {
+        "zeit": 1639851900000,
+        "density": 4
+      },
+      {
+        "zeit": 1639853040000,
+        "density": 5
+      },
+      {
+        "zeit": 1639854900000,
+        "density": 3
+      },
+      {
+        "zeit": 1639856640000,
+        "density": 3
+      },
+      {
+        "zeit": 1639859160000,
+        "density": 4
+      },
+      {
+        "zeit": 1639859460000,
+        "density": 3
+      },
+      {
+        "zeit": 1639860600000,
+        "density": 4
+      },
+      {
+        "zeit": 1639866360000,
+        "density": 4
+      },
+      {
+        "zeit": 1639867500000,
+        "density": 4
+      },
+      {
+        "zeit": 1639868340000,
+        "density": 4
+      },
+      {
+        "zeit": 1639869180000,
+        "density": 4
+      },
+      {
+        "zeit": 1639870560000,
+        "density": 4
+      },
+      {
+        "zeit": 1639871520000,
+        "density": 5
+      },
+      {
+        "zeit": 1639877400000,
+        "density": 4
+      },
+      {
+        "zeit": 1639877880000,
+        "density": 4
+      },
+      {
+        "zeit": 1639841640000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639844880000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639846440000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639846560000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639848900000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639850520000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639851900000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639853040000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639854900000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639856640000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639859160000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639859460000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639860600000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639865460000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639866360000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639867500000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639868340000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639869180000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639870560000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639871520000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639877400000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639877880000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639841640000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639844880000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639845120000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639846440000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639846560000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639848900000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639850520000,
+        "usage": 35
+      },
+      {
+        "zeit": 1639851900000,
+        "usage": 45
+      },
+      {
+        "zeit": 1639853040000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639854900000,
+        "usage": 35
+      },
+      {
+        "zeit": 1639856640000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639859160000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639859460000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639860600000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639866360000,
+        "usage": 75
+      },
+      {
+        "zeit": 1639867500000,
+        "usage": 75
+      },
+      {
+        "zeit": 1639868340000,
+        "usage": 75
+      },
+      {
+        "zeit": 1639869180000,
+        "usage": 75
+      },
+      {
+        "zeit": 1639870560000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639871520000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639877400000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639877880000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639323600000,
+        "density": 5
+      },
+      {
+        "zeit": 1639323600000,
+        "usage": 30000
+      }
+    ],
+    "Big Beast Circle": [
+      {
+        "zeit": 1639841640000,
+        "density": 1
+      },
+      {
+        "zeit": 1639844880000,
+        "density": 0
+      },
+      {
+        "zeit": 1639846500000,
+        "density": 0
+      },
+      {
+        "zeit": 1639850700000,
+        "density": 1
+      },
+      {
+        "zeit": 1639853940000,
+        "density": 1
+      },
+      {
+        "zeit": 1639860300000,
+        "density": 1
+      },
+      {
+        "zeit": 1639868340000,
+        "density": 1
+      },
+      {
+        "zeit": 1639877400000,
+        "density": 1
+      },
+      {
+        "zeit": 1639841640000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639844880000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639846500000,
+        "tension": 0
+      },
+      {
+        "zeit": 1639850700000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639853940000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639860300000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639868340000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639877400000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639841640000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639844880000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639846500000,
+        "usage": 3
+      },
+      {
+        "zeit": 1639850700000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639853940000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639860300000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639877400000,
+        "usage": 5
+      }
+    ],
+    "MDL Town": [
+      {
+        "zeit": 1639840740000,
+        "density": 1
+      },
+      {
+        "zeit": 1639842900000,
+        "density": 1
+      },
+      {
+        "zeit": 1639847160000,
+        "density": 1
+      },
+      {
+        "zeit": 1639849260000,
+        "density": 1
+      },
+      {
+        "zeit": 1639854420000,
+        "density": 1
+      },
+      {
+        "zeit": 1639854840000,
+        "density": 1
+      },
+      {
+        "zeit": 1639855500000,
+        "density": 1
+      },
+      {
+        "zeit": 1639856040000,
+        "density": 1
+      },
+      {
+        "zeit": 1639860000000,
+        "density": 2
+      },
+      {
+        "zeit": 1639864200000,
+        "density": 1
+      },
+      {
+        "zeit": 1639866420000,
+        "density": 1
+      },
+      {
+        "zeit": 1639868820000,
+        "density": 2
+      },
+      {
+        "zeit": 1639877400000,
+        "density": 1
+      },
+      {
+        "zeit": 1639840740000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639842900000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639847160000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639849260000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639854420000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639854840000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639855500000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639856040000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639860000000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639864200000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639866420000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639868820000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639877400000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639840740000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639842900000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639847160000,
+        "usage": 15
+      },
+      {
+        "zeit": 1639849260000,
+        "usage": 15
+      },
+      {
+        "zeit": 1639854420000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639854840000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639855500000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639856040000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639860000000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639864200000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639866420000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639868820000,
+        "usage": 75
+      },
+      {
+        "zeit": 1639877400000,
+        "usage": 20
+      }
+    ],
+    "Dance Tent": [
+      {
+        "zeit": 1639846620000,
+        "density": 1
+      },
+      {
+        "zeit": 1639848540000,
+        "density": 1
+      },
+      {
+        "zeit": 1639849260000,
+        "density": 1
+      },
+      {
+        "zeit": 1639852080000,
+        "density": 1
+      },
+      {
+        "zeit": 1639854720000,
+        "density": 2
+      },
+      {
+        "zeit": 1639855860000,
+        "density": 3
+      },
+      {
+        "zeit": 1639857780000,
+        "density": 3
+      },
+      {
+        "zeit": 1639860300000,
+        "density": 3
+      },
+      {
+        "zeit": 1639861260000,
+        "density": 3
+      },
+      {
+        "zeit": 1639863180000,
+        "density": 3
+      },
+      {
+        "zeit": 1639864680000,
+        "density": 2
+      },
+      {
+        "zeit": 1639865160000,
+        "density": 2
+      },
+      {
+        "zeit": 1639866420000,
+        "density": 2
+      },
+      {
+        "zeit": 1639867200000,
+        "density": 2
+      },
+      {
+        "zeit": 1639869720000,
+        "density": 3
+      },
+      {
+        "zeit": 1639870500000,
+        "density": 3
+      },
+      {
+        "zeit": 1639871460000,
+        "density": 3
+      },
+      {
+        "zeit": 1639871760000,
+        "density": 3
+      },
+      {
+        "zeit": 1639872180000,
+        "density": 2
+      },
+      {
+        "zeit": 1639872600000,
+        "density": 2
+      },
+      {
+        "zeit": 1639873020000,
+        "density": 2
+      },
+      {
+        "zeit": 1639874160000,
+        "density": 2
+      },
+      {
+        "zeit": 1639876380000,
+        "density": 2
+      },
+      {
+        "zeit": 1639846620000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639848540000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639849260000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639852080000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639854720000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639855860000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639857780000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639860300000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639861260000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639863180000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639864680000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639865160000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639866420000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639867260000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639869720000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639870500000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639871460000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639871760000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639872180000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639872600000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639873020000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639874160000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639876380000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639846620000,
+        "usage": 3
+      },
+      {
+        "zeit": 1639848540000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639849260000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639852080000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639854720000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639855860000,
+        "usage": 45
+      },
+      {
+        "zeit": 1639857780000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639860300000,
+        "usage": 45
+      },
+      {
+        "zeit": 1639861260000,
+        "usage": 55
+      },
+      {
+        "zeit": 1639863180000,
+        "usage": 55
+      },
+      {
+        "zeit": 1639864680000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639865160000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639866420000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639867320000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639869720000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639870500000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639871460000,
+        "usage": 45
+      },
+      {
+        "zeit": 1639871760000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639872180000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639872600000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639873020000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639874160000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639876380000,
+        "usage": 15
+      }
+    ],
+    "Underground 1": [
+      {
+        "zeit": 1639841580000,
+        "density": 1
+      },
+      {
+        "zeit": 1639843140000,
+        "density": 1
+      },
+      {
+        "zeit": 1639845120000,
+        "density": 1
+      },
+      {
+        "zeit": 1639846680000,
+        "density": 1
+      },
+      {
+        "zeit": 1639848540000,
+        "density": 1
+      },
+      {
+        "zeit": 1639850580000,
+        "density": 1
+      },
+      {
+        "zeit": 1639852200000,
+        "density": 1
+      },
+      {
+        "zeit": 1639855020000,
+        "density": 1
+      },
+      {
+        "zeit": 1639855860000,
+        "density": 2
+      },
+      {
+        "zeit": 1639857720000,
+        "density": 1
+      },
+      {
+        "zeit": 1639859280000,
+        "density": 1
+      },
+      {
+        "zeit": 1639861260000,
+        "density": 1
+      },
+      {
+        "zeit": 1639863060000,
+        "density": 2
+      },
+      {
+        "zeit": 1639864860000,
+        "density": 1
+      },
+      {
+        "zeit": 1639867500000,
+        "density": 1
+      },
+      {
+        "zeit": 1639868340000,
+        "density": 1
+      },
+      {
+        "zeit": 1639870800000,
+        "density": 1
+      },
+      {
+        "zeit": 1639871880000,
+        "density": 1
+      },
+      {
+        "zeit": 1639874160000,
+        "density": 1
+      },
+      {
+        "zeit": 1639875840000,
+        "density": 1
+      },
+      {
+        "zeit": 1639841580000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639843140000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639845120000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639846680000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639848540000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639850580000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639852200000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639855020000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639855860000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639857720000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639859280000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639861260000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639863060000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639864860000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639867500000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639868340000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639870800000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639871880000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639874160000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639875840000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639841580000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639843140000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639845120000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639846680000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639848540000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639850580000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639852200000,
+        "usage": 15
+      },
+      {
+        "zeit": 1639855020000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639855860000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639857720000,
+        "usage": 35
+      },
+      {
+        "zeit": 1639859280000,
+        "usage": 35
+      },
+      {
+        "zeit": 1639861260000,
+        "usage": 35
+      },
+      {
+        "zeit": 1639863060000,
+        "usage": 45
+      },
+      {
+        "zeit": 1639864860000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639867500000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639868340000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639870800000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639871880000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639874160000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639875840000,
+        "usage": 20
+      }
+    ],
+    "Underground 2": [
+      {
+        "zeit": 1639841580000,
+        "density": 1
+      },
+      {
+        "zeit": 1639843140000,
+        "density": 1
+      },
+      {
+        "zeit": 1639845120000,
+        "density": 1
+      },
+      {
+        "zeit": 1639846680000,
+        "density": 1
+      },
+      {
+        "zeit": 1639848540000,
+        "density": 1
+      },
+      {
+        "zeit": 1639850580000,
+        "density": 1
+      },
+      {
+        "zeit": 1639852200000,
+        "density": 1
+      },
+      {
+        "zeit": 1639855020000,
+        "density": 2
+      },
+      {
+        "zeit": 1639855860000,
+        "density": 1
+      },
+      {
+        "zeit": 1639857720000,
+        "density": 2
+      },
+      {
+        "zeit": 1639859280000,
+        "density": 2
+      },
+      {
+        "zeit": 1639861260000,
+        "density": 2
+      },
+      {
+        "zeit": 1639863060000,
+        "density": 1
+      },
+      {
+        "zeit": 1639864860000,
+        "density": 2
+      },
+      {
+        "zeit": 1639867500000,
+        "density": 2
+      },
+      {
+        "zeit": 1639868340000,
+        "density": 2
+      },
+      {
+        "zeit": 1639870800000,
+        "density": 1
+      },
+      {
+        "zeit": 1639871880000,
+        "density": 1
+      },
+      {
+        "zeit": 1639874160000,
+        "density": 1
+      },
+      {
+        "zeit": 1639875840000,
+        "density": 1
+      },
+      {
+        "zeit": 1639841580000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639843140000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639845120000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639846680000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639848540000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639850580000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639852200000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639855020000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639855860000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639857720000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639859280000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639861260000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639863060000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639864860000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639867500000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639868340000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639870800000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639871880000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639874160000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639875840000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639841580000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639843140000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639845120000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639846680000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639848540000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639850580000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639852200000,
+        "usage": 15
+      },
+      {
+        "zeit": 1639855020000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639855860000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639857720000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639859280000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639861260000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639863060000,
+        "usage": 35
+      },
+      {
+        "zeit": 1639864860000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639867500000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639868340000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639870800000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639871880000,
+        "usage": 15
+      },
+      {
+        "zeit": 1639874160000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639875840000,
+        "usage": 20
+      }
+    ],
+    "Underground 3": [
+      {
+        "zeit": 1639841580000,
+        "density": 1
+      },
+      {
+        "zeit": 1639843140000,
+        "density": 1
+      },
+      {
+        "zeit": 1639845120000,
+        "density": 1
+      },
+      {
+        "zeit": 1639846680000,
+        "density": 1
+      },
+      {
+        "zeit": 1639848540000,
+        "density": 1
+      },
+      {
+        "zeit": 1639850580000,
+        "density": 1
+      },
+      {
+        "zeit": 1639852200000,
+        "density": 1
+      },
+      {
+        "zeit": 1639855020000,
+        "density": 1
+      },
+      {
+        "zeit": 1639855860000,
+        "density": 1
+      },
+      {
+        "zeit": 1639857720000,
+        "density": 2
+      },
+      {
+        "zeit": 1639859280000,
+        "density": 2
+      },
+      {
+        "zeit": 1639861260000,
+        "density": 2
+      },
+      {
+        "zeit": 1639863060000,
+        "density": 2
+      },
+      {
+        "zeit": 1639864860000,
+        "density": 2
+      },
+      {
+        "zeit": 1639867500000,
+        "density": 2
+      },
+      {
+        "zeit": 1639868340000,
+        "density": 2
+      },
+      {
+        "zeit": 1639870800000,
+        "density": 1
+      },
+      {
+        "zeit": 1639871880000,
+        "density": 1
+      },
+      {
+        "zeit": 1639874160000,
+        "density": 1
+      },
+      {
+        "zeit": 1639875840000,
+        "density": 1
+      },
+      {
+        "zeit": 1639841580000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639843140000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639845120000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639846680000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639848540000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639850580000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639852200000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639855020000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639855860000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639857720000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639859280000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639861260000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639863060000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639864860000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639867500000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639868340000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639870800000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639871880000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639874160000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639875840000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639841580000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639843140000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639845120000,
+        "usage": 15
+      },
+      {
+        "zeit": 1639846680000,
+        "usage": 15
+      },
+      {
+        "zeit": 1639848540000,
+        "usage": 15
+      },
+      {
+        "zeit": 1639850580000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639852200000,
+        "usage": 15
+      },
+      {
+        "zeit": 1639855020000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639855860000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639857720000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639859280000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639861260000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639863060000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639864860000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639867500000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639868340000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639870800000,
+        "usage": 15
+      },
+      {
+        "zeit": 1639871880000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639874160000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639875840000,
+        "usage": 20
+      }
+    ],
+    "Underground 4": [
+      {
+        "zeit": 1639841580000,
+        "density": 1
+      },
+      {
+        "zeit": 1639843140000,
+        "density": 1
+      },
+      {
+        "zeit": 1639845120000,
+        "density": 1
+      },
+      {
+        "zeit": 1639846680000,
+        "density": 1
+      },
+      {
+        "zeit": 1639848540000,
+        "density": 1
+      },
+      {
+        "zeit": 1639850580000,
+        "density": 1
+      },
+      {
+        "zeit": 1639852200000,
+        "density": 1
+      },
+      {
+        "zeit": 1639855020000,
+        "density": 1
+      },
+      {
+        "zeit": 1639855860000,
+        "density": 1
+      },
+      {
+        "zeit": 1639857720000,
+        "density": 2
+      },
+      {
+        "zeit": 1639859280000,
+        "density": 2
+      },
+      {
+        "zeit": 1639861260000,
+        "density": 2
+      },
+      {
+        "zeit": 1639863060000,
+        "density": 2
+      },
+      {
+        "zeit": 1639864860000,
+        "density": 2
+      },
+      {
+        "zeit": 1639867500000,
+        "density": 1
+      },
+      {
+        "zeit": 1639868340000,
+        "density": 1
+      },
+      {
+        "zeit": 1639870800000,
+        "density": 1
+      },
+      {
+        "zeit": 1639871880000,
+        "density": 1
+      },
+      {
+        "zeit": 1639874160000,
+        "density": 1
+      },
+      {
+        "zeit": 1639875840000,
+        "density": 1
+      },
+      {
+        "zeit": 1639841580000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639843140000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639845120000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639846680000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639848540000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639850580000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639852200000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639855020000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639855860000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639857720000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639859280000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639861260000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639863060000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639864860000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639867500000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639868340000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639870800000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639871880000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639874160000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639875840000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639841580000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639843140000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639845120000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639846680000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639848540000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639850580000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639852200000,
+        "usage": 15
+      },
+      {
+        "zeit": 1639855020000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639855860000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639857720000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639859280000,
+        "usage": 45
+      },
+      {
+        "zeit": 1639861260000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639863060000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639864860000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639867500000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639868340000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639870800000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639871880000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639874160000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639875840000,
+        "usage": 20
+      }
+    ],
+    "Down Beast": [
+      {
+        "zeit": 1639840740000,
+        "density": 1
+      },
+      {
+        "zeit": 1639842900000,
+        "density": 1
+      },
+      {
+        "zeit": 1639847160000,
+        "density": 1
+      },
+      {
+        "zeit": 1639849260000,
+        "density": 1
+      },
+      {
+        "zeit": 1639854420000,
+        "density": 1
+      },
+      {
+        "zeit": 1639854840000,
+        "density": 2
+      },
+      {
+        "zeit": 1639855500000,
+        "density": 4
+      },
+      {
+        "zeit": 1639856040000,
+        "density": 1
+      },
+      {
+        "zeit": 1639860540000,
+        "density": 1
+      },
+      {
+        "zeit": 1639864200000,
+        "density": 1
+      },
+      {
+        "zeit": 1639868820000,
+        "density": 1
+      },
+      {
+        "zeit": 1639872660000,
+        "density": 1
+      },
+      {
+        "zeit": 1639878000000,
+        "density": 1
+      },
+      {
+        "zeit": 1639840740000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639842900000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639847160000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639849260000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639854420000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639854840000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639855500000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639856040000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639860540000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639864200000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639868820000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639872660000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639878000000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639840740000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639843140000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639847160000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639849260000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639854420000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639854840000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639855500000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639856040000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639860540000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639864200000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639868820000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639872660000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639878000000,
+        "usage": 1
+      }
+    ],
+    "VIB Area": [
+      {
+        "zeit": 1639847220000,
+        "density": 1
+      },
+      {
+        "zeit": 1639848240000,
+        "density": 1
+      },
+      {
+        "zeit": 1639854540000,
+        "density": 2
+      },
+      {
+        "zeit": 1639855560000,
+        "density": 2
+      },
+      {
+        "zeit": 1639857060000,
+        "density": 2
+      },
+      {
+        "zeit": 1639857780000,
+        "density": 2
+      },
+      {
+        "zeit": 1639860360000,
+        "density": 2
+      },
+      {
+        "zeit": 1639861920000,
+        "density": 2
+      },
+      {
+        "zeit": 1639862880000,
+        "density": 2
+      },
+      {
+        "zeit": 1639871520000,
+        "density": 2
+      },
+      {
+        "zeit": 1639872960000,
+        "density": 3
+      },
+      {
+        "zeit": 1639847220000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639848240000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639854540000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639855560000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639857060000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639857780000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639860360000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639861920000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639862880000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639871520000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639872960000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639847220000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639848240000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639854540000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639855560000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639857060000,
+        "usage": 15
+      },
+      {
+        "zeit": 1639857780000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639860360000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639861920000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639862880000,
+        "usage": 45
+      },
+      {
+        "zeit": 1639871520000,
+        "usage": 55
+      },
+      {
+        "zeit": 1639872960000,
+        "usage": 55
+      }
+    ],
+    "Scans": [
+      {
+        "zeit": 1639839780000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639840380000,
+        "usage": 1562
+      },
+      {
+        "zeit": 1639841160000,
+        "usage": 2069
+      },
+      {
+        "zeit": 1639842660000,
+        "usage": 3572
+      },
+      {
+        "zeit": 1639843560000,
+        "usage": 4639
+      },
+      {
+        "zeit": 1639843860000,
+        "usage": 5040
+      },
+      {
+        "zeit": 1639844520000,
+        "usage": 5809
+      },
+      {
+        "zeit": 1639845120000,
+        "usage": 6691
+      },
+      {
+        "zeit": 1639845900000,
+        "usage": 7893
+      },
+      {
+        "zeit": 1639846380000,
+        "usage": 8788
+      },
+      {
+        "zeit": 1639847040000,
+        "usage": 11000
+      },
+      {
+        "zeit": 1639847580000,
+        "usage": 13000
+      },
+      {
+        "zeit": 1639849020000,
+        "usage": 15600
+      },
+      {
+        "zeit": 1639849680000,
+        "usage": 16666
+      },
+      {
+        "zeit": 1639850520000,
+        "usage": 17951
+      },
+      {
+        "zeit": 1639850940000,
+        "usage": 18943
+      },
+      {
+        "zeit": 1639852440000,
+        "usage": 19961
+      },
+      {
+        "zeit": 1639853160000,
+        "usage": 21451
+      },
+      {
+        "zeit": 1639854540000,
+        "usage": 24082
+      },
+      {
+        "zeit": 1639855500000,
+        "usage": 24082
+      },
+      {
+        "zeit": 1639856400000,
+        "usage": 27600
+      },
+      {
+        "zeit": 1639857360000,
+        "usage": 29330
+      },
+      {
+        "zeit": 1639858980000,
+        "usage": 32600
+      },
+      {
+        "zeit": 1639861200000,
+        "usage": 36500
+      },
+      {
+        "zeit": 1639862880000,
+        "usage": 38911
+      },
+      {
+        "zeit": 1639864020000,
+        "usage": 40550
+      },
+      {
+        "zeit": 1639865160000,
+        "usage": 41900
+      },
+      {
+        "zeit": 1639865940000,
+        "usage": 42620
+      },
+      {
+        "zeit": 1639867020000,
+        "usage": 43548
+      },
+      {
+        "zeit": 1639868100000,
+        "usage": 44420
+      },
+      {
+        "zeit": 1639869720000,
+        "usage": 44543
+      },
+      {
+        "zeit": 1639870980000,
+        "usage": 44592
+      },
+      {
+        "zeit": 1639872300000,
+        "usage": 46097
+      }
+    ]
+  },
+  "day4": {
+    "Big Beast Right": [
+      {
+        "zeit": 1639928520000,
+        "density": 1
+      },
+      {
+        "zeit": 1639928520000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639928520000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639931520000,
+        "density": 4
+      },
+      {
+        "zeit": 1639931520000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639931520000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639934220000,
+        "density": 4
+      },
+      {
+        "zeit": 1639934220000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639934220000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639935420000,
+        "density": 4
+      },
+      {
+        "zeit": 1639935420000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639935420000,
+        "usage": 45
+      },
+      {
+        "zeit": 1639939260000,
+        "density": 4
+      },
+      {
+        "zeit": 1639939260000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639939260000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639940160000,
+        "density": 5
+      },
+      {
+        "zeit": 1639940160000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639942800000,
+        "density": 4
+      },
+      {
+        "zeit": 1639942800000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639942800000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639963800000,
+        "tension": 0
+      },
+      {
+        "zeit": 1639963800000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639963800000,
+        "density": 0
+      },
+      {
+        "zeit": 1639945560000,
+        "density": 6
+      },
+      {
+        "zeit": 1639945560000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639945560000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639947480000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639947960000,
+        "density": 5
+      },
+      {
+        "zeit": 1639947960000,
+        "tension": 6
+      },
+      {
+        "zeit": 1639949040000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639949340000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639949340000,
+        "density": 5
+      },
+      {
+        "zeit": 1639950000000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639950000000,
+        "density": 4
+      },
+      {
+        "zeit": 1639951020000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639951020000,
+        "density": 3
+      },
+      {
+        "zeit": 1639952340000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639952340000,
+        "density": 2
+      },
+      {
+        "zeit": 1639953060000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639953540000,
+        "density": 4
+      },
+      {
+        "zeit": 1639953540000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639956120000,
+        "density": 3
+      },
+      {
+        "zeit": 1639956120000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639956120000,
+        "usage": 40
+      }
+    ],
+    "Big Beast Left": [
+      {
+        "zeit": 1639928520000,
+        "density": 1
+      },
+      {
+        "zeit": 1639928520000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639928520000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639931520000,
+        "density": 4
+      },
+      {
+        "zeit": 1639931520000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639931520000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639934220000,
+        "density": 4
+      },
+      {
+        "zeit": 1639934220000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639934220000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639935420000,
+        "density": 4
+      },
+      {
+        "zeit": 1639935420000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639935420000,
+        "usage": 45
+      },
+      {
+        "zeit": 1639939260000,
+        "density": 4
+      },
+      {
+        "zeit": 1639939260000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639939260000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639940160000,
+        "density": 5
+      },
+      {
+        "zeit": 1639940160000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639942800000,
+        "density": 4
+      },
+      {
+        "zeit": 1639942800000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639942800000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639963800000,
+        "tension": 0
+      },
+      {
+        "zeit": 1639963800000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639963800000,
+        "density": 0
+      },
+      {
+        "zeit": 1639945800000,
+        "density": 6
+      },
+      {
+        "zeit": 1639945800000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639945800000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639947480000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639947960000,
+        "density": 5
+      },
+      {
+        "zeit": 1639947960000,
+        "tension": 6
+      },
+      {
+        "zeit": 1639949340000,
+        "density": 5
+      },
+      {
+        "zeit": 1639949340000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639950000000,
+        "density": 4
+      },
+      {
+        "zeit": 1639950000000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639951020000,
+        "density": 3
+      },
+      {
+        "zeit": 1639951020000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639952340000,
+        "density": 2
+      },
+      {
+        "zeit": 1639952340000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639953060000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639953540000,
+        "density": 4
+      },
+      {
+        "zeit": 1639953540000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639956120000,
+        "density": 3
+      },
+      {
+        "zeit": 1639956120000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639956120000,
+        "usage": 40
+      }
+    ],
+    "Big Beast Circle": [
+      {
+        "zeit": 1639943460000,
+        "density": 1
+      },
+      {
+        "zeit": 1639943460000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639943460000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639963800000,
+        "tension": 0
+      },
+      {
+        "zeit": 1639963800000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639963800000,
+        "density": 0
+      },
+      {
+        "zeit": 1639956720000,
+        "density": 1
+      },
+      {
+        "zeit": 1639956720000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639956720000,
+        "usage": 30
+      }
+    ],
+    "MDL Town": [
+      {
+        "zeit": 1639928520000,
+        "density": 1
+      },
+      {
+        "zeit": 1639928520000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639928520000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639934280000,
+        "density": 1
+      },
+      {
+        "zeit": 1639934280000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639934280000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639937580000,
+        "density": 1
+      },
+      {
+        "zeit": 1639937580000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639937580000,
+        "usage": 15
+      },
+      {
+        "zeit": 1639940100000,
+        "density": 1
+      },
+      {
+        "zeit": 1639940100000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639940100000,
+        "usage": 15
+      },
+      {
+        "zeit": 1639943520000,
+        "density": 1
+      },
+      {
+        "zeit": 1639943520000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639943520000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639963800000,
+        "tension": 0
+      },
+      {
+        "zeit": 1639963800000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639963800000,
+        "density": 0
+      },
+      {
+        "zeit": 1639952040000,
+        "density": 1
+      },
+      {
+        "zeit": 1639952040000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639952040000,
+        "usage": 20
+      }
+    ],
+    "Dance Tent": [
+      {
+        "zeit": 1639926240000,
+        "density": 1
+      },
+      {
+        "zeit": 1639926240000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639926240000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639928760000,
+        "density": 1
+      },
+      {
+        "zeit": 1639928760000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639928760000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639930140000,
+        "density": 1
+      },
+      {
+        "zeit": 1639930140000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639930140000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639933200000,
+        "density": 1
+      },
+      {
+        "zeit": 1639933200000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639933200000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639937700000,
+        "density": 1
+      },
+      {
+        "zeit": 1639937700000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639937700000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639938600000,
+        "density": 1
+      },
+      {
+        "zeit": 1639938600000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639938600000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639940460000,
+        "density": 1
+      },
+      {
+        "zeit": 1639940460000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639940460000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639943160000,
+        "density": 2
+      },
+      {
+        "zeit": 1639943160000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639943160000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639944000000,
+        "density": 2
+      },
+      {
+        "zeit": 1639944000000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639944000000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639963800000,
+        "tension": 0
+      },
+      {
+        "zeit": 1639963800000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639963800000,
+        "density": 0
+      },
+      {
+        "zeit": 1639944600000,
+        "density": 2
+      },
+      {
+        "zeit": 1639944600000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639944600000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639946520000,
+        "density": 2
+      },
+      {
+        "zeit": 1639946520000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639946520000,
+        "usage": 15
+      },
+      {
+        "zeit": 1639947900000,
+        "density": 2
+      },
+      {
+        "zeit": 1639947900000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639947900000,
+        "usage": 15
+      },
+      {
+        "zeit": 1639948860000,
+        "density": 2
+      },
+      {
+        "zeit": 1639948860000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639948860000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639949160000,
+        "density": 2
+      },
+      {
+        "zeit": 1639949160000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639949160000,
+        "usage": 55
+      },
+      {
+        "zeit": 1639950840000,
+        "density": 2
+      },
+      {
+        "zeit": 1639950840000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639950840000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639951680000,
+        "density": 2
+      },
+      {
+        "zeit": 1639951680000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639951680000,
+        "usage": 45
+      },
+      {
+        "zeit": 1639953540000,
+        "density": 2
+      },
+      {
+        "zeit": 1639953540000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639953540000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639955100000,
+        "density": 2
+      },
+      {
+        "zeit": 1639955100000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639955100000,
+        "usage": 40
+      }
+    ],
+    "Underground 1": [
+      {
+        "zeit": 1639927920000,
+        "density": 1
+      },
+      {
+        "zeit": 1639927920000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639927920000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639931460000,
+        "density": 1
+      },
+      {
+        "zeit": 1639931460000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639931460000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639933200000,
+        "density": 1
+      },
+      {
+        "zeit": 1639933200000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639933200000,
+        "usage": 3
+      },
+      {
+        "zeit": 1639934940000,
+        "density": 1
+      },
+      {
+        "zeit": 1639934940000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639934940000,
+        "usage": 3
+      },
+      {
+        "zeit": 1639939560000,
+        "density": 1
+      },
+      {
+        "zeit": 1639939560000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639939560000,
+        "usage": 3
+      },
+      {
+        "zeit": 1639940460000,
+        "density": 1
+      },
+      {
+        "zeit": 1639940460000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639940460000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639944000000,
+        "density": 1
+      },
+      {
+        "zeit": 1639944000000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639944000000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639942020000,
+        "density": 1
+      },
+      {
+        "zeit": 1639942020000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639942020000,
+        "usage": 15
+      },
+      {
+        "zeit": 1639963800000,
+        "tension": 0
+      },
+      {
+        "zeit": 1639963800000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639963800000,
+        "density": 0
+      },
+      {
+        "zeit": 1639945980000,
+        "density": 1
+      },
+      {
+        "zeit": 1639945980000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639945980000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639948380000,
+        "density": 1
+      },
+      {
+        "zeit": 1639948380000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639948380000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639948140000,
+        "density": 1
+      },
+      {
+        "zeit": 1639948140000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639948140000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639949340000,
+        "density": 2
+      },
+      {
+        "zeit": 1639949340000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639949340000,
+        "usage": 45
+      },
+      {
+        "zeit": 1639951740000,
+        "density": 2
+      },
+      {
+        "zeit": 1639951740000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639951740000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639953120000,
+        "density": 2
+      },
+      {
+        "zeit": 1639953120000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639953120000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639955100000,
+        "density": 2
+      },
+      {
+        "zeit": 1639955100000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639955100000,
+        "usage": 50
+      }
+    ],
+    "Underground 2": [
+      {
+        "zeit": 1639927920000,
+        "density": 1
+      },
+      {
+        "zeit": 1639927920000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639927920000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639931460000,
+        "density": 1
+      },
+      {
+        "zeit": 1639931460000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639931460000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639933200000,
+        "density": 1
+      },
+      {
+        "zeit": 1639933200000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639933200000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639934940000,
+        "density": 1
+      },
+      {
+        "zeit": 1639934940000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639934940000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639939560000,
+        "density": 1
+      },
+      {
+        "zeit": 1639939560000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639939560000,
+        "usage": 3
+      },
+      {
+        "zeit": 1639940460000,
+        "density": 1
+      },
+      {
+        "zeit": 1639940460000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639940460000,
+        "usage": 10
+      },
+      {
+        "zeit": 1639944000000,
+        "density": 1
+      },
+      {
+        "zeit": 1639944000000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639944000000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639942020000,
+        "density": 1
+      },
+      {
+        "zeit": 1639942020000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639942020000,
+        "usage": 15
+      },
+      {
+        "zeit": 1639963800000,
+        "tension": 0
+      },
+      {
+        "zeit": 1639963800000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639963800000,
+        "density": 0
+      },
+      {
+        "zeit": 1639945980000,
+        "density": 1
+      },
+      {
+        "zeit": 1639945980000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639945980000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639948380000,
+        "density": 1
+      },
+      {
+        "zeit": 1639948380000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639948380000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639948140000,
+        "density": 1
+      },
+      {
+        "zeit": 1639948140000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639948140000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639949340000,
+        "density": 1
+      },
+      {
+        "zeit": 1639949340000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639949340000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639951740000,
+        "density": 1
+      },
+      {
+        "zeit": 1639951740000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639951740000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639953120000,
+        "density": 1
+      },
+      {
+        "zeit": 1639953120000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639953120000,
+        "usage": 35
+      },
+      {
+        "zeit": 1639955100000,
+        "density": 2
+      },
+      {
+        "zeit": 1639955100000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639955100000,
+        "usage": 45
+      }
+    ],
+    "Underground 3": [
+      {
+        "zeit": 1639927920000,
+        "density": 1
+      },
+      {
+        "zeit": 1639927920000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639927920000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639931460000,
+        "density": 1
+      },
+      {
+        "zeit": 1639931460000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639931460000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639933200000,
+        "density": 1
+      },
+      {
+        "zeit": 1639933200000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639933200000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639934940000,
+        "density": 1
+      },
+      {
+        "zeit": 1639934940000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639934940000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639939560000,
+        "density": 1
+      },
+      {
+        "zeit": 1639939560000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639939560000,
+        "usage": 3
+      },
+      {
+        "zeit": 1639940460000,
+        "density": 1
+      },
+      {
+        "zeit": 1639940460000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639940460000,
+        "usage": 15
+      },
+      {
+        "zeit": 1639944000000,
+        "density": 1
+      },
+      {
+        "zeit": 1639944000000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639944000000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639942020000,
+        "density": 1
+      },
+      {
+        "zeit": 1639942020000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639942020000,
+        "usage": 25
+      },
+      {
+        "zeit": 1639963800000,
+        "tension": 0
+      },
+      {
+        "zeit": 1639963800000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639963800000,
+        "density": 0
+      },
+      {
+        "zeit": 1639945980000,
+        "density": 1
+      },
+      {
+        "zeit": 1639945980000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639945980000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639948380000,
+        "density": 1
+      },
+      {
+        "zeit": 1639948380000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639948380000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639948140000,
+        "density": 1
+      },
+      {
+        "zeit": 1639948140000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639948140000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639949340000,
+        "density": 2
+      },
+      {
+        "zeit": 1639949340000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639949340000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639951740000,
+        "density": 2
+      },
+      {
+        "zeit": 1639951740000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639951740000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639953120000,
+        "density": 2
+      },
+      {
+        "zeit": 1639953120000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639953120000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639955100000,
+        "density": 2
+      },
+      {
+        "zeit": 1639955100000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639955100000,
+        "usage": 60
+      }
+    ],
+    "Underground 4": [
+      {
+        "zeit": 1639927920000,
+        "density": 1
+      },
+      {
+        "zeit": 1639927920000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639927920000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639931460000,
+        "density": 1
+      },
+      {
+        "zeit": 1639931460000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639931460000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639933200000,
+        "density": 1
+      },
+      {
+        "zeit": 1639933200000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639933200000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639934940000,
+        "density": 1
+      },
+      {
+        "zeit": 1639934940000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639934940000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639939560000,
+        "density": 1
+      },
+      {
+        "zeit": 1639939560000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639939560000,
+        "usage": 3
+      },
+      {
+        "zeit": 1639940460000,
+        "density": 1
+      },
+      {
+        "zeit": 1639940460000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639940460000,
+        "usage": 15
+      },
+      {
+        "zeit": 1639944000000,
+        "density": 2
+      },
+      {
+        "zeit": 1639944000000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639944000000,
+        "usage": 45
+      },
+      {
+        "zeit": 1639942020000,
+        "density": 1
+      },
+      {
+        "zeit": 1639942020000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639942020000,
+        "usage": 35
+      },
+      {
+        "zeit": 1639963800000,
+        "tension": 0
+      },
+      {
+        "zeit": 1639963800000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639963800000,
+        "density": 0
+      },
+      {
+        "zeit": 1639945980000,
+        "density": 1
+      },
+      {
+        "zeit": 1639945980000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639945980000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639948380000,
+        "density": 2
+      },
+      {
+        "zeit": 1639948380000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639948380000,
+        "usage": 45
+      },
+      {
+        "zeit": 1639948140000,
+        "density": 2
+      },
+      {
+        "zeit": 1639948140000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639948140000,
+        "usage": 45
+      },
+      {
+        "zeit": 1639949340000,
+        "density": 2
+      },
+      {
+        "zeit": 1639949340000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639949340000,
+        "usage": 40
+      },
+      {
+        "zeit": 1639951740000,
+        "density": 2
+      },
+      {
+        "zeit": 1639951740000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639951740000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639953120000,
+        "density": 2
+      },
+      {
+        "zeit": 1639953120000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639953120000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639955100000,
+        "density": 2
+      },
+      {
+        "zeit": 1639955100000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639955100000,
+        "usage": 50
+      }
+    ],
+    "Down Beast": [
+      {
+        "zeit": 1639928520000,
+        "density": 1
+      },
+      {
+        "zeit": 1639928520000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639928520000,
+        "usage": 1
+      },
+      {
+        "zeit": 1639931580000,
+        "density": 1
+      },
+      {
+        "zeit": 1639931580000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639931580000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639934280000,
+        "density": 1
+      },
+      {
+        "zeit": 1639934280000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639934280000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639937400000,
+        "density": 1
+      },
+      {
+        "zeit": 1639937400000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639937400000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639940100000,
+        "density": 1
+      },
+      {
+        "zeit": 1639940100000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639940100000,
+        "usage": 5
+      },
+      {
+        "zeit": 1639944000000,
+        "density": 5
+      },
+      {
+        "zeit": 1639944000000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639944000000,
+        "usage": 35
+      },
+      {
+        "zeit": 1639941720000,
+        "density": 3
+      },
+      {
+        "zeit": 1639941720000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639941720000,
+        "usage": 15
+      },
+      {
+        "zeit": 1639942140000,
+        "density": 4
+      },
+      {
+        "zeit": 1639942140000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639942140000,
+        "usage": 30
+      },
+      {
+        "zeit": 1639963800000,
+        "tension": 0
+      },
+      {
+        "zeit": 1639963800000,
+        "usage": 0
+      },
+      {
+        "zeit": 1639963800000,
+        "density": 0
+      },
+      {
+        "zeit": 1639944600000,
+        "density": 4
+      },
+      {
+        "zeit": 1639944600000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639944600000,
+        "usage": 50
+      },
+      {
+        "zeit": 1639948620000,
+        "density": 4
+      },
+      {
+        "zeit": 1639948620000,
+        "tension": 5
+      },
+      {
+        "zeit": 1639948620000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639952040000,
+        "density": 4
+      },
+      {
+        "zeit": 1639952040000,
+        "tension": 4
+      },
+      {
+        "zeit": 1639952040000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639953300000,
+        "density": 1
+      },
+      {
+        "zeit": 1639953300000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639953300000,
+        "usage": 10
+      }
+    ],
+    "VIB Area": [
+      {
+        "zeit": 1639933740000,
+        "density": 1
+      },
+      {
+        "zeit": 1639933740000,
+        "tension": 1
+      },
+      {
+        "zeit": 1639933740000,
+        "usage": 2
+      },
+      {
+        "zeit": 1639944000000,
+        "density": 2
+      },
+      {
+        "zeit": 1639944000000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639944000000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639945020000,
+        "density": 3
+      },
+      {
+        "zeit": 1639945020000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639945020000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639947480000,
+        "density": 2
+      },
+      {
+        "zeit": 1639947480000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639947480000,
+        "usage": 60
+      },
+      {
+        "zeit": 1639948320000,
+        "density": 3
+      },
+      {
+        "zeit": 1639948320000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639948320000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639948860000,
+        "density": 2
+      },
+      {
+        "zeit": 1639948860000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639948860000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639950960000,
+        "density": 3
+      },
+      {
+        "zeit": 1639950960000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639950960000,
+        "usage": 65
+      },
+      {
+        "zeit": 1639953540000,
+        "density": 2
+      },
+      {
+        "zeit": 1639953540000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639953540000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639955100000,
+        "density": 3
+      },
+      {
+        "zeit": 1639955100000,
+        "tension": 2
+      },
+      {
+        "zeit": 1639955100000,
+        "usage": 70
+      },
+      {
+        "zeit": 1639956720000,
+        "density": 2
+      },
+      {
+        "zeit": 1639956720000,
+        "tension": 3
+      },
+      {
+        "zeit": 1639956720000,
+        "usage": 60
+      }
+    ],
+    "Scans": [
+      {
+        "zeit": 1639925100000,
+        "usage": 9
+      },
+      {
+        "zeit": 1639926000000,
+        "usage": 20
+      },
+      {
+        "zeit": 1639926300000,
+        "usage": 774
+      },
+      {
+        "zeit": 1639926480000,
+        "usage": 898
+      },
+      {
+        "zeit": 1639926720000,
+        "usage": 1010
+      },
+      {
+        "zeit": 1639927200000,
+        "usage": 1233
+      },
+      {
+        "zeit": 1639927620000,
+        "usage": 1476
+      },
+      {
+        "zeit": 1639927800000,
+        "usage": 1564
+      },
+      {
+        "zeit": 1639928460000,
+        "usage": 1984
+      },
+      {
+        "zeit": 1639929300000,
+        "usage": 2616
+      },
+      {
+        "zeit": 1639930020000,
+        "usage": 3273
+      },
+      {
+        "zeit": 1639930380000,
+        "usage": 3544
+      },
+      {
+        "zeit": 1639931460000,
+        "usage": 4853
+      },
+      {
+        "zeit": 1639932600000,
+        "usage": 6476
+      },
+      {
+        "zeit": 1639934280000,
+        "usage": 9402
+      },
+      {
+        "zeit": 1639934880000,
+        "usage": 10492
+      },
+      {
+        "zeit": 1639935720000,
+        "usage": 12154
+      },
+      {
+        "zeit": 1639937160000,
+        "usage": 14915
+      },
+      {
+        "zeit": 1639937640000,
+        "usage": 16124
+      },
+      {
+        "zeit": 1639938960000,
+        "usage": 18842
+      },
+      {
+        "zeit": 1639940040000,
+        "usage": 21848
+      },
+      {
+        "zeit": 1639941000000,
+        "usage": 24038
+      },
+      {
+        "zeit": 1639942320000,
+        "usage": 27358
+      },
+      {
+        "zeit": 1639943460000,
+        "usage": 30067
+      },
+      {
+        "zeit": 1639943940000,
+        "usage": 31238
+      },
+      {
+        "zeit": 1639945500000,
+        "usage": 34635
+      },
+      {
+        "zeit": 1639945800000,
+        "usage": 35473
+      },
+      {
+        "zeit": 1639947060000,
+        "usage": 37714
+      },
+      {
+        "zeit": 1639947480000,
+        "usage": 38680
+      },
+      {
+        "zeit": 1639948320000,
+        "usage": 40085
+      },
+      {
+        "zeit": 1639949580000,
+        "usage": 42195
+      },
+      {
+        "zeit": 1639950240000,
+        "usage": 43026
+      },
+      {
+        "zeit": 1639950660000,
+        "usage": 43590
+      },
+      {
+        "zeit": 1639952340000,
+        "usage": 45227
+      },
+      {
+        "zeit": 1639954200000,
+        "usage": 46859
+      },
+      {
+        "zeit": 1639954680000,
+        "usage": 47257
+      },
+      {
+        "zeit": 1639955700000,
+        "usage": 47892
+      },
+      {
+        "zeit": 1639956120000,
+        "usage": 48059
+      },
+      {
+        "zeit": 1639957020000,
+        "usage": 48443
+      },
+      {
+        "zeit": 1639958400000,
+        "usage": 48863
+      }
+    ]
+  }
+}
 stages_list=[
     
   { name: "Big Beast Right",short:"br",capacity:11838,coords:"polygon(472.990 249.139, 473.888 249.989, 473.888 249.989, 484.802 265.297, 484.660 266.998, 484.140 268.416, 473.651 275.644, 470.344 267.849, 470.533 266.148, 469.683 264.825, 466.045 265.155, 467.273 256.604, 469.966 251.454)"},
@@ -92,646 +14817,6 @@ temp.push([zzz[2]+","+zzz[3],0,0])}
  }
 
 */
-crowd_data_in = [
-  "01T12:00,br,0,0,0",
-  "01T14:00,br,0,0,0",
-  "01T14:00,bl,0,0,0",
-  "01T14:00,bc,0,0,0",
-    "01T14:00,dt,0,0,0",
-  "01T14:00,db,0,0,0",
-  "01T14:00,u1,0,0,0",
-  "01T14:00,u2,0,0,0",
-  "01T14:00,u3,0,0,0",
-  "01T14:00,u4,0,0,0",
-  "01T16:00,br,0,0,0",
-  "01T16:00,bl,0,0,0",
-  "01T16:00,bc,0,0,0",
-  "01T16:00,dt,0,0,0",
-  "01T16:00,db,0,0,0",
-  "01T16:00,u1,0,0,0",
-  "01T16:00,u2,0,0,0",
-  "01T16:00,u3,0,0,0",
-  "01T16:00,u4,0,0,0",
-  "01T16:30,bl,1,1,1",
-"01T16:30,br,0,0,0",
-"01T16:30,bc,1,1,1",
-"01T16:36,dt,1,1,1",
-"01T16:36,u1,1,1,1",
-"01T16:36,u2,1,1,1",
-"01T16:36,u3,1,1,1",
-"01T16:36,u4,1,1,1",
-"01T16:47,db,1,1,1",
-"01T17:04,dt,2,1,1",
-"01T17:04,u1,1,1,1",
-"01T17:04,u2,1,1,1",
-"01T17:04,u3,1,1,1",
-"01T17:04,u4,1,1,1",
-"01T17:08,db,1,1,1",
-"01T17:10,bl,1,1,1",
-"01T17:10,br,1,1,1",
-"01T17:10,bc1,1,1",
-"01T17:37,dt,5,1,1",
-"01T17:38,mt,0,1,1",
-"01T17:43,db,1,1,1",
-"01T17:46,u1,1,1,1",
-"01T17:46,br,10,1,1", 
-"01T17:46,br,10, 1,1",
-"01T17:47,bc,1,1,1",
-"01T17:59,dt,10,2,2",
-"01T18:02,u1,5,1,1",
-"01T18:02,ug2,5,1,1", 
-"01T18:02,ug3,5,1,1",
-"01T18:02,ug4,1,1,1",
-"01T18:13,mt,5,1,1",
-"01T18:15,bl,10,2,2",
-"01T18:16,br,10, 1, 1",
-"01T18:16,bc,1,1,1",
-"01T18:29,db,1,1,1",
-"01T18:30,dt,5,1,2",
-"01T18:40,bl,5,1,1",
-"01T18:41,br,1,1,1",
-"01T18:41,bc,5,1,1",
-"01T18:41,mt 5,1,1",
-"01T19:06,bl,30,3,2",
-"01T19:06,u1,5,1,1",
-"01T19:06,u2,5,1,1",
-"01T19:06,u3,5,1,1",
-"01T19:06,u4,1,1,1",
-"01T19:06,br,25,2,2",
-"01T19:06,dt,25,3,3",
-"01T19:07,bc,10,1,1",
-"01T19:07,db,1,1,1",
-"01T19:29,bl,55,3,3", // korrigiert von 55
-"01T19:30,br,40,3,2",// korrigiert von 40
-"01T19:30,bc,20,1,1",
-"01T19:34,db,3,2,1",
-"01T19:35,u1,5,1,1",
-"01T19:35,u2,20,1,1",
-"01T19:35,u3,5,1,1",
-"01T19:35,u4,10,1,1",
-"01T19:37,dt,30,3,3",
-"01T19:45,mt,15,1,1",
-"01T20:01,dt,25,3,3",
-"01T20:11,bc,30,1,1",
-"01T20:12,u1,5,1,1",
-"01T20:12,u2,15,1,1",
-"01T20:12,u3,5,1,1",
-"01T20:12,u4,1,1,1",
-"01T20:12,dt,40,3,4",
-"01T20:15,bl,65,3,4",
-"01T20:15,db,4,2,1",
-"01T20:15,br,60,3,4",
-"01T20:22,mt,5,1,1",
-"01T20:29,dt,30,3,3",
-"01T20:30,bl,70,4,4",
-"01T20:30,br,70,4,4",
-"01T20:30,u1,5,1,1",
-"01T20:30,u2,20,1,1", 
-"01T20:30,u3,5,1,1",
-"01T20:30,u4,1,1,1",
-"01T20:44,db,20,3,3",
-"01T20:47,bl, 70,5,5",
-"01T20:47,br,70,4,4",
-"01T20:47,bc, 30,2,2",
-"01T20:53,mt,5,1,1",
-"01T20:59,u1,15,1,1",
-"01T20:59,u2,20,1,1",
-"01T20:59,u3,10,1,1",
-"01T20:59,u4, 15,1,1",
-"01T21:03,dt,25,3,3",
-"01T21:09,br,,5,6",
-"01T21:20,mt,10,1,1",
-"01T21:25,db,1,1,1",
-"01T21:28,u1,20,1,1",
-"01T21:28,u2,20,1,1",
-"01T21:28,u3,15,1,1",
-"01T21:28,u4,20,1,1",
-"01T21:30,dt,25,3,3",
-"01T21:33,mt,20,1,2",
-"01T21:38,bc,40,2,3",
-"01T21:38,bl,65,5,4",
-"01T21:38,br,65,4,4",
-"01T21:44,dt,40,3,4",
-"01T21:59,u1,20,2,1",
-"01T21:59,u2,35,2,1",
-"01T21:59,u3,10,1,1",
-"01T21:59,u4,20,1,1",
-"01T22:03,db,5,2,2",
-"01T22:04,mt,40,2,3",
-"01T22:15,dt,0,0,0",
-"01T22:23,bl,60,4,4",
-"01T22:23,br,60,4,4",
-"01T22:33,bc,65,2,2",
-"01T22:30,db,2,1,1",
-"01T22:30,u1,70,2,2",
-"01T22:30,u2,70,2,2",
-"01T22:30,u3,70,2,2",
-"01T22:30,u4,70,2,2",
-"01T22:44,mt,50,3,4",
-"01T23:05,u1,70,2,2",
-"01T23:05,u2,70,2,2",
-"01T23:05,u3,70,2,2",
-"01T23:05,u4,70,2,2",
-"01T23:13,bl,80,4,3",
-"01T23:13,br,80,4,3",
-"01T23:20,db,30,4,3",
-"01T23:22,mt,25,3,3",
-"01T23:31,u1,60,2,2",
-"01T23:31,u2,60,2,2",
-"01T23:31,u3,40,2,1", 
-"01T23:31,u4,40,2,1",
-"01T23:46,db,45,4,3",
-"02T00:03,u1,50,2,2",
-"02T00:03,u2,50,2,2",
-"02T00:03,u3,65,2,2",
-"02T00:03,u4,50,2,2",
-"02T00:08,mt,20,2,2",
-"02T00:10,db,65,4,3",
-"02T00:16,bc,40,2,2",
-"02T00:16,bl,70,4,3",
-"02T00:16,br,70,4,3",
-"02T00:33,dt,0,0,0",// reopening
-"02T00:38,dt,70,4,4",
-"02T04:00,br,0,0,0",
-"02T04:00,br,0,0,0",
-"02T04:00,bl,0,0,0",
-"02T04:00,bc,0,0,0",
-"02T00:48,dt,85,4,4",
-"02T00:49,br,40,2,2",
-"02T00:49,bl,40,2,2",
-"02T00:50,u1,60,2,1",
-"02T00:50,u2,60,2,1",
-"02T00:50,u3,50,1,1",
-"02T00:50,u4,50,2,1",
-"02T00:53,dt,90,4,5",
-"02T00:58,mt,40,2,3",
-"02T01:07,bl,35,3,3",
-"02T01:07,br,35,3,3",
-"02T01:08,bc,40,1,2",
-"02T01:10,dt,90,4,5",
-"02T01:20,db,20,2,3",
-"02T01:28,u1,70,2,2",
-"02T01:28,u2,60,2,1",
-"02T01:28,u3,50,2,1", 
-"02T01:28,u4,30,1,1",
-"02T02:19,mt,15,2,2",
-"02T02:25,db,25,3,3",
-"02T02:36,bl 30,3,3",
-"02T02:36,br,35,2,3",
-"02T02:36,bc,25,1,4",
-"02T02:38,u2,0,0,0",
-"02T02:38,u3,0,0,0",
-"02T02:38,u4,0,0,0",
-"02T02:45,dt,50,3,3",
-"02T02:56,mt,5,1,1",
-"02T02:59,bl,15,2,2",
-"02T03:00,br,25,2,2",
-"02T03:00,bc,20,2,3",
-"02T03:15,dt,0,0,0",
-"02T02:59,bl,15,2,2",
-"02T03:00,br,25,2,2",
-"02T03:00,bc,20,2,3",
-"02T01:34,dt,85,4,5",
-"02T01:43,bl,40,3,3",
-"02T01:44,br,40,3,3",
-"02T01:45,bc,35,2,2",
-"02T01:54,dt,85,4,4",
-"02T01:58,dt,40,2,3",
-"02T02:31,dt,45,3,4",
-
-"02T04:00,br,1,0,0",
-"02T04:00,bl,1,0,0",
-"02T04:00,bc,1,0,0",
-"02T04:00,dt,1,0,0",
-"02T04:00,db,1,0,0",
-"02T04:00,u1,1,0,0",
-"02T04:00,u2,1,0,0",
-"02T04:00,u3,1,0,0",
-"02T04:00,u4,1,0,0",
-"02T04:00,mt,1,0,0",
-
-"02T14:00,bl,0,0,0",
-"02T14:00,br,0,0,0",
-"02T14:00,bc,0,0,0",
-"02T14:00,dt,0,0,0",
-"02T14:00,db,0,0,0",
-"02T14:00,u1,0,0,0",
-"02T14:00,u2,0,0,0",
-"02T14:00,u3,0,0,0",
-"02T14:00,u4,0,0,0",
-"02T14:00,mt,0,0,0",
-
-"02T16:00,bl,0,0,0",
-"02T16:00,br,0,0,0",
-"02T16:00,bc,0,0,0",
-"02T16:00,dt,0,0,0",
-"02T16:00,db,0,0,0",
-"02T16:00,u1,0,0,0",
-"02T16:00,u2,0,0,0",
-"02T16:00,u3,0,0,0",
-"02T16:00,u4,0,0,0",
-"02T16:00,mt,0,0,0",
-"02T16:35,u1,1,1,1",
-"02T16:35,u2,1,1,1",
-"02T16:35,u3,1,1,1",
-"02T16:35,u4,1,1,1",
-"02T16:39,db,1,1,1",
-"02T16:50,mt,0,1,1",
-"02T17:13,dt,1,1,1",
-"02T17:34,dt,5,1,1",
-"02T17:34,u1,1,1,1",
-"02T17:34,u2,1,1,1",
-"02T17:34,u3,1,1,1",
-"02T17:34,u4,1,1,1",
-"02T17:35,bl,1,1,1",
-"02T17:35,br,1,1,1",
-"02T17:35,bc,1,1,1",
-"02T17:50,mt,5,1,1",
-"02T17:54,dt,1,1,1",
-"02T17:59,bl,10,1,1",
-"02T17:59,br,5,1,1",
-"02T18:00,dt,8,1,1",
-"02T18:04,bc,5,1,1",
-"02T18:06,u1,5,1,1",
-"02T18:06,u2,5,1,1",
-"02T18:06,u3,5,1,1",
-"02T18:06,u4,5,1,1",
-"02T18:10,mt,5,1,1",
-"02T18:28,u1,10,1,1",
-"02T18:28,u2,10,1,1",
-"02T18:28,u3,10,1,1",
-"02T18:28,u4,10,1,1",
-"02T18:29,br,5,2,1",
-"02T18:29,bl,15,2,1",
-"02T18:29,bc,5,1,1",
-"02T18:40,mt,10,1,1",
-"02T18:57,bl,35,2,1",
-"02T18:57,br,15,2,1",
-"02T18:57,bc,5,1,1",
-"02T19:14,u1,15,1,1",
-"02T19:14,u2,10,1,1",
-"02T19:14,u3,10,1,1",
-"02T19:14,u4,15,1,1",
-"02T19:14,bl,55,3,2",
-"02T19:14,br,40,3,2",
-"02T19:17,dt,20,3,3",
-"02T19:30,mt,10,1,1",
-"02T19:30,db,3,1,1",
-"02T19:30,dt,20,2,3",
-"02T19:40,u1,15,1,1",
-"02T19:40,u2,20,1,1",
-"02T19:40,u3,15,1,1",
-"02T19:40,u4,20,1,1",
-"02T19:49,bl,65,3,3",
-"02T19:52,br,60,3,3",
-"02T20:03,bl,75,3,3",
-"02T20:03,br,70,3,3",
-"02T20:05,mt,10,1,1",
-"02T20:05,dt,17,2,2",
-"02T20:16,bl,70,3,3",
-"02T20:16,db,5,2,1",
-"02T20:17,br,65,3,3",
-"02T20:17,bc,30,1,1",
-"02T20:29,dt,50,3,3",
-"02T20:29,mt,15,1,1",
-"02T20:38,u1,10,1,1",
-"02T20:38,u2,15,1,1",
-"02T20:38,u3,15,1,1",
-"02T20:38,u4,20,1,1",
-"02T20:42,dt,60,3,4",
-"02T20:50,db,15,3,3",
-"02T20:50,bl,45,3,3",
-"02T20:51,br,40,3,3",
-"02T20:51,bc,40,1,1",
-"02T20:52,dt,60,4,4",
-"02T20:53,mt,20,2,2",
-"02T21:52,u1,30,1,1",
-"02T21:52,u2,45,2,1",
-"02T21:52,u3,20,1,1",
-"02T21:52,u4,15,1,1",
-"02T21:08,dt,70,4,4",
-"02T21:10,db,50,3,3",
-"02T21:16,db,30,1,1",
-"02T21:17,bc,45,1,2",
-"02T21:24,bl,55,3,3",
-"02T21:25,db,105,4,3",
-"02T21:27,br,45,3,2",
-"02T21:32,u1,40,1,1",
-"02T21:32,u2,55,2,1",
-"02T21:32,u3,35,1,1",
-"02T21:32,u4,20,1,1",
-"02T21:35,db,130,5,3",
-"02T21:37,mt,30,2,3",
-"02T21:49,db,145,5,3",
-"02T21:52,dt,65,3,4",
-"02T21:56,bl,60,3,3",
-"02T21:56,br,50,3,3",
-"02T21:58,u1,40,1,1",
-"02T21:58,u2,40,1,1",
-"02T21:58,u3,35,1,1",
-"02T21:58,u4,20,1,1",
-"02T21:58,bc,40,2,1",
-"02T22:03,mt,35,2,2",
-"02T22:18,dt,50,3,3",
-"02T22:18,dt,50,3,3",
-"02T22:20,db,130,5,3",
-"02T22:28,u1,30,1,1",
-"02T22:28,u2,25,2,1",
-"02T22:28,u3,20,1,1",
-"02T22:28,u4,15,1,1",
-"02T22:29,dt,45,3,3",
-"02T22:35,bl,85,5,5",
-"02T22:35,br,85,5,5",
-"02T22:36,mt,30,1,1",
-"02T22:40,bc,75,3,3",
-"02T22:41,db,0,1,1",
-"02T22:45,dt,40,3,3",
-"02T23:03,u1,20,1,1",
-"02T23:03,u2,20,1,1",
-"02T23:03,u3,20,1,1",
-"02T23:03,u4,35,1,1",
-"02T23:03,bl,,6,6",
-"02T23:03,br,,5,4",
-"02T23:11,mt,40,3,3",
-"02T23:11,db,20,3,3",
-"02T23:12,dt,55,3,3",
-"02T23:27,db,45,3,3",
-"02T23:34,u1,30,1,1",
-"02T23:34,u2,20,1,1",
-"02T23:34,u3,20,1,1",
-"02T23:34,u4,40,2,1",
-"02T23:34,dt,75,4,4",
-"02T23:45,dt,40,2,2",
-"02T23:54,dt,75,4,4",
-"02T23:57,dt,80,4,4",
-"03T00:00,u1,50,2,2",
-"03T00:00,u2,50,2,2",
-"03T00:00,u3,50,2,2",
-"03T00:00,u4,50,2,2",
-"03T00:04,bl,45,3,3",
-"03T00:04,br,40,3,2",
-"03T00:10,mt,40,2,2",
-"03T00:12,dt,85,4,4",
-"03T00:16,dt,95,5,4",
-"03T00:19,db,12,3,2",
-"03T00:30,u1,80,4,2",
-"03T00:30,u2,80,4,2",
-"03T00:30,u3,70,4,2",
-"03T00:30,u4,50,2,2",
-"03T00:30,db,25,3,3",
-"03T00:30,mt,50,3,2",
-"03T00:30,dt,95,4,4",
-"03T00:48,bl,45,3,3",
-"03T00:48,br,40,3,3",
-"03T01:00,bc,40,2,2",
-"03T01:00,u1,70,4,2",
-"03T01:00,u2,74,4,2",
-"03T01:00,u3,70,3,2",
-"03T01:00,u4,50,2,2",
-"03T01:00,bl,40,3,3",
-"03T01:00,br,40,3,3",
-"03T01:00,dt,95,4,4",
-"03T01:00,db,60,5,3",
-"03T01:06,dt,90,4,4",
-"03T01:18,mt,40,2,2",
-"03T01:19,bl,35,2,3",
-"03T01:19,br,35,2,2",
-"03T01:20,bc,30,2,2",
-"03T01:21,u1,70,3,2",
-"03T01:21,u2,70,3,2",
-"03T01:21,u3,60,3,2",
-"03T01:21,u4,80,3,2",
-"03T01:30,db,55,4,3",
-"03T01:30,dt,90,4,4",
-"03T01:30,bl,25,2,2",
-"03T01:30,br,25,2,2",
-"03T02:06,dt,90,4,4",
-"03T02:11,db,45,4,3",
-"03T02:16,mt,40,2,2",
-"03T02:25,dt,90,4,4",
-"03T02:45,dt,90,4,4",
-"03T03:05,dt,90,4,4",
-"03T03:10,dt,15,1,1",
-"03T04:00,br,0,0,0",
-"03T04:00,bl,0,0,0",
-"03T04:00,bc,0,0,0",
-"03T04:00,dt,0,0,0",
-"03T04:00,db,0,0,0",
-"03T04:00,u1,0,0,0",
-"03T04:00,u2,0,0,0",
-"03T04:00,u3,0,0,0",
-"03T04:00,u4,0,0,0",
-"03T04:00,mt,0,0,0",
-"03T14:00,br,0,0,0",
-"03T14:00,bl,0,0,0",
-"03T14:00,bc,0,0,0",
-"03T14:00,dt,0,0,0",
-"03T14:00,db,0,0,0",
-"03T14:00,u1,0,0,0",
-"03T14:00,u2,0,0,0",
-"03T14:00,u3,0,0,0",
-"03T14:00,u4,0,0,0",
-"03T14:00,mt,0,0,0",
-"03T16:30,br,0,0,0",
-"03T16:30,bl,0,0,0",
-"03T16:30,bc,0,0,0",
-"03T16:30,dt,0,0,0",
-"03T16:30,db,0,0,0",
-"03T16:30,u1,0,0,0",
-"03T16:30,u2,0,0,0",
-"03T16:30,u3,0,0,0",
-"03T16:30,u4,0,0,0",
-"03T16:30,mt,0,0,0",
-"03T16:58,db,0,0,0",
-
-
-"03T17:11,dt,0,0,0",
-"03T17:12,u1,0,0,0",
-"03T17:12,u2,0,0,0",
-"03T17:12,u3,0,0,0",
-"03T17:12,u4,0,0,0",
-"03T17:12,mt,0,0,0",
-"03T17:33,dt,1,1,1",
-"03T17:33,br,1,1,1",
-"03T17:33,bl,1,1,1",
-"03T17:33,bc,1,1,1",
-"03T17:37,u1,1,1,1",
-"03T17:37,u2,1,1,1",
-"03T17:37,u3,1,1,1",
-"03T17:37,u4,1,1,1",
-"03T17:47,mt,1,1,1",
-"03T17:50,db,1,1,1",
-"03T18:02,u1,5,1,1", 
-"03T18:02,u2,5,1,1",
-"03T18:02,u3,1,1,1",
-"03T18:02,u4,5,1,1",
-"03T18:05,dt,2,2,1",
-"03T18:12,db,1,1,1",
-"03T18:17,mt,1,1,1",
-"03T18:20,bl,2,1,1",
-"03T18:20,br,2,1,1",
-"03T18:20,bc,1,1,1",
-"03T18:58,bl,5,1,1",
-"03T18:58,br,5,1,1",
-"03T18:58,db 1 1 1",
-"03T18:58,bc,1,1,1",
-"03T19:00,mt,1,1,1",
-"03T19:02,u1,1,1,1",
-"03T19:02,u2,1,1,1",
-"03T19:02,u3,1,1,1",
-"03T19:02,u4,1,1,1",
-"03T19:07,dt,2,1,1",
-"03T19:21,db,2,1,1",
-"03T19:30,bl,15,2,2",
-"03T19:30,br,10,2,2",
-"03T19:30,dt,7,2,2",
-"03T19:30,mt,1,1,1",
-"03T19:30,bc,1,1,1",
-"03T19:30,u1,5,1,1",
-"03T19:30,u2,5,1,1",
-"03T19:30,u3,5,1,1",
-"03T19:30,u4,5,1,1",
-"03T19:45,bl,30,2,3",
-"03T19:45,br,30,2,2",
-"03T19:45,bc,5,1,1",
-"03T20:00,u1,5,1,1", 
-"03T20:00,u2,5,1,1",
-"03T20:00,u3,5,1,1",
-"03T20:00,u4,1,1,1",
-"03T20:00,db,1,1,1",
-"03T20:04,dt,7,2,2",
-"03T20:07,bl,35,2,3",
-"03T20:07,br,35,2,2",
-"03T20:12,mt,5,1,1",
-"03T20:30,u1,10,1,1",
-"03T20:30,u2,5,1,1", 
-"03T20:30,u3,5,1,1",
-"03T20:30,u4,5,1,1",
-"03T20:30,bl,40,2,3",
-"03T20:30,br,40,2,3",
-"03T20:30,bc,5,1,1",
-"03T20:30,db,3,1,1",
-"03T20:30,dt,10,1,1",
-"03T20:45,mt,10,1,1",
-"03T21:00,bl,20,2,2",
-"03T21:00,br,15,2,2",
-"03T21:00,u1,10,1,1",
-"03T21:00,u2,15,1,1", 
-"03T21:00,u3,10,1,1",
-"03T21:00,u4,10,1,1",
-"03T21:00,dt,30,2,2",
-"03T21:15,db,10,3,2",
-"03T21:21,dt,80,3,3",
-"03T21:25,db,20,3,2",
-"03T21:30,u1,15,1,1", 
-"03T21:30,u2,15,1,1", 
-"03T21:30,u3,10,1,1",
-"03T21:30,u4,10,1,1",
-"03T21:30,mt,15,1,1",
-"03T21:30,bl,20,2,2",
-"03T21:30,br,15,2,2",
-"03T21:30,bc,10,1,1",
-"03T21:45,db,20,3,3",
-"03T22:00,u1,20,1,1",
-"03T22:00,u2,35,1,1",
-"03T22:00,u3,20,1,1",
-"03T22:00,u4,5,1,1",
-"03T22:00,dt,80,3,3",
-"03T22:30,u1,20,1,1",
-"03T22:30,u2,45,2,1",
-"03T22:30,u3,15,1,1",
-"03T22:30,u4,20,1,1",
-"03T22:45,mt,15,1,1",
-"03T22:45,u1,25,1,1",
-"03T22:45,u2,50,2,1", 
-"03T22:45,u3,15,1,1",
-"03T22:45,u4,20,1,1",
-"03T22:45,bl,65,3,3",
-"03T22:45,br,65,3,3",
-"03T22:45,db,1,1,1",
-"03T23:00,dt,40,2,2",
-"03T23:15,mt,7,1,1",
-"03T23:30,u1,10,1",
-"03T23:30,u2,50,2,1",
-"03T23:30,u3,15,1",
-"03T23:30,u4,20,1",
-"03T23:30,db,1,1,1",
-"03T23:36,dt,60,4,3",
-"03T24:00,u1,10,1",
-"03T24:00,u2,50,2,1",
-"03T24:00,u3,15,1",
-"03T24:00,u4,20,1",
-"04T00:07,dt,60,4,4",
-"04T00:15,db,1,1,1",
-"04T00:30,dt,60,4,4",
-"04T00:30,u1,10,1",
-"04T00:30,u2,50,2,1",
-"04T00:30,u3,15,1",
-"04T00:30,u4,20,1",
-"04T00:30,bl,65,3,3",
-"04T00:30,br,65,3,3",
-"04T00:30,bc,20,1,1",
-"04T00:36,db,2,1,1",
-"04T00:45,bl,40,2,2",
-"04T00:45,br,40,2,2",
-"04T00:45,bc,30,1,1",
-"04T00:45,mt,30,1,1",
-"04T01:00,dt,65,4,4",
-"04T01:00,bl,40,3,4",
-"04T01:00,br,40,3,5",
-"04T01:00,bc,20,1,1",
-"04T01:00,db,2,1,1",
-"04T01:15,dt,60,3,3",
-"04T01:30,u1,40,1,1",
-"04T01:30,u2,50,2,1",
-"04T01:30,u3,15,1,1",
-"04T01:30,u4,20,1,1",
-"04T01:30,bl,40,2,3",
-"04T01:30,br,40,2,4",
-"04T01:45,db,1,1,1",
-"04T01:45,dt,50,3,2",
-"04T02:00,u1,40,1,1",
-"04T02:00,u2,30,1,1",
-"04T02:00,u3,15,1,1",
-"04T02:00,u4,15,1,1",
-"04T02:00,mt,25,2,2",
-"04T02:00,db,1,1,1",
-"04T02:00,dt,50,3,2",
-"04T02:15,bl,30,2,4",
-"04T02:15,br,30,2,4",
-"04T02:15,bc,20,1,1",
-
-"04T02:30,db,0,1,1",
-"04T02:30,dt 80,3,3",
-"04T02:30,bl,35,2,4",
-"04T02:30,br,35,2,4",
-
-"04T03:00,mt,15,1,1",
-"04T03:00,dt,75,3,3",
-"04T03:22,dt,0,0,0",
-"04T04:30,br,0,0,0",
-"04T04:30,bl,0,0,0",
-"04T04:30,bc,0,0,0",
-"04T04:30,dt,0,0,0",
-"04T04:30,db,0,0,0",
-"04T04:30,u1,0,0,0",
-"04T04:30,u2,0,0,0",
-"04T04:30,u3,0,0,0",
-"04T04:30,u4,0,0,0",
-"04T04:30,mt,0,0,0",
-
-"04T06:00,br,0,0,0",
-"04T06:00,bl,0,0,0",
-"04T06:00,bc,0,0,0",
-"04T06:00,dt,0,0,0",
-"04T06:00,db,0,0,0",
-"04T06:00,u1,0,0,0",
-"04T06:00,u2,0,0,0",
-"04T06:00,u3,0,0,0",
-"04T06:00,u4,0,0,0",
-"04T06:00,mt,0,0,0",
-
-]
 
 ref1dec = {data:[
   210,
@@ -2670,6 +16755,149 @@ for (i=0;i<crowd_data_in.length;i++){
 
   }
 }
+/*
+so bereite man 22 auf
+
+SS22_data = {
+  day1:{"Big Beast Right":[],"Big Beast Left":[],"Big Beast Circle":[],"MDL Town":[],"Dance Tent":[],"Underground 1":[],"Underground 2":[],"Underground 3":[],"Underground 4":[],"Down Beast":[]},
+  day2:{"Big Beast Right":[],"Big Beast Left":[],"Big Beast Circle":[],"MDL Town":[],"Dance Tent":[],"Underground 1":[],"Underground 2":[],"Underground 3":[],"Underground 4":[],"Down Beast":[]},
+  day3:{"Big Beast Right":[],"Big Beast Left":[],"Big Beast Circle":[],"MDL Town":[],"Dance Tent":[],"Underground 1":[],"Underground 2":[],"Underground 3":[],"Underground 4":[],"Down Beast":[]} }
+
+
+for (i=0;i<crowd_data_in_xxx.length;i++){
+
+
+
+temp = crowd_data_in_xxx[i]
+temp = temp.split(',')
+tempdate = "2022-12-"+temp[0]
+tempdate = new Date(tempdate)
+if (temp[1] == "br"){temp[1] ="Big Beast Right"}
+if (temp[1] == "bl"){temp[1] ="Big Beast Left"}
+if (temp[1] == "bc"){temp[1] ="Big Beast Circle"}
+if (temp[1] == "mt"){temp[1] ="MDL Town"}
+if (temp[1] == "db"){temp[1] ="Down Beast"}
+if (temp[1] == "dt"){temp[1] ="Dance Tent"}
+if (temp[1] == "u1"){temp[1] ="Underground 1"}
+if (temp[1] == "u2"){temp[1] ="Underground 2"}
+if (temp[1] == "u3"){temp[1] ="Underground 3"}
+if (temp[1] == "u4"){temp[1] ="Underground 4"}
+
+temp[2] = parseInt(temp[2])
+temp[3] = parseInt(temp[3])
+temp[4] = parseInt(temp[4])
+
+
+d1 = new Date("2022-12-01T10:00")
+d2 = new Date("2022-12-02T10:00")
+d3 = new Date("2022-12-03T10:00")
+d4 = new Date("2022-12-04T10:00")
+
+
+if(tempdate.getTime()>d1.getTime()&& tempdate.getTime()<d2.getTime()){tag=1}
+if(tempdate.getTime()>d2.getTime()&& tempdate.getTime()<d3.getTime()){tag=2}
+if(tempdate.getTime()>d3.getTime()&& tempdate.getTime()<d4.getTime()){tag=3}
+
+
+if (tag==1 ){
+ 
+  SS22_data.day1[temp[1]].push({zeit:tempdate.getTime(),usage:temp[2],density:temp[3],tension:temp[4]})
+}
+if (tag==2 ){
+
+  SS22_data.day2[temp[1]].push({zeit:tempdate.getTime(),usage:temp[2],density:temp[3],tension:temp[4]})
+}
+if (tag==3 ){
+console.log(temp[1])
+  SS22_data.day3[temp[1]].push({zeit:tempdate.getTime(),usage:temp[2],density:temp[3],tension:temp[4]})
+}
+}
+
+
+
+console.log(SS22_data)  
+------------------------------------------------------------------------------------------
+so bearbeitet man die daten von 21
+
+SS21_data = {
+  day1:{"Big Beast Right":[],"Big Beast Left":[],"Big Beast Circle":[],"MDL Town":[],"Dance Tent":[],"Underground 1":[],"Underground 2":[],"Underground 3":[],"Underground 4":[],"Down Beast":[],"VIB Area":[],"Scans":[]},
+  day2:{"Big Beast Right":[],"Big Beast Left":[],"Big Beast Circle":[],"MDL Town":[],"Dance Tent":[],"Underground 1":[],"Underground 2":[],"Underground 3":[],"Underground 4":[],"Down Beast":[],"VIB Area":[],"Scans":[]},
+  day3:{"Big Beast Right":[],"Big Beast Left":[],"Big Beast Circle":[],"MDL Town":[],"Dance Tent":[],"Underground 1":[],"Underground 2":[],"Underground 3":[],"Underground 4":[],"Down Beast":[],"VIB Area":[],"Scans":[]},
+  day4:{"Big Beast Right":[],"Big Beast Left":[],"Big Beast Circle":[],"MDL Town":[],"Dance Tent":[],"Underground 1":[],"Underground 2":[],"Underground 3":[],"Underground 4":[],"Down Beast":[],"VIB Area":[],"Scans":[]} 
+}
+
+
+
+
+for (i=0;i<alte_data.length;i++){
+
+
+
+temp = alte_data[i][0]
+
+temp = temp.split(';')
+
+tempdate = "2021-12-"+temp[2]
+tempdate = new Date(tempdate)
+if (temp[0] == "bn"){temp[0] ="Big Beast Right"}
+if (temp[0] == "bs"){temp[0] ="Big Beast Left"}
+if (temp[0] == "bc"){temp[0] ="Big Beast Circle"}
+if (temp[0] == "mt"){temp[0] ="MDL Town"}
+if (temp[0] == "db"){temp[0] ="Down Beast"}
+if (temp[0] == "dt"){temp[0] ="Dance Tent"}
+if (temp[0] == "u1"){temp[0] ="Underground 1"}
+if (temp[0] == "u2"){temp[0] ="Underground 2"}
+if (temp[0] == "u3"){temp[0] ="Underground 3"}
+if (temp[0] == "u4"){temp[0] ="Underground 4"}
+if (temp[0] == "vib"){temp[0] ="VIB Area"}
+if (temp[1] == "sc"){temp[0] ="Scans"}
+
+if (temp[1] == "u"){a ="usage"}
+if (temp[1] == "d"){a ="density"}
+if (temp[1] == "t"){a ="tension"}
+if (temp[1] == "sc"){a ="usage"}
+if (temp[1] == "oldsc" ||temp[1] == "pu"||temp[0]==undefined||temp[0] ==""){continue}
+
+b = parseFloat(temp[3])
+d1 = new Date("2021-12-16T10:00")
+d2 = new Date("2021-12-17T10:00")
+d3 = new Date("2021-12-18T10:00")
+d4 = new Date("2021-12-19T10:00")
+d5 = new Date("2021-12-20T10:00")
+
+if(tempdate.getTime()>d1.getTime()&& tempdate.getTime()<d2.getTime()){tag=1}
+if(tempdate.getTime()>d2.getTime()&& tempdate.getTime()<d3.getTime()){tag=2}
+if(tempdate.getTime()>d3.getTime()&& tempdate.getTime()<d4.getTime()){tag=3}
+if(tempdate.getTime()>d4.getTime()&& tempdate.getTime()<d5.getTime()){tag=4}
+
+if (tag==1 ){
+  console.log(temp[0])
+  SS21_data.day1[temp[0]].push({zeit:tempdate.getTime(),[a]:b})
+
+}
+if (tag==2 ){
+  console.log(temp[0])
+  SS21_data.day2[temp[0]].push({zeit:tempdate.getTime(),[a]:b})
+  
+}
+if (tag==3 ){
+  console.log(temp[1])
+  SS21_data.day3[temp[0]].push({zeit:tempdate.getTime(),[a]:b})
+  
+}
+if (tag==4 ){
+console.log(temp[1])
+  SS21_data.day4[temp[0]].push({zeit:tempdate.getTime(),[a]:b})
+}
+}
+
+console.log(SS21_data)
+
+
+
+
+
+*/
 
 
 //["2022-12-01","",,,,],

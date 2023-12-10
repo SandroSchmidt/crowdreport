@@ -5,8 +5,28 @@ existing_markers=[]
 isZooming = false
 set_area=0
 set_name ="wrong reporter"
-select_area=0
+farbskala = ["lightblue","#00B0F0","#00B0F0","#92D050","#92D050","#FFFF00","#FFFF00","#FF9201","#FF9201","#FF0000",'red',"#ee00ff","#ee00ff","#ee00ff","#ee00ff","#ee00ff"]
+  
+list_of_reporters = ["sandro","marcel","marc","sasha","eric","tester"]
+set_pos=[9,9]
+da1 = new Date("2023-12-14T10:00")
+da2 = new Date("2023-12-15T10:00")
+da3 = new Date("2023-12-16T10:00")
+da4 = new Date("2023-12-17T10:00")
 
+
+function select_area(set_area){
+  ausgew_area = stages_list[set_area].name
+        d3.select('#densInput').attr('value',current[ausgew_area].density)
+        d3.select('#dens_p').text(current[ausgew_area].density)
+        d3.select('#usageInput').attr('value',current[ausgew_area].usage)
+        d3.select('#usage_p').text(current[ausgew_area].usage+" %")
+
+        set_dens = current[ausgew_area].density
+        set_usage = current[ausgew_area].usage
+        //dens_slider.node().dispatchEvent(new Event('input'));
+
+}
 function draw_arrow(von,nach,farbe,dicke,ttl){
   var polyline = L.polyline([von,nach],{weight:dicke,color:farbe}).addTo(movement_layer);
   var arrowHead = L.polylineDecorator(polyline, {    patterns: [   
@@ -35,18 +55,7 @@ function initialise_firebase(){
   
         }  
 
-        function select_area(set_area){
-          ausgew_area = stages_list[set_area].name
-                d3.select('#densInput').attr('value',current[ausgew_area].density)
-                d3.select('#dens_p').text(current[ausgew_area].density)
-                d3.select('#usageInput').attr('value',current[ausgew_area].usage)
-                d3.select('#usage_p').text(current[ausgew_area].usage+" %")
-      
-                set_dens = current[ausgew_area].density
-                set_usage = current[ausgew_area].usage
-                //dens_slider.node().dispatchEvent(new Event('input'));
-      
-        }
+    
            
 function read_current (){
 
@@ -227,7 +236,7 @@ L.control.layers(
   {"stages":stages_layer,"blocks":green_layer,"spotter":eigensymbole_layer,"movement" :movement_layer,"parking lots":parkinglot_layer,"op-zones":zones_layer}).addTo(mymap);
 
 //ownmarker = L.marker(  [24.996,46.508]).addTo(mymap);
-
+eventmarker =  L.marker([0,0],{icon:eventicon}).addTo(mymap);
 // Swipefunktion
     let touchStartX, touchEndX;
 
@@ -308,3 +317,30 @@ for(i=0;i<stages_list.length;i++)
   stages_list[i].geo = f
 }}}
 
+
+/*
+ww =[]
+for (f=0;f< zones_arr.length;f++){
+  console.log(zones_arr[f][2])
+  ww.push({name:zones_arr[f][0],color:zones_arr[f][1],coords:polystrtoco(zones_arr[f][2]) })
+
+}
+console.log(ww)
+
+
+function polystrtoco (d){
+  ///                                       --------------- mit dieser funktion werden die polygon strings in coordinaten umgewandelt
+  d = d.slice(8)
+  d = d.slice(0,-1)
+  d = d.split(", ")
+  for (i=0;i<d.length;i++){d[i] = d[i].split(" ")}
+  for (i=0;i<d.length;i++){d[i]=[  d[i][1]*yauslpp +25.0074,  d[i][0]*xauslpp +46.49160088116361 ]}
+  return d
+  }
+
+xauslpp =   (46.513899054271185-46.49160088116361  )/508.48//574
+yauslpp = -   (24.99899094193483- 24.995559147406844)/86.33//113
+// events
+
+
+*/
