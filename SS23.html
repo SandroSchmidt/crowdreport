@@ -12,6 +12,7 @@
         <link rel="stylesheet" type="text/css" href="./js/leaflet.css" />
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
         <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+        <script src="https://unpkg.com/leaflet-polylinedecorator/dist/leaflet.polylineDecorator.js"></script>
 
         <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
@@ -63,7 +64,7 @@ database = firebase.database();
       ss23data[temp.area].push({zeit:key,usage:temp.usage,density:temp.density})
     
     })
-    setTimeout(function () {console.table(ss23data)},3000)
+   // setTimeout(function () {console.table(ss23data)},3000)
   })
   
   

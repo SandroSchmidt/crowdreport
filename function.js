@@ -1,10 +1,23 @@
-parking_tooltip =[]
+parking_list ={geo:[],tooltip:[],usage:[]}
 newarea =[];
 allowed_users=["sandro","marc","test1","test2","test3"]
 existing_markers=[]
 isZooming = false
 set_area=0
+set_name ="wrong reporter"
 select_area=0
+
+function draw_arrow(von,nach,farbe,dicke,ttl){
+  var polyline = L.polyline([von,nach],{weight:dicke,color:farbe}).addTo(movement_layer);
+  var arrowHead = L.polylineDecorator(polyline, {    patterns: [   
+       { offset: '100%', repeat: 0, symbol: L.Symbol.arrowHead({ 
+        pixelSize: dicke, polygon: false, 
+        pathOptions: { fillOpacity: 1, weight:dicke,color:farbe } }) }    ]}).addTo(movement_layer);
+setTimeout(function(){
+  polyline.remove()
+  arrowHead.remove()
+},ttl*1000)
+}
 function initialise_firebase(){
   const firebaseConfig = {
           apiKey: "AIzaSyBOOdW1SHCwBZSchUJ7DfJZ1a7-dEYTvuQ",
@@ -62,7 +75,12 @@ for(i=0;i<stages_list.length;i++){
       "weight": 4
 })}
 }
+for (i=0;i<7;i++){
+ temp = current["parking lot "+ (i+1)].usage
+parking_list.geo[i].setStyle({fillOpacity:temp/100})
+parking_list.tooltip[i].setContent("parking lot "+ (i+1)+ " - " + temp + " %" )
 
+}
 //select_area(set_area)
 });
 
@@ -104,9 +122,8 @@ Object.keys(swipes_arr).forEach((key) => {
   x = (a -swipes_arr[key].zeit )
   
   if(x < 60000){
-    var polyline = L.polyline([swipes_arr[key].von,swipes_arr[key].nach],{weight:swipes_arr[key].dicke,color:"red"}).addTo(movement_layer);
-    var arrowHead = L.polylineDecorator(polyline, {    patterns: [      { offset: '100%', repeat: 0, symbol: L.Symbol.arrowHead({ pixelSize: swipes_arr[key].dicke*12, polygon: false, pathOptions: { fillOpacity: 1, weight:swipes_arr[key].dicke,color:"red" } }) }    ]}).addTo(movement_layer);
-  
+    draw_arrow (swipes_arr[key].von,swipes_arr[key].nach,"green",swipes_arr[key].dicke,10)
+
   }
 })
 
@@ -174,6 +191,9 @@ for (f=0;f<parking_arr.length;f++)  {
   let l = eval(parking_arr[f].layer)
   let fx = f
   let polygon = L.polygon(parking_arr[f].coords, {color: parking_arr[f].color})
+ 
+ parking_list.geo.push(polygon)
+
   polygon.on('click',function(){
     current[parking_arr[fx].name].usage += 10
     if (current[parking_arr[fx].name].usage > 100){current[parking_arr[fx].name].usage =0}
@@ -182,8 +202,7 @@ for (f=0;f<parking_arr.length;f++)  {
     databaseRef = database.ref('soundstorm').child('aktuell').child(parking_arr[fx].name);
         databaseRef.set({usage: current[parking_arr[fx].name].usage,zeit:a.getTime()})
  
-  polygon.setStyle({fillOpacity:Math.round(current[parking_arr[fx].name].usage)/100})
- parking_tooltip[fx].setContent(parking_arr[fx].name + " - " +current[parking_arr[fx].name].usage + " %" )
+       
   })
   polygon.addTo(l)
 
@@ -191,7 +210,7 @@ var tooltip = L.tooltip({permanent: true, direction: 'center'})
     .setContent(parking_arr[f].name)
     .setLatLng(polygon.getBounds().getCenter())
     .addTo(l);
-    parking_tooltip.push(tooltip)
+    parking_list.tooltip.push(tooltip)
 
 }
 for (f=0;f<greening_arr.length;f++) {L.polygon(greening_arr[f], {color: 'green', "weight": 1,"opacity": 0.65 }).addTo(green_layer)}
@@ -255,15 +274,13 @@ mymap.getContainer().addEventListener("touchend", function (e) {
    { 
       
   //malen des Swipes und des Pfeilkopfes
-      var polyline = L.polyline([ort1,ort2],{weight:www}).addTo(mymap);
-      var arrowHead = L.polylineDecorator(polyline, {    patterns: [      { offset: '100%', repeat: 0, symbol: L.Symbol.arrowHead({ pixelSize: diff*10, polygon: false, pathOptions: { fillOpacity: 1, weight:www } }) }    ]}).addTo(mymap);
-      infotag.text("swipe gespeichert!"+ diff)
+    
+      draw_arrow (ort1,ort2,"grey",www,3)
+     
+      infotag.text("swipe gespeichert!"+ www)
 
   // timeer der eingegebene Swipes vernichtet
-  setTimeout(function () {
-    mymap.removeLayer(polyline);
-    mymap.removeLayer(arrowHead);
-  }, 5000);
+  
 
     ntemp = new Date()
     ntemp = ntemp.getTime()

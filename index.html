@@ -35,7 +35,7 @@
   <table style="width:100%">
     <tr><td>reporting:</td>
       <td><input type="text" value="spotter-name" style="width:50%;" oninput="
-        set_name=this.value;console.log('meldender geändert auf: '+set_name)
+        set_name=this.value;infotag.text('new reporting person: '+set_name)
         if (allowed_users.includes(this.value)){
         d3.select('#lock').text('UNLOCKED!')}
        
