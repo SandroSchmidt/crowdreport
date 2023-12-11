@@ -20,29 +20,29 @@
 <body>
   <div id="plot_div"></div>
   <div id="sliders">
-    <span>Aid station 1</span> <input id="sl1" type="range" min="0" max="44" step=1 value =0 onchange="
-      d3.select('#span1').text(this.value+' / 44')
+    <span>Aid station 1</span> <input id="sl1" type="range" min="0" max="44" step=1 value =0 oninput="d3.select('#span1').text(this.value+' / 44')" onchange="
+      
       report_aidstation(1,this.value)
       "> <span id="span1"> 0 %</span><br>
 
-       <span>Aid station  2</span> <input id="sl2" type="range" min="0" max="12" step=1 value =0 onchange="
-       d3.select('#span2').text(this.value+' / 12')
+       <span>Aid station  2</span> <input id="sl2" type="range" min="0" max="12" step=1 value =0 oninput="d3.select('#span2').text(this.value+' / 12')" onchange="
+      
        report_aidstation(2,this.value)
        "> <span id="span2"> 0 %</span><br>
 
-         <span>Aid station  3</span> <input id="sl3" type="range" min="0" max="12" step=1 value =0 onchange="
-         d3.select('#span3').text(this.value+' / 12')
+         <span>Aid station  3</span> <input id="sl3" type="range" min="0" max="12" step=1 value =0 oninput="d3.select('#span3').text(this.value+' / 12')" onchange="
+         
          report_aidstation(3,this.value)
          "> <span id="span3"> 0 %</span><br>
 
-           <span>Aid station  4</span> <input id="sl4" type="range" min="0" max="44" step=1 value =0 onchange="
-           d3.select('#span4').text(this.value+' / 44')
+           <span>Aid station  4</span> <input id="sl4" type="range" min="0" max="44" step=1 value =0 oninput="d3.select('#span4').text(this.value+' / 44')" onchange="
+           
            report_aidstation(4,this.value)
            "> <span id="span4"> 0 %</span><br>
 
            
-       <span>Aid station  5</span> <input id="sl5" type="range" min="0" max="10" step=1 value =0 onchange="
-       d3.select('#span5').text(this.value+' / 10')
+       <span>Aid station  5</span> <input id="sl5" type="range" min="0" max="10" step=1 value =0 oninput="d3.select('#span5').text(this.value+' / 10')" onchange="
+       
        report_aidstation(5,this.value)
        "> <span id="span5"> 0 %</span><br>
 

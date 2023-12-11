@@ -18,40 +18,41 @@
         <script src="./function.js"></script>
 </head>
 <body>
+  <div id="plot_div"></div>
   <div id="sliders">
-    <span>Parking lot 1</span> <input id="sl1" type="range" min="0" max="100" step=10 value =0 onchange="
-      d3.select('#span1').text(this.value+' %')
+    <span>Parking lot 1</span> <input id="sl1" type="range" min="0" max="100" step=10 value =0 oninput=" d3.select('#span1').text(this.value+' %')" onchange="
+     
       report_parking(1,this.value)
       "> <span id="span1"> 0 %</span><br>
 
-       <span>Parking lot 2</span> <input id="sl2" type="range" min="0" max="100" step=10 value =0 onchange="
-       d3.select('#span2').text(this.value+' %')
+       <span>Parking lot 2</span> <input id="sl2" type="range" min="0" max="100" step=10 value =0 oninput="       d3.select('#span2').text(this.value+' %')" onchange="
+
        report_parking(2,this.value)
        "> <span id="span2"> 0 %</span><br>
 
-         <span>Parking lot 3</span> <input id="sl3" type="range" min="0" max="100" step=10 value =0 onchange="
-         d3.select('#span3').text(this.value+' %')
+         <span>Parking lot 3</span> <input id="sl3" type="range" min="0" max="100" step=10 value =0 oninput="  d3.select('#span3').text(this.value+' %')" onchange="
+       
          report_parking(3,this.value)
          "> <span id="span3"> 0 %</span><br>
 
-           <span>Parking lot 4</span> <input id="sl4" type="range" min="0" max="100" step=10 value =0 onchange="
-           d3.select('#span4').text(this.value+' %')
+           <span>Parking lot 4</span> <input id="sl4" type="range" min="0" max="100" step=10 value =0 oninput="    d3.select('#span4').text(this.value+' %')"  onchange="
+       
            report_parking(4,this.value)
            "> <span id="span4"> 0 %</span><br>
 
            
-       <span>Parking lot 5</span> <input id="sl5" type="range" min="0" max="100" step=10 value =0 onchange="
-       d3.select('#span5').text(this.value+' %')
+       <span>Parking lot 5</span> <input id="sl5" type="range" min="0" max="100" step=10 value =0 oninput=" d3.select('#span5').text(this.value+' %')"  onchange="
+      
        report_parking(5,this.value)
        "> <span id="span5"> 0 %</span><br>
 
-         <span>Parking lot 6</span> <input id="sl6" type="range" min="0" max="100" step=10 value =0 onchange="
-         d3.select('#span6').text(this.value+' %')
+         <span>Parking lot 6</span> <input id="sl6" type="range" min="0" max="100" step=10 value =0 oninput="d3.select('#span6').text(this.value+' %')"  onchange="
+         
          report_parking(6,this.value)
          "> <span id="span6"> 0 %</span><br>
          
-           <span>Parking lot 7</span> <input id="sl7" type="range" min="0" max="100" step=10 value =0 onchange="
-           d3.select('#span7').text(this.value+' %')
+           <span>Parking lot 7</span> <input id="sl7" type="range" min="0" max="100" step=10 value =0 oninput=" d3.select('#span7').text(this.value+' %')" onchange="
+          
            report_parking(7,this.value)
            "> <span id="span7"> 0 %</span><br>
 
@@ -80,11 +81,80 @@ d3.select('#sl7').attr("value",current["parking lot 7"].usage);d3.select('#span7
 
 })
 
+
+ref = database.ref('soundstorm').child('SS23aux').child("parking")
+ref.on('value', (snapshot) => {
+  parkingplotdata= snapshot.val()
+ 
+draw_plot()
+})
+
+
+function draw_plot(){
+  
+  // Sample data for two stacked lines
+  var data =[]
+  for(i=1;i<8;i++){
+    console.log(i)
+  data.push({
+     x: parkingplotdata["parking lot "+i].zeit,
+     y: parkingplotdata["parking lot "+i].usage,
+     type: 'scatter',
+     mode: 'lines',
+     name: parking_arr[i-1].name,   line: { shape: 'li',color:parking_arr[i-1].color }
+     
+    // fill: 'tonexty'
+   })
+ }
+  
+   var layout = {
+     xaxis: {
+       type: 'date',showline:true,
+       tickformat: '%H:%M',  // Format for displaying date on x-axis
+     },
+     yaxis: {
+       title: 'patients',
+       autorange: true,
+       type: 'linear',
+       rangemode: 'tozero',
+       showgrid: true,
+       zeroline: false,
+       showline: true
+     },
+     showlegend: true,
+     legend: { "orientation": "h" }
+   };
+ 
+   Plotly.newPlot('plot_div', data, layout);
+ }
+ 
+ 
+ 
 function report_parking(lot,value){
   databaseRef = database.ref('soundstorm').child('aktuell').child("parking lot "+lot);
   jetzt = new Date ()
         databaseRef.set({usage:value,zeit:jetzt.getTime()})
   infotag.text("report sent for lot " + lot + " at : " + jetzt )
+
+  jetzt = new Date ()
+  databaseRef = database.ref('soundstorm').child('SS23aux').child("parking").child("parking lot "+lot).child("zeit");
+              databaseRef.transaction(function(currentArray) {
+  // Make sure currentArray is an array
+  currentArray = currentArray || [];
+ // Add the new item to the array
+  currentArray.push(jetzt.getTime());
+  // Return the updated array
+  return currentArray;
+             });
+             databaseRef = database.ref('soundstorm').child('SS23aux').child("parking").child("parking lot "+lot).child("usage");
+              databaseRef.transaction(function(currentArray) {
+  // Make sure currentArray is an array
+  currentArray = currentArray || [];
+ // Add the new item to the array
+  currentArray.push(parseInt(value));
+  // Return the updated array
+  return currentArray;
+             });
 }
 
 </script>
