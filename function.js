@@ -13,7 +13,7 @@ da1 = new Date("2023-12-14T10:00")
 da2 = new Date("2023-12-15T10:00")
 da3 = new Date("2023-12-16T10:00")
 da4 = new Date("2023-12-17T10:00")
-
+eventmarkertoggle = false
 
 function select_area(set_area){
   ausgew_area = stages_list[set_area].name
@@ -27,7 +27,22 @@ function select_area(set_area){
         //dens_slider.node().dispatchEvent(new Event('input'));
 
 }
+
+
+function read_a_day(jahr,tager){
+  database = firebase.database();
+  ref = database.ref('/soundstorm/SS'+jahr+'/day'+tager);
+  ref.on('value', (snapshot) => {
+  daydata = snapshot.val()
+         
+
+})//.then(() => {                console.table(daydata) }         )
+}
+
 function draw_arrow(von,nach,farbe,dicke,ttl){
+ 
+  if (dicke>5){farbe = "lime"}
+  if (dicke>10){farbe = "red"}
   var polyline = L.polyline([von,nach],{weight:dicke,color:farbe}).addTo(movement_layer);
   var arrowHead = L.polylineDecorator(polyline, {    patterns: [   
        { offset: '100%', repeat: 0, symbol: L.Symbol.arrowHead({ 
@@ -90,6 +105,11 @@ parking_list.geo[i].setStyle({fillOpacity:temp/100})
 parking_list.tooltip[i].setContent("parking lot "+ (i+1)+ " - " + temp + " %" )
 
 }
+
+for(i=0;i<medstations.length;i++){
+
+   medstations[i].geo.setTooltipContent(medstations[i].name +"<br>"+current["aid station "+(1+i)].usage + " / " +medstations[i].capacity+" patients")
+}
 //select_area(set_area)
 });
 
@@ -100,11 +120,15 @@ ref.on('value', (snapshot) => {
 locations = snapshot.val()
 
 
-
+incidentcounter =0 
 Object.keys(locations).forEach((key) => {
   a = new Date()
     a =a.getTime()
-    if(key =="incident"){eventmarker.setLatLng(locations[key].ort)}else
+    if(key.startsWith("incident")){incidentcounter++;L.marker(locations[key].ort,{icon:eventicon}).addTo(mymap)
+  //  .bindPopup(locations[key].text)
+//  .bindTooltip("incident "+incidentcounter)
+.bindTooltip(locations[key].text)
+}else
     {if(existing_markers.includes(key)) {
 eval(key+"_marker.setLatLng(locations[key].ort)")
 }else{
@@ -128,12 +152,13 @@ a = new Date()
     a =a.getTime()
     
 Object.keys(swipes_arr).forEach((key) => {
-  x = (a -swipes_arr[key].zeit )
+  x = (a -swipes_arr[key].zeit )/1000
   
-  if(x < 60000){
-    draw_arrow (swipes_arr[key].von,swipes_arr[key].nach,"green",swipes_arr[key].dicke,10)
 
-  }
+if(x<8){
+    draw_arrow (swipes_arr[key].von,swipes_arr[key].nach,"green",swipes_arr[key].dicke,10-x)
+}
+  
 })
 
 })
@@ -147,7 +172,7 @@ b = new Date("2022-12-04 04:00:00")
 
 
 // icons
-var medicon = L.icon({  iconUrl: './medicon.png', iconSize:     [20, 20], });
+medicon = L.icon({  iconUrl: './icons/medicon.png', iconSize:     [20, 20], });
 eventicon = L.icon({  iconUrl: './icons/red.png',  iconSize:     [40, 40],  iconAnchor:   [20, 40]})
 
 
@@ -222,6 +247,18 @@ var tooltip = L.tooltip({permanent: true, direction: 'center'})
     parking_list.tooltip.push(tooltip)
 
 }
+
+
+for (f=0;f<inert_arr.length;f++)  {
+  let l = eval(inert_arr[f].layer)
+  let polygon = L.polygon(inert_arr[f].coords, {color: inert_arr[f].color}).bindTooltip(inert_arr[f].name).addTo(l)
+
+
+
+}
+for (f=0;f<medstations.length;f++) {medstations[f].geo = L.marker(medstations[f].coords,{icon:medicon}).bindTooltip(medstations[f].name)
+//medstations[f].geo .on("mouserover",function(e){this.openPopup()})
+medstations[f].geo .addTo(mymap)}
 for (f=0;f<greening_arr.length;f++) {L.polygon(greening_arr[f], {color: 'green', "weight": 1,"opacity": 0.65 }).addTo(green_layer)}
 for (f=0;f<blocking_arr.length;f++) {let fu = f; L.polygon(blocking_arr[f], {fillColor: 'grey',color:"black", "weight": 1,"opacity": 0.8}).on('mouseover',function(){infotag.text("you hover on block "+fu)}).addTo(green_layer)}
 
@@ -236,15 +273,42 @@ L.control.layers(
   {"stages":stages_layer,"blocks":green_layer,"spotter":eigensymbole_layer,"movement" :movement_layer,"parking lots":parkinglot_layer,"op-zones":zones_layer}).addTo(mymap);
 
 //ownmarker = L.marker(  [24.996,46.508]).addTo(mymap);
-eventmarker =  L.marker([0,0],{icon:eventicon}).addTo(mymap);
+
 // Swipefunktion
     let touchStartX, touchEndX;
 
+    mymap.on('click',function(e){
+      if(eventmarkertoggle == true){
+ 
+        let eventloc = 
+     //   L.marker([e.latlng.lat,e.latlng.lng],{icon:eventicon}).addTo(mymap)
+         userInput = prompt('describe incident:', '')
+         if (userInput !== null) {
+          databaseRef = database.ref('soundstorm').child('locations').child("incident"+incidentcounter);
+        
+          jetzt = new Date ()
+                databaseRef.set({ort: [e.latlng.lat,e.latlng.lng],text:userInput,meldender:set_name,zeige : true,zeit:jetzt.getTime()})
+ 
+     
+     
+         
+     
+         eventmarkertoggle = false
+
+
+         
+      
+        
+         
+      }
+    }}
+    )
 mymap.getContainer().addEventListener("touchstart", function (e) {
+
     touchStartX = e.touches[0].clientX;
     touchStartY = e.touches[0].clientY;
     start_time = new Date()
-});
+})
 
 mymap.on('zoomlevelschange', function () {
     // This event is triggered when the zoom level changes (e.g., button press)
@@ -306,7 +370,7 @@ stages_geo=[]
 for(i=0;i<stages_list.length;i++)
 {if(stages_list[i].coords != "donotdraw"){
   let zi =i 
-  f = L.polygon(stages_list[i].coords, {color: '#99ff66'}).bindPopup(stages_list[i].name)
+  f = L.polygon(stages_list[i].coords, {color: '#99ff66'}).bindTooltip(stages_list[i].name)
       //.on('mouseover',function(){this.setStyle({color:"red"})})
       .on('click',function(){
       // this.setStyle({color:"green"})
@@ -393,6 +457,45 @@ function interpolateValues2(inputObject, intervalMinutes = 15) {
   return interpolatedObject;
 }
 
+
+function prepare_graphdata(daydata){
+  console.log(daydata)
+
+graph_data = []
+m=0
+Object.keys(daydata).forEach((key) => {
+ graph_data.push({data_time:[],dens_time:[],data:[],dens:[],tens_time:[],tens:[]}
+)
+  console.log(key)
+  for(ko=0;ko<daydata[key].length;ko++)
+{graph_data[m].data_time.push(daydata[key][ko].zeit)
+
+  graph_data[m].dens_time.push(daydata[key][ko].zeit)
+  graph_data[m].data.push(daydata[key][ko].usage)
+  graph_data[m].dens.push(daydata[key][ko].density)
+  graph_data[m].tens_time.push(daydata[key][ko].zeit)
+  graph_data[m].tens.push(daydata[key][ko].tension)
+
+
+ 
+}
+m++
+})
+graph_data.push({data_time:[],dens_time:[],data:[],dens:[],tens_time:[],tens:[]})
+  graph_data.push({data_time:[],dens_time:[],data:[],dens:[],tens_time:[],tens:[]})
+    graph_data.push({data_time:[],dens_time:[],data:[],dens:[],tens_time:[],tens:[]})
+      graph_data.push({data_time:[],dens_time:[],data:[],dens:[],tens_time:[],tens:[]})
+      graph_data.push({data_time:[],dens_time:[],data:[],dens:[],tens_time:[],tens:[]})
+  graph_data.push({data_time:[],dens_time:[],data:[],dens:[],tens_time:[],tens:[]})
+    graph_data.push({data_time:[],dens_time:[],data:[],dens:[],tens_time:[],tens:[]})
+      graph_data.push({data_time:[],dens_time:[],data:[],dens:[],tens_time:[],tens:[]})
+      graph_data.push({data_time:[],dens_time:[],data:[],dens:[],tens_time:[],tens:[]})
+  graph_data.push({data_time:[],dens_time:[],data:[],dens:[],tens_time:[],tens:[]})
+    graph_data.push({data_time:[],dens_time:[],data:[],dens:[],tens_time:[],tens:[]})
+      graph_data.push({data_time:[],dens_time:[],data:[],dens:[],tens_time:[],tens:[]})
+console.log(graph_data)
+
+}
 /*
 ww =[]
 for (f=0;f< zones_arr.length;f++){

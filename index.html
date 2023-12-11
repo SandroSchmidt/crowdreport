@@ -45,12 +45,15 @@
       <td>
         <select id="dropdownrep"  onchange="set_name=list_of_reporters[this.value];infotag.text('new reporting person: '+set_name)
         if(set_name== 'marcel')
-{d3.select('#map_div').style('height','60%')
-alert('iphone!')}        
+{d3.select('#map_div').style('height','70%')
+}else{d3.select('#map_div').style('height','500px')}        
         
         
         "></select>
-      </td>
+ 
+ <select id="dropdown" name="dropdown" onchange="set_area = parseInt(this.value);console.log(this.value);select_area(this.value)">
+
+</td>
       <td ><span id="lock">LOCKED</span></td>
     </tr>
     <tr>
@@ -59,7 +62,7 @@ alert('iphone!')}
     <td> <span id="dens_p"> 5</span></td>
     </tr>
  
-     <!-- 
+     
     <tr>
   
   <td>tens:</td>
@@ -67,7 +70,7 @@ alert('iphone!')}
   <td> <span id="tens_p"> 5</span></td>
 
     </tr>
--->
+
     <tr>
       <td>usage:</td>
       <td><input type="range" id="usageInput" min="0" max="150" step=10 value =50 onchange="set_usage= parseInt(this.value);d3.select('#usage_p').text(set_usage + ' %')">
@@ -76,44 +79,21 @@ alert('iphone!')}
     </tr>
 
     <tr>
-      <td>zone:</td>
-      <td><select id="dropdown" name="dropdown" onchange="set_area = parseInt(this.value);console.log(this.value);select_area(this.value)">
+  
+      <td>
   </select>
-
+ 
 <!--
-  <button onclick=" mymap.on('click',function(e){ newarea.push([e.latlng.lat,e.latlng.lng]); console.log(newarea)})">new aera</button>
--->
+<button onclick=" mymap.on('click',function(e){ newarea.push([e.latlng.lat,e.latlng.lng]); console.log(newarea)})">new aera</button>
+
+ -->
 
 </td>
-      <td><button onclick="writeReportToFirebase()">send</button>
-        <button onclick="eventmarkertoggle =true; mymap.on('click',function(e){ 
-          if (eventmarkertoggle){
-           let eventloc = [e.latlng.lat,e.latlng.lng]
-          eventmarker.setLatLng([e.latlng.lat,e.latlng.lng])
-          eventmarker.on('click',function(){
-           userInput = prompt('describe incident:', 'minimal info, prioritise radio coms');
-     
-     // Check if the user clicked 
-     if (userInput !== null) {
-       jetzt = new Date()
-       databaseRef = database.ref('soundstorm').child('locations').child('incident');
-             databaseRef.set({zeit:jetzt.getTime(),melder :set_name,ort:eventloc,text:userInput})
-     
-       infotag.text('the incident has been reported')
+      <td><button onclick="writeReportToFirebase()">send report</button>
        
-     } else {
-       infotag.text('the incident report was canceled')
-     
-     }
-     
-     })
-     
-          
-     
-          eventmarkertoggle = false
-           infotag.text('incident reported at : '+[e.latlng.lat,e.latlng.lng])}
-           })
-             ">incident  </button>
+      </td>
+      <td>
+        <button onclick="eventmarkertoggle =true;infotag.text('report incident by clicking on map')">incident  </button>
       </td>
     </tr>
   </table>

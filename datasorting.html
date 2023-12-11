@@ -668,83 +668,64 @@ SS21_data = {
 zeitraster =[]
 
 
-function interpolate(u){
-aa = settim.getTime()
-//temp=0
-for(i=0;i<graph_data[u].data.length;i++){
- // if (graph_data[u].data[i] != undefined && graph_data[u].data[i] != null ){alt = graph_data[u].data[i]}
-  bbb = new Date(graph_data[u].data_time[i])
-  ccc = new Date(graph_data[u].data_time[i+1])
- 
-  bb = bbb.getTime()
-  cc = ccc.getTime()
+function interpolateGaps(arr) {
+  const result = [];
+  let start = null;
+  let end = null;
 
-  //temp = undefined
-  //if(aa<bb||aa>cc){temp=null}
-    
-  if (aa==bb){temp = graph_data[u].data[i]; }
-  if (aa==cc){temp = graph_data[u].data[i+1]; }
-  if(aa>bb && aa<cc){
-
-   temp = ((aa-bb)/(cc-bb))*((graph_data[u].data[i+1]-graph_data[u].data[i]))+graph_data[u].data[i]
-
-  } 
-}
-
-   
- 
-return temp}
-function interpolate(value1, value2, weight) {
-  return value1 + (value2 - value1) * weight;
-}
-
-function generateNewArray(originalArray) {
-  // Step 1: Convert miliseconds to Date
-  const dateValues = originalArray.zeit.map(ms => new Date(ms));
-  
-  // Step 2: Create a new array with 52 entries
-  const intervals = 52;
-  const newArray = new Array(intervals).fill(null).map(() => ({ date: null, value: null }));
-  
-  // Step 3: Map values to corresponding intervals
-  dateValues.forEach((date, index) => {
-    const minutes = date.getHours() * 60 + date.getMinutes();
-    const intervalIndex = Math.floor(minutes / 15);
-
-    newArray[intervalIndex] = { date, value: originalArray.values[index] };
-  });
-
-  // Step 4: Interpolate values for intervals with no values
-  newArray.forEach((entry, index) => {
-    if (entry.value === null) {
-      let before = entry;
-      let after = entry;
-
-      // Find the closest entries with values
-      while (before.value === null && before.date !== null) {
-        before = newArray[newArray.indexOf(before) - 1];
-      }
-      while (after.value === null && after.date !== null) {
-        after = newArray[newArray.indexOf(after) + 1];
-      }
-
-      // Interpolate values
-      if (before.value !== null && after.value !== null) {
-        const weight = (index - newArray.indexOf(before)) / (newArray.indexOf(after) - newArray.indexOf(before));
-        newArray[index].value = interpolate(before.value, after.value, weight);
-      }
+  // Find the start and end of the array with values
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] !== null && arr[i] !== undefined) {
+      start = i;
+      break;
     }
-  });
+  }
 
-  // Step 5: Handle edge cases for the earliest and latest values
-  //newArray[0].value = newArray.find(entry => entry.value !== null)?.value || 0;
-  //newArray[newArray.length - 1].value = newArray.slice().reverse().find(entry => entry.value !== null)?.value || 0;
+  for (let i = arr.length - 1; i >= 0; i--) {
+    if (arr[i] !== null && arr[i] !== undefined) {
+      end = i;
+      break;
+    }
+  }
 
-  return newArray;
+  // Handle the gaps before the first value
+  result.push(...Array(start).fill(null));
+
+  // Interpolate the gaps between values
+  for (let i = start; i < end; i++) {
+    if (arr[i] !== null && arr[i] !== undefined) {
+      result.push(arr[i]);
+    } else {
+      // Interpolate the gap
+      const interpolatedValue = (arr[start - 1] + arr[end]) / 2;
+      result.push(interpolatedValue);
+    }
+  }
+
+  // Handle the gaps after the last value
+  result.push(...Array(arr.length - end - 1).fill(null));
+
+  return result;
 }
 
 
 
+function dannmachichselbst(inarr){
+
+    buckets = new Array(52)
+   
+    for(ix=0;ix<inarr["zeit"].length;ix++){
+
+
+        guter = parseInt(Math.round(inarr.zeit[ix]))
+   
+buckets[guter] = inarr["values"][ix]
+    }
+console.log(buckets)
+    buckets = interpolateGaps(buckets)
+    console.log(buckets)
+
+}
 for (i=0;i<alte_data.length;i++){
 
 
@@ -775,11 +756,11 @@ if (temp[1] == "sc"){a ="usage"}
 if (temp[1] == "oldsc" ||temp[1] == "pu"||temp[0]==undefined||temp[0] ==""){continue}
 
 b = parseFloat(temp[3]) // der genannte wert
-d1 = new Date("2021-12-16T10:00")
-d2 = new Date("2021-12-17T10:00")
-d3 = new Date("2021-12-18T10:00")
-d4 = new Date("2021-12-19T10:00")
-d5 = new Date("2021-12-20T10:00")
+d1 = new Date("2021-12-16T15:00")
+d2 = new Date("2021-12-17T15:00")
+d3 = new Date("2021-12-18T15:00")
+d4 = new Date("2021-12-19T15:00")
+d5 = new Date("2021-12-20T15:00")
 
 tor = new Date("2021-12-16T12:15")
 
@@ -788,28 +769,29 @@ if(tempdate.getTime()>d2.getTime()&& tempdate.getTime()<d3.getTime()){tag=2; zul
 if(tempdate.getTime()>d3.getTime()&& tempdate.getTime()<d4.getTime()){tag=3; zulu = (tempdate.getTime()-d3.getTime())/(1000*60*15) }
 if(tempdate.getTime()>d4.getTime()&& tempdate.getTime()<d5.getTime()){tag=4; zulu = (tempdate.getTime()-d4.getTime())/(1000*60*15) }
 
+if(zulu>52){console.log(zulu)}
 if (tag==1 ){
-  console.log(temp)
+ // console.log(temp)
   SS21_data.day1[temp[0]][a]["values"].push(b)
-  SS21_data.day1[temp[0]][a]["zeit"].push(tempdate.getTime())
+  SS21_data.day1[temp[0]][a]["zeit"].push(zulu)
 }
 
 
 if (tag==2 ){
-  console.log(temp)
+ // console.log(temp)
   SS21_data.day2[temp[0]][a]["values"].push(b)
-  SS21_data.day2[temp[0]][a]["zeit"].push(tempdate.getTime())
+  SS21_data.day2[temp[0]][a]["zeit"].push(zulu)
 }
 if (tag==3 ){
-  console.log(temp)
+ // console.log(temp)
   SS21_data.day3[temp[0]][a]["values"].push(b)
-  SS21_data.day3[temp[0]][a]["zeit"].push(tempdate.getTime())
+  SS21_data.day3[temp[0]][a]["zeit"].push(zulu)
   
 }
 if (tag==4 ){
-console.log(temp)
+//console.log(temp)
   SS21_data.day4[temp[0]][a]["values"].push(b)
-  SS21_data.day4[temp[0]][a]["zeit"].push(tempdate.getTime())
+  SS21_data.day4[temp[0]][a]["zeit"].push(zulu)
 }
 }
 
@@ -828,7 +810,8 @@ ff = SS21_data["day"+days]
 
     Object.keys(ff).forEach((key) => {
 
-        SS21_data_interpol["day"+days][key].usage=  generateNewArray(SS21_data["day"+days][key].usage)
+
+        SS21_data_interpol["day"+days][key].usage =  dannmachichselbst(SS21_data["day"+days][key].usage)
         
 
 });
