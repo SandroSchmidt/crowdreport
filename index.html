@@ -38,12 +38,18 @@
   <div id ="maindiv" style="touch-action: manipulation;width:100%;height:100%;overflow:hidden; ">
    
   <div id="map_div" style="width:100%;height:500px;"></div>
-  <hr ondblclick="d3.select('#map_div').style('height','80%')">
+  <hr>
   
   <table style="width:100%">
     <tr><td>reporting:</td>
       <td>
-        <select id="dropdownrep"  onchange="set_name=list_of_reporters[this.value];infotag.text('new reporting person: '+set_name)"></select>
+        <select id="dropdownrep"  onchange="set_name=list_of_reporters[this.value];infotag.text('new reporting person: '+set_name)
+        if(set_name== 'marcel')
+{d3.select('#map_div').style('height','80%')
+alert('iphone!')}        
+        
+        
+        "></select>
       </td>
       <td ><span id="lock">LOCKED</span></td>
     </tr>
