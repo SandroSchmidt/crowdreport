@@ -318,6 +318,81 @@ for(i=0;i<stages_list.length;i++)
 }}}
 
 
+
+
+// Function to interpolate values at regular intervals (e.g., every 15 minutes)
+function interpolateValues(inputObject, intervalMinutes = 15) {
+  const interpolatedObject = {
+    zeit: [],
+    values: [],
+  };
+
+
+  const { zeit, values } = inputObject;
+  const startTime = zeit[0];
+  const endTime = zeit[zeit.length - 1];
+
+
+
+  for (let time = startTime; time <= endTime; time += intervalMinutes * 60 * 1000) {
+    // Find the closest zeit for interpolation
+    const lowerIndex = zeit.findIndex((timestamp) => timestamp >= time);
+    const upperIndex = lowerIndex === 0 ? 1 : lowerIndex;
+
+    if (upperIndex < zeit.length) {
+      const lowerTimestamp = zeit[lowerIndex - 1];
+      const upperTimestamp = zeit[upperIndex];
+      const lowerValue = values[lowerIndex - 1];
+      const upperValue = values[upperIndex];
+
+      // Linear interpolation formula
+      const interpolatedValue =
+        lowerValue +
+        ((time - lowerTimestamp) / (upperTimestamp - lowerTimestamp)) * (upperValue - lowerValue);
+
+      interpolatedObject.zeit.push(time);
+      interpolatedObject.values.push(interpolatedValue);
+    }
+  }
+
+  return interpolatedObject;
+}
+
+function interpolateValues2(inputObject, intervalMinutes = 15) {
+  const interpolatedObject = {
+    zeit: [],
+    values: [],
+  };
+
+  const { zeit, values } = inputObject;
+  const intervalMillis = intervalMinutes * 60 * 1000;
+
+  for (let i = 0; i < zeit.length - 1; i++) {
+    const startTime = zeit[i];
+    const startValue = values[i];
+    const endTime = zeit[i + 1];
+    const endValue = values[i + 1];
+
+    const timeDiff = endTime - startTime;
+    const steps = Math.ceil(timeDiff / intervalMillis);
+
+    for (let step = 0; step < steps; step++) {
+      const ratio = step / steps;
+      const interpolatedTime = startTime + ratio * timeDiff;
+      const interpolatedValue = startValue + ratio * (endValue - startValue);
+
+      interpolatedObject.zeit.push(interpolatedTime);
+      interpolatedObject.values.push(interpolatedValue);
+    }
+  }
+
+  // Add the last timestamp and value
+  interpolatedObject.zeit.push(zeit[zeit.length - 1]);
+  interpolatedObject.values.push(values[values.length - 1]);
+
+  return interpolatedObject;
+}
+
 /*
 ww =[]
 for (f=0;f< zones_arr.length;f++){

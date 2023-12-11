@@ -471,24 +471,40 @@ width = fenster.breite*layout- margin.left - margin.right
    height = fenster.hoehe*0.4- margin.top - margin.bottom;
    slider.style('width',(width+10)+"px").style('margin-left',"35px")
 
-   const values = [];
-const times = [];
-
+  
 // Iterate through the original data and extract values and times
-daydata["Big Beast Left"].forEach(entry => {
-  values.push(entry.value);
-  times.push(entry.time);
-});
+daydata = SS21_data.day2[stages_list[kkkk].name].usage
+
+daydata2 =interpolateValues(daydata)
+daydata3 =interpolateValues2(daydata)
+dateArray = daydata.zeit.map(ms => new Date(ms).toLocaleString('en-US', { hour: '2-digit', minute: '2-digit' }));
+dateArray2 = daydata2.zeit.map(ms => new Date(ms).toLocaleString('en-US', { hour: '2-digit', minute: '2-digit' }));
+
+
+
    gr_data = [{
-      x: times,
-      y: values,
+      x: daydata.zeit,
+      y: daydata.values,
       type: 'scatter',
       mode: 'lines+markers',
       name: 'Series 1 (Updated)'
+    },{
+      x: daydata2.zeit,
+      y: daydata2.values,
+      type: 'scatter',
+      mode: 'lines+markers',
+      name: 'Serietgrepdated)'
+    },{
+      x: daydata3.zeit,
+      y: daydata3.values,
+      type: 'scatter',
+      mode: 'lines+markers',
+      name: 'Serietgrepdated)'
     }];
+
    var gr_layout = {hovermode: "x",  //title: 'Basic Time Series', 
   // font: {size: 40},
-     margin: {l: 40,  r: 40,b: 25,t: 10,  pad: 4},  
+     margin: {l: 40,  r: 40,b: 100,t: 10,  pad: 4},  
      xaxis: {range: [a, b],
       
     linecolor: 'black',
