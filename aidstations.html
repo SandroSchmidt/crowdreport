@@ -19,6 +19,7 @@
 </head>
 <body>
   <div id="plot_div"></div>
+  <div id="plot_div2"></div>
   <div id="sliders">
     <span>Aid station 1</span> <input id="sl1" type="range" min="0" max="44" step=1 value =0 oninput="d3.select('#span1').text(this.value+' / 44')" onchange="
       
@@ -79,25 +80,29 @@ draw_plot()
 
 function draw_plot(){
 
- // make_graphdata(medicalplotdata["aid station 1"])
+ 
  // Sample data for two stacked lines
  var data =[]
- for(i=1;i<6;i++){
+ for(j=1;j<6;j++){
+  let temper = make_graphdata(medicalplotdata["aid station 1"])
+
+
  data.push({
-    x: medicalplotdata["aid station "+i].zeit,
-    y: medicalplotdata["aid station "+i].usage,
-    type: 'scatter',
+    x: zeitstempel,
+    y: temper,
+    type: "bar",//'scatter',
     mode: 'lines',
-    name: 'aid station '+i,   
-    
-   // fill: 'tonexty'
+    name: 'aid station '+j,   
+   // fill: j === 1 ? 'tozeroy' : 'tonexty', // Use 'tozeroy' for the first series, 'tonexty' for others
+    stackgroup:"one",
+   fill: 'tonexty'
   })
 }
  
-  var layout = {
+  var layout = {barmode: 'stack',
     xaxis: {
-      type: 'date',showline:true,
-      tickformat: '%H:%M',  // Format for displaying date on x-axis
+   //   type: 'date',showline:true,
+     // tickformat: '%H:%M',  // Format for displaying date on x-axis
     },
     yaxis: {
       title: 'patients',

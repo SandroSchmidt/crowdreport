@@ -1,6 +1,6 @@
 parking_list ={geo:[],tooltip:[],usage:[]}
-newarea =[];
-allowed_users=["sandro","marc","test1","test2","test3"]
+
+mastermode = false;
 existing_markers=[]
 isZooming = false
 set_area=0
@@ -9,12 +9,21 @@ farbskala = ["lightblue","#00B0F0","#00B0F0","#92D050","#92D050","#FFFF00","#FFF
   eventloc = [0,0]
 list_of_reporters = ["demo","sandro","marcel","medical","mark",
 "marc","dave","sasha","anto","olly","sjors","conor","jasja","dessie","neil","claire","colm","ger","ian","martin","eric","peter"]
-list_of_credentials= ["none","p","m","none","m", "m","d","s","a","o","s","c","j","d","n","c","c","g","i","m","e","p"]
+list_of_credentials= ["none","s","m","none","m", "m","d","s","a","o","s","c","j","d","n","c","c","g","i","m","e","p"]
 set_pos=[9,9]
 da1 = new Date("2023-12-14T10:00")
 da2 = new Date("2023-12-15T10:00")
 da3 = new Date("2023-12-16T10:00")
 da4 = new Date("2023-12-17T10:00")
+
+jetzt = new Date()
+jetzte = jetzt.getTime()
+  if(jetzte<da1.getTime()){tag=0}
+      if(jetzte>da1.getTime()&& jetzte<da2.getTime()){tag=1}
+if(jetzte>da2.getTime()&& jetzte<da3.getTime()){tag=2}
+if(jetzte>da3.getTime()&& jetzte<da4.getTime()){tag=3}
+
+
 eventmarkertoggle = false
 locked = true
 
@@ -44,15 +53,16 @@ function read_a_day(jahr,tager){
   ref.on('value', (snapshot) => {
   daydata = snapshot.val()
          
-
-})//.then(() => {                console.table(daydata) }         )
+return daydata
+})
 }
 
-function draw_arrow(von,nach,farbe,dicke,ttl){
+function draw_arrow(von,nach,farbe,dicke,ttl,meldender){
  farbe = "green"
   if (dicke>5){farbe = "lime"}
   if (dicke>10){farbe = "red"}
-  var polyline = L.polyline([von,nach],{weight:dicke,color:farbe}).addTo(movement_layer);
+  if(meldender == "sandro"){farbe="black"; dicke=10;ttl=180}
+  var polyline = L.polyline([von,nach],{weight:dicke,color:farbe}).bindTooltip(meldender  ).addTo(movement_layer);
   var arrowHead = L.polylineDecorator(polyline, {    patterns: [   
        { offset: '100%', repeat: 0, symbol: L.Symbol.arrowHead({ 
         pixelSize: dicke, polygon: false, 
@@ -91,8 +101,6 @@ ref.on('value', (snapshot) => {
 
 current = snapshot.val()
 
-
-
 for(i=0;i<stages_list.length;i++){
  if(current[stages_list[i].name] != undefined){
   temp = current[stages_list[i].name]
@@ -105,8 +113,17 @@ for(i=0;i<stages_list.length;i++){
       fillOpacity:0.6,
       fillColor: fcol,
       color: col,
-      "weight": 4
-})}
+      "weight": 3
+
+})
+jetzt = new Date()
+jetzte = jetzt.getTime()
+if((jetzte - current[stages_list[i].name].zeit)>(1000*60*15)){
+  stages_list[i].geo.setStyle({color:"red",fillColor:"black",opacity:1})
+}
+
+}
+
 }
 for (i=0;i<7;i++){
  temp = current["parking lot "+ (i+1)].usage
@@ -166,13 +183,13 @@ swipes_arr = snapshot.val()
 a = new Date()
     a =a.getTime()
     
-    console.log(swipes_arr)
+
     if(swipes_arr != undefined)
 {Object.keys(swipes_arr).forEach((key) => {
   x = (a -swipes_arr[key].zeit )/1000
  
 if(x<8){
-    draw_arrow (swipes_arr[key].von,swipes_arr[key].nach,"green",swipes_arr[key].dicke,10-x)
+    draw_arrow (swipes_arr[key].von,swipes_arr[key].nach,"green",swipes_arr[key].dicke,10-x,swipes_arr[key].meldender )
 }
   
 })}
@@ -286,13 +303,13 @@ for (f=0;f<inert_arr.length;f++)  {
 for (f=0;f<medstations.length;f++) {medstations[f].geo = L.marker(medstations[f].coords,{icon:medicon}).bindTooltip(medstations[f].name)
 //medstations[f].geo .on("mouserover",function(e){this.openPopup()})
 medstations[f].geo.addTo(aidstations_layer)}
-for (f=0;f<greening_arr.length;f++) {L.polygon(greening_arr[f], {color: 'green', "weight": 1,"opacity": 0.65 }).addTo(green_layer)}
+for (f=0;f<greening_arr.length;f++) {let fu = f;L.polygon(greening_arr[f], {color: 'green', "weight": 1,"opacity": 0.65 }).on('mouseover',function(){infotag.text("you hover on green"+fu)}).addTo(green_layer)}
 for (f=0;f<blocking_arr.length;f++) {let fu = f; L.polygon(blocking_arr[f], {fillColor: 'grey',color:"black", "weight": 1,"opacity": 0.8}).on('mouseover',function(){infotag.text("you hover on block "+fu)}).addTo(green_layer)}
 
-for (f=0;f<hinter.length;f++)       {L.polygon(hinter[f], {color: 'grey' ,"weight": 2,"fillOpacity": 0.65}).addTo(back_layer)}
-for (f=0;f<vib_arr.length;f++)      {L.polygon(vib_arr[f], {color: 'gold'}).addTo(mymap)}
+for (f=0;f<hinter.length;f++)       {let fu = f;L.polygon(hinter[f], {color: 'grey' ,"weight": 2,"fillOpacity": 0.65}).on('mouseover',function(){infotag.text("you hover on back_block "+fu)}).addTo(back_layer)}
+for (f=0;f<vib_arr.length;f++)      {let fu = f;L.polygon(vib_arr[f], {color: 'gold'}).on('mouseover',function(){infotag.text("you hover on vib "+fu)}).addTo(mymap)}
 //for (f=0;f<walking_arr.length;f++)  {L.polygon(walking_arr[f], {color: 'red'}).addTo(green_layer)}
-for (f=0;f<walkway_arr.length;f++)      {L.polygon(walkway_arr[f], {fillColor: 'gold',color:"black",weight:1,fillOpacity:1}).addTo(mymap)}
+for (f=0;f<walkway_arr.length;f++)      {let fu = f;L.polygon(walkway_arr[f], {fillColor: 'gold',color:"black",weight:1,fillOpacity:1}).on('mouseover',function(){infotag.text("you hover on walkway "+fu)}).addTo(mymap)}
 
 // Layercontroll
 L.control.layers(
@@ -421,35 +438,183 @@ for(i=0;i<stages_list.length;i++)
 
 
 
+function interpolateUndefined(arr) {
+    const nonEmptyIndices = arr.reduce((indices, value, index) => {
+      if (value !== null && value !== undefined) {
+        indices.push(index);
+      }
+      return indices;
+    }, []);
+  
+    // If there are less than 2 non-empty entries, return the original array
+    if (nonEmptyIndices.length < 2) {
+      return arr;
+    }
+  
+    // Interpolate values between non-empty entries
+    for (let i = nonEmptyIndices[0] + 1; i < nonEmptyIndices[nonEmptyIndices.length - 1]; i++) {
+      const startIndex = Math.max(...nonEmptyIndices.filter((idx) => idx < i));
+      const endIndex = Math.min(...nonEmptyIndices.filter((idx) => idx > i));
+  
+      // Linear interpolation formula
+      arr[i] = arr[startIndex] + (arr[endIndex] - arr[startIndex]) * (i - startIndex) / (endIndex - startIndex);
+   
+    }
+  
+    return arr;
+  }
 
 
 
 function make_graphdata(indata){
 //die indaten sind ein array mit jeweils den obj zeit und usage
-outdata ={zeit:[],usage:[]}
-temp = new Date(indata[0].zeit)
-
+//outdata = new Array(52).fill(undefined)
+bucket = new Array(52).fill(undefined)
+console.log(indata)
+temp = new Date(indata.zeit[0])
+//indata.zeit[0] = temp.getTime()
+//indata.usage[0] = 0 
 temp = temp.setHours(15)
-for (i=0;i<indata.length;i++){
 
-  entfernungzu15uhr = (indata[i].zeit-temp)/(15*60*1000)
-  console.log(entfernungzu15uhr)
+for (i=0;i<indata.zeit.length;i++){
+
+  entfernungzu15uhr = parseInt(Math.round((indata.zeit[i]-temp)/(15*60*1000)))
+ 
+
+ if(entfernungzu15uhr > -1 && entfernungzu15uhr<53){
+ if (bucket[entfernungzu15uhr] == undefined){bucket[entfernungzu15uhr] = [indata.usage[i]]}
+   else{bucket[entfernungzu15uhr].push(indata.usage[i])}
+  }
+}
+
+// Function to calculate the average of an array using a for loop
+function calculateAverageWithForLoop(array) {
+  if (!array || array.length === 0) {
+    return undefined; // Return undefined for empty or undefined arrays
+  }
+
+  let sum = 0;
+  let count = 0;
+
+  for (let i = 0; i < array.length; i++) {
+    if (typeof array[i] === 'number') {
+      sum += array[i];
+      count++;  
+    }
+  }
+
+  if (count === 0) {
+    return 0//undefined; // Return undefined if all elements were undefined
+  }
+
+  return Math.round(sum / count);
+}
+
+// Calculate averages for each sub-array using for loops
+outdata = [];
+for (let i = 0; i < bucket.length; i++) {
+  const subArray = bucket[i];
+  const average = calculateAverageWithForLoop(subArray);
+  outdata.push(average)[0];
+}
+outdata = interpolateUndefined(outdata)
+
+return outdata
+
+}
+function generateTimeArray(startTime) {
+  const timeArray = [new Date(startTime)]; // Start with the provided time
+
+  for (let i = 1; i < 53; i++) {
+    const nextTime = new Date(timeArray[i - 1]);
+    nextTime.setMinutes(nextTime.getMinutes() + 15);
+    timeArray.push(nextTime);
+  }
+
+  return timeArray;
 }
 
 
+function make_graphdata_stages(indata){
+  //die indaten sind ein array mit jeweils den obj zeit und usage
+  //outdata = new Array(52).fill(undefined)
+  bucket_tension = new Array(52).fill(undefined)
+  bucket_density = new Array(52).fill(undefined)
+  bucket_usage = new Array(52).fill(undefined)
+  
+  temp = new Date(indata[0].zeit)
+  //indata.zeit[0] = temp.getTime()
+  //indata.usage[0] = 0 
+  temp = temp.setHours(15)
+
+  for (i=0;i<indata.length;i++){
+  
+    entfernungzu15uhr = parseInt(Math.round((indata[i].zeit-temp)/(15*60*1000)))
+
+   if(entfernungzu15uhr > -1 && entfernungzu15uhr<53){
+   if (bucket_density[entfernungzu15uhr] == undefined){
+    bucket_density[entfernungzu15uhr] = [indata[i].density]}
+     else{bucket_density[entfernungzu15uhr].push(indata[i].density)}
+    
+     if (bucket_tension[entfernungzu15uhr] == undefined){
+      bucket_tension[entfernungzu15uhr] = [indata[i].tension]}
+       else{bucket_tension[entfernungzu15uhr].push(indata[i].tension)}
+     
+       if (bucket_usage[entfernungzu15uhr] == undefined){
+        bucket_usage[entfernungzu15uhr] = [indata[i].usage]}
+         else{bucket_usage[entfernungzu15uhr].push(indata[i].usage)}
+      
+
+    }
+  }
+  
+  // Function to calculate the average of an array using a for loop
+  function calculateAverageWithForLoop(array) {
+    if (!array || array.length === 0) {
+      return undefined; // Return undefined for empty or undefined arrays
+    }
+  
+    let sum = 0;
+    let count = 0;
+  
+    for (let i = 0; i < array.length; i++) {
+      if (typeof array[i] === 'number') {
+        sum += array[i];
+        count++;  
+      }
+    }
+  
+    if (count === 0) {
+      return 0//undefined; // Return undefined if all elements were undefined
+    }
+  
+    return sum / count;
+  }
+  
+  // Calculate averages for each sub-array using for loops
+function bucky(bucket){  outdata = [];
+  for (let i = 0; i < bucket.length; i++) {
+    const subArray = bucket[i];
+    const average = calculateAverageWithForLoop(subArray);
+    outdata.push(average)[0];
+  }
+  return interpolateUndefined(outdata)
 }
-
-
-
+  outdata = {density:bucky(bucket_density),usage:bucky(bucket_usage),tension:bucky(bucket_tension),zeit:generateTimeArray(temp)}
+  
+  return outdata
+  
+  }
+  
 
 /*
 ww =[]
 for (f=0;f< zones_arr.length;f++){
-  console.log(zones_arr[f][2])
+
   ww.push({name:zones_arr[f][0],color:zones_arr[f][1],coords:polystrtoco(zones_arr[f][2]) })
 
 }
-console.log(ww)
+
 
 
 function polystrtoco (d){

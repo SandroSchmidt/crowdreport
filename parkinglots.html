@@ -81,36 +81,40 @@ d3.select('#sl7').attr("value",current["parking lot 7"].usage);d3.select('#span7
 
 })
 
-
-ref = database.ref('soundstorm').child('SS23aux').child("parking")
+plottoggle = false
+ref = database.ref('soundstorm/SS23aux/day0').child("parking")
 ref.on('value', (snapshot) => {
   parkingplotdata= snapshot.val()
- 
-draw_plot()
+  draw_plot()
+ if(plottoggle == true){Plotly.update("plot_div",data)}
+  else{draw_plot()}
 })
 
 
 function draw_plot(){
-  
-  // Sample data for two stacked lines
-  var data =[]
-  for(i=1;i<8;i++){
-    console.log(i)
-  data.push({
-     x: parkingplotdata["parking lot "+i].zeit,
-     y: parkingplotdata["parking lot "+i].usage,
-     type: 'scatter',
+  plottoggle = true
+  data=[]
+  for(j=1;j<8;j++){
+  let temper = make_graphdata(parkingplotdata["parking lot "+j])
+  console.log(temper)
+
+ data.push({
+    x: zeitstempel,
+    y: temper,
+    type: "bar",//'scatter',
      mode: 'lines',
-     name: parking_arr[i-1].name,   line: { color:parking_arr[i-1].color }
+     name: parking_arr[j-1].name, 
+     line: { color:parking_arr[j-1].color }
      
     // fill: 'tonexty'
    })
+
  }
   
-   var layout = {
+   var layout = {barmode: 'stack',
      xaxis: {
-       type: 'date',showline:true,
-       tickformat: '%H:%M',  // Format for displaying date on x-axis
+   //    type: 'date',showline:true,
+ //      tickformat: '%H:%M',  // Format for displaying date on x-axis
      },
      yaxis: {
        title: 'patients',
@@ -131,13 +135,22 @@ function draw_plot(){
  
  
 function report_parking(lot,value){
+
+
+const database = firebase.database();
+
+       databaseRef = database.ref('soundstorm/SS23/day'+tag+'/'+stages_list[set_area].name)
+      // Data you want to write to the database
+
+
+
   databaseRef = database.ref('soundstorm').child('aktuell').child("parking lot "+lot);
   jetzt = new Date ()
         databaseRef.set({usage:value,zeit:jetzt.getTime()})
   infotag.text("report sent for lot " + lot + " at : " + jetzt )
 
   jetzt = new Date ()
-  databaseRef = database.ref('soundstorm').child('SS23aux').child("parking").child("parking lot "+lot).child("zeit");
+  databaseRef = database.ref('soundstorm/SS23aux/day'+tag+'/parking/parking lot '+lot).child("zeit");
               databaseRef.transaction(function(currentArray) {
   // Make sure currentArray is an array
   currentArray = currentArray || [];
@@ -146,7 +159,7 @@ function report_parking(lot,value){
   // Return the updated array
   return currentArray;
              });
-             databaseRef = database.ref('soundstorm').child('SS23aux').child("parking").child("parking lot "+lot).child("usage");
+             databaseRef = database.ref('soundstorm/SS23aux/day'+tag+'/parking/parking lot '+lot).child("usage");
               databaseRef.transaction(function(currentArray) {
   // Make sure currentArray is an array
   currentArray = currentArray || [];

@@ -87,7 +87,7 @@
     <tr>
   
   <td>tension:</td>
-  <td>   <input type="range" id="tensInput" min="0" max="10" step=5  
+  <td>   <input type="range" id="tensInput" min="0" max="10" step=1 
     onchange="set_tens= parseInt(this.value);d3.select('#tens_p').text(set_tens)"></td>
   <td> <span id="tens_p"> 5</span></td>
 
@@ -105,9 +105,10 @@
   
       <td>
   </select>
- 
+ <button onclick="newarea =[];nar = L.polygon(newarea).addTo(mymap); mymap.on('click',function(e)
+ { newarea.push([e.latlng.lat,e.latlng.lng]);nar.setLatLngs(newarea); console.log(newarea)})">new aera</button>
+
 <!--
-<button onclick=" mymap.on('click',function(e){ newarea.push([e.latlng.lat,e.latlng.lng]); console.log(newarea)})">new aera</button>
 
  -->
 

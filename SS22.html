@@ -3,19 +3,23 @@
     <head>
         <meta charset="UTF-8" />
         <title>SS23 - start right (tm)</title>
+        <script src="./js/d3.min.js"></script>
+        <script src="./js/plotly-2.16.1.min.js"></script>
+    
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+
+        <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+         <script src="https://unpkg.com/leaflet-polylinedecorator/dist/leaflet.polylineDecorator.js"></script>
+       
+         <script src="https://unpkg.com/leaflet-fullscreen/dist/Leaflet.fullscreen.min.js"></script>
+         <link rel="stylesheet" href="https://unpkg.com/leaflet-fullscreen/dist/leaflet.fullscreen.css" />
         <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
-        <script src="./js/d3.min.js"></script>
-        <script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
-   
         <script src="./data.js"></script>
-        
-        <script src="./tickets.js"></script>
-        <link rel="stylesheet" type="text/css" href="./js/leaflet.css" />
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
-        <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
         <script src="./function.js"></script>
+       <script src="./js/d3.min.js"></script>
+     
       </head>
       <style>
         table, th, td{border:2px solid black;border-collapse: collapse;padding-left: 5px;padding-right: 5px;text-align: center;
@@ -27,7 +31,7 @@
 
 <body >
 
-      <div id="lio_div" style="float:left;width:60%;height:60%;"><div id="map_div" style="width:100%;height:500px;"></div></div>
+      <div id="lio_div" style="float:left;width:60%;height:60%;"><div id="map_div" style="width:100%;height: 100%"></div></div>
       <div id="reo_div" style="float:left;width:40%;height:60%;text-align: center;">
         <img src="./logo.PNG" style="width: 60%" onclick="selected_area =99; make_cul_graph()">
       <!--  <img src=".//safe_events_logo-1.png" style="width: 30%" id ="evtlog" onclick="d3.select('#evtlog').remove()" >
@@ -41,87 +45,30 @@
 
      </body>
     <script>
-
-initialise_firebase()
-initialise_settings()
-// vorabberechnung der Graphdaten in 15 min intervalle
-read_a_day(22,2)
-setTimeout(function(){console.log(daydata)
-prepare_graphdata(daydata)
-
-graph_15 = []
-oldxutil=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-olddens=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-oldtens=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-// geht alle stages durch
-for (q=0;q<stages_list.length;q++){
-  graph_15.push({data_time:[],dens_time:[],data:[],time:[],dens:[],tens:[],tens_time:[]})
-if (q == 3||q == 10||q==12){continue;} // hier werden die summen aus dm loop genommen weil diese nich interpoliert werden, sondern später aufaddiert
-
-  for (tist=startfest.getTime();tist<endfest.getTime();tist+=(60*1000*15)){
-    settim = new Date()
-    settim.setTime(tist)
-    graph_15[q].data_time.push(settim)
-    graph_15[q].dens_time.push(settim)
-    temp = interpolate(q)
-    graph_15[q].data.push(temp)
-
-
-    graph_15[q].dens.push(interpolate_general(graph_data[q].dens,graph_data[q].dens_time))
-   
-    graph_15[q].tens.push(interpolate_general(graph_data[q].tens,graph_data[q].tens_time))
-    graph_15[q].tens_time.push(settim)
-    
-   }
+infotag = d3.select('#infotag')
+locked=false // erlaubt grundsätzlich das uploaden auf fb ohne credentials
+mastermode = true // erlaubt das einzeichnen von schwarzen pfeilen
+set_name = "sandro"
+setInterval(mytimer, 1000000*60);
+ function mytimer(){
+if (timer == true)
+{settim = new Date()
+refresh()}
 }
-
-
-
-
-// aufaddieren
-  for (tist=startfest.getTime();tist<endfest.getTime();tist+=(60*1000*15)){
-    beast_tot=0
-    ug_tot=0
-    tot_tot=0
-    settim = new Date()
-    settim.setTime(tist)
-    for (q=0;q<stages_list.length;q++){
-      temp = interpolate(q)
-
-      if (q == 0||q == 1||q==2){ beast_tot += temp}
-
-    if (q == 6||q == 7||q==8||q==9){ ug_tot += temp}
-    if (q == 0||q == 1||q==2||q==4||q==5||q == 6||q == 7||q==8||q==9||q==11){ tot_tot += temp}
-
-  }
-
-    graph_15[3].data_time.push(settim)
-    graph_15[10].data_time.push(settim)
-    graph_15[12].data_time.push(settim)
-    
-    if(beast_tot != 0){graph_15[3].data.push(beast_tot)}else{graph_15[3].data.push("X")}
-    if(tot_tot != 0){graph_15[12].data.push(tot_tot)}else{graph_15[12].data.push("X")}
-    if(ug_tot != 0){graph_15[10].data.push(ug_tot)}else{graph_15[10].data.push("X")}
- 
-  }
-
-
-
-
-graph_data = graph_15
-
-graph_data[12].data_time.pop()
-  graph_data[12].data.pop()
-  graph_data[12].data_time.pop()
-  graph_data[12].data.pop()
-
+graphdata=[]
 initialise_map()
-
-initialise_chart()
-
-refresh()
-
-
+initialise_settings()
+initialise_firebase()
+read_current()
+daydata = read_a_day(22,2)
+setTimeout(function(){
+  Object.keys(daydata).forEach((key) => {
+  graphdata.push(make_graphdata_stages(daydata[key]))
+  })
+  console.log(graphdata)
+  
+  initialise_chart()
+//refresh()
 },2000)
 
 
@@ -133,7 +80,7 @@ show_event = false
 show_tensdens = false
 show_progress23 = false
 show_progress = false
-  selected_area = 12
+  selected_area = 0
 show_cap=false
 startfest = new Date ("2022-11-26T12:00")
 endfest = new Date ("2022-11-29T12:00")
@@ -149,10 +96,7 @@ endfest = new Date ("2022-11-29T12:00")
 
       
       
-        setviewzoom =16.9
-    setviewmap= [  24.996, 46.5079
-   
-              ]
+       
     zoomflip = true
     ylimit =7000
     liniendicke = 5
@@ -192,8 +136,9 @@ endfest = new Date ("2022-11-29T12:00")
       for (i=0;i<stages_list.length;i++){let j =i
         temp = tabero.append('tr')
        // temp.append('td').text(i)
-       butarr.push( temp.append('td').text(stages_list[i].name).style("cursor", "pointer").style("font-weight",700) //.append('button').style("font-size", "0.65vw")
-             .on('click',  function(){ selected_area=j; refresh() })  )
+       butarr.push( temp.append('td').text(stages_list[i].name)
+       .style("cursor", "pointer").style("font-weight",700) 
+             .on('click',  function(){ selected_area=j; refresh();console.log("area"+j) })  )
         
        tuc.push(temp.append("td").text("u"+i).style("font-weight",700))
        // ttc.push(temp.append("td").text("t"+i))
@@ -280,19 +225,10 @@ endfest = new Date ("2022-11-29T12:00")
 
 function refresh(){
 
-  for (i=0;i<graph_data[0].data.length;i++){
-     
-     if(graph_data[0].data_time[i].getTime() == settim.getTime()){
-
-         settim_slot = i
-     }
-    }
-
-  slider.attr('max',b.getTime()).attr('min',a.getTime()) // .attr('value', settim.getTime())
-
-
-
+// settim brauchen wir noch
+ 
 // tabelle aktualisieren
+/*
 for (q=0;q<stages_list.length;q++){
   pfeil =" ◄"//~"
   xutil = graph_data[q].data[settim_slot]
@@ -338,7 +274,7 @@ if(stages_list[q].coords != "donotdraw")
   tuc[q].style('background-color',col)
 tdc[q].style('background-color',farbskala[tx])
 ttc[q].style('background-color',farbskala[Math.ceil(graph_data[q].tens[settim_slot]/2) ])
-*/
+
 
  }
 
@@ -368,7 +304,7 @@ field_difc.text((l1-l2).toLocaleString('en-US'))
 
 
 onsite_cur2 = Math.ceil((onsite_cur/100000)*100/20)
-console.log(onsite_cur)
+
 //  onsite.setStyle({fillColor: farbskala[onsite_cur2]})
   field_site.text(onsite_cur.toLocaleString('en-US')).style('background-color',farbskala[onsite_cur2])
   // Zeitanzeige aktualisieren
@@ -387,9 +323,9 @@ if (settim.getMinutes()<10){rr2="0"}
     aa = settim.getTime()
   
 
+*/
 
-
-  rechnen()
+  //rechnen()
   initialise_chart()
  // update_map();
  // update_table()
@@ -414,7 +350,8 @@ width = fenster.breite*layout- margin.left - margin.right
    var gr_layout = {hovermode: "x",  //title: 'Basic Time Series', 
   // font: {size: 40},
      margin: {l: 40,  r: 40,b: 25,t: 10,  pad: 4},  
-     xaxis: {range: [a, b],
+     xaxis: {
+      //range: [a, b],
       
     linecolor: 'black',
     linewidth: 2,
@@ -436,7 +373,7 @@ width = fenster.breite*layout- margin.left - margin.right
     gr_layout.range=[0,stages_list[selected_area].capacity]
    }
 
-
+/*
 gr_layout.shapes =[]
 gr_layout.annotations =[]
    var data = []
@@ -481,7 +418,7 @@ gr_layout.annotations =[]
 
    if(selected_area < 25){
 
-    zz= interpolate(selected_area)
+    //neu zz= interpolate(selected_area)
     
     if(show_progress == true)
 
@@ -539,10 +476,14 @@ gr_layout.shapes.push(  {
       width: 1
     }})
   }
+
+*/
+data=[]
+
     data.push(
    {
-    x: graph_data[selected_area].data_time,
-    y: graph_data[selected_area].data,
+    x:  graphdata[selected_area].zeit, //neu graph_data[selected_area].data_time,
+    y:  graphdata[selected_area].usage, //neu graph_data[selected_area].data,
     yaxis:"y1",
     mode: 'lines',
     fill: 'tonexty',
@@ -551,6 +492,8 @@ gr_layout.shapes.push(  {
   type: 'scatter'  
   })
 
+   //neu 
+   /*
   wid =0
 if(zz>0){wid =1}
 gr_layout.shapes.push({
@@ -739,23 +682,15 @@ data.push({
 
     
 
-
+*/
 
 Plotly.newPlot('liu_div', data,gr_layout,{
   //displayModeBar: false, // this is the line that hides the bar.
 })
 //ply = document.getElementById('liu_div')
   }
-function rechnen(){
 
-
-
-
-
-  }
-
-
-function interpolate(u){
+  function interpolate(u){
 
  temp=0
   aa = settim.getTime()
@@ -780,9 +715,6 @@ function interpolate(u){
      
    
   return Math.round(temp)}
-
-
-  
 function interpolate_dens(u){
 
 //temp=0
@@ -806,9 +738,7 @@ aa2 = settim.getTime()
 
 
  return Math.round(temper)}
-
-
- function interpolate_general(set,timeset){
+function interpolate_general(set,timeset){
 
 
  searchtime = settim.getTime()
@@ -834,12 +764,7 @@ found=0
    
  return Math.round(found)}
 
- setInterval(mytimer, 1000*60);
- function mytimer(){
-if (timer == true)
-{settim = new Date()
-refresh()}
-}
+
     </script>
 
 </html>
