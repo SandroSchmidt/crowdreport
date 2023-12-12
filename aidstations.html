@@ -72,13 +72,14 @@ d3.select('#sl5').attr("value",current["aid station 5"].usage);d3.select('#span5
 ref = database.ref('soundstorm').child('SS23aux').child("medical")
 ref.on('value', (snapshot) => {
   medicalplotdata= snapshot.val()
-  console.table(medicalplotdata)
+ 
 draw_plot()
 })
 
 
 function draw_plot(){
-  
+
+ // make_graphdata(medicalplotdata["aid station 1"])
  // Sample data for two stacked lines
  var data =[]
  for(i=1;i<6;i++){

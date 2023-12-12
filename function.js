@@ -8,8 +8,8 @@ set_name ="wrong reporter"
 farbskala = ["lightblue","#00B0F0","#00B0F0","#92D050","#92D050","#FFFF00","#FFFF00","#FF9201","#FF9201","#FF0000",'red',"#ee00ff","#ee00ff","#ee00ff","#ee00ff","#ee00ff"]
   eventloc = [0,0]
 list_of_reporters = ["demo","sandro","marcel","medical","mark",
-"marc","dave","alex","anto","olly","sjors","conor","jasja","dessie","neil","claire","colm","ger","ian","martin","eric"]
-list_of_credentials= ["none","p","m","none","m", "m","d","a","a","o","g","c","j","d","n","c","c","g","i","m","e"]
+"marc","dave","sasha","anto","olly","sjors","conor","jasja","dessie","neil","claire","colm","ger","ian","martin","eric","peter"]
+list_of_credentials= ["none","p","m","none","m", "m","d","s","a","o","s","c","j","d","n","c","c","g","i","m","e","p"]
 set_pos=[9,9]
 da1 = new Date("2023-12-14T10:00")
 da2 = new Date("2023-12-15T10:00")
@@ -422,17 +422,21 @@ for(i=0;i<stages_list.length;i++)
 
 
 
-make_graphdata([{zeit:"2024-01-01"}])
+
 
 function make_graphdata(indata){
 //die indaten sind ein array mit jeweils den obj zeit und usage
 outdata ={zeit:[],usage:[]}
 temp = new Date(indata[0].zeit)
-console.log(temp)
-temp = temp.setHours(15)
 
-/////////hier geht es weiter
-console.log(new Date(temp))
+temp = temp.setHours(15)
+for (i=0;i<indata.length;i++){
+
+  entfernungzu15uhr = (indata[i].zeit-temp)/(15*60*1000)
+  console.log(entfernungzu15uhr)
+}
+
+
 }
 
 
