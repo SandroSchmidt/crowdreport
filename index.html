@@ -43,12 +43,13 @@
   <table style="width:100%">
     <tr><td>reporting:</td>
       <td>
+
         <select id="dropdownrep"  onchange="set_name=list_of_reporters[this.value];infotag.text('new reporting person: '+set_name)
-        if(set_name== 'marcel')
+       
+       if(set_name== 'marcel')
 {d3.select('#map_div').style('height','70%')
 }else{d3.select('#map_div').style('height','500px')}        
-        
-        
+               
         "></select>
  
  <select id="dropdown" name="dropdown" onchange="set_area = parseInt(this.value);console.log(this.value);select_area(this.value)">
@@ -93,7 +94,7 @@
        
       </td>
       <td>
-        <button onclick="eventmarkertoggle =true;infotag.text('report incident by clicking on map')">incident  </button>
+        <button onclick="eventmarkertoggle =true;infotag.text('report marker by clicking on map')">set marker</button>
       </td>
     </tr>
   </table>

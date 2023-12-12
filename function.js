@@ -14,6 +14,7 @@ da2 = new Date("2023-12-15T10:00")
 da3 = new Date("2023-12-16T10:00")
 da4 = new Date("2023-12-17T10:00")
 eventmarkertoggle = false
+locked = true
 
 function select_area(set_area){
   ausgew_area = stages_list[set_area].name
@@ -109,7 +110,13 @@ parking_list.tooltip[i].setContent("parking lot "+ (i+1)+ " - " + temp + " %" )
 for(i=0;i<medstations.length;i++){
 
    medstations[i].geo.setTooltipContent(medstations[i].name +"<br>"+current["aid station "+(1+i)].usage + " / " +medstations[i].capacity+" patients")
+   temp = (current["aid station "+(1+i)].usage/medstations[i].capacity)
+   if(temp > 0.8)
+   {medstations[i].geo.setIcon(mediconring)
+}else {medstations[i].geo.setIcon(medicon)
+
 }
+  }
 //select_area(set_area)
 });
 
@@ -120,13 +127,13 @@ ref.on('value', (snapshot) => {
 locations = snapshot.val()
 
 
-incidentcounter =0 
+markercounter =0 
 Object.keys(locations).forEach((key) => {
   a = new Date()
     a =a.getTime()
-    if(key.startsWith("incident")){incidentcounter++;L.marker(locations[key].ort,{icon:eventicon}).addTo(mymap)
+    if(key.startsWith("marker")){markercounter++;L.marker(locations[key].ort,{icon:eventicon}).addTo(mymap)
   //  .bindPopup(locations[key].text)
-//  .bindTooltip("incident "+incidentcounter)
+//  .bindTooltip("marker "+markercounter)
 .bindTooltip(locations[key].text)
 }else
     {if(existing_markers.includes(key)) {
@@ -173,6 +180,7 @@ b = new Date("2022-12-04 04:00:00")
 
 // icons
 medicon = L.icon({  iconUrl: './icons/medicon.png', iconSize:     [20, 20], });
+mediconring = L.icon({  iconUrl: './icons/mediconring.png', iconSize:     [20, 20], });
 eventicon = L.icon({  iconUrl: './icons/red.png',  iconSize:     [40, 40],  iconAnchor:   [20, 40]})
 
 
@@ -284,16 +292,18 @@ L.control.layers(
  
         let eventloc = 
      //   L.marker([e.latlng.lat,e.latlng.lng],{icon:eventicon}).addTo(mymap)
-         userInput = prompt('describe incident:', '')
+         userInput = prompt('describe marker:', '')
          if (userInput !== null) {
-          databaseRef = database.ref('soundstorm').child('locations').child("incident"+incidentcounter);
+          databaseRef = database.ref('soundstorm').child('locations').child("marker"+markercounter);
         
           jetzt = new Date ()
-                databaseRef.set({ort: [e.latlng.lat,e.latlng.lng],text:userInput,meldender:set_name,zeige : true,zeit:jetzt.getTime()})
+                databaseRef.set({ort: [e.latlng.lat,e.latlng.lng],
+                  text:userInput,
+                  meldender:set_name,zeige : true,
+                  zeit:jetzt.getTime()})
  
      
-     
-         
+          
      
          eventmarkertoggle = false
 
