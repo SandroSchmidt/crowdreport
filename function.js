@@ -7,8 +7,9 @@ set_area=0
 set_name ="wrong reporter"
 farbskala = ["lightblue","#00B0F0","#00B0F0","#92D050","#92D050","#FFFF00","#FFFF00","#FF9201","#FF9201","#FF0000",'red',"#ee00ff","#ee00ff","#ee00ff","#ee00ff","#ee00ff"]
   eventloc = [0,0]
-list_of_reporters = ["demo","sandro","marcel","medical","marc","sasha","eric"]
-list_of_credentials= ["none","p",     "fu",   "none" , "none", "fff","fff"   ,]
+list_of_reporters = ["demo","sandro","marcel","medical","mark",
+"marc","dave","alex","anto","olly","sjors","conor","jasja","dessie","neil","claire","colm","ger","ian","martin","eric"]
+list_of_credentials= ["none","p","m","none","m", "m","d","a","a","o","g","c","j","d","n","c","c","g","i","m","e"]
 set_pos=[9,9]
 da1 = new Date("2023-12-14T10:00")
 da2 = new Date("2023-12-15T10:00")
@@ -19,13 +20,19 @@ locked = true
 
 function select_area(set_area){
   ausgew_area = stages_list[set_area].name
-        d3.select('#densInput').attr('value',current[ausgew_area].density)
+
+       d3.select('#densInput').attr('value',current[ausgew_area].density)
         d3.select('#dens_p').text(current[ausgew_area].density)
         d3.select('#usageInput').attr('value',current[ausgew_area].usage)
         d3.select('#usage_p').text(current[ausgew_area].usage+" %")
+        d3.select('#tensInput').attr('value',current[ausgew_area].tension)
+        d3.select('#tens_p').text(current[ausgew_area].tension+" %")
+
+
 
         set_dens = current[ausgew_area].density
         set_usage = current[ausgew_area].usage
+        set_tens = current[ausgew_area].tension
         //dens_slider.node().dispatchEvent(new Event('input'));
 
 }
@@ -159,15 +166,16 @@ swipes_arr = snapshot.val()
 a = new Date()
     a =a.getTime()
     
-Object.keys(swipes_arr).forEach((key) => {
+    console.log(swipes_arr)
+    if(swipes_arr != undefined)
+{Object.keys(swipes_arr).forEach((key) => {
   x = (a -swipes_arr[key].zeit )/1000
-  
-
+ 
 if(x<8){
     draw_arrow (swipes_arr[key].von,swipes_arr[key].nach,"green",swipes_arr[key].dicke,10-x)
 }
   
-})
+})}
 
 })
 
@@ -413,118 +421,23 @@ for(i=0;i<stages_list.length;i++)
 
 
 
-// Function to interpolate values at regular intervals (e.g., every 15 minutes)
-function interpolateValues(inputObject, intervalMinutes = 15) {
-  const interpolatedObject = {
-    zeit: [],
-    values: [],
-  };
 
+make_graphdata([{zeit:"2024-01-01"}])
 
-  const { zeit, values } = inputObject;
-  const startTime = zeit[0];
-  const endTime = zeit[zeit.length - 1];
+function make_graphdata(indata){
+//die indaten sind ein array mit jeweils den obj zeit und usage
+outdata ={zeit:[],usage:[]}
+temp = new Date(indata[0].zeit)
+console.log(temp)
+temp = temp.setHours(15)
 
-
-
-  for (let time = startTime; time <= endTime; time += intervalMinutes * 60 * 1000) {
-    // Find the closest zeit for interpolation
-    const lowerIndex = zeit.findIndex((timestamp) => timestamp >= time);
-    const upperIndex = lowerIndex === 0 ? 1 : lowerIndex;
-
-    if (upperIndex < zeit.length) {
-      const lowerTimestamp = zeit[lowerIndex - 1];
-      const upperTimestamp = zeit[upperIndex];
-      const lowerValue = values[lowerIndex - 1];
-      const upperValue = values[upperIndex];
-
-      // Linear interpolation formula
-      const interpolatedValue =
-        lowerValue +
-        ((time - lowerTimestamp) / (upperTimestamp - lowerTimestamp)) * (upperValue - lowerValue);
-
-      interpolatedObject.zeit.push(time);
-      interpolatedObject.values.push(interpolatedValue);
-    }
-  }
-
-  return interpolatedObject;
-}
-
-function interpolateValues2(inputObject, intervalMinutes = 15) {
-  const interpolatedObject = {
-    zeit: [],
-    values: [],
-  };
-
-  const { zeit, values } = inputObject;
-  const intervalMillis = intervalMinutes * 60 * 1000;
-
-  for (let i = 0; i < zeit.length - 1; i++) {
-    const startTime = zeit[i];
-    const startValue = values[i];
-    const endTime = zeit[i + 1];
-    const endValue = values[i + 1];
-
-    const timeDiff = endTime - startTime;
-    const steps = Math.ceil(timeDiff / intervalMillis);
-
-    for (let step = 0; step < steps; step++) {
-      const ratio = step / steps;
-      const interpolatedTime = startTime + ratio * timeDiff;
-      const interpolatedValue = startValue + ratio * (endValue - startValue);
-
-      interpolatedObject.zeit.push(interpolatedTime);
-      interpolatedObject.values.push(interpolatedValue);
-    }
-  }
-
-  // Add the last timestamp and value
-  interpolatedObject.zeit.push(zeit[zeit.length - 1]);
-  interpolatedObject.values.push(values[values.length - 1]);
-
-  return interpolatedObject;
+/////////hier geht es weiter
+console.log(new Date(temp))
 }
 
 
-function prepare_graphdata(daydata){
-  console.log(daydata)
-
-graph_data = []
-m=0
-Object.keys(daydata).forEach((key) => {
- graph_data.push({data_time:[],dens_time:[],data:[],dens:[],tens_time:[],tens:[]}
-)
-  console.log(key)
-  for(ko=0;ko<daydata[key].length;ko++)
-{graph_data[m].data_time.push(daydata[key][ko].zeit)
-
-  graph_data[m].dens_time.push(daydata[key][ko].zeit)
-  graph_data[m].data.push(daydata[key][ko].usage)
-  graph_data[m].dens.push(daydata[key][ko].density)
-  graph_data[m].tens_time.push(daydata[key][ko].zeit)
-  graph_data[m].tens.push(daydata[key][ko].tension)
 
 
- 
-}
-m++
-})
-graph_data.push({data_time:[],dens_time:[],data:[],dens:[],tens_time:[],tens:[]})
-  graph_data.push({data_time:[],dens_time:[],data:[],dens:[],tens_time:[],tens:[]})
-    graph_data.push({data_time:[],dens_time:[],data:[],dens:[],tens_time:[],tens:[]})
-      graph_data.push({data_time:[],dens_time:[],data:[],dens:[],tens_time:[],tens:[]})
-      graph_data.push({data_time:[],dens_time:[],data:[],dens:[],tens_time:[],tens:[]})
-  graph_data.push({data_time:[],dens_time:[],data:[],dens:[],tens_time:[],tens:[]})
-    graph_data.push({data_time:[],dens_time:[],data:[],dens:[],tens_time:[],tens:[]})
-      graph_data.push({data_time:[],dens_time:[],data:[],dens:[],tens_time:[],tens:[]})
-      graph_data.push({data_time:[],dens_time:[],data:[],dens:[],tens_time:[],tens:[]})
-  graph_data.push({data_time:[],dens_time:[],data:[],dens:[],tens_time:[],tens:[]})
-    graph_data.push({data_time:[],dens_time:[],data:[],dens:[],tens_time:[],tens:[]})
-      graph_data.push({data_time:[],dens_time:[],data:[],dens:[],tens_time:[],tens:[]})
-console.log(graph_data)
-
-}
 /*
 ww =[]
 for (f=0;f< zones_arr.length;f++){

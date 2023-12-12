@@ -47,6 +47,7 @@
       <td>
 
         <select id="dropdownrep"  onchange="set_name=list_of_reporters[this.value];infotag.text('new reporting person: '+set_name)
+        locked= true;d3.select('#lock').text('LOCKED')
        if(set_name == 'medical'||set_name == 'demo'|| set_name == 'marc'){locked = true;d3.select('#lock').text('LOCKED')}else{
         userInput = prompt('credentials:', '')
          if (userInput !== null) {
@@ -56,7 +57,8 @@
 
         {d3.select('#map_div').style('height','500px')}       
        if(set_name== 'marcel'){d3.select('#map_div').style('height','70%')}
-       if(set_name== 'medical'){d3.select('#map_div').style('height','100%')
+       if(set_name== 'medical'){
+        //d3.select('#map_div').style('height','100%')
        aidstations_layer.addTo(mymap)
       mymap.setZoom(16.5)
       }    
@@ -71,7 +73,13 @@
     </tr>
     <tr>
       <td>density:</td>
-      <td> <input type="range" id="densInput" min="0" max="10" value =5  onchange="set_dens= parseInt(this.value);infotag.text('dens '+this.value);d3.select('#dens_p').text(set_dens)"></td>
+      <td> <!-- <button onclick="set_dens =Math.max(0,set_dens-1);d3.select('#dens_p').text(set_dens);d3.select('#densInput').attr('value',set_dens)">-</button> 
+        
+          -->  
+          <input type="range" id="densInput" min="0" max="10" step=1   onchange="set_dens= parseInt(this.value);infotag.text('dens '+this.value);d3.select('#dens_p').text(set_dens)">
+         <!--   <button onclick="set_dens =Math.min(10,set_dens+1);d3.select('#dens_p').text(set_dens);d3.select('#densInput').attr('value',set_dens)">+</button> 
+        -->  
+        </td>
     <td> <span id="dens_p"> 5</span></td>
     </tr>
  
@@ -79,14 +87,16 @@
     <tr>
   
   <td>tension:</td>
-  <td>   <input type="range" id="tensInput" min="0" max="10" value =5  onchange="set_tens= parseInt(this.value);d3.select('#tens_p').text(set_tens)"></td>
+  <td>   <input type="range" id="tensInput" min="0" max="10" step=5  
+    onchange="set_tens= parseInt(this.value);d3.select('#tens_p').text(set_tens)"></td>
   <td> <span id="tens_p"> 5</span></td>
 
     </tr>
 
     <tr>
       <td>usage:</td>
-      <td><input type="range" id="usageInput" min="0" max="150" step=10 value =50 onchange="set_usage= parseInt(this.value);d3.select('#usage_p').text(set_usage + ' %')">
+      <td><input type="range" id="usageInput" min="0" max="150" step=10 value =50 
+        onchange="set_usage= parseInt(this.value);d3.select('#usage_p').text(set_usage + ' %')">
       </td>
       <td>  <span id="usage_p"> 10%</span></td>
     </tr>
@@ -306,7 +316,7 @@ const database = firebase.database();
       //  area: stages_list[set_area].name,
         density: set_dens,
         position: set_pos,
-       // tension: set_tens,
+        tension: set_tens,
         usage: set_usage,
       };
 
