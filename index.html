@@ -182,7 +182,10 @@ for(i=0;i<stages_list.length;i++){if(stages_list[i].coords != "donotdraw"){
   
 
 function update_ownpos(){
-  
+  if (locked) {
+    infotag.text('can not send own position when -LOCKED-')
+    return;
+  }
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition, showError);
             } else {
@@ -270,6 +273,10 @@ function update_ownpos(){
  */
 
 function writeReportToFirebase() {
+  if (locked) {
+    infotag.text('can not send reports or swipes when -LOCKED-')
+    return;
+  }
       jetzt = new Date()
       jetzte=jetzt.getTime()
    

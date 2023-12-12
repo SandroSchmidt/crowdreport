@@ -7,8 +7,8 @@ set_area=0
 set_name ="wrong reporter"
 farbskala = ["lightblue","#00B0F0","#00B0F0","#92D050","#92D050","#FFFF00","#FFFF00","#FF9201","#FF9201","#FF0000",'red',"#ee00ff","#ee00ff","#ee00ff","#ee00ff","#ee00ff"]
   eventloc = [0,0]
-list_of_reporters = ["sandro","marcel","medical","marc","sasha","eric","demo",]
-list_of_credentials= ["p",     "fu",   "none" , "none", "ffff","fff", "none"]
+list_of_reporters = ["demo","sandro","marcel","medical","marc","sasha","eric"]
+list_of_credentials= ["none","p",     "fu",   "none" , "none", "fff","fff"   ,]
 set_pos=[9,9]
 da1 = new Date("2023-12-14T10:00")
 da2 = new Date("2023-12-15T10:00")
@@ -42,7 +42,7 @@ function read_a_day(jahr,tager){
 }
 
 function draw_arrow(von,nach,farbe,dicke,ttl){
- 
+ farbe = "green"
   if (dicke>5){farbe = "lime"}
   if (dicke>10){farbe = "red"}
   var polyline = L.polyline([von,nach],{weight:dicke,color:farbe}).addTo(movement_layer);
@@ -132,7 +132,7 @@ markercounter =0
 Object.keys(locations).forEach((key) => {
   a = new Date()
     a =a.getTime()
-    if(key.startsWith("marker")){markercounter++;L.marker(locations[key].ort,{icon:eventicon}).addTo(mymap)
+    if(key.startsWith("marker")){markercounter++;L.marker(locations[key].ort,{icon:eventicon}).addTo(eigensymbole_layer)
   //  .bindPopup(locations[key].text)
 //  .bindTooltip("marker "+markercounter)
 .bindTooltip(locations[key].text)
@@ -237,7 +237,7 @@ for (f=0;f<parking_arr.length;f++)  {
   let polygon = L.polygon(parking_arr[f].coords, {color: parking_arr[f].color})
  
  parking_list.geo.push(polygon)
-
+/*
   polygon.on('click',function(){
     current[parking_arr[fx].name].usage += 10
     if (current[parking_arr[fx].name].usage > 100){current[parking_arr[fx].name].usage =0}
@@ -245,9 +245,9 @@ for (f=0;f<parking_arr.length;f++)  {
  a = new Date()
     databaseRef = database.ref('soundstorm').child('aktuell').child(parking_arr[fx].name);
         databaseRef.set({usage: current[parking_arr[fx].name].usage,zeit:a.getTime()})
- 
-       
-  })
+          })
+
+          */
   polygon.addTo(l)
 
 var tooltip = L.tooltip({permanent: true, direction: 'center'})
@@ -289,7 +289,7 @@ for (f=0;f<walkway_arr.length;f++)      {L.polygon(walkway_arr[f], {fillColor: '
 // Layercontroll
 L.control.layers(
   {"OSM": tl1,"img": imageOverlay,"dark":Jawg_Matrix ,"sat":Esri_WorldImagery},
-  {"stages":stages_layer,"blocks":green_layer,"spotter":eigensymbole_layer,"movement" :movement_layer,
+  {"stages":stages_layer,"blocks":green_layer,"spotter+marker":eigensymbole_layer,"crowdflow" :movement_layer,
   "parking lots":parkinglot_layer,"op-zones":zones_layer,"medical":aidstations_layer}).addTo(mymap);
 
 //ownmarker = L.marker(  [24.996,46.508]).addTo(mymap);
@@ -352,6 +352,9 @@ mymap.on('zoomend', function() {
 
 // hier werden die swipes aufgenommen und gespeichert in der firebase  
 mymap.getContainer().addEventListener("touchend", function (e) {
+
+
+
   if(!isZooming ){
     touchEndX = e.changedTouches[0].clientX;
     touchEndY = e.changedTouches[0].clientY;
@@ -372,7 +375,7 @@ mymap.getContainer().addEventListener("touchend", function (e) {
     
       draw_arrow (ort1,ort2,"grey",www,3)
      
-      infotag.text("swipe gespeichert!"+ www)
+      infotag.text("swipe reported. category:   "+ www/5)
 
   // timeer der eingegebene Swipes vernichtet
   
@@ -381,6 +384,10 @@ mymap.getContainer().addEventListener("touchend", function (e) {
     ntemp = ntemp.getTime()
 
     // !!!! hier sit das speichern des swipes deaktiviert !!!!!!!!!!!!
+    if (locked) {
+      infotag.text('can not send swipes when -LOCKED-')
+      return;
+    }
      const database = firebase.database()
      databaseRef = database.ref('soundstorm').child('swipes').child(ntemp);
     databaseRef.set({meldender:set_name,von:ort1, nach:ort2,zeit:ntemp,dicke:www})
