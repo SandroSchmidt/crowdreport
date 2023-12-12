@@ -220,6 +220,7 @@ movement_layer = L.layerGroup().addTo(mymap)
 parkinglot_layer = L.layerGroup().addTo(mymap)
 zones_layer = L.layerGroup()
 back_layer = L.layerGroup().addTo(mymap)
+aidstations_layer = L.layerGroup()
 // alles einmalen das keine Bühnen sind
 for (f=0;f<parking_arr.length;f++)  {
   let l = eval(parking_arr[f].layer)
@@ -258,7 +259,7 @@ for (f=0;f<inert_arr.length;f++)  {
 }
 for (f=0;f<medstations.length;f++) {medstations[f].geo = L.marker(medstations[f].coords,{icon:medicon}).bindTooltip(medstations[f].name)
 //medstations[f].geo .on("mouserover",function(e){this.openPopup()})
-medstations[f].geo .addTo(mymap)}
+medstations[f].geo.addTo(aidstations_layer)}
 for (f=0;f<greening_arr.length;f++) {L.polygon(greening_arr[f], {color: 'green', "weight": 1,"opacity": 0.65 }).addTo(green_layer)}
 for (f=0;f<blocking_arr.length;f++) {let fu = f; L.polygon(blocking_arr[f], {fillColor: 'grey',color:"black", "weight": 1,"opacity": 0.8}).on('mouseover',function(){infotag.text("you hover on block "+fu)}).addTo(green_layer)}
 
@@ -270,7 +271,8 @@ for (f=0;f<walkway_arr.length;f++)      {L.polygon(walkway_arr[f], {fillColor: '
 // Layercontroll
 L.control.layers(
   {"OSM": tl1,"img": imageOverlay,"dark":Jawg_Matrix ,"sat":Esri_WorldImagery},
-  {"stages":stages_layer,"blocks":green_layer,"spotter":eigensymbole_layer,"movement" :movement_layer,"parking lots":parkinglot_layer,"op-zones":zones_layer}).addTo(mymap);
+  {"stages":stages_layer,"blocks":green_layer,"spotter":eigensymbole_layer,"movement" :movement_layer,
+  "parking lots":parkinglot_layer,"op-zones":zones_layer,"medical":aidstations_layer}).addTo(mymap);
 
 //ownmarker = L.marker(  [24.996,46.508]).addTo(mymap);
 
