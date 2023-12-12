@@ -8,7 +8,9 @@
 
   <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
    <script src="https://unpkg.com/leaflet-polylinedecorator/dist/leaflet.polylineDecorator.js"></script>
-
+ 
+   <script src="https://unpkg.com/leaflet-fullscreen/dist/Leaflet.fullscreen.min.js"></script>
+   <link rel="stylesheet" href="https://unpkg.com/leaflet-fullscreen/dist/leaflet.fullscreen.css" />
   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
@@ -45,11 +47,21 @@
       <td>
 
         <select id="dropdownrep"  onchange="set_name=list_of_reporters[this.value];infotag.text('new reporting person: '+set_name)
+       if(set_name == 'medical'||set_name == 'demo'|| set_name == 'marc'){locked = true;d3.select('#lock').text('LOCKED')}else{
+        userInput = prompt('credentials:', '')
+         if (userInput !== null) {
+          if(userInput == list_of_credentials[this.value]){locked = false; d3.select('#lock').text('UNLOCKED')}
+          else{locked = true;d3.select('#lock','UNLOCKED')}
+        }}
+
+        {d3.select('#map_div').style('height','500px')}       
+       if(set_name== 'marcel'){d3.select('#map_div').style('height','70%')}
+       if(set_name== 'medical'){d3.select('#map_div').style('height','100%')
+       aidstations_layer.addTo(mymap)
+      mymap.setZoom(16.5)
+      }    
        
-       if(set_name== 'marcel')
-{d3.select('#map_div').style('height','70%')
-}else{d3.select('#map_div').style('height','500px')}        
-               
+       mymap.invalidateSize();
         "></select>
  
  <select id="dropdown" name="dropdown" onchange="set_area = parseInt(this.value);console.log(this.value);select_area(this.value)">
@@ -66,7 +78,7 @@
      
     <tr>
   
-  <td>tens:</td>
+  <td>tension:</td>
   <td>   <input type="range" id="tensInput" min="0" max="10" value =5  onchange="set_tens= parseInt(this.value);d3.select('#tens_p').text(set_tens)"></td>
   <td> <span id="tens_p"> 5</span></td>
 

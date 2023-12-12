@@ -7,7 +7,8 @@ set_area=0
 set_name ="wrong reporter"
 farbskala = ["lightblue","#00B0F0","#00B0F0","#92D050","#92D050","#FFFF00","#FFFF00","#FF9201","#FF9201","#FF0000",'red',"#ee00ff","#ee00ff","#ee00ff","#ee00ff","#ee00ff"]
   eventloc = [0,0]
-list_of_reporters = ["sandro","marcel","marc","sasha","eric","tester"]
+list_of_reporters = ["sandro","marcel","medical","marc","sasha","eric","demo",]
+list_of_credentials= ["p",     "fu",   "none" , "none", "ffff","fff", "none"]
 set_pos=[9,9]
 da1 = new Date("2023-12-14T10:00")
 da2 = new Date("2023-12-15T10:00")
@@ -193,7 +194,7 @@ mymap.on('moveend', function() { mapaa = (mymap.getCenter(),mymap.getCenter());s
 function initialise_map(){
 
   // Karte und Hintergründe
-  mymap = L.map('map_div',{zoomSnap: 0.1, dragging: false,minZoom:14,maxZoom:18}).setView([24.997496213866462,46.51234272528364],15 )
+  mymap = L.map('map_div',{zoomSnap: 0.1, dragging: false,minZoom:14,maxZoom:18}).setView([24.99646971811259, 46.50594438628725],15 )
    // mymap.on('zoomend', function() {setviewzoom = mymap.getZoom()});
    // mymap.on('moveend', function() { mapaa = (mymap.getCenter(),mymap.getCenter());setviewmap=[mapaa.lat,mapaa.lng]});
 
@@ -256,6 +257,15 @@ var tooltip = L.tooltip({permanent: true, direction: 'center'})
     parking_list.tooltip.push(tooltip)
 
 }
+
+/*
+var fullscreenButton = L.easyButton('fa-arrows-alt', function(btn, mymap){
+  mymap.toggleFullscreen();
+}, 'Toggle Fullscreen');
+fullscreenButton.addTo(mymap);
+*/
+mymap.addControl(new L.Control.Fullscreen());
+
 
 
 for (f=0;f<inert_arr.length;f++)  {
