@@ -107,7 +107,7 @@ for(i=0;i<stages_list.length;i++){
 
 
  let  fcol = farbskala[Math.round(temp.usage/15)]
- let col = farbskala[Math.round(temp.density)]
+ let col = farbskala[Math.round(temp.density*2)]
   stages_list[i].geo.setStyle({
   //   opacity:1,
       fillOpacity:0.6,
