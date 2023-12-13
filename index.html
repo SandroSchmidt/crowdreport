@@ -48,7 +48,7 @@
 
         <select id="dropdownrep"  onchange="set_name=list_of_reporters[this.value];infotag.text('new reporting person: '+set_name)
         locked= true;d3.select('#lock').text('LOCKED')
-       if(set_name == 'medical'||set_name == 'demo'|| set_name == 'marc'){locked = true;d3.select('#lock').text('LOCKED')}else{
+       if(set_name == 'medical'||set_name == 'demo'|| set_name == 'mark'){locked = true;d3.select('#lock').text('LOCKED')}else{
         userInput = prompt('credentials:', '')
          if (userInput !== null) {
           if(userInput == list_of_credentials[this.value]){locked = false; d3.select('#lock').text('UNLOCKED')}

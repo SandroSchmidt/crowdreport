@@ -9,7 +9,7 @@ farbskala = ["lightblue","#00B0F0","#00B0F0","#92D050","#92D050","#FFFF00","#FFF
   eventloc = [0,0]
 list_of_reporters = ["demo","sandro","marcel","medical","mark",
 "marc","dave","sasha","anto","olly","sjors","conor","jasja","dessie","neil","claire","colm","ger","ian","martin","eric","peter"]
-list_of_credentials= ["none","s","m","none","m", "m","d","s","a","o","s","c","j","d","n","c","c","g","i","m","e","p"]
+list_of_credentials= ["none","s","m","none","none", "m","d","s","a","o","s","c","j","d","n","c","c","g","i","m","e","p"]
 set_pos=[9,9]
 da1 = new Date("2023-12-14T10:00")
 da2 = new Date("2023-12-15T10:00")
