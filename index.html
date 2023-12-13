@@ -48,14 +48,12 @@
 
         <select id="dropdownrep"  onchange="set_name=list_of_reporters[this.value];infotag.text('new reporting person: '+set_name)
         locked= true;d3.select('#lock').text('LOCKED')
-       if(set_name == 'medical'||set_name == 'demo'|| set_name == 'mark'){locked = true;d3.select('#lock').text('LOCKED')}else{
-        userInput = prompt('credentials:', '')
-         if (userInput !== null) {
-          if(userInput == list_of_credentials[this.value]){locked = false; d3.select('#lock').text('UNLOCKED')}
-          else{locked = true;d3.select('#lock','UNLOCKED')}
-        }}
-
-        {d3.select('#map_div').style('height','500px')}       
+    
+        if(set_name == 'medical'||set_name == 'demo'|| set_name == 'markB')
+    {locked = true;d3.select('#lock').text('LOCKED')}
+    else{locked = false; d3.select('#lock').text('UNLOCKED')}
+      
+        d3.select('#map_div').style('height','500px')       
        if(set_name== 'marcel'||set_name== 'marc'||set_name== 'eric'){d3.select('#map_div').style('height','70%')}
        if(set_name== 'medical'){
         //d3.select('#map_div').style('height','100%')
@@ -105,10 +103,10 @@
   
       <td>
   </select>
- <button onclick="newarea =[];nar = L.polygon(newarea).addTo(mymap); mymap.on('click',function(e)
- { newarea.push([e.latlng.lat,e.latlng.lng]);nar.setLatLngs(newarea); console.log(newarea)})">new aera</button>
-
+ 
 <!--
+<button onclick="newarea =[];nar = L.polygon(newarea).addTo(mymap); mymap.on('click',function(e)
+ { newarea.push([e.latlng.lat,e.latlng.lng]);nar.setLatLngs(newarea); console.log(newarea)})">new aera</button>
 
  -->
 
