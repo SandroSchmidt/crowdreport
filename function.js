@@ -194,8 +194,8 @@ for(i=0;i<stages_list.length;i++){
 })
 jetzt = new Date()
 jetzte = jetzt.getTime()
-if((jetzte - current[stages_list[i].name].zeit)>(1000*60*60)){
-  stages_list[i].geo.setStyle({color:"red",fillColor:"black",opacity:1})
+if((jetzte - current[stages_list[i].name].zeit)>(1000*60*45)){
+  stages_list[i].geo.setStyle({color:"black",fillColor:"black",opacity:1})
 }
 
 }
@@ -262,10 +262,11 @@ a = new Date()
 
     if(swipes_arr != undefined)
 {Object.keys(swipes_arr).forEach((key) => {
-  x = (a -swipes_arr[key].zeit )/1000
- 
+  x = (a -swipes_arr[key].zeit )/1000 // x ist das alter des pfeiles in sekunden
+ if(swipes_arr[key].meldender == "sandro"||swipes_arr[key].meldender =="marcel"){y = 60*10}else{y=20} 
+ // die time to live ist 10 min bei pfeilen die ich eingemalt habe, else ist sie 20 sek
 if(x<8){
-    draw_arrow (swipes_arr[key].von,swipes_arr[key].nach,"green",swipes_arr[key].dicke,10-x,swipes_arr[key].meldender )
+    draw_arrow (swipes_arr[key].von,swipes_arr[key].nach,"green",swipes_arr[key].dicke,y-x,swipes_arr[key].meldender )
 }
   
 })}
