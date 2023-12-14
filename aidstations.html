@@ -18,8 +18,9 @@
         <script src="./function.js"></script>
 </head>
 <body>
-  <div id="plot_div"></div>
-  <div id="plot_div2"></div>
+  <h2>SS23 Aid-Stations Reporting (BETA)</h2>
+  <div id="liu_div"></div>
+  <div id="liu_div2"></div>
   <div id="sliders">
     <span>Aid station 1</span> <input id="sl1" type="range" min="0" max="44" step=1 value =0 oninput="d3.select('#span1').text(this.value+' / 44')" onchange="
       
@@ -70,55 +71,39 @@ d3.select('#sl5').attr("value",current["aid station 5"].usage);d3.select('#span5
 
 })
 
-ref = database.ref('soundstorm').child('SS23aux').child("medical")
+ref = database.ref('soundstorm/SS23aux/day'+heutag+'/medical')
 ref.on('value', (snapshot) => {
   medicalplotdata= snapshot.val()
+
+
+  /// daten zu graphdaten vorbereiten
+  var data =[]
+ for(j=5;j>0;j--){
+  let temper = make_graphdata(medicalplotdata["aid station "+j])
  
-draw_plot()
+   
+  data.push(
+   {
+    x:  make_graphdata(medicalplotdata["aid station "+j]).zeit, //neu graph_data[selected_area.id].data_time,
+    y:  make_graphdata(medicalplotdata["aid station "+j]).usage, //neu graph_data[selected_area.id].data,
+     stackgroup: 'one',
+
+ //   fill: 'tonexty',
+  name: "Aid Station "+j,
+ 
+  type: 'scatter'  ,
+ 
+  },
+  
+  )
+}
+
+initialise_chart(data,"patients")
 })
 
 
-function draw_plot(){
-
- 
- // Sample data for two stacked lines
- var data =[]
- for(j=1;j<6;j++){
-  let temper = make_graphdata(medicalplotdata["aid station 1"])
 
 
- data.push({
-    x: zeitstempel,
-    y: temper,
-    type: "bar",//'scatter',
-    mode: 'lines',
-    name: 'aid station '+j,   
-   // fill: j === 1 ? 'tozeroy' : 'tonexty', // Use 'tozeroy' for the first series, 'tonexty' for others
-    stackgroup:"one",
-   fill: 'tonexty'
-  })
-}
- 
-  var layout = {barmode: 'stack',
-    xaxis: {
-   //   type: 'date',showline:true,
-     // tickformat: '%H:%M',  // Format for displaying date on x-axis
-    },
-    yaxis: {
-      title: 'patients',
-      autorange: true,
-      type: 'linear',
-      rangemode: 'tozero',
-      showgrid: true,
-      zeroline: false,
-      showline: true
-    },
-    showlegend: true,
-    legend: { "orientation": "h" }
-  };
-
-  Plotly.newPlot('plot_div', data, layout);
-}
 
 
 
@@ -127,28 +112,25 @@ function report_aidstation(lot,value){
   databaseRef = database.ref('soundstorm').child('aktuell').child("aid station "+lot);
   jetzt = new Date ()
         databaseRef.set({usage:parseInt(value),zeit:jetzt.getTime()})
-  infotag.text("report sent for aid station " + lot + " at : " + jetzt )
+
   
   jetzt = new Date ()
-  databaseRef = database.ref('soundstorm').child('SS23aux').child("medical").child("aid station "+lot).child("zeit");
+  databaseRef = database.ref('soundstorm/SS23aux/day'+heutag+'/medical').child("aid station "+lot).child("zeit");
               databaseRef.transaction(function(currentArray) {
-  // Make sure currentArray is an array
-  currentArray = currentArray || [];
- // Add the new item to the array
-  currentArray.push(jetzt.getTime());
-  // Return the updated array
-  return currentArray;
+              currentArray = currentArray || [];
+              currentArray.push(jetzt.getTime())//-(60*60*1000*8)); 
+          return currentArray;
              });
-             databaseRef = database.ref('soundstorm').child('SS23aux').child("medical").child("aid station "+lot).child("usage");
+      
+  databaseRef = database.ref('soundstorm/SS23aux/day'+heutag+'/medical').child("aid station "+lot).child("usage");
               databaseRef.transaction(function(currentArray) {
-  // Make sure currentArray is an array
-  currentArray = currentArray || [];
- // Add the new item to the array
-  currentArray.push(parseInt(value));
-  // Return the updated array
-  return currentArray;
+              currentArray = currentArray || [];
+             currentArray.push(parseInt(value));
+              return currentArray;
              });
             //  
+
+            infotag.text("report sent for aid station " + lot + " at : " + jetzt )
 }
 
 </script>

@@ -1,59 +1,89 @@
 parking_list ={geo:[],tooltip:[],usage:[]}
 
-mastermode = false;
+fenster = {hoehe:window.innerHeight-30,breite:window.innerWidth-35};
 existing_markers=[]
+
 isZooming = false
+
 set_area=0
 set_name ="wrong reporter"
+set_pos=[9,9]
+eventloc = [0,0]
+
 farbskala = ["lightblue","#00B0F0","#00B0F0","#92D050","#92D050","#FFFF00","#FFFF00","#FF9201","#FF9201","#FF0000",'red',"#ee00ff","#ee00ff","#ee00ff","#ee00ff","#ee00ff"]
-  eventloc = [0,0]
 list_of_reporters = ["demo","sandro","marcel","medical","mark",
 "marc","dave","sasha","anto","olly","sjors","conor","jasja","dessie","neil","claire","colm","ger","ian","martin","eric","peter"]
-list_of_credentials= ["none","s","m","none","none", "m","d","s","a","o","s","c","j","d","n","c","c","g","i","m","e","p"]
-set_pos=[9,9]
-da1 = new Date("2023-12-14T10:00")
-da2 = new Date("2023-12-15T10:00")
-da3 = new Date("2023-12-16T10:00")
-da4 = new Date("2023-12-17T10:00")
+//list_of_credentials= ["none","s","m","none","none", "m","d","s","a","o","s","c","j","d","n","c","c","g","i","m","e","p"]
+
+selected_area={id:0,name:"Big Beast Left"}
+
+da1 = new Date("2023-12-14T15:00")
+da2 = new Date("2023-12-15T15:00")
+da3 = new Date("2023-12-16T15:00")
+da4 = new Date("2023-12-17T15:00")
 
 jetzt = new Date()
 jetzte = jetzt.getTime()
-  if(jetzte<da1.getTime()){tag=0}
-      if(jetzte>da1.getTime()&& jetzte<da2.getTime()){tag=1}
-if(jetzte>da2.getTime()&& jetzte<da3.getTime()){tag=2}
-if(jetzte>da3.getTime()&& jetzte<da4.getTime()){tag=3}
+if(jetzte<da1.getTime()){heutag=0}
+if(jetzte>da1.getTime()&& jetzte<da2.getTime()){heutag=1}
+if(jetzte>da2.getTime()&& jetzte<da3.getTime()){heutag=2}
+if(jetzte>da3.getTime()&& jetzte<da4.getTime()){heutag=3}
+console.log(heutag)
+///// heutag ist der tag  1 2 3 des events als integer
+
+
+
+
+
+
+
+
 
 
 eventmarkertoggle = false
 locked = true
 
-function select_area(set_area){
-  ausgew_area = stages_list[set_area].name
-
-       d3.select('#densInput').attr('value',current[ausgew_area].density)
-        d3.select('#dens_p').text(current[ausgew_area].density)
-        d3.select('#usageInput').attr('value',current[ausgew_area].usage)
-        d3.select('#usage_p').text(current[ausgew_area].usage+" %")
-        d3.select('#tensInput').attr('value',current[ausgew_area].tension)
-        d3.select('#tens_p').text(current[ausgew_area].tension+" %")
 
 
-
-        set_dens = current[ausgew_area].density
-        set_usage = current[ausgew_area].usage
-        set_tens = current[ausgew_area].tension
-        //dens_slider.node().dispatchEvent(new Event('input'));
-
-}
 
 
 function read_a_day(jahr,tager){
   database = firebase.database();
+
   ref = database.ref('/soundstorm/SS'+jahr+'/day'+tager);
   ref.on('value', (snapshot) => {
   daydata = snapshot.val()
-         
-return daydata
+  graphdata={}
+  Object.keys(daydata).forEach((key) => {
+for (k=0;k<stages_list.length;k++){
+  if (key == stages_list[k]){capacity= stages_list[k].capacity}
+}
+
+
+    graphdata[key]=make_graphdata_stages(daydata[key],capacity)
+    })
+
+sum_onsite = new Array(53).fill(0)
+timp =[] 
+
+for(i=0;i<sum_onsite.length;i++){
+    
+    
+    Object.keys(graphdata).forEach((key) => {
+     if(graphdata[key].usage[i] != undefined) {    sum_onsite[i] += graphdata[key].usage[i]}
+    
+    })
+    
+    }      
+
+    graphdata.sum_onsite = {usage:sum_onsite,zeit:graphdata["Big Beast Left"].zeit}
+
+
+
+
+
+    initialise_chart()
+return graphdata
 })
 }
 
@@ -89,8 +119,54 @@ function initialise_firebase(){
   
         }  
 
-    
-           
+        function initialise_chart(data,plot_title){
+          selected_area.name = stages_list[selected_area.id].name
+           d3.select("#liu_div").selectAll('*').remove() // nicht unbedingt notwendig
+           const margin = {top: 20, right: 40, bottom: 40, left: 40}
+        width = fenster.breite*1- margin.left - margin.right
+           height = fenster.hoehe*0.4- margin.top - margin.bottom;
+          
+        
+        
+           gr_layout = {
+            xaxis: {
+            type: 'date',showline:true,
+              tickformat: '%H:%M',  // Format for displaying date on x-axis
+            },
+            yaxis: {
+              title: plot_title,
+              autorange: true,
+              type: 'linear',
+              rangemode: 'tozero',
+              showgrid: true,
+              zeroline: false,
+              showline: true
+            },
+            showlegend: true,
+            legend: { "orientation": "h" }
+          
+          ,shapes:{
+          
+        
+          type: 'line',
+         //yref :"paper",
+              x0: new Date().toISOString(),
+            y0: 0, 
+            x1: new Date().toISOString(),
+            y1: 1000,
+            line: {
+              color: 'red',//"green",
+           //   dash: 'dashdot',
+              width: 3
+            }
+            },
+        };
+        
+        Plotly.newPlot('liu_div', data,gr_layout,{
+          //displayModeBar: false, // this is the line that hides the bar.
+        })
+        //ply = document.getElementById('liu_div')
+          }
 function read_current (){
 
   database = firebase.database();
@@ -105,9 +181,9 @@ for(i=0;i<stages_list.length;i++){
  if(current[stages_list[i].name] != undefined){
   temp = current[stages_list[i].name]
 
-
  let  fcol = farbskala[Math.round(temp.usage/15)]
- let col = farbskala[Math.round(temp.density*2)]
+ 
+ let col = farbskala[Math.min(9,Math.round(temp.density*2))]
   stages_list[i].geo.setStyle({
   //   opacity:1,
       fillOpacity:0.6,
@@ -219,7 +295,7 @@ mymap.on('moveend', function() { mapaa = (mymap.getCenter(),mymap.getCenter());s
 function initialise_map(){
 
   // Karte und Hintergründe
-  mymap = L.map('map_div',{zoomSnap: 0.1, dragging: false,minZoom:14,maxZoom:18}).setView([24.99646971811259, 46.50594438628725],15 )
+  mymap = L.map('map_div',{zoomSnap: 0.1, dragging: false,minZoom:14,maxZoom:19}).setView([24.99646971811259, 46.50594438628725],15 )
    // mymap.on('zoomend', function() {setviewzoom = mymap.getZoom()});
    // mymap.on('moveend', function() { mapaa = (mymap.getCenter(),mymap.getCenter());setviewmap=[mapaa.lat,mapaa.lng]});
 
@@ -303,13 +379,11 @@ for (f=0;f<inert_arr.length;f++)  {
 for (f=0;f<medstations.length;f++) {medstations[f].geo = L.marker(medstations[f].coords,{icon:medicon}).bindTooltip(medstations[f].name)
 //medstations[f].geo .on("mouserover",function(e){this.openPopup()})
 medstations[f].geo.addTo(aidstations_layer)}
-for (f=0;f<greening_arr.length;f++) {let fu = f;L.polygon(greening_arr[f], {color: 'green', "weight": 1,"opacity": 0.65 }).on('mouseover',function(){infotag.text("you hover on green"+fu)}).addTo(green_layer)}
-for (f=0;f<blocking_arr.length;f++) {let fu = f; L.polygon(blocking_arr[f], {fillColor: 'grey',color:"black", "weight": 1,"opacity": 0.8}).on('mouseover',function(){infotag.text("you hover on block "+fu)}).addTo(green_layer)}
+for (f=0;f<greening_arr.length;f++) {let fu = f;L.polygon(greening_arr[f].coords, {color: 'green', "weight": 1,"opacity": 0.65 }).bindTooltip(greening_arr[f].name).addTo(green_layer)}
+for (f=0;f<blocking_arr.length;f++) {let fu = f; L.polygon(blocking_arr[f].coords, {fillColor: 'grey',color:"black", "weight": 1,"opacity": 0.8}).bindTooltip(blocking_arr[f].name).addTo(green_layer)}
 
 for (f=0;f<hinter.length;f++)       {let fu = f;L.polygon(hinter[f], {color: 'grey' ,"weight": 2,"fillOpacity": 0.65}).on('mouseover',function(){infotag.text("you hover on back_block "+fu)}).addTo(back_layer)}
-for (f=0;f<vib_arr.length;f++)      {let fu = f;L.polygon(vib_arr[f], {color: 'gold'}).on('mouseover',function(){infotag.text("you hover on vib "+fu)}).addTo(mymap)}
-//for (f=0;f<walking_arr.length;f++)  {L.polygon(walking_arr[f], {color: 'red'}).addTo(green_layer)}
-for (f=0;f<walkway_arr.length;f++)      {let fu = f;L.polygon(walkway_arr[f], {fillColor: 'gold',color:"black",weight:1,fillOpacity:1}).on('mouseover',function(){infotag.text("you hover on walkway "+fu)}).addTo(mymap)}
+for (f=0;f<vib_arr.length;f++)      {let fu = f;L.polygon(vib_arr[f].coords,{fillColor: 'gold',fillOpacity:1,color:"black",weight:1}).bindTooltip(vib_arr[f].name).addTo(green_layer)}
 
 // Layercontroll
 L.control.layers(
@@ -469,12 +543,12 @@ function interpolateUndefined(arr) {
 function make_graphdata(indata){
 //die indaten sind ein array mit jeweils den obj zeit und usage
 //outdata = new Array(52).fill(undefined)
-bucket = new Array(52).fill(undefined)
-console.log(indata)
+bucket = new Array(53).fill(undefined)
+
 temp = new Date(indata.zeit[0])
 //indata.zeit[0] = temp.getTime()
 //indata.usage[0] = 0 
-temp = temp.setHours(15)
+temp = temp.setHours(15,0,0,0)
 
 for (i=0;i<indata.zeit.length;i++){
 
@@ -519,10 +593,11 @@ for (let i = 0; i < bucket.length; i++) {
 }
 outdata = interpolateUndefined(outdata)
 
-return outdata
+return {usage:outdata,zeit:generateTimeArray(temp)}
 
 }
 function generateTimeArray(startTime) {
+  
   const timeArray = [new Date(startTime)]; // Start with the provided time
 
   for (let i = 1; i < 53; i++) {
@@ -535,39 +610,45 @@ function generateTimeArray(startTime) {
 }
 
 
-function make_graphdata_stages(indata){
+function make_graphdata_stages(indata,capacity){
+  
   //die indaten sind ein array mit jeweils den obj zeit und usage
   //outdata = new Array(52).fill(undefined)
   bucket_tension = new Array(52).fill(undefined)
   bucket_density = new Array(52).fill(undefined)
   bucket_usage = new Array(52).fill(undefined)
-  
-  temp = new Date(indata[0].zeit)
+ 
+  temp = new Date(indata.zeit[0])
   //indata.zeit[0] = temp.getTime()
   //indata.usage[0] = 0 
-  temp = temp.setHours(15)
+ 
+  temp = temp.setHours(15,0,0,0)
 
-  for (i=0;i<indata.length;i++){
-  
-    entfernungzu15uhr = parseInt(Math.round((indata[i].zeit-temp)/(15*60*1000)))
+  // der fixe wert capacity der in der stages_list manuelll vegeben wurde * die auslastung ergibt die anzahlen
+ // capacity =
+
+  for (i=0;i<indata.zeit.length;i++){
+ 
+    entfernungzu15uhr = parseInt(Math.round((indata.zeit[i]-temp)/(15*60*1000)))
 
    if(entfernungzu15uhr > -1 && entfernungzu15uhr<53){
+
    if (bucket_density[entfernungzu15uhr] == undefined){
-    bucket_density[entfernungzu15uhr] = [indata[i].density]}
-     else{bucket_density[entfernungzu15uhr].push(indata[i].density)}
+    bucket_density[entfernungzu15uhr] = [indata.density[i]]}
+     else{bucket_density[entfernungzu15uhr].push(indata.density[i])}
     
      if (bucket_tension[entfernungzu15uhr] == undefined){
-      bucket_tension[entfernungzu15uhr] = [indata[i].tension]}
-       else{bucket_tension[entfernungzu15uhr].push(indata[i].tension)}
+      bucket_tension[entfernungzu15uhr] = [indata.tension[i]]}
+       else{bucket_tension[entfernungzu15uhr].push(indata.tension[i])}
      
        if (bucket_usage[entfernungzu15uhr] == undefined){
-        bucket_usage[entfernungzu15uhr] = [indata[i].usage]}
-         else{bucket_usage[entfernungzu15uhr].push(indata[i].usage)}
+        bucket_usage[entfernungzu15uhr] = [indata.usage[i]]}
+         else{bucket_usage[entfernungzu15uhr].push(indata.usage[i])}
       
 
     }
   }
-  
+
   // Function to calculate the average of an array using a for loop
   function calculateAverageWithForLoop(array) {
     if (!array || array.length === 0) {
@@ -600,6 +681,8 @@ function bucky(bucket){  outdata = [];
   }
   return interpolateUndefined(outdata)
 }
+
+b
   outdata = {density:bucky(bucket_density),usage:bucky(bucket_usage),tension:bucky(bucket_tension),zeit:generateTimeArray(temp)}
   
   return outdata

@@ -18,7 +18,8 @@
         <script src="./function.js"></script>
 </head>
 <body>
-  <div id="plot_div"></div>
+  <h2>SS23 Parking Lot Reporting (Bta)</h2>
+  <div id="liu_div"></div>
   <div id="sliders">
     <span>Parking lot 1</span> <input id="sl1" type="range" min="0" max="100" step=10 value =0 oninput=" d3.select('#span1').text(this.value+' %')" onchange="
      
@@ -85,53 +86,32 @@ plottoggle = false
 ref = database.ref('soundstorm/SS23aux/day0').child("parking")
 ref.on('value', (snapshot) => {
   parkingplotdata= snapshot.val()
-  draw_plot()
- if(plottoggle == true){Plotly.update("plot_div",data)}
+  data=[]
+  for(j=1;j<8;j++){
+    
+    temper = make_graphdata(parkingplotdata["parking lot "+j])
+  
+   data.push({
+    x: temper.zeit,
+      y: temper.usage,
+      type: "scatter",//"bar",//'scatter',
+    stackgroup:"one",
+       name: parking_arr[j-1].name, 
+       marker: { color:parking_arr[j-1].color },
+   
+     
+     })
+  
+   }
+   initialise_chart(data,"used parking")
+
+  /*
+ if(plottoggle == true){Plotly.update("liu_div",data)}
   else{draw_plot()}
+  */
 })
 
 
-function draw_plot(){
-  plottoggle = true
-  data=[]
-  for(j=1;j<8;j++){
-  let temper = make_graphdata(parkingplotdata["parking lot "+j])
-  console.log(temper)
-
- data.push({
-    x: zeitstempel,
-    y: temper,
-    type: "bar",//'scatter',
-     mode: 'lines',
-     name: parking_arr[j-1].name, 
-     line: { color:parking_arr[j-1].color }
-     
-    // fill: 'tonexty'
-   })
-
- }
-  
-   var layout = {barmode: 'stack',
-     xaxis: {
-   //    type: 'date',showline:true,
- //      tickformat: '%H:%M',  // Format for displaying date on x-axis
-     },
-     yaxis: {
-       title: 'patients',
-       autorange: true,
-       type: 'linear',
-       rangemode: 'tozero',
-       showgrid: true,
-       zeroline: false,
-       showline: true
-     },
-     showlegend: true,
-     legend: { "orientation": "h" }
-   };
- 
-   Plotly.newPlot('plot_div', data, layout);
- }
- 
  
  
 function report_parking(lot,value){
@@ -139,7 +119,7 @@ function report_parking(lot,value){
 
 const database = firebase.database();
 
-       databaseRef = database.ref('soundstorm/SS23/day'+tag+'/'+stages_list[set_area].name)
+       databaseRef = database.ref('soundstorm/SS23/day'+heutag+'/'+stages_list[set_area].name)
       // Data you want to write to the database
 
 
@@ -150,7 +130,7 @@ const database = firebase.database();
   infotag.text("report sent for lot " + lot + " at : " + jetzt )
 
   jetzt = new Date ()
-  databaseRef = database.ref('soundstorm/SS23aux/day'+tag+'/parking/parking lot '+lot).child("zeit");
+  databaseRef = database.ref('soundstorm/SS23aux/day'+heutag+'/parking/parking lot '+lot).child("zeit");
               databaseRef.transaction(function(currentArray) {
   // Make sure currentArray is an array
   currentArray = currentArray || [];
@@ -159,7 +139,7 @@ const database = firebase.database();
   // Return the updated array
   return currentArray;
              });
-             databaseRef = database.ref('soundstorm/SS23aux/day'+tag+'/parking/parking lot '+lot).child("usage");
+             databaseRef = database.ref('soundstorm/SS23aux/day'+heutag+'/parking/parking lot '+lot).child("usage");
               databaseRef.transaction(function(currentArray) {
   // Make sure currentArray is an array
   currentArray = currentArray || [];

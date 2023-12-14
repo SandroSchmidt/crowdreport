@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>SS23 crowd-report</title>
+  <title>FIRE!</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
 
   <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
@@ -13,7 +13,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
   <script src="./data.js"></script>
- 
+  <script src="./function.js"></script>
   <!--
    <script src="./js/d3.min.js"></script>
   <script src="./js/leaflet.js"></script>
@@ -21,66 +21,157 @@
 
 
   -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 </head>
 
 <body>
-  <div id="diver" style="width:100%;height:100%;overflow:hidden">
+  <div id="main">
+    <h1> CAMCOUNTS: </h1>
+    <table>
+    <tr>
+    <td></td><th>IN</th><th>OUT</th>
+    </tr>
+<tr>  <th>West-Gate </th><td><input oninput="cwi = this.value" step=100 type="number"/></td><td><input oninput="cwo = this.value" step=100 type="number"/></td></tr>
+<tr>  <th>EAST-Gate </th><td><input oninput="cei = this.value"step=100 type="number"/></td><td><input oninput="ceo = this.value" step=100 type="number"/></td></tr>
+<tr>  <th>VIB-Gate </th><td><input oninput="cvi = this.value"step=100  type="number"/></td><td><input oninput="cvo = this.value" step=100 type="number"/></td></tr>
+    <tr>
+    <td></td><td></td><td> <button style="float: right;" onclick="write_camcounts()">CAMCOUNTS to Database</button></td>
+  </tr>
+  </table>
+    <br><br>
+    <h1> SCANS: </h1>
+    <table>
+    <tr>
+    <td></td><th>IN</th><th>OUT</th>
+    </tr>
+<tr>  <th>West-Gate </th><td><input oninput="swi = this.value" step=100 type="number"/></td><td><input oninput="swo = this.value" step=100 type="number"/></td></tr>
+<tr>  <th>EAST-Gate </th><td><input oninput="sei = this.value"step=100 type="number"/></td><td><input oninput="seo = this.value" step=100 type="number"/></td></tr>
+<tr>  <th>VIB-Gate </th><td><input oninput="svi = this.value"step=100  type="number"/></td><td><input oninput="svo = this.value" step=100 type="number"/></td></tr>
+    <tr>
+    <td></td><td></td><td> <button style="float: right;" onclick="write_scans()">SCANs to Database</button></td>
+  </tr>
+  </table>
+    
+  </div>
  
-
-</div>
  
 </body>
 
 <script>
-  swipes_db = []
-    initialise_firebase()
-   read_swipes()
-   // update_ownpos()
-/*
-setInterval(function() {
+  // die logic der variablen ist C- camcounts, S- Scanns, West east VIB, In OUT - bsp sei -> scanns vom eastgate in
+function write_camcounts(){
+  jetzt = new Date()
+  databaseRef = database.ref('soundstorm/SS23aux/day'+heutag+'/camcounts').child("zeit");
+              databaseRef.transaction(function(currentArray) {
+              currentArray = currentArray || [];
+              currentArray.push(jetzt.getTime());
+        return currentArray;
+             });
+      
+  databaseRef = database.ref('soundstorm/SS23aux/day'+heutag+'/camcounts').child("East-Gate IN");
+              databaseRef.transaction(function(currentArray) {
+              currentArray = currentArray || [];
+             currentArray.push(parseInt(cei));
+              return currentArray;
+             });
+             databaseRef = database.ref('soundstorm/SS23aux/day'+heutag+'/camcounts').child("East-Gate OUT");
+              databaseRef.transaction(function(currentArray) {
+              currentArray = currentArray || [];
+             currentArray.push(parseInt(ceo));
+              return currentArray;
+             });
+             databaseRef = database.ref('soundstorm/SS23aux/day'+heutag+'/camcounts').child("West-Gate IN");
+              databaseRef.transaction(function(currentArray) {
+              currentArray = currentArray || [];
+             currentArray.push(parseInt(cwi));
+              return currentArray;
+             });
+             databaseRef = database.ref('soundstorm/SS23aux/day'+heutag+'/camcounts').child("West-Gate OUT");
+              databaseRef.transaction(function(currentArray) {
+              currentArray = currentArray || [];
+             currentArray.push(parseInt(cwo));
+              return currentArray;
+             });
+             databaseRef = database.ref('soundstorm/SS23aux/day'+heutag+'/camcounts').child("VIB-Gate IN");
+              databaseRef.transaction(function(currentArray) {
+              currentArray = currentArray || [];
+             currentArray.push(parseInt(cvi));
+              return currentArray;
+             });
+             databaseRef = database.ref('soundstorm/SS23aux/day'+heutag+'/camcounts').child("VIB-Gate OUT");
+              databaseRef.transaction(function(currentArray) {
+              currentArray = currentArray || [];
+             currentArray.push(parseInt(cvo));
+              return currentArray;
+             });
+}
+   
+function write_scans(){
+  jetzt = new Date()
+  databaseRef = database.ref('soundstorm/SS23aux/day'+heutag+'/scans').child("zeit");
+              databaseRef.transaction(function(currentArray) {
+              currentArray = currentArray || [];
+              currentArray.push(jetzt.getTime());
+        return currentArray;
+             });
+      
+  databaseRef = database.ref('soundstorm/SS23aux/day'+heutag+'/scans').child("East-Gate IN");
+              databaseRef.transaction(function(currentArray) {
+              currentArray = currentArray || [];
+             currentArray.push(parseInt(sei));
+              return currentArray;
+             });
+             databaseRef = database.ref('soundstorm/SS23aux/day'+heutag+'/scans').child("East-Gate OUT");
+              databaseRef.transaction(function(currentArray) {
+              currentArray = currentArray || [];
+             currentArray.push(parseInt(seo));
+              return currentArray;
+             });
+             databaseRef = database.ref('soundstorm/SS23aux/day'+heutag+'/scans').child("West-Gate IN");
+              databaseRef.transaction(function(currentArray) {
+              currentArray = currentArray || [];
+             currentArray.push(parseInt(swi));
+              return currentArray;
+             });
+             databaseRef = database.ref('soundstorm/SS23aux/day'+heutag+'/scans').child("West-Gate OUT");
+              databaseRef.transaction(function(currentArray) {
+              currentArray = currentArray || [];
+             currentArray.push(parseInt(swo));
+              return currentArray;
+             });
+             databaseRef = database.ref('soundstorm/SS23aux/day'+heutag+'/scans').child("VIB-Gate IN");
+              databaseRef.transaction(function(currentArray) {
+              currentArray = currentArray || [];
+             currentArray.push(parseInt(svi));
+              return currentArray;
+             });
+             databaseRef = database.ref('soundstorm/SS23aux/day'+heutag+'/scans').child("VIB-Gate OUT");
+              databaseRef.transaction(function(currentArray) {
+              currentArray = currentArray || [];
+             currentArray.push(parseInt(svo));
+              return currentArray;
+             });
+}
+   
 
-//read_swipes()
 
 
-setTimeout(function(){
-list_swipes()
-},1000)
-  }, 5000);
-*/
-list_swipes()
-  function list_swipes(){
-    d3.select('#diver').selectAll('*').remove()
-    console.table(swipes_db.length)
-    
-    Object.keys(swipes_db).forEach((key) => {
-    a = new Date()
-      a =a.getTime()
-    if(a-swipes_db[key].zeit<30*60*1000)
- // const value = swipes_db[key];
-//  console.log(`Key: ${key}, Value: ${value}`);
- { d3.select('#diver').append('p').text("F: "+swipes_db[key].meldender)
-}});
+
+initialise_firebase()
+  //  read_swipes()
+
+  database = firebase.database();
+  ref = database.ref('/soundstorm/swipes');
   
-    
-    
-  }
-function initialise_firebase(){
-const firebaseConfig = {
-        apiKey: "AIzaSyBOOdW1SHCwBZSchUJ7DfJZ1a7-dEYTvuQ",
-        authDomain: "crowdcount-678c8.firebaseapp.com",
-        databaseURL: "https://crowdcount-678c8-default-rtdb.europe-west1.firebasedatabase.app",
-        projectId: "crowdcount-678c8",
-        storageBucket: "crowdcount-678c8.appspot.com",
-        messagingSenderId: "1020533758948",
-        appId: "1:1020533758948:web:23ec6e175dff3b5eedc5f1",
-        measurementId: "G-00674BETEZ"
-        };
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+  ref.on('value', (snapshot) => {
+  
+    swipes_db = snapshot.val()
+  
+  });
 
 
-      }  
+  
+  
 function read_swipes (){
 
     database = firebase.database();
@@ -95,22 +186,6 @@ ref.on('value', (snapshot) => {
  }
   
 
- database = firebase.database();
-  
-  ref = database.ref('/soundstorm/SS23/day0/Dance Tent');
-  
-  ref.on('value', (snapshot) => {
-  
-    swes_db = snapshot.val()
-  
-  })
-  
-  setTimeout(function(){console.table(swes_db)
-  
-  console.log(swes_db.length)
-  console.table(swes_db[3])
-  
-  },5000)
   </script>
 
 </html>

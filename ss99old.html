@@ -3,25 +3,22 @@
     <head>
         <meta charset="UTF-8" />
         <title>SS23 - start right (tm)</title>
+
         <script src="./js/d3.min.js"></script>
         <script src="./js/plotly-2.16.1.min.js"></script>
     
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+        <script src="./data.js"></script>
 
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
         <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
-         <script src="https://unpkg.com/leaflet-polylinedecorator/dist/leaflet.polylineDecorator.js"></script>
-       
-         <script src="https://unpkg.com/leaflet-fullscreen/dist/Leaflet.fullscreen.min.js"></script>
-         <link rel="stylesheet" href="https://unpkg.com/leaflet-fullscreen/dist/leaflet.fullscreen.css" />
+        <script src="https://unpkg.com/leaflet-polylinedecorator/dist/leaflet.polylineDecorator.js"></script>
+
         <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
-        <script src="./data.js"></script>
-        <script src="./function.js"></script>
-       <script src="./js/d3.min.js"></script>
-     
+            <script src="./function.js"></script>
       </head>
-      <style>
+    <style>
         table, th, td{border:2px solid black;border-collapse: collapse;padding-left: 5px;padding-right: 5px;text-align: center;
           
           font-size: 1.5vh}
@@ -31,7 +28,7 @@
 
 <body >
 
-      <div id="lio_div" style="float:left;width:60%;height:60%;"><div id="map_div" style="width:100%;height: 100%"></div></div>
+      <div id="lio_div" style="float:left;width:60%;height:60%;"><div id="map_div" style="width:100%;height:500px;"></div></div>
       <div id="reo_div" style="float:left;width:40%;height:60%;text-align: center;">
         <img src="./logo.PNG" style="width: 60%" onclick="selected_area =99; make_cul_graph()">
       <!--  <img src=".//safe_events_logo-1.png" style="width: 30%" id ="evtlog" onclick="d3.select('#evtlog').remove()" >
@@ -44,35 +41,124 @@
       <p id="infotag">Version 1.1 - loaded</p>
 
      </body>
+
+
     <script>
+      
 infotag = d3.select('#infotag')
-locked=false // erlaubt grundsätzlich das uploaden auf fb ohne credentials
-mastermode = true // erlaubt das einzeichnen von schwarzen pfeilen
-set_name = "sandro"
-setInterval(mytimer, 1000000*60);
- function mytimer(){
-if (timer == true)
-{settim = new Date()
-refresh()}
-}
-graphdata=[]
-initialise_map()
-initialise_settings()
-initialise_firebase()
-read_current()
-daydata = read_a_day(22,2)
-setTimeout(function(){
-  Object.keys(daydata).forEach((key) => {
-  graphdata.push(make_graphdata_stages(daydata[key]))
-  })
-  console.log(graphdata)
+ 
+ initialise_firebase()
   
-  initialise_chart()
+  
+
+initialise_settings()
+
+
+// vorabberechnung der Graphdaten in 15 min intervalle
+/*
+graph_15 = []
+oldxutil=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+olddens=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+oldtens=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+// geht alle stages durch
+
+
+for (q=0;q<stages_list.length;q++){
+  graph_15.push({data_time:[],dens_time:[],data:[],time:[],dens:[],tens:[],tens_time:[]})
+if (q == 3||q == 10||q==12){continue;} // hier werden die summen aus dm loop genommen weil diese nich interpoliert werden, sondern später aufaddiert
+
+  for (tist=startfest.getTime();tist<endfest.getTime();tist+=(60*1000*15)){
+    settim = new Date()
+    settim.setTime(tist)
+    graph_15[q].data_time.push(settim)
+    graph_15[q].dens_time.push(settim)
+    temp = interpolate(q)
+
+    if (temp==NaN||temp ==undefined||temp ==null){temp = 0}
+    graph_15[q].data.push(Math.round(temp))
+
+
+    graph_15[q].dens.push(interpolate_general(graph_data[q].dens,graph_data[q].dens_time))
+   
+    graph_15[q].tens.push(interpolate_general(graph_data[q].tens,graph_data[q].tens_time))
+    graph_15[q].tens_time.push(settim)
+    
+   }
+}
+
+
+
+
+// aufaddieren
+xxxx =0
+  for (tist=startfest.getTime();tist<endfest.getTime();tist+=(60*1000*15)){
+    
+
+    beast_tot=0
+    ug_tot=0
+    tot_tot=0
+    settim = new Date()
+    settim.setTime(tist)
+    for (q=0;q<stages_list.length;q++){
+      temp = interpolate(q)
+     if(temp == null || temp == undefined|| temp == NaN){temp =0}
+      if (q == 0||q == 1||q==2){ beast_tot += temp}
+
+    if (q == 6||q == 7||q==8||q==9){ ug_tot += temp}
+    if (q == 0||q == 1||q==2||q==4||q==5||q == 6||q == 7||q==8||q==9||q==11){ tot_tot += temp}
+
+  }
+
+    graph_15[3].data_time.push(settim)
+    graph_15[10].data_time.push(settim)
+    graph_15[12].data_time.push(settim)
+  
+  //drecks_arr.push(parseInt(graph_15[0].data[tist-1]) +parseInt(graph_15[1].data[tist-1]) +parseInt(graph_15[2].data[tist-1]))
+beast_tot = (graph_15[0].data[xxxx]+graph_15[1].data[xxxx]+graph_15[2].data[xxxx])
+ug_tot = (graph_15[6].data[xxxx]+graph_15[7].data[xxxx]+graph_15[8].data[xxxx]+graph_15[9].data[xxxx])
+
+  
+
+
+if(beast_tot != 0){graph_15[3].data.push(beast_tot)}else{graph_15[3].data.push(null)}
+
+    if(ug_tot != 0){graph_15[10].data.push(ug_tot)}else{graph_15[10].data.push(null)}
+   tot_tot = (beast_tot+ug_tot+graph_15[5].data[xxxx]+graph_15[4].data[xxxx]+graph_15[11].data[xxxx])//+graph_15[11].data[xxxx])
+ if(tot_tot != 0){graph_15[12].data.push(tot_tot)}else{graph_15[12].data.push(null)}
+ xxxx ++
+  }
+
+diftotcurve ={data:[],time:[]}
+  for (tist=startfest.getTime();tist<endfest.getTime();tist+=(60*1000*15)){
+    settim = new Date()
+    settim.setTime(tist)
+    diftotcurve.data.push(interpolate_general(cr_count.dif_tot,cr_count.time))
+    diftotcurve.time.push(settim)
+  }
+
+graph_data = graph_15
+
+
+/*
+graph_data[12].data_time.pop()
+  graph_data[12].data.pop()
+  graph_data[12].data_time.pop()
+  graph_data[12].data.pop()
+
+  */
+initialise_map()
+settim = new Date ()
+
+read_current( )
 //refresh()
-},2000)
-
-
-
+//setInterval(mytimer, 1000*60*5);
+daydata = read_a_day(22,2)
+setTimeout(function(){initialise_chart()},1000)
+kkkk=0
+reu.append('button').text("XX").on('click',function(){
+ kkkk++
+ initialise_chart()
+})
 
 function initialise_settings(){
   ruckschau = 2
@@ -80,23 +166,18 @@ show_event = false
 show_tensdens = false
 show_progress23 = false
 show_progress = false
-  selected_area = 0
+  selected_area = 12
 show_cap=false
-startfest = new Date ("2022-11-26T12:00")
-endfest = new Date ("2022-11-29T12:00")
+startfest = new Date ("2022-12-01T12:00")
+endfest = new Date ("2022-12-04T06:00")
   timer = false
   
-  farbskala =
-         ["lightblue",
-            "#00B0F0",
-            "#92D050",
-            "#FFFF00"
-            ,"#FF9201"
-            ,"#FF0000",'red','red','red','red','red','red','red','red','red','red']
-
+ 
       
-      
-       
+        setviewzoom =16.9
+    setviewmap= [  24.996, 46.5079
+   
+              ]
     zoomflip = true
     ylimit =7000
     liniendicke = 5
@@ -104,11 +185,11 @@ endfest = new Date ("2022-11-29T12:00")
     xlimit = 72
     tagausw =0
     fenster = {hoehe:window.innerHeight-30,breite:window.innerWidth-35};
-    settim = new Date("2022-11-27T22:00")
+    settim  = a
     settim_slot =0
     layout = 1//0.6
-      lio =  d3.select('#lio_div').style('width',fenster.breite*0.6+"px").style('height',fenster.hoehe*0.55+"px")
-      reo =  d3.select('#reo_div').style('width',fenster.breite*0.4+"px").style('height',fenster.hoehe*0.55+"px").style('overflow',"hidden")
+      lio =  d3.select('#lio_div').style('width',fenster.breite*0.6+"px").style('height',"60%")
+      reo =  d3.select('#reo_div').style('width',fenster.breite*0.4+"px").style('height',"60%").style('overflow',"hidden")
       liu =  d3.select('#liu_div').style('width',fenster.breite*layout+"px").style('height',fenster.hoehe*0.45+"px")
       reu =  d3.select('#reu_div').style('width',fenster.breite*(1-layout)+"px").style('height',fenster.hoehe*0.45+"px")
  
@@ -125,7 +206,7 @@ endfest = new Date ("2022-11-29T12:00")
       temp.append("th").text("usage").style('width',"17%")
       //temp.append("th").text("tension")
       temp.append("th").text("density").style('width',"17%")
-      temp.append("th").text("tension").style('width',"17%")
+    //tensiongehtweg  temp.append("th").text("tension").style('width',"17%")
       temp.append("th").text("patrons").style('width',"17%")
       tuc =[]
       ttc = [      ]
@@ -136,23 +217,22 @@ endfest = new Date ("2022-11-29T12:00")
       for (i=0;i<stages_list.length;i++){let j =i
         temp = tabero.append('tr')
        // temp.append('td').text(i)
-       butarr.push( temp.append('td').text(stages_list[i].name)
-       .style("cursor", "pointer").style("font-weight",700) 
-             .on('click',  function(){ selected_area=j; refresh();console.log("area"+j) })  )
+       butarr.push( temp.append('td').text(stages_list[i].name).style("cursor", "pointer").style("font-weight",700) //.append('button').style("font-size", "0.65vw")
+             .on('click',  function(){ selected_area=j; refresh() })  )
         
        tuc.push(temp.append("td").text("u"+i).style("font-weight",700))
        // ttc.push(temp.append("td").text("t"+i))
         tdc.push(temp.append("td").text("d"+i).style("font-weight",700))
-        ttc.push(temp.append("td").text("d"+i).style("font-weight",700))
+      //tensiongehtweg ttc.push(temp.append("td").text("d"+i).style("font-weight",700))
         tpc.push(temp.append("td").text("p"+i).style("font-weight",700))
       }
      
       tdc[3].style('color',"white")
       tdc[10].style('color',"white")
       tdc[12].style('color',"white")
-      ttc[3].style('color',"white")
-      ttc[10].style('color',"white")
-      ttc[12].style('color',"white")
+     //tensiongehtweg ttc[3].style('color',"white")
+     //tensiongehtweg ttc[10].style('color',"white")
+     //tensiongehtweg ttc[12].style('color',"white")
       reo.append('br')
       tabero2 = reo.append('table').style('width',"100%").style('margin','auto').style('width','95%')//.style('margin-top',"5px")
 
@@ -168,11 +248,10 @@ endfest = new Date ("2022-11-29T12:00")
      temp2 = tabero2.append('tr')
      temp2.append("th").text("scans").style("width","19%").style('background-color',"grey")
       field_sca = temp2.append("td").text("000").style("width","15%")
-     temp2.append("th").text("on site").style("width","19%").style('background-color',"grey")
+     temp2.append("th").text("non-stage").style("width","19%").style('background-color',"grey")
       field_site = temp2.append("td").text("000").style("width","15%")
-      temp2.append("th").text("peak rate").style("width","19%").style('background-color',"grey")
-      //field_rate = 
-      temp2.append("td").text("967").style("width","15%")
+      temp2.append("th").text("count rate").style("width","19%").style('background-color',"grey")
+      field_rate = temp2.append("td").text("0").style("width","15%")
    
 
       slider =  d3.select('body').append('input').attr('type','range').style('width',"10%").style('height',"3%")
@@ -189,9 +268,9 @@ endfest = new Date ("2022-11-29T12:00")
       but_div = d3.select('body').append('div')//.style("position", "absolute").style("bottom", "35px")
       but_div.append('br')
           
-      but_div.append('button').text("Day 1").style("font-size", "0.65vw").on('click',  function(){a = new Date("2022-11-26T14:00");b = new Date ("2022-11-27T04:00");settim.setDate(26);refresh() })
-      but_div.append('button').text("Day 2").style("font-size", "0.65vw").on('click',  function(){a = new Date("2022-11-27T14:00");b = new Date ("2022-11-28T04:00");settim.setDate(27);refresh() })
-      but_div.append('button').text("Day 3").style("font-size", "0.65vw").on('click',  function(){a = new Date("2022-11-28T14:00");b = new Date ("2022-11-29T04:00");settim.setDate(28);refresh() })
+      but_div.append('button').text("Day 1").style("font-size", "0.65vw").on('click',  function(){a = new Date("2022-12-01T14:00");b = new Date ("2022-12-02T04:00");settim.setDate(0o1);refresh() })
+      but_div.append('button').text("Day 2").style("font-size", "0.65vw").on('click',  function(){a = new Date("2022-12-02T14:00");b = new Date ("2022-12-03T04:00");settim.setDate(2);refresh() })
+      but_div.append('button').text("Day 3").style("font-size", "0.65vw").on('click',  function(){a = new Date("2022-12-03T14:00");b = new Date ("2022-12-04T04:00");settim.setDate(0o3);refresh() })
       
       but_div.append('button').text("show cap").style("font-size", "0.65vw").on('click',  function(){show_cap = !show_cap;refresh() })
       but_div.append('button').text("show scans").style("font-size", "0.65vw").on('click',  function(){selected_area=90;refresh() })
@@ -202,7 +281,7 @@ endfest = new Date ("2022-11-29T12:00")
       but_div.append('button').text("timer").style("font-size", "0.65vw").on('click',  function(){timer = !timer })
       but_div.append('button').text("show tensdens").style("font-size", "0.65vw").on('click',  function(){show_tensdens = !show_tensdens;refresh() })
      
-      
+      but_div.append('button').text("show inrate").style("font-size", "0.65vw").on('click',  function(){selected_area=94;refresh() })
       but_div.append('button').text("Fullscreen").style("font-size", "0.65vw").on('click',  function(){timer = !timer 
       
 
@@ -225,19 +304,32 @@ endfest = new Date ("2022-11-29T12:00")
 
 function refresh(){
 
-// settim brauchen wir noch
- 
+  for (i=0;i<graph_data[0].data.length;i++){
+     
+     if(graph_data[0].data_time[i].getTime() == settim.getTime()){
+
+         settim_slot = i
+     }
+    }
+
+  slider.attr('max',b.getTime()).attr('min',a.getTime()) // .attr('value', settim.getTime())
+
+
+
 // tabelle aktualisieren
-/*
 for (q=0;q<stages_list.length;q++){
   pfeil =" ◄"//~"
   xutil = graph_data[q].data[settim_slot]
   xutilpro = (xutil/stages_list[q].capacity*100)
 
-if (xutilpro > oldxutil[q]){pfeil = " ▲"}
-if (xutilpro < oldxutil[q]){pfeil = " ▼"}
+  yutil = graph_data[q].data[settim_slot-3]  /// das ist nur um den vergleich für den pflei von 15 min auf eine h zu verlängern, für angela, 
+  yutilpro = (yutil/stages_list[q].capacity*100) /// das ist nur um den vergleich für den pflei von 15 min auf eine h zu verlängern, für angela, 
 
-  oldxutil[q] = xutilpro
+if (yutilpro > oldxutil[q]){pfeil = " ▲"}
+if (yutilpro < oldxutil[q]){pfeil = " ▼"}
+
+  oldxutil[q] = yutilpro /// das ist nur um den vergleich für den pflei von 15 min auf eine h zu verlängern, für angela, 
+
   pronull =""
   if (Math.round(xutilpro)<10){pronull="0"}
 tuc[q].text(pronull+Math.round(xutilpro)+ " % " + pfeil)
@@ -254,7 +346,7 @@ pfeil =" ◄"//~"
 if (graph_data[q].tens[settim_slot] > oldtens[q]){pfeil = " ▲"}
 if (graph_data[q].tens[settim_slot] < oldtens[q]){pfeil = " ▼"}  // ↓
 
-ttc[q].text(graph_data[q].tens[settim_slot]+" "+pfeil)
+//tensiongehtweg ttc[q].text(graph_data[q].tens[settim_slot]+" "+pfeil)
 oldtens[q] = graph_data[q].tens[settim_slot]
 
 // karte einfärben
@@ -263,7 +355,6 @@ t = Math.round(xutilpro/20)
 tx = graph_data[q].dens[settim_slot]
 col = farbskala[t] 
 
-/*
 if(stages_list[q].coords != "donotdraw")
 {stag_geo[q].setStyle({
         fillColor: col,
@@ -273,46 +364,55 @@ if(stages_list[q].coords != "donotdraw")
   
   tuc[q].style('background-color',col)
 tdc[q].style('background-color',farbskala[tx])
-ttc[q].style('background-color',farbskala[Math.ceil(graph_data[q].tens[settim_slot]/2) ])
+//tensiongehtweg ttc[q].style('background-color',farbskala[Math.ceil(graph_data[q].tens[settim_slot]/2) ])
 
 
  }
 
-
+pfeil_symbole[0].setStyle({fillColor:"red"})
 
 // tabelle 2 akkuallisieren
-scan_c = (interpolate_general(ticket_data.tot,ticket_data.time))
-scan_rate = ticket_data.tot[(ticket_data.tot.length-1)]-ticket_data.tot[ticket_data.tot.length-2]
+scan_c = Math.round(interpolate_general(ticket_data.tot,ticket_data.time))
+f= diftotcurve.data.length
+scan_rate = diftotcurve.data[settim_slot]-diftotcurve.data[settim_slot-1]
       
-l3 = new  Date (ticket_data.time[(ticket_data.tot.length-1)])
-l4 = new Date (ticket_data.time[(ticket_data.tot.length-2)])
+
+//ticket_data.tot[ticket_data.tot.length-2]-ticket_data.tot[ticket_data.tot.length-1]
+      
+l4 = new  Date (ticket_data.time[(ticket_data.tot.length-1)])
+l3 = new Date (ticket_data.time[(ticket_data.tot.length-2)])
 l3 = l3.getTime()
 l4 = l4.getTime()
-l5 = (l3-l4)/(60*60*1000)            
-scan_rate = scan_rate / l5          
 
-l1= (interpolate_general(cr_count.in_tot,cr_count.time))
-l2 = (interpolate_general(cr_count.out_tot,cr_count.time))
-onsite_cur = scan_c- graph_data[12].data[settim_slot]
+l5 = (l3-l4)/(60*15*1000)    
 
-field_sca.text(scan_c.toLocaleString('en-US'))
+//scan_rate = Math.round(scan_rate / l5 )         
+
+
+l1= Math.round(interpolate_general(cr_count.in_tot,cr_count.time))
+l2 = Math.round(interpolate_general(cr_count.out_tot,cr_count.time))
+
+onsite_cur = diftotcurve.data[settim_slot]-graph_data[12].data[settim_slot]//(l1-l2)- graph_data[12].data[settim_slot]
+onsite_cur = Math.max(0,onsite_cur)
+//field_sca.text(scan_c.toLocaleString('en-US'))
 field_inc.text(l1.toLocaleString('en-US'))
 field_outc.text(l2.toLocaleString('en-US'))
 
 field_difc.text((l1-l2).toLocaleString('en-US'))
-//field_rate.text(scan_rate.toLocaleString('en-US'))
+field_rate.text(scan_rate.toLocaleString('en-US'))
 
 
 onsite_cur2 = Math.ceil((onsite_cur/100000)*100/20)
 
-//  onsite.setStyle({fillColor: farbskala[onsite_cur2]})
+  onsite.setStyle({fillColor: farbskala[onsite_cur2]})
   field_site.text(onsite_cur.toLocaleString('en-US')).style('background-color',farbskala[onsite_cur2])
   // Zeitanzeige aktualisieren
   ttt = "x"
-  if (settim.getDate()==26){ttt = 1}
-if (settim.getDate()==27){ttt = 2}
-if (settim.getDate()==28){ttt = 3}
-if (settim.getDate()==29){ttt = 4}
+
+  if (settim.getDate()==1){ttt = 1}
+if (settim.getDate()==2){ttt = 2}
+if (settim.getDate()==3){ttt = 3}
+if (settim.getDate()==4){ttt = 4}
 rr1=""
 rr2 =""
 if (settim.getHours()<10){rr1="0"}
@@ -323,9 +423,9 @@ if (settim.getMinutes()<10){rr2="0"}
     aa = settim.getTime()
   
 
-*/
 
-  //rechnen()
+
+  rechnen()
   initialise_chart()
  // update_map();
  // update_table()
@@ -338,8 +438,22 @@ function nowbutton(){
     refresh()
 
 }
+ 
+function update_map(){
 
+/*
+  for (i=0;i<areas.length-1;i++){
+  
+    areas[i].setStyle({
+        fillColor: col,//getColor(feature.attributes.id),
+        color: colorschema[i],
+        fillOpacity: 0.7,
+        strokeWidth: liniendicke
+  })
 
+}
+*/
+}
 function initialise_chart(){
    d3.select("#liu_div").selectAll('*').remove() // nicht unbedingt notwendig
    const margin = {top: 20, right: 40, bottom: 40, left: 40}
@@ -347,11 +461,41 @@ width = fenster.breite*layout- margin.left - margin.right
    height = fenster.hoehe*0.4- margin.top - margin.bottom;
    slider.style('width',(width+10)+"px").style('margin-left',"35px")
 
+  
+// Iterate through the original data and extract values and times
+daydata = SS21_data.day2[stages_list[kkkk].name].usage
+
+daydata2 =interpolateValues(daydata)
+daydata3 =interpolateValues2(daydata)
+dateArray = daydata.zeit.map(ms => new Date(ms).toLocaleString('en-US', { hour: '2-digit', minute: '2-digit' }));
+dateArray2 = daydata2.zeit.map(ms => new Date(ms).toLocaleString('en-US', { hour: '2-digit', minute: '2-digit' }));
+
+
+
+   gr_data = [{
+      x: daydata.zeit,
+      y: daydata.values,
+      type: 'scatter',
+      mode: 'lines+markers',
+      name: 'Series 1 (Updated)'
+    },{
+      x: daydata2.zeit,
+      y: daydata2.values,
+      type: 'scatter',
+      mode: 'lines+markers',
+      name: 'Serietgrepdated)'
+    },{
+      x: daydata3.zeit,
+      y: daydata3.values,
+      type: 'scatter',
+      mode: 'lines+markers',
+      name: 'Serietgrepdated)'
+    }];
+
    var gr_layout = {hovermode: "x",  //title: 'Basic Time Series', 
   // font: {size: 40},
-     margin: {l: 40,  r: 40,b: 25,t: 10,  pad: 4},  
-     xaxis: {
-      //range: [a, b],
+     margin: {l: 40,  r: 40,b: 100,t: 10,  pad: 4},  
+     xaxis: {range: [a, b],
       
     linecolor: 'black',
     linewidth: 2,
@@ -369,11 +513,12 @@ width = fenster.breite*layout- margin.left - margin.right
    // yaxis: {range: [2, 5]}
    };
 
+   /*
    if(selected_area<25){
     gr_layout.range=[0,stages_list[selected_area].capacity]
    }
 
-/*
+
 gr_layout.shapes =[]
 gr_layout.annotations =[]
    var data = []
@@ -382,7 +527,27 @@ gr_layout.annotations =[]
     for (i=0;i<ereignisse.length;i++){
       if(ereignisse[i][0].includes(selected_area)){
     ergdate = new Date(ereignisse[i][1])
-    gr_layout.shapes.push(
+   
+if(Array.isArray(ereignisse[i][1])){
+  ergdate = new Date(ereignisse[i][1][0])
+  ergdate2 = new Date(ereignisse[i][1][1])
+
+  gr_layout.shapes.push(
+   { type: 'rect',
+xref: 'x',
+yref: 'paper',
+x0: ereignisse[i][1][0],
+y0: 0,
+x1: ereignisse[i][1][1],
+y1: 1,
+fillcolor: ereignisse[i][3],
+strokecolor: "black",
+opacity: 0.5,  }
+    )
+
+}
+    else
+ {   gr_layout.shapes.push(
       {type: 'line',
     yref :"paper",
       x0: ergdate,
@@ -394,7 +559,7 @@ gr_layout.annotations =[]
       dash: 'dashdot',
       width: 1
     }}
-    )
+    )}
     gr_layout.annotations.push({
                     x:  ergdate,
                     y: ereignisse[i][4],
@@ -418,7 +583,7 @@ gr_layout.annotations =[]
 
    if(selected_area < 25){
 
-    //neu zz= interpolate(selected_area)
+    //zz= interpolate(selected_area)
     
     if(show_progress == true)
 
@@ -448,7 +613,7 @@ if(show_progress23 == true)
          temp = new Date()
         temp.setTime(settim.getTime())
   temp.setHours(23)
-  temp.setMinutes(00)
+  temp.setMinutes(0o0)
   ttt = (settim.getTime()-temp.getTime())/(60*1000*15)
 gr_layout.shapes.push(  {
       type: 'line',
@@ -476,14 +641,10 @@ gr_layout.shapes.push(  {
       width: 1
     }})
   }
-
-*/
-data=[]
-
     data.push(
    {
-    x:  graphdata[selected_area].zeit, //neu graph_data[selected_area].data_time,
-    y:  graphdata[selected_area].usage, //neu graph_data[selected_area].data,
+    x: graph_data[selected_area].data_time,
+    y: graph_data[selected_area].data,
     yaxis:"y1",
     mode: 'lines',
     fill: 'tonexty',
@@ -492,9 +653,9 @@ data=[]
   type: 'scatter'  
   })
 
-   //neu 
-   /*
-  wid =0
+
+}
+wid =0
 if(zz>0){wid =1}
 gr_layout.shapes.push({
   
@@ -522,14 +683,53 @@ gr_layout.shapes.push({
       width: 3
     }},
 )
-}
 
+if (selected_area==94){
+  gr_layout.yaxis.range = [-100,5000]
+  
+ data.push({
+    x: cr_count.time,
+    y: cr_count.inflowrate,
+    mode: 'lines',
+
+    name: "inout-flow-rate",
+    line: {shape: 'spline',color:"green"},
+    type: 'scatter'    },
+  )
+
+  data.push({
+    x: cr_count.time,
+    y: cr_count.ingress,
+    mode: 'lines',
+
+    name: "in-flow-rate",
+    line: {shape: 'spline',color:"orange"},
+    type: 'scatter'    },
+  )
+}
 // graph für total 
 if (selected_area==12){
 
+/*
+  data.push({
+    x: camref2dec.time,
+    y: camref2dec.data,
+    mode: 'lines',
 
-
-
+    name: "crowd count 02dec22",
+    line: {shape: 'spline',color:"green",dash: 'dashdot'},
+    type: 'scatter'    },
+  )
+*/
+/*
+  data.push({
+    x: ref2dec.time,
+    y: ref2dec.data,
+    mode: 'lines',
+    name: "people count 02dec22",
+    line: {shape: 'spline',color:"black",dash: 'dashdot'},
+    type: 'scatter'    },
+  )
   data.push({
     x: ticket_data.time,
     y: ticket_data.tot,
@@ -543,9 +743,17 @@ if (selected_area==12){
     name: "crowd count total",
     line: {shape: 'spline',color:"green"},
     type: 'scatter'    }
-  )
-  
-}
+  )*/
+  /*
+  data.push({
+    x: reference_17.data_time,
+    y: reference_17.data,
+    mode: 'lines',
+    name: "17dec21 people count",
+    line: {shape: 'spline',color:"black",dash: 'dashdot',},
+    type: 'scatter'    })
+
+  */
 // Graph für scans
 if (selected_area==90){
   data.push({
@@ -668,7 +876,7 @@ data.push({
     yaxis: 'y2',
     mode: 'lines',
     name: "tension",
-    line: {shape: 'spline',color:"red"},
+    line: {shape: 'line',color:"red"},
     type: 'scatter'    },
 
   { x: graph_data[selected_area].dens_time,
@@ -676,25 +884,34 @@ data.push({
     yaxis: 'y2',
     mode: 'lines',
     name: "highest density",
-    line: {shape: 'spline',color:"green"},
+    line: {shape: 'line',color:"green"},
     type: 'scatter'    }
 )}
 
     
 
-*/
 
-Plotly.newPlot('liu_div', data,gr_layout,{
+
+Plotly.newPlot('liu_div', gr_data,gr_layout,{
   //displayModeBar: false, // this is the line that hides the bar.
 })
 //ply = document.getElementById('liu_div')
   }
+function rechnen(){
 
-  function interpolate(u){
 
- temp=0
+
+
+
+  }
+function interpolate(u){
+
+
   aa = settim.getTime()
+  //temp=0
+ 
   for(i=0;i<graph_data[u].data.length;i++){
+   // if (graph_data[u].data[i] != undefined && graph_data[u].data[i] != null ){alt = graph_data[u].data[i]}
 
     bbb = new Date(graph_data[u].data_time[i])
     ccc = new Date(graph_data[u].data_time[i+1])
@@ -703,24 +920,29 @@ Plotly.newPlot('liu_div', data,gr_layout,{
     bb = bbb.getTime()
     cc = ccc.getTime()
 
-    //if(aa<bb||aa>cc){temp=0}
+    //temp = undefined
+    //if(aa<bb||aa>cc){temp=null}
+      
     if (aa==bb){temp = graph_data[u].data[i]; }
     if (aa==cc){temp = graph_data[u].data[i+1]; }
     if(aa>bb && aa<cc){
 
      temp = ((aa-bb)/(cc-bb))*((graph_data[u].data[i+1]-graph_data[u].data[i]))+graph_data[u].data[i]
  
-    }}
-     
+    }
+ 
+   
+  }
+  
      
    
-  return Math.round(temp)}
+  return temp}
 function interpolate_dens(u){
 
 //temp=0
 aa2 = settim.getTime()
 
- for(i=0;i<graph_data[u].dens.length-1;i++){  //
+ for(i=0;i<graph_data[u].dens.length;i++){  //
 
    let bbb2 = new Date(graph_data[u].time[i])
    let ccc2 = new Date(graph_data[u].time[i+1])
@@ -738,12 +960,12 @@ aa2 = settim.getTime()
 
 
  return Math.round(temper)}
-function interpolate_general(set,timeset){
+ function interpolate_general(set,timeset){
 
 
  searchtime = settim.getTime()
 
- for(i=0;i<set.length-1;i++){
+ for(i=0;i<set.length;i++){
 
   
    tim_interv_left = new Date(timeset[i])
@@ -753,7 +975,8 @@ function interpolate_general(set,timeset){
    tim_interv_right = tim_interv_right.getTime()
  
    
-found=0
+//found=null
+
    if (searchtime==tim_interv_left){found = set[i];break }
    if (searchtime==tim_interv_right){found = set[i+1];break }
    if(searchtime>tim_interv_left && searchtime<tim_interv_right){
@@ -763,8 +986,11 @@ found=0
    }}
    
  return Math.round(found)}
-
-
+ function mytimer(){
+if (timer == true)
+{settim = new Date()
+refresh()}
+}
     </script>
 
 </html>
