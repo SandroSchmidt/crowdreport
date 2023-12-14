@@ -174,7 +174,7 @@ function read_current (){
   database = firebase.database();
 
 ref = database.ref('/soundstorm/aktuell');
-
+ref.on('value', (snapshot) => {infotag.text("on");     {d3.select('#lock').style('background-color',"green")}})
 ref.on('value', (snapshot) => {
 
 current = snapshot.val()
@@ -239,7 +239,7 @@ Object.keys(locations).forEach((key) => {
     if(key.startsWith("marker")){
       b= locations[key].zeit
       age = (a - b )/1000
-      ttl = parseInt(20-age)
+      ttl = parseInt(300-age)
       if (locations[key].zeige == true && ttl>0) {
          
       markercounter++;

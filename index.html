@@ -295,7 +295,7 @@ const database = firebase.database();
   databaseRef = database.ref('soundstorm/SS23/day'+heutag).child(stages_list[set_area].name).child("zeit");
               databaseRef.transaction(function(currentArray) {
               currentArray = currentArray || [];
-              currentArray.push(jetzt.getTime()); 
+              currentArray.push(jetzt.getTime()); //!!!!!!!!!!!!!!!!!!!!!!!! das hier ist fingiert für demo
               
         return currentArray;
              });
