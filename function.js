@@ -11,6 +11,8 @@ set_pos=[9,9]
 eventloc = [0,0]
 
 farbskala = ["lightblue","#00B0F0","#00B0F0","#92D050","#92D050","#FFFF00","#FFFF00","#FF9201","#FF9201","#FF0000",'red',"#ee00ff","#ee00ff","#ee00ff","#ee00ff","#ee00ff"]
+
+
 list_of_reporters = ["demo","sandro","marcel","medical","mark",
 "marc","dave","sasha","anto","olly","sjors","conor","jasja","dessie","neil","claire","colm","ger","ian","martin","eric","peter"]
 //list_of_credentials= ["none","s","m","none","none", "m","d","s","a","o","s","c","j","d","n","c","c","g","i","m","e","p"]
@@ -181,9 +183,11 @@ for(i=0;i<stages_list.length;i++){
  if(current[stages_list[i].name] != undefined){
   temp = current[stages_list[i].name]
 
- let  fcol = farbskala[Math.round(temp.usage/15)]
- 
- let col = farbskala[Math.min(9,Math.round(temp.density*2))]
+
+
+ let  fcol = farbskala[Math.round(temp.usage/10)]
+
+ let col = farbskala[Math.round(temp.density)]
   stages_list[i].geo.setStyle({
   //   opacity:1,
       fillOpacity:0.6,
