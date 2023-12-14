@@ -85,7 +85,7 @@ for(i=0;i<sum_onsite.length;i++){
     
     }      
 
-    total_patrons = {usage:sum_onsite,zeit:graphdata["Big Beast Left"].zeit}
+    total_people = {usage:sum_onsite,zeit:graphdata["Big Beast Left"].zeit}
 
 
 
@@ -141,7 +141,7 @@ endfest = new Date ("2022-11-29T12:00")
     
       temp.append("th").text("density").style('width',"17%")
       temp.append("th").text("tension").style('width',"17%")
-      temp.append("th").text("patrons").style('width',"17%")
+      temp.append("th").text("people").style('width',"17%")
       tuc =[]
       ttc = [      ]
       tpc =[]
@@ -189,8 +189,8 @@ endfest = new Date ("2022-11-29T12:00")
       data=[]
     data.push(
    {
-    x:  total_patrons.zeit, //neu graph_data[selected_area.id].data_time,
-    y:  total_patrons.usage, //neu graph_data[selected_area.id].data,
+    x:  total_people.zeit, //neu graph_data[selected_area.id].data_time,
+    y:  total_people.usage, //neu graph_data[selected_area.id].data,
     yaxis:"y1",
     mode: 'lines',
     fill: 'tonexty',
@@ -250,10 +250,12 @@ endfest = new Date ("2022-11-29T12:00")
       
 }
 function refresh(){
-initialise_chart()
-console.log(graphdata)
   settim = new Date()
   temp = settim.getTime()
+  tidi.text('DAY '+heutag+' - Time ' +settim.getHours() +":"+settim.getMinutes())
+initialise_chart()
+
+ 
   
   for ( i=0 ;i<graphdata["Big Beast Left"].zeit.length-1;i++){
     if(temp >= graphdata["Big Beast Left"].zeit[i] &&temp < graphdata["Big Beast Left"].zeit[i+1]){
@@ -261,7 +263,7 @@ console.log(graphdata)
     }
   }
 
-  field_onsite.text(total_patrons[settim_slot])
+  field_onsite.text(total_people[settim_slot])
  q=0
   Object.keys(graphdata).forEach((key) => {
   pfeil =" ◄"
@@ -328,7 +330,7 @@ rr2 =""
 if (settim.getHours()<10){rr1="0"}
 if (settim.getMinutes()<10){rr2="0"}
 
-  tidi.text('DAY '+ttt+' - Time ' +rr1+settim.getHours() +":"+rr2+settim.getMinutes())
+ 
 
     aa = settim.getTime()
   

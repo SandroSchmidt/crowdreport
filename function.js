@@ -232,10 +232,22 @@ markercounter =0
 Object.keys(locations).forEach((key) => {
   a = new Date()
     a =a.getTime()
-    if(key.startsWith("marker")){markercounter++;L.marker(locations[key].ort,{icon:eventicon}).addTo(eigensymbole_layer)
+    if(key.startsWith("marker")){
+      b= locations[key].zeit
+      age = (a - b )/1000
+      ttl = parseInt(20-age)
+      if (locations[key].zeige == true && ttl>0) {
+         
+      markercounter++;
+      milk = L.marker(locations[key].ort,{icon:eventicon}).addTo(eigensymbole_layer)
+      .bindTooltip(locations[key].text)
+
+      setTimeout(function (){milk.remove()},ttl*1000)
+      }
+
   //  .bindPopup(locations[key].text)
 //  .bindTooltip("marker "+markercounter)
-.bindTooltip(locations[key].text)
+
 }else
     {if(existing_markers.includes(key)) {
 eval(key+"_marker.setLatLng(locations[key].ort)")
@@ -284,7 +296,7 @@ b = new Date("2022-12-04 04:00:00")
 // icons
 medicon = L.icon({  iconUrl: './icons/medicon.png', iconSize:     [20, 20], });
 mediconring = L.icon({  iconUrl: './icons/mediconring.png', iconSize:     [20, 20], });
-eventicon = L.icon({  iconUrl: './icons/red.png',  iconSize:     [40, 40],  iconAnchor:   [20, 40]})
+eventicon = L.icon({  iconUrl: './icons/green.png',  iconSize:     [40, 40],  iconAnchor:   [20, 40]})
 
 
 /* reste von der map aus 22
@@ -461,8 +473,8 @@ mymap.getContainer().addEventListener("touchend", function (e) {
     ort1 = mymap.containerPointToLatLng([touchStartX,touchStartY]);
     ort2 = mymap.containerPointToLatLng([touchEndX,touchEndY]);
 
-    minmove = 0.001
-    maxmove = 0.01
+    minmove = 0.0002
+    maxmove = 0.005
     move = Math.abs(ort1.lat - ort2.lat) + Math.abs(ort1.lng - ort2.lng)
     
     end_date = new Date()   
@@ -506,7 +518,7 @@ for(i=0;i<stages_list.length;i++)
       set_area=zi;d3.select('#dropdown').property('value',zi)
       select_area(zi)
       
-  }).addTo(stages_layer)
+  }).addTo(stages_layer,{ bubblingMouseEvents: false })
   stages_list[i].geo = f
 }}}
 
