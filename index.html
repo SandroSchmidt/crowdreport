@@ -131,6 +131,24 @@
 </body>
 
 <script>
+// diese ZEile erzwingt das refreshen der page, ohne cache
+// Example JavaScript code to append a random query parameter to the current URL
+function forceReload() {
+    // Check if the URL already has a query parameter
+    const hasQuery = window.location.href.includes('?');
+
+    // Append a random query parameter or update the existing one
+    const updatedUrl = hasQuery
+        ? `${window.location.href}&version=${Math.random()}`
+        : `${window.location.href}?version=${Math.random()}`;
+
+    // Navigate to the updated URL
+    window.location.href = updatedUrl;
+}
+
+// Call the function to force a reload
+forceReload();
+
 
 infotag = d3.select('#infotag')
  
