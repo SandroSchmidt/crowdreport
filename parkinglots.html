@@ -83,7 +83,7 @@ d3.select('#sl7').attr("value",current["parking lot 7"].usage);d3.select('#span7
 })
 
 plottoggle = false
-ref = database.ref('soundstorm/SS23aux/day0').child("parking")
+ref = database.ref('soundstorm/SS23aux/day'+heutag).child("parking")
 ref.on('value', (snapshot) => {
   parkingplotdata= snapshot.val()
   data=[]
@@ -124,10 +124,8 @@ const database = firebase.database();
 
 
 
-  databaseRef = database.ref('soundstorm').child('aktuell').child("parking lot "+lot);
-  jetzt = new Date ()
-        databaseRef.set({usage:value,zeit:jetzt.getTime()})
-  infotag.text("report sent for lot " + lot + " at : " + jetzt )
+ 
+  
 
   jetzt = new Date ()
   databaseRef = database.ref('soundstorm/SS23aux/day'+heutag+'/parking/parking lot '+lot).child("zeit");
@@ -148,6 +146,7 @@ const database = firebase.database();
   // Return the updated array
   return currentArray;
              });
+             infotag.text("report sent for lot " + lot + " at : " + jetzt )
 }
 
 </script>

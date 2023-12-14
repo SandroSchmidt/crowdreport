@@ -608,25 +608,7 @@ gr_layout.shapes.push(  {
 if(show_progress23 == true)
 
 {  // vorrausschau
-   steigung = (graph_data[selected_area].data[settim_slot-ruckschau]-graph_data[selected_area].data[settim_slot])/ruckschau
-
-         temp = new Date()
-        temp.setTime(settim.getTime())
-  temp.setHours(23)
-  temp.setMinutes(0o0)
-  ttt = (settim.getTime()-temp.getTime())/(60*1000*15)
-gr_layout.shapes.push(  {
-      type: 'line',
-      x0: settim,
-    y0: graph_data[selected_area].data[settim_slot],
-    x1: temp,
-    y1: graph_data[selected_area].data[settim_slot]+(steigung*ttt),//*ruckschau,
-    line: {
-      color: "black",
-      dash: 'dashdot',
-      width: 1
-    }} )
-}
+  
 
     if(show_cap == true ){
     gr_layout.shapes.push(    {
@@ -641,17 +623,7 @@ gr_layout.shapes.push(  {
       width: 1
     }})
   }
-    data.push(
-   {
-    x: graph_data[selected_area].data_time,
-    y: graph_data[selected_area].data,
-    yaxis:"y1",
-    mode: 'lines',
-    fill: 'tonexty',
-  name: stages_list[selected_area].name,
-  line: {shape: 'spline'},
-  type: 'scatter'  
-  })
+
 
 
 }
@@ -710,17 +682,7 @@ if (selected_area==94){
 // graph für total 
 if (selected_area==12){
 
-/*
-  data.push({
-    x: camref2dec.time,
-    y: camref2dec.data,
-    mode: 'lines',
 
-    name: "crowd count 02dec22",
-    line: {shape: 'spline',color:"green",dash: 'dashdot'},
-    type: 'scatter'    },
-  )
-*/
 /*
   data.push({
     x: ref2dec.time,
@@ -737,23 +699,9 @@ if (selected_area==12){
     name: "scan count total",
     line: {shape: 'spline',color:"black"},
     type: 'scatter'    },
-  { x: cr_count.time,
-    y: cr_count.dif_tot,
-    mode: 'lines',
-    name: "crowd count total",
-    line: {shape: 'spline',color:"green"},
-    type: 'scatter'    }
+  
   )*/
-  /*
-  data.push({
-    x: reference_17.data_time,
-    y: reference_17.data,
-    mode: 'lines',
-    name: "17dec21 people count",
-    line: {shape: 'spline',color:"black",dash: 'dashdot',},
-    type: 'scatter'    })
-
-  */
+ 
 // Graph für scans
 if (selected_area==90){
   data.push({

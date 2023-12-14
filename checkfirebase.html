@@ -31,9 +31,9 @@
     <tr>
     <td></td><th>IN</th><th>OUT</th>
     </tr>
-<tr>  <th>West-Gate </th><td><input oninput="cwi = this.value" step=100 type="number"/></td><td><input oninput="cwo = this.value" step=100 type="number"/></td></tr>
-<tr>  <th>EAST-Gate </th><td><input oninput="cei = this.value"step=100 type="number"/></td><td><input oninput="ceo = this.value" step=100 type="number"/></td></tr>
-<tr>  <th>VIB-Gate </th><td><input oninput="cvi = this.value"step=100  type="number"/></td><td><input oninput="cvo = this.value" step=100 type="number"/></td></tr>
+<tr>  <th>West-Gate </th><td><input oninput="cwi = parseInt(this.value)" step=100 type="number"/></td><td><input oninput="cwo = parseInt(this.value)" step=100 type="number"/></td></tr>
+<tr>  <th>EAST-Gate </th><td><input oninput="cei =parseInt( this.value)"step=100 type="number"/></td><td><input oninput="ceo = parseInt(this.value)" step=100 type="number"/></td></tr>
+<tr>  <th>VIB-Gate </th><td><input oninput="cvi = parseInt(this.value)"step=100  type="number"/></td><td><input oninput="cvo = parseInt(this.value)" step=100 type="number"/></td></tr>
     <tr>
     <td></td><td></td><td> <button style="float: right;" onclick="write_camcounts()">CAMCOUNTS to Database</button></td>
   </tr>
@@ -44,9 +44,9 @@
     <tr>
     <td></td><th>IN</th><th>OUT</th>
     </tr>
-<tr>  <th>West-Gate </th><td><input oninput="swi = this.value" step=100 type="number"/></td><td><input oninput="swo = this.value" step=100 type="number"/></td></tr>
-<tr>  <th>EAST-Gate </th><td><input oninput="sei = this.value"step=100 type="number"/></td><td><input oninput="seo = this.value" step=100 type="number"/></td></tr>
-<tr>  <th>VIB-Gate </th><td><input oninput="svi = this.value"step=100  type="number"/></td><td><input oninput="svo = this.value" step=100 type="number"/></td></tr>
+<tr>  <th>West-Gate </th><td><input oninput="swi = parseInt(this.value)" step=100 type="number"/></td><td><input oninput="swo = parseInt(this.value)" step=100 type="number"/></td></tr>
+<tr>  <th>EAST-Gate </th><td><input oninput="sei = parseInt(this.value)"step=100 type="number"/></td><td><input oninput="seo = parseInt(this.value)" step=100 type="number"/></td></tr>
+<tr>  <th>VIB-Gate </th><td><input oninput="svi = parseInt(this.value)"step=100  type="number"/></td><td><input oninput="svo = parseInt(this.value)" step=100 type="number"/></td></tr>
     <tr>
     <td></td><td></td><td> <button style="float: right;" onclick="write_scans()">SCANs to Database</button></td>
   </tr>
@@ -104,7 +104,21 @@ function write_camcounts(){
              currentArray.push(parseInt(cvo));
               return currentArray;
              });
+             databaseRef = database.ref('soundstorm/SS23aux/day'+heutag+'/camcounts').child("IN");
+              databaseRef.transaction(function(currentArray) {
+              currentArray = currentArray || [];
+             currentArray.push(cei+cvi+cwi);
+              return currentArray;
+             });
+             databaseRef = database.ref('soundstorm/SS23aux/day'+heutag+'/camcounts').child("OUT");
+              databaseRef.transaction(function(currentArray) {
+              currentArray = currentArray || [];
+             currentArray.push(ceo+cwo+ceo);
+              return currentArray;
+             });
 }
+
+
    
 function write_scans(){
   jetzt = new Date()
@@ -149,6 +163,12 @@ function write_scans(){
               databaseRef.transaction(function(currentArray) {
               currentArray = currentArray || [];
              currentArray.push(parseInt(svo));
+              return currentArray;
+             });
+             databaseRef = database.ref('soundstorm/SS23aux/day'+heutag+'/scans').child("scan_fazit");
+              databaseRef.transaction(function(currentArray) {
+              currentArray = currentArray || [];
+             currentArray.push(parseInt((swi+svi+swi)-(svo+swo+seo)));
               return currentArray;
              });
 }

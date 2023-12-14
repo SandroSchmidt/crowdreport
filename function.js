@@ -5,6 +5,7 @@ existing_markers=[]
 
 isZooming = false
 
+
 set_area=0
 set_name ="wrong reporter"
 set_pos=[9,9]
@@ -30,7 +31,7 @@ if(jetzte<da1.getTime()){heutag=0}
 if(jetzte>da1.getTime()&& jetzte<da2.getTime()){heutag=1}
 if(jetzte>da2.getTime()&& jetzte<da3.getTime()){heutag=2}
 if(jetzte>da3.getTime()&& jetzte<da4.getTime()){heutag=3}
-console.log(heutag)
+
 ///// heutag ist der tag  1 2 3 des events als integer
 
 
@@ -129,40 +130,60 @@ function initialise_firebase(){
            height = fenster.hoehe*0.4- margin.top - margin.bottom;
           
         
-        
-           gr_layout = {
+           const currentTimestamp = new Date().getTime();
+
+          
+           gr_layout= {
             xaxis: {
-            type: 'date',showline:true,
+            type: 'date',
+            showline:true,
               tickformat: '%H:%M',  // Format for displaying date on x-axis
+                //range: [a, b],
+                
+                linecolor: 'black',
+                linewidth: 2,
+                mirror: true
             },
             yaxis: {
-              title: plot_title,
-              autorange: true,
+              //title: plot_title,
+             autorange: true,
               type: 'linear',
               rangemode: 'tozero',
               showgrid: true,
               zeroline: false,
-              showline: true
+              showline: true,
+              overlaying: 'y2',
+              linecolor: 'black',
+              linewidth: 2,
+              mirror: true,
+            //  spikecolor:"green",spikethickness :1,
+              side:"left"
             },
-            showlegend: true,
-            legend: { "orientation": "h" }
-          
-          ,shapes:{
-          
         
-          type: 'line',
-         //yref :"paper",
-              x0: new Date().toISOString(),
-            y0: 0, 
-            x1: new Date().toISOString(),
-            y1: 1000,
+            showlegend: true,legend: {  x: 0,  xanchor: 'left',  y: 1},
+
+            hovermode: "x",  //title: 'Basic Time Series', 
+            // font: {size: 40},
+               margin: {l: 40,  r: 25,b: 100,t: 10,  pad: 4},  
+           shapes:[]
+              }
+
+         gr_layout.shapes.push(    {
+            type: 'line',
+            x0: currentTimestamp,
+            x1: currentTimestamp,
+            y0: 0,
+            y1: 1,
+            xref: 'x',
+            yref: 'paper',
             line: {
-              color: 'red',//"green",
-           //   dash: 'dashdot',
-              width: 3
+              color: 'red',
+              width: 2,
+              dash: 'dashdot'  // You can customize the line style
             }
-            },
-        };
+          
+          })
+        
         
         Plotly.newPlot('liu_div', data,gr_layout,{
           //displayModeBar: false, // this is the line that hides the bar.
@@ -173,8 +194,17 @@ function read_current (){
 
   database = firebase.database();
 
+
+
+
 ref = database.ref('/soundstorm/aktuell');
-ref.on('value', (snapshot) => {infotag.text("on");     {d3.select('#lock').style('background-color',"green")}})
+ref.on('value', (snapshot) => {infotag.text("on");     {d3.select('#lock').style('background-color',"green")}
+(errorObject) => 
+  // This callback will be called if there's an error connecting to the database
+  {d3.select('#lock').style('background-color',"yellow")}
+})
+
+
 ref.on('value', (snapshot) => {
 
 current = snapshot.val()
@@ -187,7 +217,7 @@ for(i=0;i<stages_list.length;i++){
 
  let  fcol = farbskala[Math.round(temp.usage/10)]
 
- let col = farbskala[Math.round(temp.density)]
+ let col = farbskala[Math.round(temp.density)*2]
   stages_list[i].geo.setStyle({
   //   opacity:1,
       fillOpacity:0.6,
@@ -551,11 +581,91 @@ function interpolateUndefined(arr) {
       arr[i] = arr[startIndex] + (arr[endIndex] - arr[startIndex]) * (i - startIndex) / (endIndex - startIndex);
    
     }
+
   
+    vorher = true
+    nachher= false
+    for (k=0;k<arr.length;k++){
+      if(vorher == true && arr[k] != undefined){vorher=false}
+      if(vorher == false && arr[k] == undefined){nachher = true
+      
+      
+        if(nachher = true){
+          arr[k] =arr[k-1]
+          
+          arr[k+1] =arr[k-1]
+          arr[k+2] =arr[k-1]
+          break
+        }
+      }
+     
+     
+    }
+
+
+
     return arr;
   }
 
 
+
+
+  function make_graphdata_counts(indata){
+    //die indaten sind ein array mit jeweils den obj zeit und usage
+    //outdata = new Array(52).fill(undefined)
+    bucket = new Array(53).fill(undefined)
+    console.log(indata)
+    temp = new Date(indata.zeit[0])
+    //indata.zeit[0] = temp.getTime()
+    //indata.usage[0] = 0 
+    temp = temp.setHours(15,0,0,0)
+    
+    for (i=0;i<indata.zeit.length;i++){
+    
+      entfernungzu15uhr = parseInt(Math.round((indata.zeit[i]-temp)/(15*60*1000)))
+     
+    
+     if(entfernungzu15uhr > -1 && entfernungzu15uhr<53){
+     if (bucket[entfernungzu15uhr] == undefined){bucket[entfernungzu15uhr] = [indata.in[i]]}
+       else{bucket[entfernungzu15uhr].push(indata.in[i])}
+      }
+    }
+    
+    // Function to calculate the average of an array using a for loop
+    function calculateAverageWithForLoop(array) {
+      if (!array || array.length === 0) {
+        return undefined; // Return undefined for empty or undefined arrays
+      }
+    
+      let sum = 0;
+      let count = 0;
+    
+      for (let i = 0; i < array.length; i++) {
+        if (typeof array[i] === 'number') {
+          sum += array[i];
+          count++;  
+        }
+      }
+    
+      if (count === 0) {
+        return 0//undefined; // Return undefined if all elements were undefined
+      }
+    
+      return Math.round(sum / count);
+    }
+    
+    // Calculate averages for each sub-array using for loops
+    outdata = [];
+    for (let i = 0; i < bucket.length; i++) {
+      const subArray = bucket[i];
+      const average = calculateAverageWithForLoop(subArray);
+      outdata.push(average)[0];
+    }
+    outdata = interpolateUndefined(outdata)
+    
+    return {in:outdata,zeit:generateTimeArray(temp)}
+    
+    }
 
 function make_graphdata(indata){
 //die indaten sind ein array mit jeweils den obj zeit und usage
@@ -625,10 +735,26 @@ function generateTimeArray(startTime) {
 
   return timeArray;
 }
+function addArrays(array1, array2) {
+  // Check if the arrays are of the same length
+  if (array1.length !== array2.length) {
+    throw new Error('Arrays must be of the same length');
+  }
 
+  // Create a new array to store the result
+  const resultArray = [];
 
-function make_graphdata_stages(indata,capacity){
-  
+  // Loop through the arrays and add the values at each index
+  for (let i = 0; i < array1.length; i++) {
+    const sum = array1[i] - array2[i];
+    resultArray.push(sum);
+  }
+
+  return resultArray;
+}
+
+function make_graphdata_stages(indata,capacity,tager){
+  console.log(indata)
   //die indaten sind ein array mit jeweils den obj zeit und usage
   //outdata = new Array(52).fill(undefined)
   bucket_tension = new Array(52).fill(undefined)

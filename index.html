@@ -177,6 +177,8 @@ for(i=0;i<stages_list.length;i++){if(stages_list[i].coords != "donotdraw"){
     initialise_map()
     initialise_firebase()
    
+    database = firebase.database();
+
    // update_ownpos()
 
 
@@ -383,13 +385,24 @@ d3.select('#hierdensityslider').append('input').attr('type','range').attr('min',
         set_dens= parseInt(this.value);d3.select('#dens_p').text(set_dens)
       })
 
-d3.select('#hiertensionslider').append('input').attr('type','range').attr('min',0).attr('max',10).attr('step',1)
+
+//      d3.select('#hiertensionslider').append("button").text("+").on('click',function (){set_tens --;d3.select('#tens_p').text(set_tens)})
+//      d3.select('#hiertensionslider').append("button").text("+").on('click',function (){set_tens ++;d3.select('#tens_p').text(set_tens)})
+
+
+
+if (set_name =="sandro") {d3.select('#hiertensionslider').append("input").attr('type',"number")}
+
+
+      d3.select('#hiertensionslider')
+.append('input').attr('type','range').attr('min',0).attr('max',10).attr('step',1)
 .attr('value',current[selected_area.name].tension)
     .on('change',function(){
         set_tens= parseInt(this.value);d3.select('#tens_p').text(set_tens)
       })
+     
 
-      d3.select('#hierusageslider').append('input').attr('type','range').attr('min',0).attr('max',150).attr('step',10)
+      d3.select('#hierusageslider').append('input').attr('type','range').attr('min',0).attr('max',150).attr('step',5)
       .attr('value',current[selected_area.name].usage)
     .on('change',function(){
         set_usage= parseInt(this.value);d3.select('#usage_p').text(set_usage + " %")

@@ -31,22 +31,22 @@
 
 <body >
 
-      <div id="lio_div" style="float:left;width:60%;height:60%;"><div id="map_div" style="width:100%;height: 100%"></div></div>
+      <div id="lio_div" style="float:left;width:50%;height:60%;"><div id="map_div" style="width:100%;height: 100%"></div></div>
       <div id="reo_div" style="float:left;width:40%;height:60%;text-align: center;">
         <img src="./logo.PNG" style="width: 60%" onclick="selected_area.id =99; make_cul_graph()">
       <!--  <img src=".//safe_events_logo-1.png" style="width: 30%" id ="evtlog" onclick="d3.select('#evtlog').remove()" >
       -->
       </div>
-      <div id="liu_div" style="float:left;width:60%;height:40%; ">
+      <div id="liu_div" style="float:left;width:60%;height:50%; ">
           
       </div>
       <div id="reu_div" style="float:left;width:40%;height:40%;text-align: center;"><br></div>
-      <p id="infotag">Version 1.1 - loaded</p>
+   
 
      </body>
     <script>
 
-infotag = d3.select('#infotag')
+
 locked=false // erlaubt grundsätzlich das uploaden auf fb ohne credentials
 set_name = "sandro"
 
@@ -54,7 +54,25 @@ initialise_map()
 initialise_settings()
 initialise_firebase()
 read_current()
-daydata = read_a_day(23,0)
+daydata = read_a_day(23,heutag)
+
+
+ref = database.ref('/soundstorm/SS23aux/day'+heutag+'/camcounts/');
+
+ref.on('value', (snapshot) => {
+  count_data = snapshot.val()
+  
+ 
+})
+
+/*
+ref.on('value', (snapshot) => {
+
+current = snapshot.val()
+
+for(i=0;i<stages_list.length;i++){
+ if(current[stages_list[i].name] != undefined){
+*/
 
 function read_a_day(jahr,tager){
   database = firebase.database();
@@ -69,7 +87,7 @@ for (k=0;k<stages_list.length;k++){
 }
 
 
-    graphdata[key]=make_graphdata_stages(daydata[key],capacity)
+    graphdata[key]=make_graphdata_stages(daydata[key],capacity,tager)
     })
 
 sum_onsite = new Array(53).fill(0)
@@ -77,16 +95,17 @@ timp =[]
 
 for(i=0;i<sum_onsite.length;i++){
     
-    q=0
+    pq=0
     Object.keys(graphdata).forEach((key) => {
-     if(graphdata[key].usage[i] != undefined) {    sum_onsite[i] += (graphdata[key].usage[i]*stages_list[q].capacity)/100}
-    q++
+     if(graphdata[key].usage[i] != undefined) {    sum_onsite[i] += (graphdata[key].usage[i]*stages_list[pq].capacity)/100}
+    pq++
     })
     
     }      
 
     total_people = {usage:sum_onsite,zeit:graphdata["Big Beast Left"].zeit}
 
+   
 
 
 
@@ -122,18 +141,17 @@ endfest = new Date ("2022-11-29T12:00")
 
     settim_slot =0
     layout = 1//0.6
-      lio =  d3.select('#lio_div').style('width',fenster.breite*0.6+"px").style('height',fenster.hoehe*0.55+"px")
-      reo =  d3.select('#reo_div').style('width',fenster.breite*0.4+"px").style('height',fenster.hoehe*0.55+"px").style('overflow',"hidden")
-      liu =  d3.select('#liu_div').style('width',fenster.breite*layout+"px").style('height',fenster.hoehe*0.45+"px")
-      reu =  d3.select('#reu_div').style('width',fenster.breite*(1-layout)+"px").style('height',fenster.hoehe*0.45+"px")
+      lio =  d3.select('#lio_div').style('width',fenster.breite*0.5+"px").style('height',fenster.hoehe*0.50+"px")
+      reo =  d3.select('#reo_div').style('width',fenster.breite*0.5+"px").style('height',fenster.hoehe*0.50+"px").style('overflow',"hidden")
+      liu =  d3.select('#liu_div').style('width',fenster.breite*layout+"px").style('height',fenster.hoehe*0.55+"px")
+     // reu =  d3.select('#reu_div').style('width',fenster.breite*(1-layout)+"px").style('height',fenster.hoehe*0.45+"px")
  
-      reo.append('br')
      reo.append('br')
       tidi = reo.append('span').style('margin','auto').text('DAY 1 - Time 10:15').style("font-size", "3vh").style("font-weight",700)
       .on('click',function (){nowbutton()}).style('cursor', 'pointer')
 
       reo.append('br')
-      tabero = reo.append('table').style('width',"100%").style('margin','auto').style('width','95%').style('margin-top',"5px").style("font-size", "5px")
+      tabero = reo.append('table').style('width',"100%").style('margin','auto').style('width','95%').style('margin-top',"5px")//.style("font-size", "5px")
       temp = tabero.append('tr').style('background-color',"grey")
       //temp.append("th").text("no.")
       temp.append("th").text("stage").style('width',"30%")
@@ -165,17 +183,75 @@ endfest = new Date ("2022-11-29T12:00")
         ttc.push(temp.append("td").text("t"+i).style("font-weight",700))
         tpc.push(temp.append("td").text("p"+i).style("font-weight",700))
       }
-     
-      tpc[11].style('color',"white")
-      tpc[10].style('color',"white")
+      tpc[5].style('color',"white")
+      tpc[13].style('color',"white")
+      tpc[14].style('color',"white")
       tpc[12].style('color',"white")
-      
+  /*    
+      tuc[14].style('color',"white")
+            tuc[14].style('color',"white")
+      ttc[14].style('color',"white")
+      tpc[14].style('color',"white")
+*/
+
       reo.append('br')
       tabero2 = reo.append('table').style('width',"100%").style('margin','auto').style('width','95%')//.style('margin-top',"5px")
 
       temp2 = tabero2.append('tr')
       
-      temp2.append("th").text("in-counts").style("width","19%").style('background-color',"grey")
+      temp2.append("th").text("in-counts").style("width","19%").style('background-color',"grey").on('click',function(){
+          data=[]
+  
+         count_datain = make_graphdata({usage:count_data.IN,zeit:count_data.zeit})
+         count_dataout = make_graphdata({usage:count_data.OUT,zeit:count_data.zeit})
+         field_inc.text(Math.round(count_datain.usage[settim_slot]))
+         field_outc.text(Math.round(count_dataout.usage[settim_slot]))
+         field_difc.text(Math.round(count_datain.usage[settim_slot]-count_dataout.usage[settim_slot]))
+
+         field_onsite.text(Math.round(total_people.usage[settim_slot]))
+    data.push({
+    x:  count_datain.zeit, //neu graph_data[selected_area.id].data_time,
+    y:   addArrays(count_data.IN,count_data.OUT), //neu graph_data[selected_area.id].data,
+
+        yaxis:"y1",
+    mode: 'lines',
+ //   fill: 'tonexty',
+  name: "SUM",
+  line: {shape: 'spline'},
+  type: 'scatter' 
+
+
+    },
+   {
+    x:  count_datain.zeit, //neu graph_data[selected_area.id].data_time,
+    y:  count_datain.usage, //neu graph_data[selected_area.id].data,
+
+        yaxis:"y1",
+    mode: 'lines',
+ //   fill: 'tonexty',
+  name: "IN",
+  line: {shape: 'spline'},
+  type: 'scatter'  
+  },   {
+    x:  count_dataout.zeit, //neu graph_data[selected_area.id].data_time,
+    y:  count_dataout.usage, //neu graph_data[selected_area.id].data,
+
+        yaxis:"y1",
+    mode: 'lines',
+   // fill: 'tonexty',
+  name: "OUT",
+  line: {shape: 'spline'},
+  type: 'scatter'  
+  })
+  
+
+
+
+  //Plotly.update('liu_div', data)  
+  initialise_chart(data,"counts") 
+
+
+      })
       field_inc = temp2.append("td").text("000").style("width","15%")
      temp2.append("th").text("out-counts").style("width","19%").style('background-color',"grey")
      field_outc =temp2.append("td").text("000").style("width","15%")
@@ -184,28 +260,84 @@ endfest = new Date ("2022-11-29T12:00")
      
      temp2 = tabero2.append('tr')
      temp2.append("th").text("scans").style("width","19%").style('background-color',"grey")
-      field_sca = temp2.append("td").text("000").style("width","15%")
+      field_sca = temp2.append("td").text("-").style("width","15%")
      temp2.append("th").text("on site").style("width","19%").style('background-color',"grey").on('click',function(){
       data=[]
+
+
+/*
+      tempa = new Date()
+      tempa = tempa.getTime()
+      tempb = tempa +(60*60*1000)
+temper = addArrays(count_data.IN,count_data.OUT)
+steigung = (temper [settim_slot]-temper[settim_slot-1])      
+      
+      //(graph_data[selected_area.name].data[settim_slot-ruckschau]-graph_data[selected_area].data[settim_slot])/ruckschau
+gr_layout.shapes.push(  {
+type: 'line',
+x0: settim,
+y0: temper[settim_slot],
+x1: temp,
+y1: temper[settim_slot]-(steigung*4),//*ruckschau,
+line: {
+color: "black",
+dash: 'dashdot',
+width: 1
+}} )
+
+*/
+
+
+
+
+
+
+
+      data.push(
+        { x: count_data.zeit,
+    y: addArrays(count_data.IN,count_data.OUT),
+    mode: 'lines',
+ 
+    name: "crowd count total",
+    line: {shape: 'spline',color:"green"},
+    type: 'scatter'    }
+      )
     data.push(
+
+
+
    {
     x:  total_people.zeit, //neu graph_data[selected_area.id].data_time,
     y:  total_people.usage, //neu graph_data[selected_area.id].data,
-    yaxis:"y1",
-    mode: 'lines',
-    fill: 'tonexty',
-  name: selected_area.name,
-  line: {shape: 'spline'},
+
+        yaxis:"y1",
+    mode: 'lines',   fill: 'tozeroy',
+    
+    name: "count on site",
+  line: {shape: 'spline',color: "steelblue"},
   type: 'scatter'  
   })
+  data.push(
+   {
+    x:  referens_daten.zeit, //neu graph_data[selected_area.id].data_time,
+    y:  referens_daten.usage, //neu graph_data[selected_area.id].data,
 
+        yaxis:"y1",
+   
+ 
+    mode: 'lines',
+    name: "Day 1 - 2022",
+    line: {shape: 'spline',color:"black",dash: 'dashdot'},
+    type: 'scatter'    })
   //Plotly.update('liu_div', data)  
   initialise_chart(data,"usage")     
-     })
+}
+        )
+     
       field_onsite = temp2.append("td").text("000").style("width","15%")
       temp2.append("th").text("peak rate").style("width","19%").style('background-color',"grey")
       //field_rate = 
-      temp2.append("td").text("967").style("width","15%")
+      temp2.append("td").text("-").style("width","15%")
    
 
       slider =  d3.select('body').append('input').attr('type','range').style('width',"10%").style('height',"3%")
@@ -215,9 +347,8 @@ endfest = new Date ("2022-11-29T12:00")
           settim = new Date()
           settim.setTime(this.value)
      
-              refresh();
-            }
-        )
+              refresh();})
+      
 
       but_div = d3.select('body').append('div')//.style("position", "absolute").style("bottom", "35px")
       but_div.append('br')
@@ -252,7 +383,10 @@ endfest = new Date ("2022-11-29T12:00")
 function refresh(){
   settim = new Date()
   temp = settim.getTime()
-  tidi.text('DAY '+heutag+' - Time ' +settim.getHours() +":"+settim.getMinutes())
+  drecks=""
+  if(settim.getMinutes()<10){drecks = "0"}
+
+  tidi.text('DAY '+heutag+' - Time ' +settim.getHours() +":"+drecks+settim.getMinutes())
 initialise_chart()
 
  
@@ -263,9 +397,14 @@ initialise_chart()
     }
   }
 
+
+
   field_onsite.text(total_people[settim_slot])
+
  q=0
   Object.keys(graphdata).forEach((key) => {
+
+    if (Math.round(graphdata[key].usage[settim_slot]) == NaN)[alert(graphdata[key].usage[settim_slot])]
   pfeil =" ◄"
  if(graphdata[key].usage[settim_slot]>graphdata[key].usage[settim_slot-1]){pfeil = " ▲"}
  if((graphdata[key].usage[settim_slot])<graphdata[key].usage[settim_slot-1]){pfeil =" ▼" }
@@ -462,6 +601,118 @@ found=0
  return Math.round(found)}
 
 
+ referens_daten={
+  "usage": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    866.6319617224879,
+    974.9609569377992,
+    1071.3008995215314,
+    1148.7327846889953,
+    1398.5181116427434,
+    2668.713177306903,
+    3329.4426287537026,
+    3827.3198103440423,
+    4717.637628616996,
+    4732.013378719526,
+    6267.097354112553,
+    13666.733373129793,
+    19806.794470762765,
+    25574.01390204805,
+    28665.636331580467,
+    30023.326267837274,
+    34434.9144497081,
+    38024.03695785523,
+    40974.14298676387,
+    37795.28221854539,
+    37183.69762897401,
+    43928.82622279445,
+    50185.46401340246,
+    58112.38038249324,
+    63452.864798774586,
+    69941.51262178672,
+    69790.3758895091,
+    66753.1047267969,
+    66349.29613268121,
+    65255.80942419041,
+    65436.25010114073,
+    66455.55134509185,
+    67370.07350183057,
+    63027.25244199771,
+    66476.26060674543,
+    65080.27167543129,
+    64690.41139382913,
+    61946.02033096403,
+    60713.69265497523,
+    59449.64126063264,
+    17015.21052631579
+  ],
+  "zeit": [
+    "2023-12-14T12:00:00.000Z",
+    "2023-12-14T12:15:00.000Z",
+    "2023-12-14T12:30:00.000Z",
+    "2023-12-14T12:45:00.000Z",
+    "2023-12-14T13:00:00.000Z",
+    "2023-12-14T13:15:00.000Z",
+    "2023-12-14T13:30:00.000Z",
+    "2023-12-14T13:45:00.000Z",
+    "2023-12-14T14:00:00.000Z",
+    "2023-12-14T14:15:00.000Z",
+    "2023-12-14T14:30:00.000Z",
+    "2023-12-14T14:45:00.000Z",
+    "2023-12-14T15:00:00.000Z",
+    "2023-12-14T15:15:00.000Z",
+    "2023-12-14T15:30:00.000Z",
+    "2023-12-14T15:45:00.000Z",
+    "2023-12-14T16:00:00.000Z",
+    "2023-12-14T16:15:00.000Z",
+    "2023-12-14T16:30:00.000Z",
+    "2023-12-14T16:45:00.000Z",
+    "2023-12-14T17:00:00.000Z",
+    "2023-12-14T17:15:00.000Z",
+    "2023-12-14T17:30:00.000Z",
+    "2023-12-14T17:45:00.000Z",
+    "2023-12-14T18:00:00.000Z",
+    "2023-12-14T18:15:00.000Z",
+    "2023-12-14T18:30:00.000Z",
+    "2023-12-14T18:45:00.000Z",
+    "2023-12-14T19:00:00.000Z",
+    "2023-12-14T19:15:00.000Z",
+    "2023-12-14T19:30:00.000Z",
+    "2023-12-14T19:45:00.000Z",
+    "2023-12-14T20:00:00.000Z",
+    "2023-12-14T20:15:00.000Z",
+    "2023-12-14T20:30:00.000Z",
+    "2023-12-14T20:45:00.000Z",
+    "2023-12-14T21:00:00.000Z",
+    "2023-12-14T21:15:00.000Z",
+    "2023-12-14T21:30:00.000Z",
+    "2023-12-14T21:45:00.000Z",
+    "2023-12-14T22:00:00.000Z",
+    "2023-12-14T22:15:00.000Z",
+    "2023-12-14T22:30:00.000Z",
+    "2023-12-14T22:45:00.000Z",
+    "2023-12-14T23:00:00.000Z",
+    "2023-12-14T23:15:00.000Z",
+    "2023-12-14T23:30:00.000Z",
+    "2023-12-14T23:45:00.000Z",
+    "2023-12-15T00:00:00.000Z",
+    "2023-12-15T00:15:00.000Z",
+    "2023-12-15T00:30:00.000Z",
+    "2023-12-15T00:45:00.000Z",
+    "2023-12-15T01:00:00.000Z"
+  ]
+}
     </script>
 
 </html>
