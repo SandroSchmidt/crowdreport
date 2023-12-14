@@ -91,8 +91,8 @@ function draw_arrow(von,nach,farbe,dicke,ttl,meldender){
  farbe = "green"
   if (dicke>5){farbe = "lime"}
   if (dicke>10){farbe = "red"}
-  if(meldender == "sandro"){farbe="black"; dicke=10;ttl=180}
-  var polyline = L.polyline([von,nach],{weight:dicke,color:farbe}).bindTooltip(meldender  ).addTo(movement_layer);
+  if(meldender == "sandro"){farbe="black"; dicke=10}
+  var polyline = L.polyline([von,nach],{weight:dicke,color:farbe}).bindTooltip(meldender+" " +ttl).addTo(movement_layer);
   var arrowHead = L.polylineDecorator(polyline, {    patterns: [   
        { offset: '100%', repeat: 0, symbol: L.Symbol.arrowHead({ 
         pixelSize: dicke, polygon: false, 
@@ -254,7 +254,7 @@ ref = database.ref('/soundstorm/swipes');
 
 ref.on('value', (snapshot) => {
 
-movement_layer.clearLayers();
+//movement_layer.clearLayers();
 swipes_arr = snapshot.val()
 a = new Date()
     a =a.getTime()
@@ -263,9 +263,9 @@ a = new Date()
     if(swipes_arr != undefined)
 {Object.keys(swipes_arr).forEach((key) => {
   x = (a -swipes_arr[key].zeit )/1000 // x ist das alter des pfeiles in sekunden
- if(swipes_arr[key].meldender == "sandro"||swipes_arr[key].meldender =="marcel"){y = 60*10}else{y=20} 
+ if(swipes_arr[key].meldender == "sandro"||swipes_arr[key].meldender =="marcel"){y = 60*5}else{y=20} 
  // die time to live ist 10 min bei pfeilen die ich eingemalt habe, else ist sie 20 sek
-if(x<8){
+if((y-x)>8){
     draw_arrow (swipes_arr[key].von,swipes_arr[key].nach,"green",swipes_arr[key].dicke,y-x,swipes_arr[key].meldender )
 }
   
@@ -473,7 +473,7 @@ mymap.getContainer().addEventListener("touchend", function (e) {
       
   //malen des Swipes und des Pfeilkopfes
     
-      draw_arrow (ort1,ort2,"grey",www,3)
+      draw_arrow (ort1,ort2,"grey",www,10)
      
       infotag.text("swipe reported. category:   "+ www/5)
 
