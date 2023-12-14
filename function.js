@@ -92,7 +92,7 @@ function draw_arrow(von,nach,farbe,dicke,ttl,meldender){
   if (dicke>5){farbe = "lime"}
   if (dicke>10){farbe = "red"}
   if(meldender == "sandro"){farbe="black"; dicke=10}
-  var polyline = L.polyline([von,nach],{weight:dicke,color:farbe}).bindTooltip(meldender+" " +ttl).addTo(movement_layer);
+  var polyline = L.polyline([von,nach],{weight:dicke,color:farbe}).bindTooltip(meldender).addTo(movement_layer);
   var arrowHead = L.polylineDecorator(polyline, {    patterns: [   
        { offset: '100%', repeat: 0, symbol: L.Symbol.arrowHead({ 
         pixelSize: dicke, polygon: false, 
