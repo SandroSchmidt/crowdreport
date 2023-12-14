@@ -131,6 +131,8 @@
 </body>
 
 <script>
+
+  /*
 // diese ZEile erzwingt das refreshen der page, ohne cache
 // Example JavaScript code to append a random query parameter to the current URL
 function forceReload() {
@@ -144,11 +146,14 @@ function forceReload() {
 
     // Navigate to the updated URL
     window.location.href = updatedUrl;
+    infotag.text("forced reload of the page initiated")
 }
 
 // Call the function to force a reload
-forceReload();
 
+
+setInterval(forceReload(),(60+30+1000))
+*/
 
 infotag = d3.select('#infotag')
  
