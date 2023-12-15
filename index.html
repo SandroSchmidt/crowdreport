@@ -44,7 +44,7 @@
   
   <table style="width:100%">
     <tr><td style="width:25%">reporting:</td>
-      <td style="width:50%">
+      <td style="width:55%">
 
         <select id="dropdownrep"  onchange="set_name=list_of_reporters[this.value];infotag.text('new reporting person: '+set_name)
         locked= true;d3.select('#lock').text('LOCKED')
@@ -67,7 +67,7 @@
  <select id="dropdown" name="dropdown" onchange="set_area = parseInt(this.value);console.log(this.value);select_area(this.value)">
 
 </td>
-      <td style="width:25%"><span id="lock" style="background-color:yellow">LOCKED</span></td>
+      <td style="width:20%"><span id="lock" style="background-color:yellow">LOCKED</span></td>
     </tr>
     <tr>
       <td>density:</td>
@@ -417,7 +417,7 @@ d3.select('#hiertensionslider').selectAll('*').remove()
 d3.select('#hierusageslider').selectAll('*').remove()
 
 d3.select('#hierdensityslider').append("button").text("-").on('click',function (){if(set_dens>0){set_dens --};dens_slider.property('value',set_dens);d3.select('#dens_p').property("value",set_dens)})
-dens_slider = d3.select('#hierdensityslider').append('input').attr('type','range').attr('min',0).attr('max',10).attr('step',1)
+dens_slider = d3.select('#hierdensityslider').append('input').style('width','55%').attr('type','range').attr('min',0).attr('max',10).attr('step',1)
 .attr('value',current[selected_area.name].density)
     .on('change',function(){
         set_dens= parseInt(this.value);d3.select('#dens_p').property("value",set_dens)
@@ -427,7 +427,7 @@ dens_slider = d3.select('#hierdensityslider').append('input').attr('type','range
      d3.select('#hiertensionslider').append("button").text("-").on('click',function (){if(set_tens>0){set_tens --};tens_slider.property('value',set_tens);d3.select('#tens_p').property("value",set_tens)})
      
    tens_slider=   d3.select('#hiertensionslider')
-.append('input').attr('type','range').attr('min',0).attr('max',10).attr('step',1)
+.append('input').attr('type','range').attr('min',0).style('width','55%').attr('max',10).attr('step',1)
 .attr('value',current[selected_area.name].tension)
     .on('change',function(){
         set_tens= parseInt(this.value);d3.select('#tens_p').property("value",set_tens)
@@ -436,7 +436,7 @@ dens_slider = d3.select('#hierdensityslider').append('input').attr('type','range
       d3.select('#hiertensionslider').append("button").text("+").on('click',function (){if(set_tens<10){set_tens ++};tens_slider.property('value',set_tens);d3.select('#tens_p').property("value",set_tens)})
       
       d3.select('#hierusageslider').append("button").text("-").on('click',function (){if(set_usage>0){set_usage -= 5};usage_slider.property('value',set_usage);d3.select('#usage_p').property("value",set_usage)})
-      usage_slider = d3.select('#hierusageslider').append('input').attr('type','range').attr('min',0).attr('max',150).attr('step',5)
+      usage_slider = d3.select('#hierusageslider').append('input').attr('type','range').style('width','55%').attr('min',0).attr('max',150).attr('step',5)
       .attr('value',current[selected_area.name].usage)
     .on('change',function(){
         set_usage= parseInt(this.value);d3.select('#usage_p').property("value",set_usage)
