@@ -44,7 +44,7 @@
   
   <table style="width:100%">
     <tr><td style="width:25%">reporting:</td>
-      <td style="width:55%">
+      <td style="width:60%">
 
         <select id="dropdownrep"  onchange="set_name=list_of_reporters[this.value];infotag.text('new reporting person: '+set_name)
         locked= true;d3.select('#lock').text('LOCKED')
@@ -67,7 +67,7 @@
  <select id="dropdown" name="dropdown" onchange="set_area = parseInt(this.value);console.log(this.value);select_area(this.value)">
 
 </td>
-      <td style="width:20%"><span id="lock" style="background-color:yellow">LOCKED</span></td>
+      <td style="width:15%"><span id="lock" style="background-color:yellow">LOCKED</span></td>
     </tr>
     <tr>
       <td>density:</td>
@@ -119,7 +119,7 @@
        
       </td>
       <td>
-        <button onclick="eventmarkertoggle =true;infotag.text('report marker by clicking on map')">set marker</button>
+        <button onclick="eventmarkertoggle =true;infotag.text('report marker by clicking on map')">marker</button>
       </td>
     </tr>
   </table>
@@ -463,7 +463,7 @@ dens_slider = d3.select('#hierdensityslider').append('input').style('width','55%
 
 
 
-
+select_area(0)
 
 
 
