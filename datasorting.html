@@ -4,10 +4,43 @@
 
 <head>
   <title>SS23 datasorting</title>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+  
 </head>
 <body>
 </body>
 <script>
+function initialise_firebase(){
+  const firebaseConfig = {
+          apiKey: "AIzaSyBOOdW1SHCwBZSchUJ7DfJZ1a7-dEYTvuQ",
+          authDomain: "crowdcount-678c8.firebaseapp.com",
+          databaseURL: "https://crowdcount-678c8-default-rtdb.europe-west1.firebasedatabase.app",
+          projectId: "crowdcount-678c8",
+          storageBucket: "crowdcount-678c8.appspot.com",
+          messagingSenderId: "1020533758948",
+          appId: "1:1020533758948:web:23ec6e175dff3b5eedc5f1",
+          measurementId: "G-00674BETEZ"
+          };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  
+  
+        }  
+initialise_firebase()
+
+
+database = firebase.database();
+
+ref = database.ref('/soundstorm/swipes');
+
+ref.once('value', (snapshot) => {
+  swipes_arr = snapshot.val()
+  console.log('working')
+console.log(swipes_arr)
+
+})
 
 
 refdata = 
@@ -1529,9 +1562,6 @@ for(i=0;i<sum_onsite.length;i++){
 
     total_people = {usage:sum_onsite,zeit:neu2["Big Beast Left"].zeit}
 
-
-
-console.log(total_people)
 
 </script>
 

@@ -67,36 +67,44 @@
  <select id="dropdown" name="dropdown" onchange="set_area = parseInt(this.value);console.log(this.value);select_area(this.value)">
 
 </td>
-      <td ><span id="lock">LOCKED</span></td>
+      <td ><span id="lock" style="background-color:yellow">LOCKED</span></td>
     </tr>
     <tr>
       <td>density:</td>
-      <td id="hierdensityslider"> <!-- <button onclick="set_dens =Math.max(0,set_dens-1);d3.select('#dens_p').text(set_dens);d3.select('#densInput').attr('value',set_dens)">-</button> 
+
+      <td id="hierdensityslider">
         
-          -->  
-          <input type="range" id="densInput" min="0" max="10" step=1   onchange="set_dens= parseInt(this.value);infotag.text('dens '+this.value);d3.select('#dens_p').text(set_dens)">
+        
+        <button onclick="
+      set_dens =Math.max(0,set_dens-1);
+      d3.select('#dens_p').text(set_dens);
+      d3.select('#densInput').attr('value',set_dens)">
+      -</button> 
+        
+      <input type="range" id="densInput" min="0" max="10" step=1   onchange="set_dens= parseInt(this.value);infotag.text('dens '+this.value);d3.select('#dens_p').text(set_dens)"> 
+       
          <!--   <button onclick="set_dens =Math.min(10,set_dens+1);d3.select('#dens_p').text(set_dens);d3.select('#densInput').attr('value',set_dens)">+</button> 
-        -->  
+        -->  <button>+</button> 
         </td>
-    <td> <span id="dens_p"> 5</span></td>
+    <td> <input type ="number" step=1 min=0 max=10 id="dens_p" value=5 onchange="set_dens=this.value;dens_slider.property('value',this.value)"> </td></td>
     </tr>
  
      
     <tr>
   
   <td>tension:</td>
-  <td id="hiertensionslider">   <input type="range" id="tensInput" min="0" max="10" step=1 
-    onchange="set_tens= parseInt(this.value);d3.select('#tens_p').text(set_tens)"></td>
-  <td> <span id="tens_p"> 5</span></td>
+  <td id="hiertensionslider"> <button>-</button>  <input type="range" id="tensInput" min="0" max="10" step=1 
+    onchange="set_tens= parseInt(this.value);d3.select('#tens_p').text(set_tens)"><button>+</button> </td>
+  <td> <input type ="number" step=1 min=0 max=10 id="tens_p" value=5 onchange="set_tens=this.value;tens_slider.property('value',this.value)"> </td>
 
     </tr>
 
     <tr>
       <td>usage:</td>
-      <td id="hierusageslider"><input type="range" id="usageInput" min="0" max="150" step=10 value =50 
-        onchange="set_usage= parseInt(this.value);d3.select('#usage_p').text(set_usage + ' %')">
+      <td id="hierusageslider"><button>-</button> <input type="range" id="usageInput" min="0" max="150" step=10 value =50 
+        onchange="set_usage= parseInt(this.value);d3.select('#usage_p').text(set_usage + ' %')"><button>+</button> 
       </td>
-      <td>  <span id="usage_p"> 10%</span></td>
+      <td> <input type ="number" step=5 min=0 max=150 id="usage_p" value=55 onchange="set_usage=Math.max(0,Math.min(150,this.value) );this.value =set_usage;usage_slider.property('value',this.value)">% </td>
     </tr>
 
     <tr>
@@ -131,6 +139,9 @@
 </body>
 
 <script>
+ dens_slider = d3.select('#hierdensityslider')
+ tens_slider = d3.select('#hiertensionslider')
+ usage_slider = d3.select('#hierusageslider')
 
   /*
 // diese ZEile erzwingt das refreshen der page, ohne cache
@@ -163,21 +174,21 @@ set_dens=0
 set_tens = 0
 set_usage=0
 current ={
-  "Big Beast Circle":{density:7,usage:7,tension:7},
-  "Big Beast North":{density:7,usage:7,tension:7},
-  "Big Beast South":{density:7,usage:7,tension:7},
-  "Dance Tent":{density:7,usage:7,tension:7},
-  "Down Beast":{density:7,usage:7,tension:7},
-  "MDL Town":{density:7,usage:7,tension:7},
-  "Underground 1":{density:7,usage:7,tension:7},
-  "VIB-Terrace":{density:7,usage:7,tension:7},
-  "VIB-Gate":{density:7,usage:7,tension:7},
-  "Green Space 4":{density:7,usage:7,tension:7},
-  "West-Gate":{density:7,usage:7,tension:7},
-  "East-Gate":{density:7,usage:7,tension:7},
-  "Underground 2":{density:7,usage:7,tension:7},
-  "Underground 3":{density:7,usage:7,tension:7},
-  "Underground 4":{density:7,usage:7,tension:7},
+  "Big Beast Circle":{density:7,usage:55,tension:7},
+  "Big Beast North":{density:7,usage:55,tension:7},
+  "Big Beast South":{density:7,usage:55,tension:7},
+  "Dance Tent":{density:7,usage:55,tension:7},
+  "Down Beast":{density:7,usage:55,tension:7},
+  "MDL Town":{density:7,usage:55,tension:7},
+  "Underground 1":{density:7,usage:55,tension:7},
+  "VIB-Terrace":{density:7,usage:55,tension:7},
+  "VIB-Gate":{density:7,usage:55,tension:7},
+  "Green Space 4":{density:7,usage:55,tension:7},
+  "West-Gate":{density:7,usage:55,tension:7},
+  "East-Gate":{density:7,usage:55,tension:7},
+  "Underground 2":{density:7,usage:55,tension:7},
+  "Underground 3":{density:7,usage:55,tension:7},
+  "Underground 4":{density:7,usage:55,tension:7},
   "parking lot 1":{usage:0},
   "parking lot 2":{usage:0},
   "parking lot 3":{usage:0},
@@ -312,6 +323,8 @@ function update_ownpos(){
  */
 
 function writeReportToFirebase() {
+  d3.select('#lock').style('background-color',"yellow")
+  
   if (locked) {
     infotag.text('can not send reports or swipes when -LOCKED-')
     return;
@@ -329,6 +342,7 @@ const database = firebase.database();
               databaseRef.transaction(function(currentArray) {
               currentArray = currentArray || [];
              currentArray.push(parseInt(set_usage));
+             setTimeout(function (){d3.select('#lock').style('background-color',"green")},500)
               return currentArray;
              });
 
@@ -402,42 +416,45 @@ d3.select('#hierdensityslider').selectAll('*').remove()
 d3.select('#hiertensionslider').selectAll('*').remove()
 d3.select('#hierusageslider').selectAll('*').remove()
 
-d3.select('#hierdensityslider').append('input').attr('type','range').attr('min',0).attr('max',10).attr('step',1)
+d3.select('#hierdensityslider').append("button").text("-").on('click',function (){if(set_dens>0){set_dens --};dens_slider.property('value',set_dens);d3.select('#dens_p').property("value",set_dens)})
+dens_slider = d3.select('#hierdensityslider').append('input').attr('type','range').attr('min',0).attr('max',10).attr('step',1)
 .attr('value',current[selected_area.name].density)
     .on('change',function(){
-        set_dens= parseInt(this.value);d3.select('#dens_p').text(set_dens)
+        set_dens= parseInt(this.value);d3.select('#dens_p').property("value",set_dens)
       })
+      d3.select('#hierdensityslider').append("button").text("+").on('click',function (){if(set_dens<10){set_dens ++};dens_slider.property('value',set_dens);d3.select('#dens_p').property("value",set_dens)})
 
-
-//      d3.select('#hiertensionslider').append("button").text("+").on('click',function (){set_tens --;d3.select('#tens_p').text(set_tens)})
-//      d3.select('#hiertensionslider').append("button").text("+").on('click',function (){set_tens ++;d3.select('#tens_p').text(set_tens)})
-
-
-
-if (set_name =="sandro") {d3.select('#hiertensionslider').append("input").attr('type',"number")}
-
-
-      d3.select('#hiertensionslider')
+     d3.select('#hiertensionslider').append("button").text("-").on('click',function (){if(set_tens>0){set_tens --};tens_slider.property('value',set_tens);d3.select('#tens_p').property("value",set_tens)})
+     
+   tens_slider=   d3.select('#hiertensionslider')
 .append('input').attr('type','range').attr('min',0).attr('max',10).attr('step',1)
 .attr('value',current[selected_area.name].tension)
     .on('change',function(){
-        set_tens= parseInt(this.value);d3.select('#tens_p').text(set_tens)
+        set_tens= parseInt(this.value);d3.select('#tens_p').property("value",set_tens)
       })
-     
-
-      d3.select('#hierusageslider').append('input').attr('type','range').attr('min',0).attr('max',150).attr('step',5)
+      
+      d3.select('#hiertensionslider').append("button").text("+").on('click',function (){if(set_tens<10){set_tens ++};tens_slider.property('value',set_tens);d3.select('#tens_p').property("value",set_tens)})
+      
+      d3.select('#hierusageslider').append("button").text("-").on('click',function (){if(set_usage>0){set_usage -= 5};usage_slider.property('value',set_usage);d3.select('#usage_p').property("value",set_usage)})
+      usage_slider = d3.select('#hierusageslider').append('input').attr('type','range').attr('min',0).attr('max',150).attr('step',5)
       .attr('value',current[selected_area.name].usage)
     .on('change',function(){
-        set_usage= parseInt(this.value);d3.select('#usage_p').text(set_usage + " %")
+        set_usage= parseInt(this.value);d3.select('#usage_p').property("value",set_usage)
       })
-        d3.select('#dens_p').text(current[ selected_area.name].density)
-        d3.select('#usage_p').text(current[ selected_area.name].usage+" %")
-        d3.select('#tens_p').text(current[ selected_area.name].tension)
+
+      d3.select('#hierusageslider').append("button").text("+").on('click',function (){if(set_usage<150){set_usage +=5};usage_slider.property('value',set_usage);d3.select('#usage_p').property("value",set_usage)})
+
+        d3.select('#dens_p').property("value",current[ selected_area.name].density)
+        d3.select('#usage_p').property("value",current[ selected_area.name].usage)
+        d3.select('#tens_p').property("value",current[ selected_area.name].tension)
 
         set_dens = current[selected_area.name].density
         set_usage = current[selected_area.name].usage
         set_tens = current[selected_area.name].tension
         //dens_slider.node().dispatchEvent(new Event('input'));
+
+// das hier brauche ich nur weil die slider sonst nach der ersten user einput nicht mehr upgedatet werden
+     
 
 }
 

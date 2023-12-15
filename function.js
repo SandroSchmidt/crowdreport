@@ -198,7 +198,7 @@ function read_current (){
 
 
 ref = database.ref('/soundstorm/aktuell');
-ref.on('value', (snapshot) => {infotag.text("on");     {d3.select('#lock').style('background-color',"green")}
+ref.on('value', (snapshot) => {infotag.text("on");     {setTimeout(function (){d3.select('#lock').style('background-color',"green")},500)}
 (errorObject) => 
   // This callback will be called if there's an error connecting to the database
   {d3.select('#lock').style('background-color',"yellow")}
@@ -285,8 +285,11 @@ Object.keys(locations).forEach((key) => {
 }else
     {if(existing_markers.includes(key)) {
 eval(key+"_marker.setLatLng(locations[key].ort)")
-}else{
-eval(key+"_marker = L.marker(locations[key].ort).bindPopup(key).addTo(eigensymbole_layer)")
+}else{ temp = new Date(locations[key].zeit)
+  if(temp.getMinutes() <10){templn ="0"}else{templn=""}
+  temp = temp.getHours()+":"+templn+temp.getMinutes()
+    
+eval(key+"_marker = L.marker(locations[key].ort).bindPopup(key+' at '+temp).addTo(eigensymbole_layer)")
   // hier die marker einmalen
 existing_markers.push(key)
 }}
