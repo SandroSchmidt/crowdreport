@@ -86,7 +86,7 @@
          <!--   <button onclick="set_dens =Math.min(10,set_dens+1);d3.select('#dens_p').text(set_dens);d3.select('#densInput').attr('value',set_dens)">+</button> 
         -->  <button>+</button> 
         </td>
-    <td> <input type ="number" step=1 min=0 max=10 id="dens_p" value=5 onchange="set_dens=this.value;dens_slider.property('value',this.value)"> </td></td>
+    <td> <input type ="number" step=1 min=0 max=10 id="dens_p" style="width:25%" value=5 onchange="set_dens=this.value;dens_slider.property('value',this.value)"> </td></td>
     </tr>
  
      
@@ -95,7 +95,7 @@
   <td>tension:</td>
   <td id="hiertensionslider"> <button>-</button>  <input type="range" id="tensInput" min="0" max="10" step=1 
     onchange="set_tens= parseInt(this.value);d3.select('#tens_p').text(set_tens)"><button>+</button> </td>
-  <td> <input type ="number" step=1 min=0 max=10 id="tens_p" value=5 onchange="set_tens=this.value;tens_slider.property('value',this.value)"> </td>
+  <td> <input type ="number" step=1 min=0 max=10 id="tens_p" style="width:25%" value=5 onchange="set_tens=this.value;tens_slider.property('value',this.value)"> </td>
 
     </tr>
 
@@ -104,7 +104,7 @@
       <td id="hierusageslider"><button>-</button> <input type="range" id="usageInput" min="0" max="150" step=10 value =50 
         onchange="set_usage= parseInt(this.value);d3.select('#usage_p').text(set_usage + ' %')"><button>+</button> 
       </td>
-      <td> <input type ="number" step=5 min=0 max=150 id="usage_p" value=55 onchange="set_usage=Math.max(0,Math.min(150,this.value) );this.value =set_usage;usage_slider.property('value',this.value)">% </td>
+      <td> <input type ="number" step=5 min=0 max=150 style="width:25%" id="usage_p" value=55 onchange="set_usage=Math.max(0,Math.min(150,this.value) );this.value =set_usage;usage_slider.property('value',this.value)">% </td>
     </tr>
 
     <tr>
