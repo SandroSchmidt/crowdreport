@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8" />
+        <title>MAP-MAP-MAP</title>
+        <script src="./js/d3.min.js"></script>
+        <script src="./js/plotly-2.16.1.min.js"></script>
+            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+        <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+         <script src="https://unpkg.com/leaflet-polylinedecorator/dist/leaflet.polylineDecorator.js"></script>
+         
+                <script src="https://unpkg.com/leaflet-fullscreen/dist/Leaflet.fullscreen.min.js"></script>
+         <link rel="stylesheet" href="https://unpkg.com/leaflet-fullscreen/dist/leaflet.fullscreen.css" />
+        <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+        <script src="./data.js"></script>
+
+        <script src="./function.js"></script>
+       <script src="./js/d3.min.js"></script>
+
+
+      </head>
+      <style>
+        table, th, td{border:2px solid black;border-collapse: collapse;padding-left: 5px;padding-right: 5px;text-align: center;
+          
+          font-size: 1.4vh}   
+          td { font-size: 1.2vh }
+            body {font-family: Arial}
+        </style>
+
+<body >
+
+      <div id="lio_div" style="float:left;width:50%;height:60%;"><div id="map_div" style="width:100%;height: 100%"></div></div>
+      <div id="reo_div" style="float:left;width:40%;height:60%;text-align: center;">
+        <img src="./logo.PNG" style="width: 60%" onclick="selected_area.id =99; make_cul_graph()">
+      <!--  <img src=".//safe_events_logo-1.png" style="width: 30%" id ="evtlog" onclick="d3.select('#evtlog').remove()" >
+      -->
+      </div>
+      <div id="liu_div" style="float:left;width:60%;height:50%; ">
+          
+      </div>
+      <div id="katze"></div>
+      <div id="reu_div" style="float:left;width:40%;height:40%;text-align: center;"><br>
+    
+       </div>
+
+  
+
+        
+        <span id="infotag"></span>
+
+        <input id ="imgstr1" type="number" style ="font-size: 24px" step=0.0001 onchange="imageBounds[0][0]=this.value;imageOverlay.setBounds(imageBounds);">
+        <input id ="imgstr2" type="number" step=0.0001 onchange="imageBounds[0][1]=this.value;imageOverlay.setBounds(imageBounds);">
+        <input id ="imgstr3" type="number" step=0.0001 onchange="imageBounds[1][0]=this.value;imageOverlay.setBounds(imageBounds);">
+        <input id ="imgstr4" type="number" step=0.0001 onchange="imageBounds[1][1]=this.value;imageOverlay.setBounds(imageBounds); ">
+
+
+     </body>
+    <script>
+
+      
+
+d3.select('#imgstr1').attr("value",imageBounds[0][0])
+d3.select('#imgstr2').attr("value",imageBounds[0][1])
+d3.select('#imgstr3').attr("value",imageBounds[1][0])
+d3.select('#imgstr4').attr("value",imageBounds[1][1])
+
+
+
+infotag = d3.select('#infotag')
+locked=false // erlaubt grundsätzlich das uploaden auf fb ohne credentials
+set_name = "sandro"
+settim = new Date()
+initialise_map()
+initialise_settings()
+
+/*
+initialise_firebase()
+
+database = firebase.database();
+// hier wird die connection zu camcounts hergestellt
+ref = database.ref('/soundstorm/SS24aux/day'+heutag+'/camcounts/');
+ref.on('value', (snapshot) => {
+  count_data = snapshot.val()
+  count_datain = make_graphdata({usage:count_data.IN,zeit:count_data.zeit})
+         count_dataout = make_graphdata({usage:count_data.OUT,zeit:count_data.zeit})
+
+})
+
+
+read_current()
+
+daydata = read_a_day(24,heutag)
+
+setTimeout(function(){total_people},3000)*/
+
+
+/*
+setInterval(function (){refresh()},180000)
+
+
+
+
+ref.on('value', (snapshot) => {
+
+current = snapshot.val()
+
+for(i=0;i<stages_list.length;i++){
+ if(current[stages_list[i].name] != undefined){
+*/
+function jetzt_plot_malen(welcher_plot){
+  currentTimestamp = settim
+
+
+drecks_now = settim.getTime()
+  settim_slot =0
+  for (i=0;i<graphdata["Big Beast Left"].zeit.length-1;i++){
+   
+     
+if (drecks_now> graphdata["Big Beast Left"].zeit[i].getTime()
+    && drecks_now< graphdata["Big Beast Left"].zeit[i+1].getTime())
+         settim_slot = i
+     }
+    
+
+data=[]
+
+
+gr_layout.shapes.push(    {
+            type: 'line',
+            x0: currentTimestamp,
+            x1: currentTimestamp,
+            y0: 0,
+            y1: 1,         
+            xref: 'x',            yref: 'paper',   line: {    color: 'red',    width: 2,              dash: 'dashdot'              }   
+                })
+
+if(welcher_plot=="general"){
+
+
+  progres = estimateProgression({usage:addArrays(count_data.IN,count_data.OUT),zeit:count_data.zeit},1)
+  
+  progres2 = estimateProgression({usage:addArrays(count_data.IN,count_data.OUT),zeit:count_data.zeit},2)
+  progres3 = estimateProgression({usage:addArrays(count_data.IN,count_data.OUT),zeit:count_data.zeit},3)
+
+
+
+    data.push(
+{
+x:  total_people.zeit, //neu graph_data[selected_area.id].data_time,
+y:  total_people.usage, //neu graph_data[selected_area.id].data,
+
+  yaxis:"y1",
+mode: 'lines',   fill: 'tozeroy',
+
+name: "count on site",
+line: {shape: 'spline',color: "steelblue"},
+type: 'scatter'  
+})
+    data.push(
+{
+x:  graphdata["Big Beast Left"].zeit, //neu graph_data[selected_area.id].data_time,
+y:  referens_daten.usage, //neu graph_data[selected_area.id].data,
+
+  yaxis:"y1",
+
+
+mode: 'lines',
+name: "Day 2 - 2023",
+line: {shape: 'spline',color:"black",dash: 'dashdot'},
+type: 'scatter'    })
+crsum_arr =addArrays(count_data.IN,count_data.OUT)
+data.push(
+  { x: count_data.zeit,
+y: crsum_arr,
+mode: 'lines',
+
+name: "crowd count total",
+line: {shape: 'spline',color:"green"},
+type: 'scatter'    }
+)
+// hier die steigungen eingeben
+
+hund = settim.getTime()
+hund += (60*60*1000*2)
+hund = new Date(hund)
+hund2 = settim.getTime()
+hund2 -= (60*60*1000)
+hund2 = new Date(hund2)
+
+//hund3 = count_data.zeit[]
+//hund4 = count_data.zeit
+gr_layout.shapes.push(  {
+                  type: 'line',
+                  x0:  progres.zeit[0],/////hund2,
+                  y0: progres.usage[0],//total_people.usage[settim_slot-4],
+                  x1: progres.zeit[1],
+                  y1: progres.usage[1],
+                  name: "progression",
+                  line: {
+                  color: "green",
+                  dash: 'dashdot',
+                  width: 1.5
+                  }} )
+                  gr_layout.shapes.push(  {
+                  type: 'line',
+                  x0:  progres2.zeit[0],/////hund2,
+                  y0: progres2.usage[0],//total_people.usage[settim_slot-4],
+                  x1: progres2.zeit[1],
+                  y1: progres2.usage[1],
+                  name: "progression",
+                  line: {
+                  color: "green",
+                  dash: 'dashdot',
+                  width: 1.5
+                  }} )
+                  gr_layout.shapes.push(  {
+                  type: 'line',
+                  x0:  progres3.zeit[0],/////hund2,
+                  y0: progres3.usage[0],//total_people.usage[settim_slot-4],
+                  x1: progres3.zeit[1],
+                  y1: progres3.usage[1],
+                  name: "progression",
+                  line: {
+                  color: "green",
+                  dash: 'dashdot',
+                  width: 1.5
+                  }} )
+
+gr_layout.shapes.push(  {
+                  type: 'line',
+                  x0: hund2,
+                  y0: crsum_arr[settim_slot-4],
+                  x1: hund,
+                  y1: crsum_arr[settim_slot]+3*(crsum_arr[settim_slot]),//*ruckschau,
+                  name: "progression2",
+                  line: {
+                  color: "green",
+                  dash: 'dashdot',
+                  width: 1
+                  }} )
+}
+if(welcher_plot=="camcounts"){
+  
+
+ 
+data.push(
+  { x: count_data.zeit,
+y: addArrays(count_data.IN,count_data.OUT),
+mode: 'lines',
+
+name: "crowd count total",
+line: {shape: 'spline',color:"green"},
+type: 'scatter'    }
+)
+ 
+data.push({
+    x:  count_datain.zeit, //neu graph_data[selected_area.id].data_time,
+    y:   addArrays(count_data.IN,count_data.OUT), //neu graph_data[selected_area.id].data,
+
+        yaxis:"y1",
+    mode: 'lines',
+ //   fill: 'tonexty',
+  name: "SUM",
+  line: {shape: 'spline'},
+  type: 'scatter' 
+
+
+    },
+   {
+    x:  count_datain.zeit, //neu graph_data[selected_area.id].data_time,
+    y:  count_datain.usage, //neu graph_data[selected_area.id].data,
+
+        yaxis:"y1",
+    mode: 'lines',
+ //   fill: 'tonexty',
+  name: "IN",
+  line: {shape: 'spline'},
+  type: 'scatter'  
+  },   {
+    x:  count_dataout.zeit, //neu graph_data[selected_area.id].data_time,
+    y:  count_dataout.usage, //neu graph_data[selected_area.id].data,
+
+        yaxis:"y1",
+    mode: 'lines',
+   // fill: 'tonexty',
+  name: "OUT",
+  line: {shape: 'spline'},
+  type: 'scatter'  
+  })
+}
+
+
+                
+       
+   
+  
+
+
+
+
+
+        Plotly.newPlot('liu_div', data,gr_layout,{
+          //displayModeBar: false, // this is the line that hides the bar.
+        })
+        //ply = document.getElementById('liu_div')
+          
+
+}
+
+
+
+function initialise_settings(){
+  ruckschau = 2
+show_event = false
+show_tensdens = false
+show_progress23 = false
+show_progress = false
+
+show_cap=false
+startfest = new Date ("2022-11-26T12:00")
+endfest = new Date ("2022-11-29T12:00")
+  timer = false
+  
+
+       
+    zoomflip = true
+    ylimit =7000
+    liniendicke = 5
+    hinterfarbe = true
+    xlimit = 72
+    tagausw =0
+ 
+
+
+    settim_slot =0
+    layout = 1//0.6
+      lio =  d3.select('#lio_div').style('width',fenster.breite*0.5+"px").style('height',fenster.hoehe*0.53+"px")
+      reo =  d3.select('#reo_div').style('width',fenster.breite*0.5+"px").style('height',fenster.hoehe*0.53+"px").style('overflow',"hidden")
+      liu =  d3.select('#liu_div').style('width',fenster.breite*layout+"px").style('height',fenster.hoehe*0.5+"px")
+     // reu =  d3.select('#reu_div').style('width',fenster.breite*(1-layout)+"px").style('height',fenster.hoehe*0.45+"px")
+ 
+     reo.append('br')
+      tidi = reo.append('span').style('margin','auto').text('DAY 1 - Time 10:15').style("font-size", "3vh").style("font-weight",700)
+      .on('click',function (){nowbutton()}).style('cursor', 'pointer')
+
+      reo.append('br')
+      tabero = reo.append('table').style('width',"100%").style('margin','auto').style('width','95%').style('margin-top',"5px")//.style("font-size", "5px")
+      temp = tabero.append('tr').style('background-color',"grey")
+      //temp.append("th").text("no.")
+      temp.append("th").text("stage").style('width',"30%")
+      temp.append("th").text("usage").style('width',"17%")
+    
+      temp.append("th").text("density").style('width',"17%")
+      temp.append("th").text("tension").style('width',"17%")
+      temp.append("th").text("people").style('width',"17%")
+      tuc =[]
+      ttc = [      ]
+      tpc =[]
+   
+      tdc=[]
+      butarr=[]
+
+
+      // tabelle malen
+
+      for (i=0;i<stages_list.length;i++){let j =i
+        temp = tabero.append('tr')
+       // temp.append('td').text(i)
+       
+       if(stages_list[i].name == "Green Space 4"){
+nurwegenneon ="Neon"
+       }else{nurwegenneon = stages_list[i].name}
+       
+       butarr.push( temp.append('td').text(nurwegenneon)
+       .style("cursor", "pointer").style("font-weight",700) 
+             .on('click',  function(){ select_area(j)})  )
+        
+       tuc.push(temp.append("td").text("u"+i).style("font-weight",700))
+
+        tdc.push(temp.append("td").text("d"+i).style("font-weight",700))
+        ttc.push(temp.append("td").text("t"+i).style("font-weight",700))
+        tpc.push(temp.append("td").text("p"+i).style("font-weight",700))
+      }
+    
+  /*    
+      tuc[14].style('color',"white")
+      tuc[14].style('color',"white")
+      ttc[14].style('color',"white")
+      tpc[14].style('color',"white")
+*/
+
+      reo.append('br')
+      tabero2 = reo.append('table').style('width',"100%").style('margin','auto').style('width','95%')//.style('margin-top',"5px")
+
+      temp2 = tabero2.append('tr')
+      
+      temp2.append("th").text("in-counts").style("width","19%").style('background-color',"grey").on('click',function(){
+          jetzt_plot_malen("camcounts")
+
+
+      })
+      field_inc = temp2.append("td").text("000").style("width","15%")
+     temp2.append("th").text("out-counts").style("width","19%").style('background-color',"grey")
+     field_outc =temp2.append("td").text("000").style("width","15%")
+     temp2.append("th").text("count-diff").style("width","19%").style('background-color',"grey")
+     field_difc =temp2.append("td").text("000").style("width","15%")
+     
+     temp2 = tabero2.append('tr')
+     temp2.append("th").text("scans").style("width","19%").style('background-color',"grey")
+      field_sca = temp2.append("td").text("-").style("width","15%")
+     temp2.append("th").text("on site").style("width","19%").style('background-color',"grey").on('click',function(){
+    jetzt_plot_malen("general") 
+    }
+        )
+     
+      field_onsite = temp2.append("td").text("000").style("width","15%")
+      temp2.append("th").text("peak rate").style("width","19%").style('background-color',"grey")
+      //field_rate = 
+      temp2.append("td").text("-").style("width","15%")
+   
+
+      slider =  d3.select('#katze').append('input').attr('type','range').style('width',"96%").style('height',"3%").style('margin','auto').style('display', 'block')
+     .attr('max',56).attr('min',0).attr('step',1).on('change',
+         function(){
+          settim= new Date()
+          settim += (this.value*(60*1000*15))-(60*60*1000)
+          settim_slot = this.value-4
+          settim = new Date(settim)
+        
+
+              refresh();})
+      
+
+      but_div = d3.select('body').append('div')//.style("position", "absolute").style("bottom", "35px")
+      but_div.append('br')
+          
+      but_div.append('button').text("Day 1").style("font-size", "0.65vw").on('click',  function(){a = new Date("2022-11-26T14:00");b = new Date ("2022-11-27T04:00");settim.setDate(26);refresh() })
+      but_div.append('button').text("Day 2").style("font-size", "0.65vw").on('click',  function(){a = new Date("2022-11-27T14:00");b = new Date ("2022-11-28T04:00");settim.setDate(27);refresh() })
+      but_div.append('button').text("Day 3").style("font-size", "0.65vw").on('click',  function(){a = new Date("2022-11-28T14:00");b = new Date ("2022-11-29T04:00");settim.setDate(28);refresh() })
+      
+      but_div.append('button').text("show cap").style("font-size", "0.65vw").on('click',  function(){show_cap = !show_cap;refresh() })
+      but_div.append('button').text("show scans").style("font-size", "0.65vw").on('click',  function(){selected_area.id=90;refresh() })
+      but_div.append('button').text("show camcounts").style("font-size", "0.65vw").on('click',  function(){selected_area.id=91;refresh() }).on('dblclick',  function(){selected_area.id=92;refresh() })
+      but_div.append('button').text("show events").style("font-size", "0.65vw").on('click',  function(){show_event = !show_event;refresh() }).on('dblclick',  function(){selected_area.id=92;refresh() })
+      but_div.append('button').text("show progress").style("font-size", "0.65vw").on('click',  function(){show_progress = !show_progress;refresh() }).on('dblclick',  function(){show_progress = false;show_progress23 = !show_progress23;refresh() })
+      but_div.append("input").attr('type',"number").attr('value',ruckschau).attr('min',1).attr('max',5).on('change',function(){ruckschau = this.value; refresh()})
+      but_div.append('button').text("timer").style("font-size", "0.65vw").on('click',  function(){timer = !timer })
+      but_div.append('button').text("show tensdens").style("font-size", "0.65vw").on('click',  function(){show_tensdens = !show_tensdens;refresh() })
+     
+      
+      but_div.append('button').text("Fullscreen").style("font-size", "0.65vw").on('click',  function(){
+
+
+      lio =  d3.select('#lio_div').style('width',fenster.breite*0+"px").style('height',fenster.hoehe*0+"px")
+      reo =  d3.select('#reo_div').style('width',fenster.breite*0+"px").style('height',fenster.hoehe*0+"px").style('overflow',"hidden")
+      liu =  d3.select('#liu_div').style('width',fenster.breite*1+"px").style('height',fenster.hoehe*1+"px")
+      reu =  d3.select('#reu_div').style('width',fenster.breite*0+"px").style('height',fenster.hoehe*0+"px")
+        initialise_chart()
+      
+    })
+
+      but_div.append('br')
+   
+      
+}
+function refresh(){
+
+  //hier gehts weiter
+
+          for(i=0;i<stages_list.length;i++){
+ if(graphdata[stages_list[i].name] != undefined){
+  temp = graphdata[stages_list[i].name]
+
+  let  fcol = farbskala[Math.round(temp.usage[settim_slot]/10)]
+   let col = farbskala[Math.min(10,Math.round(temp.density[settim_slot])*2)]
+if(Math.min(10,Math.round(temp.density[settim_slot])*2) > 0  )
+{  stages_list[i].geo.setStyle({
+  //   opacity:1,
+      fillOpacity:0.6,
+      fillColor: fcol,
+      color: col,
+      "weight": 3
+
+})}
+
+}
+}
+
+movement_layer.clearLayers()
+console.log("swipes array")
+  console.log(swipes_arr)
+
+Object.keys(swipes_arr).forEach((key) => {
+
+if(swipes_arr[key].zeit < settim.getTime()&&  swipes_arr[key].zeit > settim.getTime()-(60*15*1000))
+{
+
+//draw_arrow(von,nach,farbe,dicke,ttl,meldender)
+
+
+ if(swipes_arr[key].meldender != "sandro"&&swipes_arr[key].meldender !="marcel"){
+ // die time to live ist 10 min bei pfeilen die ich eingemalt habe, else ist sie 20 sek
+
+
+  //  draw_arrow (swipes_arr[key].von,swipes_arr[key].nach,"green",4,1,swipes_arr[key].meldender )
+
+ }else{
+ // draw_arrow (swipes_arr[key].von,swipes_arr[key].nach,"green",4,1,swipes_arr[key].meldender )
+ }
+
+
+}
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+ //  settim = new Date()
+  temp = settim.getTime()
+
+  for ( i=0 ;i<graphdata["Big Beast Left"].zeit.length-1;i++){
+    if(temp >= graphdata["Big Beast Left"].zeit[i] &&temp < graphdata["Big Beast Left"].zeit[i+1]){
+       settim_slot = i
+    }
+  }
+
+ // settim_slot --
+
+
+
+  field_inc.text(Math.round(count_datain.usage[settim_slot]).toLocaleString('en-US'))
+  field_outc.text(Math.round(count_dataout.usage[settim_slot]).toLocaleString('en-US'))
+  field_difc.text(Math.round(count_datain.usage[settim_slot]-count_dataout.usage[settim_slot]).toLocaleString('en-US'))
+  field_onsite.text(Math.round(total_people.usage[settim_slot]).toLocaleString('en-US'))
+
+ 
+  drecks=""
+  if(settim.getMinutes()<10){drecks = "0"}
+  tidi.text('DAY '+heutag+' - Time ' +settim.getHours() +":"+drecks+settim.getMinutes())
+
+   q=0
+   Object.keys(graphdata).forEach((key) => {
+
+
+    tempart = current[stages_list[q].name]
+
+//let  fcol = 
+
+
+/*
+möglichkeit neue objekte einzufügen und ereignisse 
+eine ansicht für den nutzer die anders ist als die des desks
+vlt bekommen die spotter auch die möglichkeit einen grpahen oder zahlen zu sehene. wann ist peakt zb
+
+mit fingerdruck einen hotspot einzaichnen oder eine zone mit hoher density
+eine person die die aufgabe hat per kamera daten zu sammeln , vlt bekommt der desk die möglichkeit fragzeichen 
+
+geplante bzw erwartete bewegungen sollten eingetragenw erden können
+
+push und pull über bekannte achsen wäre geeignet um per bewegungen vorher zu sehen
+vlt einzelne dots die 100 personen repräsentieren die über den platz wandern
+
+feuerwerk einzeichnen
+timeline befüllen
+
+isometrische ansicht
+
+keine frabigen pfeil, oder zumindest kein langes draufbleiben sondern mehrere werden vom system automatisch zusammengefasst
+
+
+
+
+*/
+
+
+
+    if (Math.round(graphdata[key].usage[settim_slot]) == NaN)[alert(graphdata[key].usage[settim_slot])]
+  pfeil =" ◄"
+ if(graphdata[key].usage[settim_slot]>graphdata[key].usage[settim_slot-1]){pfeil = " ▲"}
+ if((graphdata[key].usage[settim_slot])<graphdata[key].usage[settim_slot-1]){pfeil =" ▼" }
+
+    tuc[q].text(Math.round(graphdata[key].usage[settim_slot])+ " %" +pfeil) //*(stages_list[q].capacity/100)))
+    tuc[q].style('background-color',farbskala[Math.round(graphdata[key].usage[settim_slot]/10)]
+    
+    //farbskala[(10,Math.round(graphdata[key].usage[settim_slot]/10))]
+    )
+    if(isNaN(graphdata[key].usage[settim_slot])){tuc[q].text("")}
+// ficko
+    pfeil =" ◄"
+ if(graphdata[key].density[settim_slot]>graphdata[key].density[settim_slot-1]){pfeil =" ▲"}
+ if(graphdata[key].density[settim_slot]<graphdata[key].density[settim_slot-1]){pfeil = " ▼" }
+    tdc[q].text(Math.round(graphdata[key].density[settim_slot]) +pfeil)
+    tdc[q].style('background-color',farbskala[Math.min(10,Math.round(graphdata[key].density[settim_slot])*2)]
+    //farbskala[Math.min(10,Math.round(graphdata[key].density[settim_slot]*2))]
+    )
+    if(isNaN(graphdata[key].density[settim_slot])){tdc[q].text("")}
+    pfeil =" ◄"
+ if(graphdata[key].tension[settim_slot]>graphdata[key].tension[settim_slot-1]){pfeil =" ▲" }
+ if(graphdata[key].tension[settim_slot]<graphdata[key].tension[settim_slot-1]){pfeil =" ▼" }
+    ttc[q].text(Math.round(graphdata[key].tension[settim_slot]) +pfeil)
+    ttc[q].style('background-color',farbskala[Math.round(graphdata[key].tension[settim_slot])])
+
+    tpc[q].text(Math.round((graphdata[key].usage[settim_slot]*stages_list[q].capacity)/100).toLocaleString('en-US'))
+    if(isNaN(graphdata[key].usage[settim_slot]*stages_list[q].capacity)/100){tpc[q].text("")}
+
+    if(isNaN(graphdata[key].tension[settim_slot])){ttc[q].text("")}
+   // tpc[q].style('background-color',farbskala[Math.round(graphdata[key].usage[settim_slot]/15)])
+    q++
+  })
+
+/*
+
+
+// tabelle 2 akkuallisieren
+scan_c = (interpolate_general(ticket_data.tot,ticket_data.time))
+scan_rate = ticket_data.tot[(ticket_data.tot.length-1)]-ticket_data.tot[ticket_data.tot.length-2]
+      
+l3 = new  Date (ticket_data.time[(ticket_data.tot.length-1)])
+l4 = new Date (ticket_data.time[(ticket_data.tot.length-2)])
+l3 = l3.getTime()
+l4 = l4.getTime()
+l5 = (l3-l4)/(60*60*1000)            
+scan_rate = scan_rate / l5          
+
+l1= (interpolate_general(cr_count.in_tot,cr_count.time))
+l2 = (interpolate_general(cr_count.out_tot,cr_count.time))
+onsite_cur = scan_c- graph_data[12].data[settim_slot]
+
+field_sca.text(scan_c.toLocaleString('en-US'))
+field_inc.text(l1.toLocaleString('en-US'))
+field_outc.text(l2.toLocaleString('en-US'))
+
+field_difc.text((l1-l2).toLocaleString('en-US'))
+//field_rate.text(scan_rate.toLocaleString('en-US'))
+
+
+onsite_cur2 = Math.ceil((onsite_cur/100000)*100/20)
+
+//  onsite.setStyle({fillColor: farbskala[onsite_cur2]})
+  field_site.text(onsite_cur.toLocaleString('en-US')).style('background-color',farbskala[onsite_cur2])
+  // Zeitanzeige aktualisieren
+  ttt = "x"
+  if (settim.getDate()==26){ttt = 1}
+if (settim.getDate()==27){ttt = 2}
+if (settim.getDate()==28){ttt = 3}
+if (settim.getDate()==29){ttt = 4}
+rr1=""
+rr2 =""
+if (settim.getHours()<10){rr1="0"}
+if (settim.getMinutes()<10){rr2="0"}
+
+ 
+
+    aa = settim.getTime()
+  
+
+
+
+  //rechnen()
+  data=[]
+
+    data.push(
+   {
+    x:  graphdata[selected_area.name].zeit, //neu graph_data[selected_area.id].data_time,
+    y:  graphdata[selected_area.name].usage, //neu graph_data[selected_area.id].data,
+    yaxis:"y1",
+    mode: 'lines',
+    fill: 'tonexty',
+  name: selected_area.name,
+  line: {shape: 'spline'},
+  type: 'scatter'  
+  })
+  initialise_chart(data)*/
+ // update_map();
+ // update_table()
+
+ data=[]
+/*
+      tempa = new Date()
+      tempa = tempa.getTime()
+      tempb = tempa +(60*60*1000)
+temper = addArrays(count_data.IN,count_data.OUT)
+steigung = (temper [settim_slot]-temper[settim_slot-1])      
+      
+      //(graph_data[selected_area.name].data[settim_slot-ruckschau]-graph_data[selected_area].data[settim_slot])/ruckschau
+gr_layout.shapes.push(  {
+type: 'line',
+x0: settim,
+y0: temper[settim_slot],
+x1: temp,
+y1: temper[settim_slot]-(steigung*4),//*ruckschau,
+line: {
+color: "black",
+dash: 'dashdot',
+width: 1
+}} )
+
+*/
+      data.push(
+        { x: count_data.zeit,
+    y: addArrays(count_data.IN,count_data.OUT),
+    mode: 'lines',
+ 
+    name: "crowd count total",
+    line: {shape: 'spline',color:"green"},
+    type: 'scatter'    }
+      )
+    data.push(
+
+
+
+   {
+    x:  total_people.zeit, //neu graph_data[selected_area.id].data_time,
+    y:  total_people.usage, //neu graph_data[selected_area.id].data,
+
+        yaxis:"y1",
+    mode: 'lines',   fill: 'tozeroy',
+    
+    name: "count on site",
+  line: {shape: 'spline',color: "steelblue"},
+  type: 'scatter'  
+  })
+ /*
+  data.push(
+   {
+    x:  graphdata["Big Beast Left"].zeit, //neu graph_data[selected_area.id].data_time,
+    y:  referens_daten.usage, //neu graph_data[selected_area.id].data,
+
+        yaxis:"y1",
+   
+ 
+    mode: 'lines',
+    name: "Reference Data",
+    line: {shape: 'spline',color:"black",dash: 'dashdot'},
+    type: 'scatter'    })
+ */
+  initialise_chart(data,"usage")     
+}
+function nowbutton(){
+ 
+  settim = new Date()
+ 
+    refresh()
+
+}
+//// diese Funktion ist unter gleichem namen aber mit anderen funktionen in der report ansicht
+function select_area(set_area){
+  ;selected_area.name=stages_list[set_area].name;
+  selected_area.id=set_area
+
+ data=[]
+    data.push(
+   {
+    x:  graphdata[selected_area.name].zeit, //neu graph_data[selected_area.id].data_time,
+    y:  graphdata[selected_area.name].usage, //neu graph_data[selected_area.id].data,
+    yaxis:"y1",
+    mode: 'lines',
+    fill: 'tonexty',
+  name: selected_area.name,
+  line: {shape: 'spline'},
+  type: 'scatter'  
+  })
+
+  //Plotly.update('liu_div', data)  
+  initialise_chart(data)      
+        //dens_slider.node().dispatchEvent(new Event('input'));
+
+}
+
+
+  function interpolate(u){
+
+ temp=0
+  aa = settim.getTime()
+  for(i=0;i<graph_data[u].data.length;i++){
+
+    bbb = new Date(graph_data[u].data_time[i])
+    ccc = new Date(graph_data[u].data_time[i+1])
+
+    
+    bb = bbb.getTime()
+    cc = ccc.getTime()
+
+    //if(aa<bb||aa>cc){temp=0}
+    if (aa==bb){temp = graph_data[u].data[i]; }
+    if (aa==cc){temp = graph_data[u].data[i+1]; }
+    if(aa>bb && aa<cc){
+
+     temp = ((aa-bb)/(cc-bb))*((graph_data[u].data[i+1]-graph_data[u].data[i]))+graph_data[u].data[i]
+ 
+    }}
+     
+     
+   
+  return Math.round(temp)}
+function interpolate_dens(u){
+
+//temp=0
+aa2 = settim.getTime()
+
+ for(i=0;i<graph_data[u].dens.length-1;i++){  //
+
+   let bbb2 = new Date(graph_data[u].time[i])
+   let ccc2 = new Date(graph_data[u].time[i+1])
+ 
+   let bb2 = bbb2.getTime()
+   let cc2 = ccc2.getTime()
+  
+
+    if (aa2<bb2){temper = 0 }
+   if (aa2==bb2){temper = graph_data[u].dens[i]; }
+   if (aa2==cc2){temper = graph_data[u].dens[i+1]; }
+
+   if(aa2>bb2 && aa2<cc2){   temper = ((aa2-bb2)/(cc2-bb2))*((graph_data[u].dens[i+1]-graph_data[u].dens[i]))+graph_data[u].dens[i]
+   }}      
+
+
+ return Math.round(temper)}
+function interpolate_general(set,timeset){
+
+
+ searchtime = settim.getTime()
+
+ for(i=0;i<set.length-1;i++){
+
+  
+   tim_interv_left = new Date(timeset[i])
+   tim_interv_right = new Date(timeset[i+1])
+
+   tim_interv_left = tim_interv_left.getTime()
+   tim_interv_right = tim_interv_right.getTime()
+ 
+   
+found=0
+   if (searchtime==tim_interv_left){found = set[i];break }
+   if (searchtime==tim_interv_right){found = set[i+1];break }
+   if(searchtime>tim_interv_left && searchtime<tim_interv_right){
+
+    found = ((searchtime-tim_interv_left)/(tim_interv_right-tim_interv_left))*((set[i+1]-set[i]))+set[i]
+    ;break
+   }}
+   
+ return Math.round(found)}
+referens_daten_2_22 = {
+  "usage": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    505.98,
+    505.98,
+    505.98,
+    505.98,
+    1706.8923809523812,
+    2831.880714285715,
+    3456.1976190476184,
+    4001.8174829931977,
+    4277.677239229025,
+    4903.367054988662,
+    5739.090844954649,
+    7868.729963293652,
+    11727.313163128305,
+    15928.878244133442,
+    17017.64922800493,
+    18487.255501656786,
+    23470.994875476445,
+    29851.144369774003,
+    35754.84238713892,
+    36331.786411970184,
+    39850.40721877613,
+    44692.41735937938,
+    48335.65972077878,
+    49699.029111572745,
+    49033.733634908654,
+    48620.05436492436,
+    49500.1960132542,
+    53001.32512577964,
+    53482.74490094044,
+    56206.62953289016,
+    62451.01341508394,
+    63526.0674802561,
+    61923.89421476376,
+    59267.41458166624,
+    51663.93494486174,
+    44647.37950609158,
+    45099.68980513785,
+    42966.728016955625,
+    39863.07264747653,
+    36947.14970712239,
+    30477.9737580872,
+    30210.969999999998,
+    29928.969999999998,
+    29928.969999999998,
+    4446,
+    0,
+    0
+  ],
+  "zeit": [
+    "2023-12-16T12:00:00.000Z",
+    "2023-12-16T12:15:00.000Z",
+    "2023-12-16T12:30:00.000Z",
+    "2023-12-16T12:45:00.000Z",
+    "2023-12-16T13:00:00.000Z",
+    "2023-12-16T13:15:00.000Z",
+    "2023-12-16T13:30:00.000Z",
+    "2023-12-16T13:45:00.000Z",
+    "2023-12-16T14:00:00.000Z",
+    "2023-12-16T14:15:00.000Z",
+    "2023-12-16T14:30:00.000Z",
+    "2023-12-16T14:45:00.000Z",
+    "2023-12-16T15:00:00.000Z",
+    "2023-12-16T15:15:00.000Z",
+    "2023-12-16T15:30:00.000Z",
+    "2023-12-16T15:45:00.000Z",
+    "2023-12-16T16:00:00.000Z",
+    "2023-12-16T16:15:00.000Z",
+    "2023-12-16T16:30:00.000Z",
+    "2023-12-16T16:45:00.000Z",
+    "2023-12-16T17:00:00.000Z",
+    "2023-12-16T17:15:00.000Z",
+    "2023-12-16T17:30:00.000Z",
+    "2023-12-16T17:45:00.000Z",
+    "2023-12-16T18:00:00.000Z",
+    "2023-12-16T18:15:00.000Z",
+    "2023-12-16T18:30:00.000Z",
+    "2023-12-16T18:45:00.000Z",
+    "2023-12-16T19:00:00.000Z",
+    "2023-12-16T19:15:00.000Z",
+    "2023-12-16T19:30:00.000Z",
+    "2023-12-16T19:45:00.000Z",
+    "2023-12-16T20:00:00.000Z",
+    "2023-12-16T20:15:00.000Z",
+    "2023-12-16T20:30:00.000Z",
+    "2023-12-16T20:45:00.000Z",
+    "2023-12-16T21:00:00.000Z",
+    "2023-12-16T21:15:00.000Z",
+    "2023-12-16T21:30:00.000Z",
+    "2023-12-16T21:45:00.000Z",
+    "2023-12-16T22:00:00.000Z",
+    "2023-12-16T22:15:00.000Z",
+    "2023-12-16T22:30:00.000Z",
+    "2023-12-16T22:45:00.000Z",
+    "2023-12-16T23:00:00.000Z",
+    "2023-12-16T23:15:00.000Z",
+    "2023-12-16T23:30:00.000Z",
+    "2023-12-16T23:45:00.000Z",
+    "2023-12-17T00:00:00.000Z",
+    "2023-12-17T00:15:00.000Z",
+    "2023-12-17T00:30:00.000Z",
+    "2023-12-17T00:45:00.000Z",
+    "2023-12-17T01:00:00.000Z"
+  ]
+}
+referens_daten = {
+  "usage": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    241,
+    476,
+    671,
+    1084,
+    1652,
+    2391,
+    4268,
+    7039,
+    8439,
+    10222,
+    13020,
+    16344,
+    23625,
+    27822,
+    31824,
+    36489,
+    39982,
+    42584,
+    44729,
+    50780,
+    55386,
+    68345,
+    71218,
+    73031,
+    79462,
+    78277,
+    73151,
+    72726,
+    72786,
+    72692,
+    66753,
+    66526,
+    65962,
+    69365,
+    68453,
+    66922,
+    60865,
+    55084,
+    51720,
+    48357,
+    44905,
+    39544,
+    34064,
+    28585,
+    17438,
+    11627,
+    5812,
+    0
+  ],
+  "zeit": [
+    "2022-12-15T12:00:00.000Z",
+    "2022-12-15T12:15:00.000Z",
+    "2022-12-15T12:30:00.000Z",
+    "2022-12-15T12:45:00.000Z",
+    "2022-12-15T13:00:00.000Z",
+    "2022-12-15T13:15:00.000Z",
+    "2022-12-15T13:30:00.000Z",
+    "2022-12-15T13:45:00.000Z",
+    "2022-12-15T14:00:00.000Z",
+    "2022-12-15T14:15:00.000Z",
+    "2022-12-15T14:30:00.000Z",
+    "2022-12-15T14:45:00.000Z",
+    "2022-12-15T15:00:00.000Z",
+    "2022-12-15T15:15:00.000Z",
+    "2022-12-15T15:30:00.000Z",
+    "2022-12-15T15:45:00.000Z",
+    "2022-12-15T16:00:00.000Z",
+    "2022-12-15T16:15:00.000Z",
+    "2022-12-15T16:30:00.000Z",
+    "2022-12-15T16:45:00.000Z",
+    "2022-12-15T17:00:00.000Z",
+    "2022-12-15T17:15:00.000Z",
+    "2022-12-15T17:30:00.000Z",
+    "2022-12-15T17:45:00.000Z",
+    "2022-12-15T18:00:00.000Z",
+    "2022-12-15T18:15:00.000Z",
+    "2022-12-15T18:30:00.000Z",
+    "2022-12-15T18:45:00.000Z",
+    "2022-12-15T19:00:00.000Z",
+    "2022-12-15T19:15:00.000Z",
+    "2022-12-15T19:30:00.000Z",
+    "2022-12-15T19:45:00.000Z",
+    "2022-12-15T20:00:00.000Z",
+    "2022-12-15T20:15:00.000Z",
+    "2022-12-15T20:30:00.000Z",
+    "2022-12-15T20:45:00.000Z",
+    "2022-12-15T21:00:00.000Z",
+    "2022-12-15T21:15:00.000Z",
+    "2022-12-15T21:30:00.000Z",
+    "2022-12-15T21:45:00.000Z",
+    "2022-12-15T22:00:00.000Z",
+    "2022-12-15T22:15:00.000Z",
+    "2022-12-15T22:30:00.000Z",
+    "2022-12-15T22:45:00.000Z",
+    "2022-12-15T23:00:00.000Z",
+    "2022-12-15T23:15:00.000Z",
+    "2022-12-15T23:30:00.000Z",
+    "2022-12-15T23:45:00.000Z",
+    "2022-12-16T00:00:00.000Z",
+    "2022-12-16T00:15:00.000Z",
+    "2022-12-16T00:30:00.000Z",
+    "2022-12-16T00:45:00.000Z",
+    "2022-12-16T01:00:00.000Z"
+  ]
+}
+referens_daten2={
+  "usage": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    866.6319617224879,
+    974.9609569377992,
+    1071.3008995215314,
+    1148.7327846889953,
+    1398.5181116427434,
+    2668.713177306903,
+    3329.4426287537026,
+    3827.3198103440423,
+    4717.637628616996,
+    4732.013378719526,
+    6267.097354112553,
+    13666.733373129793,
+    19806.794470762765,
+    25574.01390204805,
+    28665.636331580467,
+    30023.326267837274,
+    34434.9144497081,
+    38024.03695785523,
+    40974.14298676387,
+    37795.28221854539,
+    37183.69762897401,
+    43928.82622279445,
+    50185.46401340246,
+    58112.38038249324,
+    63452.864798774586,
+    69941.51262178672,
+    69790.3758895091,
+    66753.1047267969,
+    66349.29613268121,
+    65255.80942419041,
+    65436.25010114073,
+    66455.55134509185,
+    67370.07350183057,
+    63027.25244199771,
+    66476.26060674543,
+    65080.27167543129,
+    64690.41139382913,
+    61946.02033096403,
+    60713.69265497523,
+    59449.64126063264,
+    17015.21052631579
+  ],
+  "zeit": [
+    "2023-12-14T12:00:00.000Z",
+    "2023-12-14T12:15:00.000Z",
+    "2023-12-14T12:30:00.000Z",
+    "2023-12-14T12:45:00.000Z",
+    "2023-12-14T13:00:00.000Z",
+    "2023-12-14T13:15:00.000Z",
+    "2023-12-14T13:30:00.000Z",
+    "2023-12-14T13:45:00.000Z",
+    "2023-12-14T14:00:00.000Z",
+    "2023-12-14T14:15:00.000Z",
+    "2023-12-14T14:30:00.000Z",
+    "2023-12-14T14:45:00.000Z",
+    "2023-12-14T15:00:00.000Z",
+    "2023-12-14T15:15:00.000Z",
+    "2023-12-14T15:30:00.000Z",
+    "2023-12-14T15:45:00.000Z",
+    "2023-12-14T16:00:00.000Z",
+    "2023-12-14T16:15:00.000Z",
+    "2023-12-14T16:30:00.000Z",
+    "2023-12-14T16:45:00.000Z",
+    "2023-12-14T17:00:00.000Z",
+    "2023-12-14T17:15:00.000Z",
+    "2023-12-14T17:30:00.000Z",
+    "2023-12-14T17:45:00.000Z",
+    "2023-12-14T18:00:00.000Z",
+    "2023-12-14T18:15:00.000Z",
+    "2023-12-14T18:30:00.000Z",
+    "2023-12-14T18:45:00.000Z",
+    "2023-12-14T19:00:00.000Z",
+    "2023-12-14T19:15:00.000Z",
+    "2023-12-14T19:30:00.000Z",
+    "2023-12-14T19:45:00.000Z",
+    "2023-12-14T20:00:00.000Z",
+    "2023-12-14T20:15:00.000Z",
+    "2023-12-14T20:30:00.000Z",
+    "2023-12-14T20:45:00.000Z",
+    "2023-12-14T21:00:00.000Z",
+    "2023-12-14T21:15:00.000Z",
+    "2023-12-14T21:30:00.000Z",
+    "2023-12-14T21:45:00.000Z",
+    "2023-12-14T22:00:00.000Z",
+    "2023-12-14T22:15:00.000Z",
+    "2023-12-14T22:30:00.000Z",
+    "2023-12-14T22:45:00.000Z",
+    "2023-12-14T23:00:00.000Z",
+    "2023-12-14T23:15:00.000Z",
+    "2023-12-14T23:30:00.000Z",
+    "2023-12-14T23:45:00.000Z",
+    "2023-12-15T00:00:00.000Z",
+    "2023-12-15T00:15:00.000Z",
+    "2023-12-15T00:30:00.000Z",
+    "2023-12-15T00:45:00.000Z",
+    "2023-12-15T01:00:00.000Z"
+  ]
+}
+
+function autplay_starten (){
+setTimeout(function(){
+  set_playtime =0
+setInterval(function(){
+
+  settim= new Date("2023-12-16T15:00").getTime()
+          settim += (set_playtime*(60*1000*15))-(60*60*1000)
+          settim_slot = set_playtime-4
+          settim = new Date(settim)
+          set_playtime ++
+
+              refresh()
+
+}
+  ,1000
+)
+
+},15000)}
+polygonLayer = L.polygon([[0,0],[1,1],[1,0],[0,1]])
+coordinatesArray = []
+mymap.on('click', function (event) {
+    cord = [event.latlng.lat,lng = event.latlng.lng]
+
+    // Add the coordinates as an object to the array
+    coordinatesArray.push(cord);
+
+    // Log the updated array
+    console.log("Updated Coordinates Array:", coordinatesArray);
+
+    if (polygonLayer) {
+        mymap.removeLayer(polygonLayer);
+    }
+
+    // Draw the updated polygon
+    polygonLayer = L.polygon(coordinatesArray, {
+        color: 'blue', // Polygon border color
+        fillColor: 'skyblue', // Polygon fill color
+        fillOpacity: 0.5, // Polygon transparency
+    }).addTo(mymap);
+
+  });
+    </script>
+
+</html>
