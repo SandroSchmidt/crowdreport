@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Mapbox with multiple layers and GeoJSON</title>
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.16.1/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.16.1/mapbox-gl.css" rel="stylesheet" />
+  <style>
+    body { margin: 0; padding: 0; }
+    #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+    .layer-toggle {
+      position: absolute;
+      background: white;
+      padding: 10px;
+      z-index: 1;
+      top: 10px;
+      left: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="map"></div>
+<div class="layer-toggle">
+  <select id="baselayer">
+    <option value="osm">OpenStreetMap</option>
+    <option value="satellite">Satellite</option>
+    <option value="dark">Dark Mode</option>
+  </select>
+</div>
+
+<script>
+  mapboxgl.accessToken = 'YOUR_MAPBOX_ACCESS_TOKEN';
+
+  const map = new mapboxgl.Map({
+    container: 'map',
+    style: {
+      version: 8,
+      sources: {
+        'osm-tiles': {
+          type: 'raster',
+          tiles: ['https://a.tile.openstreetmap.org/{z}/{x}/{y}.png'],
+          tileSize: 256,
+        },
+        'satellite': {
+          type: 'raster',
+          url: 'mapbox://mapbox.satellite',
+          tileSize: 256
+        },
+        'dark': {
+          type: 'vector',
+          url: 'mapbox://mapbox.mapbox-streets-v8'
+        }
+      },
+      layers: [
+        {
+          id: 'osm-layer',
+          type: 'raster',
+          source: 'osm-tiles',
+          layout: { visibility: 'visible' }
+        },
+        {
+          id: 'satellite-layer',
+          type: 'raster',
+          source: 'satellite',
+          layout: { visibility: 'none' }
+        },
+        {
+          id: 'dark-layer',
+          type: 'background',
+          paint: { 'background-color': '#111' },
+          layout: { visibility: 'none' }
+        }
+      ]
+    },
+    center: [12.4924, 41.8902], // Example: Rome
+    zoom: 13,
+    pitch: 45,
+    bearing: -17.6
+  });
+
+  // Handle base layer toggle
+  document.getElementById('baselayer').addEventListener('change', function(e) {
+    const selected = e.target.value;
+    map.setLayoutProperty('osm-layer', 'visibility', selected === 'osm' ? 'visible' : 'none');
+    map.setLayoutProperty('satellite-layer', 'visibility', selected === 'satellite' ? 'visible' : 'none');
+    map.setLayoutProperty('dark-layer', 'visibility', selected === 'dark' ? 'visible' : 'none');
+  });
+
+  map.on('load', () => {
+    // Add image overlay (rotates and pitches with map)
+    map.addSource('image-overlay', {
+      type: 'image',
+      url: 'https://upload.wikimedia.org/wikipedia/commons/7/77/Delete_key1.jpg',
+      coordinates: [
+        [12.490, 41.892],
+        [12.495, 41.892],
+        [12.495, 41.888],
+        [12.490, 41.888]
+      ]
+    });
+
+    map.addLayer({
+      id: 'image-layer',
+      type: 'raster',
+      source: 'image-overlay',
+      paint: { 'raster-opacity': 0.7 }
+    });
+
+    // Sample GeoJSON features
+    const geojsonData = {
+      type: 'FeatureCollection',
+      features: [
+        {
+          type: 'Feature',
+          geometry: {
+            type: 'Polygon',
+            coordinates: [[[12.491, 41.891], [12.493, 41.891], [12.493, 41.889], [12.491, 41.889], [12.491, 41.891]]]
+          },
+          properties: { name: 'Test Polygon' }
+        },
+        {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [12.492, 41.890]
+          },
+          properties: { name: 'Test Point' }
+        }
+      ]
+    };
+
+    map.addSource('geojson-shapes', {
+      type: 'geojson',
+      data: geojsonData
+    });
+
+    // Polygon layer
+    map.addLayer({
+      id: 'polygon-layer',
+      type: 'fill',
+      source: 'geojson-shapes',
+      paint: {
+        'fill-color': '#088',
+        'fill-opacity': 0.5
+      },
+      filter: ['==', ['geometry-type'], 'Polygon']
+    });
+
+    // Point layer
+    map.addLayer({
+      id: 'point-layer',
+      type: 'circle',
+      source: 'geojson-shapes',
+      paint: {
+        'circle-radius': 6,
+        'circle-color': '#f00'
+      },
+      filter: ['==', ['geometry-type'], 'Point']
+    });
+  });
+</script>
+</body>
+</html>
