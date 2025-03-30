@@ -1,7 +1,37 @@
-// das ier kann icht in data setehen, weil es anch dem array stehen muss
-//selected_area = stages_list[0]
+graphlinkegrenze = 17
+graphbreiteinviertelstunden = 48//(28-graphlinkegrenze)*4
+incident_toggle =true
+overridedisplay9 = false
+overridereport = false
+overrideleadership = false
+parking_list ={geo:[],tooltip:[],usage:[]}
+fenster = {hoehe:window.innerHeight-30,breite:window.innerWidth-35};
+existing_markers=[]
+realtime = true // diese variabel zeig ob wir grade ein zeit ausgewählt haben oder in realzeit anzeigen
+isZooming = false
+swipes_arr =[]
+eventmarkertoggle = false
+locked = true
+imageBounds = [[ 25.00124, 46.49093],[24.99111, 46.5245]];
+currentTimestamp = new Date()
+set_area=0
+swipemode = false
+set_name ="wrong reporter"
+eigensymbole_arr =[]
+set_pos=[9,9]
+eventloc = [0,0]
+farbskala = ["lightblue","#00B0F0","#00B0F0","#92D050","#92D050","#FFFF00","#FFFF00","#FF9201","#FF9201","#FF0000",'red',"#ee00ff","#ee00ff","#ee00ff","#ee00ff","#ee00ff"
+]
+camcountarr ={x:[],y:[]}
+parking_arr =[]
+count_data=[[0]]
 
 
+
+
+
+const params = new URLSearchParams(window.location.search);
+const namedesevents_short = params.get('event');
 
 function round5min(time){
 const msInFiveMinutes = 5 * 60 * 1000; // 5 minutes in milliseconds
@@ -61,7 +91,7 @@ if(graphdata[key][i] == 'x'){graphdata[key][i] = graphdata[key][i-1] }
 
 }}
 
-  balad_plot_malen(graphdata)  
+if(mode=="cmd"){  balad_plot_malen(graphdata)  }
 
 
   
@@ -135,7 +165,10 @@ if(realtime == true){drawjetzt = new Date().getTime();puffer =0}else{drawjetzt=s
 
 }
 function initialise_firebase(){
-  
+  if (mode == "cmd"){
+    d3.select("title").text(namedesevents_short + " - crowdreport")
+    }else {d3.select("title").text(namedesevents_short + " - spotter")  }
+    
 const firebaseConfig = {
 apiKey: "AIzaSyBOOdW1SHCwBZSchUJ7DfJZ1a7-dEYTvuQ",
 authDomain: "crowdcount-678c8.firebaseapp.com",
@@ -174,6 +207,31 @@ databaseRef.once('value')
         eventsettings = snapshot.val();
         if(overridedisplay9==false && deviceversion != eventsettings.version){alert("You are using an old version("+deviceversion+") of the crowdreport app. the current version is "+eventsettings.version+". please reload the site!")}              
         mymap.setView(eventsettings.setview.center,eventsettings.setview.zoom)
+       
+        jetzt = new Date().getTime()
+        if(jetzt < new Date(eventsettings.zeitfenster[0][0]).getTime())
+          {heutag = 99;console.log("Event has not started yet!")
+            start_graphdata = new Date()
+            start_graphdata.setHours(12)
+            start_graphdata=start_graphdata.getTime()
+          }
+        else
+          {heutag = 1
+            
+            if(jetzt < new Date(eventsettings.zeitfenster[0][1]).getTime())
+            {heutag = 2}
+
+            start_graphdata = new Date(eventsettings.zeitfenster[heutag][1]).getTime()
+        
+          }
+       
+        
+        console.log("heuttag: "+ heutag)
+      
+        read_current()
+        read_a_day(25,heutag)
+      
+namedesevents_long = eventsettings.namelong
       })
 
     

@@ -142,6 +142,7 @@
 </body>
 
 <script>
+  mode="report"
 total_p = d3.select('#total_p')
 const storedName = localStorage.getItem('userName');
 dens_slider = d3.select('#hierdensityslider')
@@ -149,14 +150,9 @@ tens_slider = d3.select('#hiertensionslider')
 usage_slider = d3.select('#hierusageslider')
 infotag = d3.select('#infotag')
 
-mode="report"
+
 const mymap = L.map('map_div',{zoomSnap: 0.1, dragging: false,minZoom:1,maxZoom:25}).setView([0,0],17.8)
  
-const params = new URLSearchParams(window.location.search);
-const namedesevents_short = params.get('event');
-d3.select("title").text(namedesevents_short + " - spotter")
-
-if(namedesevents_short != "KM25"){alert("no valid event selected/ wrong link in use.");d3.select('body').selectAll('*').remove()}
 
  setInterval(() => {
    draw_arrow()

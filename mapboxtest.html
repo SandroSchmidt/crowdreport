@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <title>Mapbox with multiple layers and GeoJSON</title>
   <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-  <script src="https://api.mapbox.com/mapbox-gl-js/v2.16.1/mapbox-gl.js"></script>
-  <link href="https://api.mapbox.com/mapbox-gl-js/v2.16.1/mapbox-gl.css" rel="stylesheet" />
+  <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
+  <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
   <style>
     body { margin: 0; padding: 0; }
     #map { position: absolute; top: 0; bottom: 0; width: 100%; }
@@ -31,8 +31,8 @@
 </div>
 
 <script>
-  mapboxgl.accessToken = 'YOUR_MAPBOX_ACCESS_TOKEN';
-
+   mapboxgl.accessToken = 'pk.eyJ1Ijoic2FuZHJvc2NobWlkdCIsImEiOiJjbHg3bTMxYmwxMXZiMmtzY2tlN3RjNGY5In0.2whcv8hzfzdyukPAXWwSPw';
+    
   const map = new mapboxgl.Map({
     container: 'map',
     style: {
@@ -74,7 +74,8 @@
         }
       ]
     },
-    center: [12.4924, 41.8902], // Example: Rome
+    center: [   
+    37.98063,26.68844], // Example: Rome
     zoom: 13,
     pitch: 45,
     bearing: -17.6
@@ -92,12 +93,12 @@
     // Add image overlay (rotates and pitches with map)
     map.addSource('image-overlay', {
       type: 'image',
-      url: 'https://upload.wikimedia.org/wikipedia/commons/7/77/Delete_key1.jpg',
+url:"./km25mapr.svg",
       coordinates: [
-        [12.490, 41.892],
-        [12.495, 41.892],
-        [12.495, 41.888],
-        [12.490, 41.888]
+        [37.984,26.68844 ],
+        [37.98063,26.68844],
+        [37.98063,26.69171],
+        [37.984,26.69171]
       ]
     });
 
