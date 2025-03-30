@@ -1,5 +1,7 @@
 // das ier kann icht in data setehen, weil es anch dem array stehen muss
-selected_area = stages_list[0]
+//selected_area = stages_list[0]
+
+
 
 function round5min(time){
 const msInFiveMinutes = 5 * 60 * 1000; // 5 minutes in milliseconds
@@ -12,7 +14,7 @@ return roundedTime
 function read_a_day(jahr,tager){
 console.log("reading a day: year: "+ jahr+ " - day " + tager)
 
-ref = database.ref('/baladbeast/bb'+jahr+'/day'+tager);
+ref = database.ref(namedesevents_short+'/day'+tager);
 ref.on('value', (snapshot) => {
 daydata = snapshot.val()
 
@@ -45,7 +47,7 @@ for (const key in daydata){
     timeslot = daydata[key].zeit[o] - start_graphdata
     timeslot = Math.round(timeslot/(60*1000*5))
     graphdata[key][timeslot] = cap* daydata[key].usage[o]/100
-    console.log(daydata[key])
+   
     tabellen_data[key][timeslot] = [daydata[key].usage[o],daydata[key].density[o],daydata[key].tension[o] ,(cap* daydata[key].usage[o]/100)]
   }
 }
@@ -59,7 +61,8 @@ if(graphdata[key][i] == 'x'){graphdata[key][i] = graphdata[key][i-1] }
 
 }}
 
-balad_plot_malen(graphdata)  
+  balad_plot_malen(graphdata)  
+
 
   
 //  if(daydata[key].zArray(numZeros).fill(0)t[i]==temp) {graphdata.z[key].push(daydata[key].usage[i]*stages_list[key].capcity/100)}else{graphdata.z[key].push("u")}
@@ -124,7 +127,7 @@ if(realtime == true){drawjetzt = new Date().getTime();puffer =0}else{drawjetzt=s
                         polyline.on("click",function(){     swipes_arr[lil].endzeit = drawjetzt
                           polyline.remove()
                           arrowHead.remove()
-                          databaseRef =database.ref('baladbeast/bb25aux/day' + heutag + '/swipes')
+                          databaseRef =database.ref(namedesevents_short+'/aux/day' + heutag + '/swipes')
          databaseRef.set(swipes_arr)})
                       
                       }
@@ -146,18 +149,36 @@ measurementId: "G-00674BETEZ"
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 database = firebase.database();
-deviceversion = 3.1
-databaseRef = database.ref('baladbeast/bb25/Version');
+deviceversion = 3.3
+
+databaseRef = database.ref(namedesevents_short+'/geometry');
+    databaseRef.once('value')
+    .then(snapshot => {
+        // Process the snapshot data here
+         stages_list=  snapshot.val().stage;
+         blocking_arr = snapshot.val().block;
+         restrooms=snapshot.val().restrooms
+      fluchtrouten=snapshot.val().egress
+         medstations = snapshot.val().medical
+         totalCapacity = stages_list.reduce((sum, stage) => sum + (stage.capacity || 0), 0);
+        initialise_map()
+        if (mode =="cmd") {initialise_settings()}
+         })
+
+         
+databaseRef = database.ref(namedesevents_short+'/eventsettings');
 // Read the data once
 databaseRef.once('value')
     .then(snapshot => {
         // Process the snapshot data here
-        fireversion = snapshot.val();
-        if(overridedisplay9==false && deviceversion != fireversion){alert("You are using an old version of the crowd report app. please reload the site!")}              
-    })
+        eventsettings = snapshot.val();
+        if(overridedisplay9==false && deviceversion != eventsettings.version){alert("You are using an old version("+deviceversion+") of the crowdreport app. the current version is "+eventsettings.version+". please reload the site!")}              
+        mymap.setView(eventsettings.setview.center,eventsettings.setview.zoom)
+      })
 
-
-
+    
+  
+         
 }  
 function initialise_chart(data,plot_title){
 selected_area.name = stages_list[selected_area.id].name
@@ -275,7 +296,7 @@ function read_current (){
 database = firebase.database();
 
 // reading swipes:
-      databaseRef = database.ref('baladbeast/bb25aux/day' + heutag + '/swipes');
+      databaseRef = database.ref(namedesevents_short + '/aux/day' + heutag + '/swipes');
       // Listen for changes in the database
       databaseRef.on('value', (snapshot) => {
       if (snapshot.exists()) {
@@ -287,7 +308,7 @@ database = firebase.database();
     }); 
 
 
-    databaseRef = database.ref('baladbeast/bb25aux/day' + heutag + '/incounts');
+    databaseRef = database.ref(namedesevents_short + '/aux/day' + heutag + '/incounts');
     // Listen for changes in the database
     databaseRef.on('value', (snapshot) => {
     if (snapshot.exists()) {
@@ -300,7 +321,7 @@ database = firebase.database();
 
 
 // reading own locations
-              databaseRef = database.ref('baladbeast/bb25aux/day' + heutag + '/locations');
+              databaseRef = database.ref(namedesevents_short+'aux/day' + heutag + '/locations');
               // Listen for changes in the database
               databaseRef.on('value', (snapshot) => {
               if (snapshot.exists()) {
@@ -316,7 +337,7 @@ database = firebase.database();
               }); 
 
 
-ref = database.ref('/baladbeast/aktuell');
+ref = database.ref(namedesevents_short+'/aktuell');
 /*
 ref.on('value', (snapshot) => {//infotag.text("connected to database!"); 
 {setTimeout(function (){d3.select('#lock').style('background-color',"green")},500)}
@@ -330,31 +351,22 @@ ref.on('value', (snapshot) => {
 current = snapshot.val()
 if(current==undefined){console.log('no current data')}
 
-
+total_people_cur =0
 for(i=0;i<stages_list.length;i++){
     if(current[stages_list[i].name] != undefined){
         total_people_cur += ((current[stages_list[i].name].usage/100) *stages_list[i].capacity)
-       let temp = current[stages_list[i].name]
-
-
-let  fcol = farbskala[Math.round(temp.usage/10)]
-
-let col = farbskala[Math.min(10,Math.round(temp.density)*2)]
-stages_list[i].geo.setStyle({
-//   opacity:1,
-fillOpacity:0.6,
-fillColor: fcol,
-color: col,
-"weight": 3
-
-})
-
-
+        let temp = current[stages_list[i].name]
+        let  fcol = farbskala[Math.round(temp.usage/10)]
+        let col = farbskala[Math.min(10,Math.round(temp.density)*2)]
+        stages_list[i].geo.setStyle({
+            fillOpacity:0.6,
+            fillColor: fcol,
+            color: col,
+            "weight": 3})
+    }
 }
-
-}
-
-total_p.text(' total on site: ' + Math.round(total_people_cur).toLocaleString('en-US'))
+console.log(total_people_cur)
+total_p.text(' Total on Site: ' + Math.round(total_people_cur).toLocaleString('en-US') + " / " + totalCapacity.toLocaleString('en-US'))
 /*
 for (i=0;i<parking_list.length;i++){
 temp = current["parking lot "+ (i+1)].usage
@@ -551,6 +563,8 @@ draw_arrow (swipes_arr[key].von,swipes_arr[key].nach,"green",swipes_arr[key].dic
 */
 
 }
+
+
 function initialise_map(){
   medicon = L.icon({  iconUrl: './icons/medicon.png', iconSize:     [20, 20], });
   mediconring = L.icon({  iconUrl: './icons/mediconring.png', iconSize:     [20, 20], });
@@ -558,7 +572,7 @@ function initialise_map(){
   redicon = L.icon({  iconUrl: './icons/red.png',  iconSize:     [40, 40],  iconAnchor:   [20, 40]})
   resticon = L.icon({  iconUrl: './icons/restroom.png',  iconSize:     [20, 20],  iconAnchor:   [10, 10]})
 // Karte und Hintergründe
-mymap = L.map('map_div',{zoomSnap: 0.1, dragging: false,minZoom:1,maxZoom:25}).setView([ 21.48845,39.187],17.8)
+
 if (overridedisplay9){ mymap.zoomControl.remove();}
 
 // mymap.on('zoomend', function() {setviewzoom = mymap.getZoom()});
@@ -567,18 +581,20 @@ if (overridedisplay9){ mymap.zoomControl.remove();}
 
 
 tl1= L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{      
-opacity: 0.5,      attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+opacity: 0.8,      attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+maxZoom: 25,
 });
 
 var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+maxZoom: 25,
 
 })
 
 var mapboxToken = 'pk.eyJ1Ijoic2FuZHJvc2NobWlkdCIsImEiOiJjbHg3bTMxYmwxMXZiMmtzY2tlN3RjNGY5In0.2whcv8hzfzdyukPAXWwSPw'; // Ersetze durch deinen eigenen API-Token
 var mapboxLayer = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-v9/tiles/{z}/{x}/{y}?access_token=' + mapboxToken, {
     attribution: 'Map data &copy; <a href="https://www.mapbox.com/">Mapbox</a>',
-    maxZoom: 22, // Unterstützt sehr hohe Zoomstufen
+   maxZoom: 25, // Unterstützt sehr hohe Zoomstufen
     tileSize: 512,
     zoomOffset: -1,
     accessToken: mapboxToken
@@ -588,18 +604,27 @@ var mapboxLayer = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite
 var Jawg_Matrix =  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
 subdomains: 'abcd',
-
+maxZoom: 25
 })
 
 
 //imageUrl ="./25memer.png"
-imageUrl ="./map25dreh.svg"
+imageUrl ="./km25mapr.svg"
 //const imageBounds = [ [25.013,46.4805],[24.988092848232725, 46.53216767460525]];
-imageBounds = imageBounds = [[ 21.48637, 39.1847],[21.49048, 39.19108]];//
+imageBounds = imageBounds = [
+  [
+    26.68844,
+    37.98063
+  ],
+  [
+    26.69171,
+    37.984
+  ]
+];//
 // [[ 25.00124, 46.49093],[24.99111, 46.5245]];
 
-imageOverlay = L.imageOverlay(imageUrl, imageBounds, { opacity: 1 }).addTo(mymap);
-
+imageOverlay = L.imageOverlay(imageUrl, imageBounds, { opacity: 1 })
+imageOverlay2 = L.imageOverlay(imageUrl, imageBounds, { opacity: 0.6 }).addTo(mymap);
 
 
 
@@ -678,26 +703,25 @@ fullscreenButton.addTo(mymap);
 */
 
 
-for (f=0;f<inert_arr.length;f++)  {
-let l = eval(inert_arr[f].layer)
-let polygon = L.polygon(inert_arr[f].coords, {color: inert_arr[f].color}).bindTooltip(inert_arr[f].name).addTo(l)
+//for (f=0;f<inert_arr.length;f++)  {
+//let l = eval(inert_arr[f].layer)
+//let polygon = L.polygon(inert_arr[f].coords, {color: inert_arr[f].color}).bindTooltip(inert_arr[f].name).addTo(l)}
 
 
 
-}
 for (f=0;f<medstations.length;f++) {medstations[f].geo = L.marker(medstations[f].coords,{icon:medicon}).bindTooltip(medstations[f].name)
 //medstations[f].geo .on("mouserover",function(e){this.openPopup()})
 medstations[f].geo.addTo(aidstations_layer)}
-for (f=0;f<greening_arr.length;f++) {let fu = f;L.polygon(greening_arr[f].coords, {color: 'green', "weight": 1,"opacity": 0.65, "fillOpacity":0.5 }).bindTooltip(greening_arr[f].name).addTo(green_layer)}
+//for (f=0;f<greening_arr.length;f++) {let fu = f;L.polygon(greening_arr[f].coords, {color: 'green', "weight": 1,"opacity": 0.65, "fillOpacity":0.5 }).bindTooltip(greening_arr[f].name).addTo(green_layer)}
 for (f=0;f<restrooms.length;f++) {L.marker(restrooms[f],{icon:resticon}).addTo(green_layer)}
-for (f=0;f<hinter.length;f++)       {let fu = f;L.polygon(hinter[f].coords, {color: 'none' ,"weight": 0,"fillOpacity": 0.7,"fillColor":"grey"}).addTo(green_layer)}
+//for (f=0;f<hinter.length;f++)       {let fu = f;L.polygon(hinter[f].coords, {color: 'none' ,"weight": 0,"fillOpacity": 0.7,"fillColor":"grey"}).addTo(green_layer)}
 //for (f=0;f<vib_arr.length;f++)      {let fu = f;L.polygon(vib_arr[f].coords,{fillColor: '#6e737a',fillOpacity:1,color:"black",weight:1}).bindTooltip(vib_arr[f].name).addTo(green_layer)}
 
 // Layercontroll
-for (f=0;f<blocking_arr.length;f++) {let fu = f; L.polygon(blocking_arr[f].coords, {fillColor: "black",color:"black", "weight": 1,"opacity": 1,fillOpacity:0.8}).bindTooltip(blocking_arr[f].name).addTo(green_layer)}
+for (f=0;f<blocking_arr.length;f++) {let fu = f; L.polygon(blocking_arr[f].coords, {fillColor: "grey",color:"black", "weight": 1,"opacity": 1,fillOpacity:0.8}).bindTooltip(blocking_arr[f].name).addTo(green_layer)}
 mymap.addControl(new L.Control.Fullscreen());
     L.control.layers(
-      {"CAD": imageOverlay,"dark":Jawg_Matrix ,"light": tl1,"sat":mapboxLayer },
+      {"CAD": imageOverlay,"CAD 50%": imageOverlay2,"dark":Jawg_Matrix ,"light": tl1,"sat":mapboxLayer },
       {"stages":stages_layer,"blocks":green_layer,"spotter+marker":eigensymbole_layer,"crowdflow" :movement_layer,
     "medical":aidstations_layer,"Emergency routes":flucht_layer}).addTo(mymap);
       
@@ -721,7 +745,7 @@ jetzt = new Date()
     userInput = prompt('describe marker:', '')
     if (userInput !== null) {
       randomNum = Math.floor(Math.random() * 9999) + 1;
-    databaseRef = database.ref('baladbeast/bb25aux/day' + heutag + '/locations/marker');
+    databaseRef = database.ref(namedesevents_short+'/aux/day' + heutag + '/locations/marker');
       eigensymbole_arr.marker.push({
       ort: [e.latlng.lat, e.latlng.lng],
       text: userInput,
@@ -788,9 +812,7 @@ stages_list[i].geo = f
 }}
 
 for(i=0;i<fluchtrouten.length;i++)
- { for(k=0;k<fluchtrouten[i].length;k++){fluchtrouten[i][k][0] -= 0.00005;fluchtrouten[i][k][1] -= 0.00055}// fluchtrouten[i][o][0] -= 0.00001}
- 
-
+ { 
 var polyline = L.polyline(fluchtrouten[i], {
   color: 'red',
   weight: 1,
@@ -1122,15 +1144,15 @@ function writeReportToFirebase() {
   jetzt = new Date()
   d3.select('#lock').style('background-color',"yellow")
  
-  if (locked || set_name == "demo" || deviceversion != fireversion) {
+  if (locked || set_name == "demo") {
     infotag.text('can not send reports or swipes when -LOCKED-')
     return;
   }else{
 
 const database = firebase.database();
-console.log("----- " + heutag)
 
-  databaseRef = database.ref('baladbeast/bb25/day'+heutag).child(stages_list[set_area].name).child("zeit");
+
+  databaseRef = database.ref(namedesevents_short+'/day'+heutag).child(stages_list[set_area].name).child("zeit");
               databaseRef.transaction(function(currentArray) {
               currentArray = currentArray || [];
               currentArray.push(jetzt.getTime()); 
@@ -1138,7 +1160,7 @@ console.log("----- " + heutag)
         return currentArray;
              });
       
-  databaseRef = database.ref('baladbeast/bb25/day'+heutag).child(stages_list[set_area].name).child("usage");
+  databaseRef = database.ref(namedesevents_short+'/day'+heutag).child(stages_list[set_area].name).child("usage");
               databaseRef.transaction(function(currentArray) {
               currentArray = currentArray || [];
              currentArray.push(parseInt(set_usage));
@@ -1146,25 +1168,25 @@ console.log("----- " + heutag)
               return currentArray;
              });
 
-             databaseRef = database.ref('baladbeast/bb25/day'+heutag).child(stages_list[set_area].name).child("tension");
+             databaseRef = database.ref(namedesevents_short+'/day'+heutag).child(stages_list[set_area].name).child("tension");
               databaseRef.transaction(function(currentArray) {
               currentArray = currentArray || [];
              currentArray.push(parseInt(set_tens));
               return currentArray;
              });
-             databaseRef = database.ref('baladbeast/bb25/day'+heutag).child(stages_list[set_area].name).child("density");
+             databaseRef = database.ref(namedesevents_short+'/day'+heutag).child(stages_list[set_area].name).child("density");
               databaseRef.transaction(function(currentArray) {
               currentArray = currentArray || [];
              currentArray.push(parseInt(set_dens));
               return currentArray;
              });
-             databaseRef = database.ref('baladbeast/bb25/day'+heutag).child(stages_list[set_area].name).child("meldender");
+             databaseRef = database.ref(namedesevents_short+'/day'+heutag).child(stages_list[set_area].name).child("meldender");
               databaseRef.transaction(function(currentArray) {
               currentArray = currentArray || [];
              currentArray.push(set_name);
               return currentArray;
              });
-             databaseRef = database.ref('baladbeast/bb25/day'+heutag).child(stages_list[set_area].name).child("position");
+             databaseRef = database.ref(namedesevents_short+'/day'+heutag).child(stages_list[set_area].name).child("position");
               databaseRef.transaction(function(currentArray) {
               currentArray = currentArray || [];
              currentArray.push(set_pos);
@@ -1177,7 +1199,7 @@ console.log("----- " + heutag)
   
 console.log(set_area)
 
-       databaseRef = database.ref('baladbeast').child('aktuell').child(stages_list[set_area].name);
+       databaseRef = database.ref(namedesevents_short).child('aktuell').child(stages_list[set_area].name);
         databaseRef.set({zeit:jetzt.getTime(), density: set_dens, tension: set_tens,  usage: set_usage})
 
       }
@@ -1205,7 +1227,7 @@ for(let ip=0;ip<eigensymbole_arr.marker.length;ip++)
                   //    eigensymbole_arr.marker[ip].zeige = false
                      eigensymbole_arr.marker[ip].endzeit = drawjetzt
                     //console.log(eigensymbole_arr)
-                    databaseRef = database.ref('baladbeast/bb25aux/day' + heutag + '/locations/marker');
+                    databaseRef = database.ref(namedesevents_short+'/aux/day' + heutag + '/locations/marker');
                     databaseRef.set(eigensymbole_arr.marker)
                   })}
                 
@@ -1261,7 +1283,7 @@ function set_swipemode(){
        
           if(move> minmove && move <maxmove && diff < 4){ 
       
-            if (locked || deviceversion != fireversion) {
+            if (locked || deviceversion != eventsettings.version) {
               infotag.text('can not send swipes when -LOCKED-')
               console.log("swipe while locked")
               return;
@@ -1273,7 +1295,7 @@ function set_swipemode(){
                 newEntry ={meldender:set_name,von:ort1, nach:ort2,zeit:parseInt(ntemp),endzeit:ntemp + (1000*60*5),dicke:www}
                 swipes_arr.push(newEntry); // Add new entry to the array
             
-                databaseRef =database.ref('baladbeast/bb25aux/day' + heutag + '/swipes')
+                databaseRef =database.ref(namedesevents_short+'/aux/day' + heutag + '/swipes')
                 databaseRef.set(swipes_arr)
       
                 infotag.text("swipe reported. category:   "+ www/5)

@@ -47,7 +47,7 @@
       <td style="width:60%">
 
         <select id="dropdownrep"  onchange="
-        set_name=list_of_reporters[this.value];
+        set_name=eventsettings.spotters[this.value];
         infotag.text('new reporting person: '+set_name)
         localStorage.setItem('userName', set_name);
         locked = false; d3.select('#lock').text('UNLOCKED')
@@ -58,7 +58,7 @@
  
  <select id="dropdown" name="dropdown" onchange="
  set_area = this.value;
- console.log(this.value);
+ 
  select_area(set_area);
  
 
@@ -116,7 +116,7 @@
 
 </td>
       <td>
-        <button id="swipemodebutton" onclick="swipemode = !swipemode; if(swipemode){d3.select('#swipemodebutton').text('go to map-zoom')}else{d3.select('#swipemodebutton').text('go to swipe-mode')};set_swipemode()">swipe-mode</button>
+        <button id="swipemodebutton" onclick="swipemode = !swipemode; if(swipemode){d3.select('#swipemodebutton').text('mode: swipe')}else{d3.select('#swipemodebutton').text('mode: map-zoom')};set_swipemode()">mode: map-zoom</button>
         <button id="sendrepbut" style="margin-left:10%;padding-left: 5%;padding-right: 5%;" onclick="jetzt = new Date();writeReportToFirebase()"><b>send report</b></button>
         <span id="total_p">total on site: 0</span>
       </td>
@@ -142,24 +142,62 @@
 </body>
 
 <script>
+total_p = d3.select('#total_p')
+const storedName = localStorage.getItem('userName');
+dens_slider = d3.select('#hierdensityslider')
+tens_slider = d3.select('#hiertensionslider')
+usage_slider = d3.select('#hierusageslider')
+infotag = d3.select('#infotag')
+
+mode="report"
+const mymap = L.map('map_div',{zoomSnap: 0.1, dragging: false,minZoom:1,maxZoom:25}).setView([0,0],17.8)
+ 
+const params = new URLSearchParams(window.location.search);
+const namedesevents_short = params.get('event');
+d3.select("title").text(namedesevents_short + " - spotter")
+
+if(namedesevents_short != "KM25"){alert("no valid event selected/ wrong link in use.");d3.select('body').selectAll('*').remove()}
+
  setInterval(() => {
    draw_arrow()
   draw_marker()
-}, 10000);
+}, 10000); 
 
-total_p = d3.select('#total_p')
-const storedName = localStorage.getItem('userName');
 
-for (let i = 0; i < list_of_reporters.length; i++) {
+start_everything()
+
+overridereport = true
+set_dens=0
+set_tens = 0
+set_usage=0
+
+function start_everything(){
+   
+  initialise_firebase()
+
+  setInterval(function() {
+    update_ownpos()
+  }, 60000);
+
+  setTimeout(function () {
+    update_ownpos()
+   
+  
+for(i=0;i<stages_list.length;i++){
+  let ko = i
+    d3.select('#dropdown').append('option').attr('value',ko).text(stages_list[i].name)
+    }
+
+    
+    for (let i = 0; i < eventsettings.spotters.length; i++) {
   d3.select('#dropdownrep')
     .append('option')
     .attr('value', i)
-    .text(list_of_reporters[i]);
+    .text(eventsettings.spotters[i]);
 }
-
 if (storedName) {
   // If a name is saved in localStorage, set it as the selected option
-  const index = list_of_reporters.indexOf(storedName);
+  const index = eventsettings.spotters.indexOf(storedName);
   if (index !== -1) {
     d3.select('#dropdownrep').property('value', index); // Set the selected option
     alert(`You are reporting as: ${storedName}`);
@@ -174,7 +212,7 @@ if (storedName) {
   set_name = prompt('What is your name?');
   if (set_name) {
     localStorage.setItem('userName', set_name);
-    const index = list_of_reporters.indexOf(set_name);
+    const index = eventsettings.spotters.indexOf(set_name);
     if (index !== -1) {
       d3.select('#dropdownrep').property('value', index);
     } else {
@@ -182,60 +220,15 @@ if (storedName) {
     }
   }
 }
-
-
-
-
-dens_slider = d3.select('#hierdensityslider')
-tens_slider = d3.select('#hiertensionslider')
-usage_slider = d3.select('#hierusageslider')
-
-
-infotag = d3.select('#infotag')
- overridereport = true
-//set_pos= [24.99,46.51]
-
-set_dens=0
-set_tens = 0
-set_usage=0
-
-
-for(i=0;i<stages_list.length;i++){
-  let ko = i
-    d3.select('#dropdown').append('option').attr('value',ko).text(stages_list[i].name)
-    }
-  
-
-    start_everything()
-
-
-select_area(0)
 read_current()
+setTimeout(() => {
+  select_area(0)
+}, 1000);
 
-    function start_everything(){
-    initialise_map()
-    initialise_firebase()
-   
-    database = firebase.database();
-
-   // update_ownpos()
+  }, 2000);
 
 
-  setInterval(function() {
- update_ownpos()
-
-  }, 60000);
-
-  setTimeout(function () {
-    update_ownpos()
-   
-  }, 3000);
-
-// initialise_firebase()
     }
-
-  
-
 function update_ownpos(){
   
   if (locked) {
@@ -248,8 +241,7 @@ function update_ownpos(){
                 infotag.text( 'Geolocation is not supported by this browser.');
             }
         }
-
-        function showPosition(position) {
+function showPosition(position) {
             var latitude = position.coords.latitude;
             var longitude = position.coords.longitude;
             set_pos=[latitude,longitude]
@@ -257,12 +249,11 @@ function update_ownpos(){
    infotag.text('status: own loc upt at '+ set_pos +" " + a.getHours()+":"+a.getMinutes()+":"+a.getSeconds())
    a =a.getTime()
    const database = firebase.database()
-     databaseRef = database.ref('baladbeast/bb25aux/day' + heutag + '/locations/spotter').child(set_name);
+     databaseRef = database.ref(namedesevents_short+ 'aux/day' + heutag + '/locations/spotter').child(set_name);
     databaseRef.set({zeit:a,ort:set_pos,name:set_name})
            eigensymbole_arr.spotter[set_name] = {zeit:a,ort:set_pos,name:set_name}
         }
-
-        function showError(error) {
+function showError(error) {
             switch (error.code) {
                 case error.PERMISSION_DENIED:
                     infotag.text( 'User denied the request for Geolocation.');
@@ -278,59 +269,7 @@ function update_ownpos(){
                     break;
             }
         }
-
-      
-  /*
-  navigator.geolocation.watchPosition(
-  (position) => {
-    const latitude = position.coords.latitude;
-    const longitude = position.coords.longitude;
-    // Handle the updated position here
-    set_pos =[latitude,longitude]
-    console.log("updateted becaus of change" +`Latitude: ${latitude}, Longitude: ${longitude}`);
-  },
-  (error) => {
-    // Handle any errors that occur during geolocation
-    console.error(`Error: ${error.message}`);
-  }
-);
-
-
-
-  navigator.geolocation.getCurrentPosition(
-            (position) => {
-                // Extract latitude and longitude from the position object
-                const latitude = position.coords.latitude;
-                const longitude = position.coords.longitude;
-               set_pos =[latitude,longitude]
-             
-              // das hier muss weg wenn wir vor ort sind, das ist der platzhalter wenn mann von woanders ausprobieren will
-
-    //mymap.setView(set_pos)
-//    ownmarker.setLatLng(set_pos )
-              // Displnay the user's position information
-             //  console.log(`Latitude: ${latitude}, Longitude: ${longitude}`)
-
-   
-       
-            },
-            (error) => {
-                // Handle any errors that occur during geolocation
-                console.log(`Error: ${error.message}`)
-                infotag.text("no gps!!")
-            }
-         
-        );
-
-        
- 
-  
-}
- */
-
-
-
-    function select_area(set_area){
+function select_area(set_area){
         console.log(set_area)
      
       let selected_area ={"name":stages_list[set_area].name,"id" : set_area}
@@ -338,7 +277,7 @@ function update_ownpos(){
 console.log("es wurde da gebiet: " + selected_area.name + "ausgewählt " + set_area)
 
 
-      d3.select('#capspan').text('area-capacity: ' + stages_list[set_area].capacity)
+      d3.select('#capspan').text('area-capacity: ' +Math.round((current[selected_area.name].usage/100) *stages_list[set_area].capacity).toLocaleString('en-US') +'/' +Math.round(stages_list[set_area].capacity).toLocaleString('en-US'))
       if(current[selected_area.name] == undefined){current[selected_area.name]={tension:0,density:0,usage:0}}
       
 
@@ -372,6 +311,7 @@ dens_slider = d3.select('#hierdensityslider').append('input').style('width','55%
       .attr('value',current[selected_area.name].usage)
     .on('change',function(){
         set_usage= parseInt(this.value);d3.select('#usage_p').property("value",set_usage)
+        d3.select('#capspan').text('area-capacity: ' +Math.round((set_usage/100) *stages_list[set_area].capacity).toLocaleString('en-US') +'/' +Math.round(stages_list[set_area].capacity).toLocaleString('en-US'))
       })
 
       d3.select('#hierusageslider').append("button").text("+").on('click',function (){if(set_usage<150){set_usage +=5};usage_slider.property('value',set_usage);d3.select('#usage_p').property("value",set_usage)})
@@ -396,10 +336,6 @@ dens_slider = d3.select('#hierdensityslider').append('input').style('width','55%
      
 
 }
-
-
-
-
 function zeige_farbskala(){
 md =d3.select('#maindiv')
 
@@ -407,7 +343,7 @@ for (i=0;i<farbskala.length;i++){
   md.append('p').style('background-color',farbskala[i]).text("density:" + i + " / usage: " + i * 10 + " %")
 
 }}
-d3.select('sendrepbut').style('width','0px')
+
   </script>
 
 </html>

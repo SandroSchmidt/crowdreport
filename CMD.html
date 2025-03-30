@@ -57,7 +57,7 @@
 
   </body>
   <script>
-
+mode = "cmd"
 const params = new URLSearchParams(window.location.search);
 const namedesevents_short = params.get('event');
 d3.select("title").text(namedesevents_short + " - crowdreport")
@@ -78,7 +78,7 @@ console.log("Current Date & Time: ", currentDate);
 currentDate.setHours(currentDate.getHours() + 3);
                 camcountarr.x.push(currentDate.toISOString())
                 camcountarr.y.push(parseInt(userNumber))
-                console.log(camcountarr)
+                console.log("camcount arr" +camcountarr)
                 databaseRef =database.ref(namedesevents_short+'/aux/day' + heutag + '/incounts')
                 databaseRef.set(camcountarr)
                 balad_plot_malen(graphdata)  
@@ -94,28 +94,14 @@ currentDate.setHours(currentDate.getHours() + 3);
   */
 
   infotag = d3.select('#infotag')
-
-  initialise_map()
-  initialise_settings()
+  const mymap = L.map('map_div',{zoomSnap: 0.1, dragging: false,minZoom:1,maxZoom:25}).setView([0,0],17.8)
+  
   initialise_firebase()
   read_current()
   read_a_day(25,heutag)
 
-  /*
-  database = firebase.database();
-  ref = database.ref('/soundstorm/SS24aux/day'+heutag+'/camcounts/');
-  ref.on('value', (snapshot) => {
-  count_data = snapshot.val()
-  count_datain = make_graphdata({usage:count_data.IN,zeit:count_data.zeit})
-  count_dataout = make_graphdata({usage:count_data.OUT,zeit:count_data.zeit})
-  })
-*/
-
-
 function balad_plot_malen(data){
-  // Extract x-axis values (timestamps)
   const xValues = data.x;
-
   // Prepare the traces for each area
   const traces = Object.keys(data)
     .filter((key) => key !== 'x') // Exclude the x-axis values
@@ -128,7 +114,7 @@ function balad_plot_malen(data){
         type: 'scatter', // Area chart type in Plotly
         mode: 'none',//'line',
         hoverinfo: 'skip',
-     //   line: {shape: 'spline'}, // No lines or markers, just filled areas
+        line: {shape: 'spline'}, // No lines or markers, just filled areas
       };
     });
     const ySums = xValues.map((_, index) => {
@@ -146,7 +132,7 @@ function balad_plot_malen(data){
     mode: 'lines', // Line mode
     showlegend: false, 
     line: {
-     // shape:"spline",
+      shape:"spline",
       color: 'blue', // Line color
       width: 2, // Line width
       dash: 'solid', // Line style (e.g., dashed, dotted, solid)
@@ -156,12 +142,9 @@ function balad_plot_malen(data){
 
   // Add the sum line trace to the array of traces
   traces.push(sumLineTrace);
-    traces[12].showlegend= false
-    traces[13   ].showlegend= false
-    traces[14].showlegend= false
-    traces[15].showlegend= false
+
     const currentTime = new Date()//.toISOString();
-    console.log(currentTime)
+    console.log("current time" + currentTime)
 
 // add trace cam in
 
@@ -181,14 +164,17 @@ function balad_plot_malen(data){
 traces.push(intrace)
 
 
+if (params.get('admin')){today =new Date()
 
-let today = new Date(start_graphdata);
-    let tomorrow = new Date(start_graphdata);
-    tomorrow.setDate(today.getDate() + 1);
-
-    // Define time range for x-axis
-    let startTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 18, 0, 0).toISOString();  // Today 12:00 PM
-    let endTime = new Date(tomorrow.getFullYear(), tomorrow.getMonth(), tomorrow.getDate(), 7, 0, 0).toISOString();  // Tomorrow 4:00 AM
+  startTime = new Date().setHours(0,0,0)
+  endTime = new Date().setHours(23,59,0)
+ 
+}else{
+heutag = 1
+console.log(eventsettings.zeitfenster)
+  startTime = new Date(eventsettings.zeitfenster[heutag-1][0])
+  endTime = new Date(eventsettings.zeitfenster[heutag-1][1])
+}
 
   // Layout configuration
   const layout = {
@@ -219,7 +205,7 @@ let today = new Date(start_graphdata);
     linecolor: 'black', // Axis line color
     linewidth: 2 ,     // Axis line width
   
-      range: [0,14000],
+      range: [0,totalCapacity],
    //   title: 'patrons on site',
     },
     showlegend: true, // Show legend
@@ -249,7 +235,8 @@ let today = new Date(start_graphdata);
   };
 
   // Render the chart using Plotly
-  Plotly.newPlot("liu_div", traces, layout,{displayModeBar:false});
+  if(params.get('admin')) {Plotly.newPlot("liu_div", traces, layout,{displayModeBar:true});
+}else{Plotly.newPlot("liu_div", traces, layout,{displayModeBar:false})}
 }
 
 
@@ -423,203 +410,6 @@ Plotly.newPlot('liu_div', data,gr_layout,{
 
 
 
-
-  
-  function jetzt_plot_malen(welcher_plot){
-
-
-
-  drecks_now = settim.getTime()
-  settim_slot =0
-  for (i=0;i<graphdata["Big Beast Left"].zeit.length-1;i++){
-
-
-  if (drecks_now> graphdata["Big Beast Left"].zeit[i].getTime()
-  && drecks_now< graphdata["Big Beast Left"].zeit[i+1].getTime())
-    settim_slot = i
-  }
-
-
-  data=[]
-
-
-
-  if(welcher_plot=="general"){
-
-
-  progres = estimateProgression({usage:addArrays(count_data.IN,count_data.OUT),zeit:count_data.zeit},1)
-
-  progres2 = estimateProgression({usage:addArrays(count_data.IN,count_data.OUT),zeit:count_data.zeit},2)
-  progres3 = estimateProgression({usage:addArrays(count_data.IN,count_data.OUT),zeit:count_data.zeit},3)
-
-
-  filteredData= {zeit: total_people.zeit.slice(0, settim_slot + 1),usage: total_people.usage.slice(0, settim_slot + 1), }
- console.log(total_people)
-    
-
-
-  data.push(
-  {
-  x:  filteredData.zeit, //neu graph_data[selected_area.id].data_time,
-  y:  filteredData.usage, //neu graph_data[selected_area.id].data,
-
-  yaxis:"y1",
-  mode: 'lines',   fill: 'tozeroy',
-
-  name: "count on site",
-  line: {shape: 'spline',color: "steelblue"},
-  type: 'scatter'  
-  })
-  data.push(
-  {
-  x:  graphdata["Big Beast Left"].zeit, //neu graph_data[selected_area.id].data_time,
-  y:  referens_daten.usage, //neu graph_data[selected_area.id].data,
-
-  yaxis:"y1",
-
-
-  mode: 'lines',
-  name: "Day 2 - 2023",
-  line: {shape: 'spline',color:"black",dash: 'dashdot'},
-  type: 'scatter'    })
-  crsum_arr =addArrays(count_data.IN,count_data.OUT)
-  data.push(
-  { x: count_data.zeit,
-  y: crsum_arr,
-  mode: 'lines',
-
-  name: "crowd count total",
-  line: {shape: 'spline',color:"green"},
-  type: 'scatter'    }
-  )
-  // hier die steigungen eingeben
-
-  hund = settim.getTime()
-  hund += (60*60*1000*2)
-  hund = new Date(hund)
-  hund2 = settim.getTime()
-  hund2 -= (60*60*1000)
-  hund2 = new Date(hund2)
-
-  //hund3 = count_data.zeit[]
-  //hund4 = count_data.zeit
-  gr_layout.shapes.push(  {
-            type: 'line',
-            x0:  progres.zeit[0],/////hund2,
-            y0: progres.usage[0],//total_people.usage[settim_slot-4],
-            x1: progres.zeit[1],
-            y1: progres.usage[1],
-            name: "progression",
-            line: {
-            color: "green",
-            dash: 'dashdot',
-            width: 1.5
-            }} )
-            gr_layout.shapes.push(  {
-            type: 'line',
-            x0:  progres2.zeit[0],/////hund2,
-            y0: progres2.usage[0],//total_people.usage[settim_slot-4],
-            x1: progres2.zeit[1],
-            y1: progres2.usage[1],
-            name: "progression",
-            line: {
-            color: "green",
-            dash: 'dashdot',
-            width: 1.5
-            }} )
-            gr_layout.shapes.push(  {
-            type: 'line',
-            x0:  progres3.zeit[0],/////hund2,
-            y0: progres3.usage[0],//total_people.usage[settim_slot-4],
-            x1: progres3.zeit[1],
-            y1: progres3.usage[1],
-            name: "progression",
-            line: {
-            color: "green",
-            dash: 'dashdot',
-            width: 1.5
-            }} )
-
-  gr_layout.shapes.push(  {
-            type: 'line',
-            x0: hund2,
-            y0: crsum_arr[settim_slot-4],
-            x1: hund,
-            y1: crsum_arr[settim_slot]+3*(crsum_arr[settim_slot]),//*ruckschau,
-            name: "progression2",
-            line: {
-            color: "green",
-            dash: 'dashdot',
-            width: 1
-            }} )
-  }
-  if(welcher_plot=="camcounts"){
-
-
-
-  data.push(
-  { x: count_data.zeit,
-  y: addArrays(count_data.IN,count_data.OUT),
-  mode: 'lines',
-
-  name: "crowd count total",
-  line: {shape: 'spline',color:"green"},
-  type: 'scatter'    }
-  )
-
-  data.push({
-  x:  count_datain.zeit, //neu graph_data[selected_area.id].data_time,
-  y:   addArrays(count_data.IN,count_data.OUT), //neu graph_data[selected_area.id].data,
-
-  yaxis:"y1",
-  mode: 'lines',
-  //   fill: 'tonexty',
-  name: "SUM",
-  line: {shape: 'spline'},
-  type: 'scatter' 
-
-
-  },
-  {
-  x:  count_datain.zeit, //neu graph_data[selected_area.id].data_time,
-  y:  count_datain.usage, //neu graph_data[selected_area.id].data,
-
-  yaxis:"y1",
-  mode: 'lines',
-  //   fill: 'tonexty',
-  name: "IN",
-  line: {shape: 'spline'},
-  type: 'scatter'  
-  },   {
-  x:  count_dataout.zeit, //neu graph_data[selected_area.id].data_time,
-  y:  count_dataout.usage, //neu graph_data[selected_area.id].data,
-
-  yaxis:"y1",
-  mode: 'lines',
-  // fill: 'tonexty',
-  name: "OUT",
-  line: {shape: 'spline'},
-  type: 'scatter'  
-  })
-  }
-
-
-          
-
-
-
-
-
-
-
-
-  Plotly.newPlot('liu_div', data,gr_layout,{
-    //displayModeBar: false, // this is the line that hides the bar.
-  })
-  //ply = document.getElementById('liu_div')
-    
-
-  }
   function initialise_settings(){
     // dies hier sind nur die plot-settings, daher sind sie auch in der main biew html und nicht in settigs.js
   ruckschau = 2
@@ -632,7 +422,7 @@ Plotly.newPlot('liu_div', data,gr_layout,{
   //endfest = new Date ("2022-11-29T12:00")
   timer = false
   zoomflip = true
-  ylimit =7000
+
   liniendicke = 5
   hinterfarbe = true
   xlimit = 72
@@ -669,11 +459,10 @@ Plotly.newPlot('liu_div', data,gr_layout,{
 
   // tabelle malen
 
-  for (i=0;i<stages_list.length-3;i++){let j =i
+  for (i=0;i<stages_list.length;i++){let j =i
   temp = tabero.append('tr')
   // temp.append('td').text(i)
-if(stages_list[i].name != "Playground") 
-{  butarr.push( temp.append('td').text(stages_list[i].name)
+ butarr.push( temp.append('td').text(stages_list[i].name)
   // .style("cursor", "pointer").style("font-weight",700) .on('click',  function(){ select_area(j)}) 
        
        )
@@ -684,7 +473,7 @@ if(stages_list[i].name != "Playground")
   ttc.push(temp.append("td").text("t"+i).style("font-weight",700))
   temp.append("td").text(stages_list[i].capacity).style("font-weight",700)
   tpc.push(temp.append("td").text("p"+i).style("font-weight",700))
-  }}
+  }
   /* 
   tpc[5].style('color',"white")
   tpc[13].style('color',"white")
@@ -739,7 +528,7 @@ realtime =false
           currentTimestamp = settim
     //settim_slot = this.value
     settim = new Date(settim)
-console.log(settim_slot)
+
 
         refresh();})
 
@@ -789,12 +578,14 @@ console.log(settim_slot)
 
   drecks=""
   if(settim.getMinutes()<10){drecks = "0"}
-  tidi.text(namedesevents_long+' - DAY '+heutag+' - Time ' +settim.getHours() +":"+drecks+settim.getMinutes())
+if (eventsettings.days = 1){daytext = ""}else{daytext = "- DAY "+heutag}
+  
+  
+  tidi.text(namedesevents_long+ daytext +' - Time ' +settim.getHours() +":"+drecks+settim.getMinutes())
 
   settim_slot = temp - start_graphdata
     settim_slot = Math.round(settim_slot/(60*1000*5))
 
-  console.log(tuc)
   q=0
   Object.keys(graphdata).forEach((key) => {
   //tempart = current[stages_list[q].name]
@@ -823,7 +614,8 @@ console.log(settim_slot)
 
 
   */
-if(key != "x" && key !="GA"&& key !="ROSHAN approach"&& key !="OMDA approach")
+
+if(key != "x")
 
 {
   if (Math.round(tabellen_data[key][settim_slot][0]) == NaN){alert(tabellen_data[key][settim_slot][0])}
@@ -1016,9 +808,12 @@ if(key != "x" && key !="GA"&& key !="ROSHAN approach"&& key !="OMDA approach")
   },15000)}
 
   d3.select('body').style('overflow',"hidden")
+  /*
   window.onresize = () => {
       // Trigger a page refresh
       location.reload();
     };
+
+    */
   </script>
 </html>

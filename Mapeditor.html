@@ -31,18 +31,11 @@
 
 <body >
 
-      <div id="lio_div" style="float:left;width:50%;height:60%;"><div id="map_div" style="width:100%;height: 100%"></div></div>
-      <div id="reo_div" style="float:left;width:40%;height:60%;text-align: center;">
-        <img src="./logo.PNG" style="width: 60%" onclick="selected_area.id =99; make_cul_graph()">
-      <!--  <img src=".//safe_events_logo-1.png" style="width: 30%" id ="evtlog" onclick="d3.select('#evtlog').remove()" >
-      -->
-      </div>
-      <div id="liu_div" style="float:left;width:60%;height:50%; ">
-          
+      <div id="lio_div" style="float:left;width:50%;height:90%;"><div id="map_div" style="width:100%;height: 100%"></div></div>
+   
       </div>
       <div id="katze"></div>
-      <div id="reu_div" style="float:left;width:40%;height:40%;text-align: center;"><br>
-    
+     
        </div>
 
   
@@ -50,7 +43,7 @@
         
         <span id="infotag"></span>
 
-        <input id ="imgstr1" type="number" style ="font-size: 24px" step=0.0001 onchange="imageBounds[0][0]=this.value;imageOverlay.setBounds(imageBounds);">
+        <input id ="imgstr1" type="number" step=0.0001 onchange="imageBounds[0][0]=this.value;imageOverlay.setBounds(imageBounds);">
         <input id ="imgstr2" type="number" step=0.0001 onchange="imageBounds[0][1]=this.value;imageOverlay.setBounds(imageBounds);">
         <input id ="imgstr3" type="number" step=0.0001 onchange="imageBounds[1][0]=this.value;imageOverlay.setBounds(imageBounds);">
         <input id ="imgstr4" type="number" step=0.0001 onchange="imageBounds[1][1]=this.value;imageOverlay.setBounds(imageBounds); ">
@@ -58,9 +51,16 @@
 
      </body>
     <script>
+mode = "editor"
+stages_list = []
+const mymap = L.map('map_div',{zoomSnap: 0.1, dragging: false,minZoom:1,maxZoom:25}).setView([0,0],17.8)
+p_geometrie= d3.select('body').append('p')
+d3.select('body').append('button').text("neu geo").on('click', function(){
+  coordinatesArray =[]
+  console.log("Updated Coordinates Array:", coordinatesArray);
+  p_geometrie.text(coordinatesArray)
 
-      
-
+})
 d3.select('#imgstr1').attr("value",imageBounds[0][0])
 d3.select('#imgstr2').attr("value",imageBounds[0][1])
 d3.select('#imgstr3').attr("value",imageBounds[1][0])
@@ -72,11 +72,15 @@ infotag = d3.select('#infotag')
 locked=false // erlaubt grundsätzlich das uploaden auf fb ohne credentials
 set_name = "sandro"
 settim = new Date()
-initialise_map()
-initialise_settings()
+const params = new URLSearchParams(window.location.search);
+const namedesevents_short = params.get('event');
+//initialise_map()
+
+initialise_firebase()
+initialise_settings()  
 
 /*
-initialise_firebase()
+
 
 database = firebase.database();
 // hier wird die connection zu camcounts hergestellt
@@ -336,8 +340,8 @@ endfest = new Date ("2022-11-29T12:00")
 
     settim_slot =0
     layout = 1//0.6
-      lio =  d3.select('#lio_div').style('width',fenster.breite*0.5+"px").style('height',fenster.hoehe*0.53+"px")
-      reo =  d3.select('#reo_div').style('width',fenster.breite*0.5+"px").style('height',fenster.hoehe*0.53+"px").style('overflow',"hidden")
+      lio =  d3.select('#lio_div').style('width',fenster.breite*0.5+"px").style('height',fenster.hoehe*0.8+"px")
+      reo =  d3.select('#reo_div').style('width',fenster.breite*0.5+"px").style('height',fenster.hoehe*0.8+"px").style('overflow',"hidden")
       liu =  d3.select('#liu_div').style('width',fenster.breite*layout+"px").style('height',fenster.hoehe*0.5+"px")
      // reu =  d3.select('#reu_div').style('width',fenster.breite*(1-layout)+"px").style('height',fenster.hoehe*0.45+"px")
  
@@ -1217,7 +1221,7 @@ mymap.on('click', function (event) {
 
     // Log the updated array
     console.log("Updated Coordinates Array:", coordinatesArray);
-
+    p_geometrie.text(coordinatesArray)
     if (polygonLayer) {
         mymap.removeLayer(polygonLayer);
     }
