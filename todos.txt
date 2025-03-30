@@ -1,13 +1,3 @@
-Haven't managed to get Mark one on one to discuss again - will update when I can get him - likely middle of next week just based on projects we have on 
-
-There was nothing signifiant anyway it was largely to Capitalise all the text and make it clearer when your on swipe mode vs map zoom mode just to look at that wording again so that maybe it says 'Current mode: swipe mode' rather than 'map zoom mode' when you're sat on swipe mode just for easier clarity of ground users. 
-
-Would also be great if as you click up the utilisation figure - lets say its 1000 capacity at 100% - be great if as you click 5% it says somewhere 50, when 10% 100, 15% 150 and so on before you actually submit your report, just to give a nice visual gauge of what say 65% of an uneven number is - depending on  how busy it was i found I'd make an estimation on utilisation by picturing the space or mentally count okay theres approx 2500 here but would need then to calculate % 2500 was of the balad capacity
-
-Hey Sandro have some detail on 1001 Nights event late April.  
-
-Its a festival using soundstorms Underground area with 1 additional stage which was used as an art activation a few years ago 
-
 - Project Name - 1001 Nights 25
 - Project - 5 stage show with vip decks in each
 - Show Date - 24th - 25th April 2025, 2 day. 
@@ -18,4 +8,9 @@ Its a festival using soundstorms Underground area with 1 additional stage which 
 - Methods of Sensors - 4 or 5 staff on ground who'll need to be added to report - names to follow closer and ticket scans in
 
 
-https://sandroschmidt.github.io/1001Nights/BB25CMD.html
+
+
+TODOS für crowdreport
+- die marker werden nicht richtig angezeigt
+- checken, dass es von den Zeitzonen her passt
+- anfangsnull und end null

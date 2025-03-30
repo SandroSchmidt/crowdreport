@@ -31,7 +31,7 @@ count_data=[[0]]
 
 
 const params = new URLSearchParams(window.location.search);
-const namedesevents_short = params.get('event');
+ namedesevents_short = params.get('event');
 
 function round5min(time){
 const msInFiveMinutes = 5 * 60 * 1000; // 5 minutes in milliseconds
