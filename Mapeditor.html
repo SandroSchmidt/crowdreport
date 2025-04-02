@@ -5,17 +5,20 @@
         <title>MAP-MAP-MAP</title>
         <script src="./js/d3.min.js"></script>
         <script src="./js/plotly-2.16.1.min.js"></script>
-            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
-        <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+        
+         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+         <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
          <script src="https://unpkg.com/leaflet-polylinedecorator/dist/leaflet.polylineDecorator.js"></script>
-         
-                <script src="https://unpkg.com/leaflet-fullscreen/dist/Leaflet.fullscreen.min.js"></script>
+         <script src="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.js"></script>
+         <script src="https://unpkg.com/leaflet-fullscreen/dist/Leaflet.fullscreen.min.js"></script>
          <link rel="stylesheet" href="https://unpkg.com/leaflet-fullscreen/dist/leaflet.fullscreen.css" />
-        <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+         <link rel="stylesheet" href="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.css"/>
+         
+         <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
         <script src="./data.js"></script>
-
+        
         <script src="./function.js"></script>
        <script src="./js/d3.min.js"></script>
 
@@ -72,8 +75,6 @@ infotag = d3.select('#infotag')
 locked=false // erlaubt grundsätzlich das uploaden auf fb ohne credentials
 set_name = "sandro"
 settim = new Date()
-const params = new URLSearchParams(window.location.search);
-const namedesevents_short = params.get('event');
 //initialise_map()
 
 initialise_firebase()
@@ -113,206 +114,6 @@ current = snapshot.val()
 for(i=0;i<stages_list.length;i++){
  if(current[stages_list[i].name] != undefined){
 */
-function jetzt_plot_malen(welcher_plot){
-  currentTimestamp = settim
-
-
-drecks_now = settim.getTime()
-  settim_slot =0
-  for (i=0;i<graphdata["Big Beast Left"].zeit.length-1;i++){
-   
-     
-if (drecks_now> graphdata["Big Beast Left"].zeit[i].getTime()
-    && drecks_now< graphdata["Big Beast Left"].zeit[i+1].getTime())
-         settim_slot = i
-     }
-    
-
-data=[]
-
-
-gr_layout.shapes.push(    {
-            type: 'line',
-            x0: currentTimestamp,
-            x1: currentTimestamp,
-            y0: 0,
-            y1: 1,         
-            xref: 'x',            yref: 'paper',   line: {    color: 'red',    width: 2,              dash: 'dashdot'              }   
-                })
-
-if(welcher_plot=="general"){
-
-
-  progres = estimateProgression({usage:addArrays(count_data.IN,count_data.OUT),zeit:count_data.zeit},1)
-  
-  progres2 = estimateProgression({usage:addArrays(count_data.IN,count_data.OUT),zeit:count_data.zeit},2)
-  progres3 = estimateProgression({usage:addArrays(count_data.IN,count_data.OUT),zeit:count_data.zeit},3)
-
-
-
-    data.push(
-{
-x:  total_people.zeit, //neu graph_data[selected_area.id].data_time,
-y:  total_people.usage, //neu graph_data[selected_area.id].data,
-
-  yaxis:"y1",
-mode: 'lines',   fill: 'tozeroy',
-
-name: "count on site",
-line: {shape: 'spline',color: "steelblue"},
-type: 'scatter'  
-})
-    data.push(
-{
-x:  graphdata["Big Beast Left"].zeit, //neu graph_data[selected_area.id].data_time,
-y:  referens_daten.usage, //neu graph_data[selected_area.id].data,
-
-  yaxis:"y1",
-
-
-mode: 'lines',
-name: "Day 2 - 2023",
-line: {shape: 'spline',color:"black",dash: 'dashdot'},
-type: 'scatter'    })
-crsum_arr =addArrays(count_data.IN,count_data.OUT)
-data.push(
-  { x: count_data.zeit,
-y: crsum_arr,
-mode: 'lines',
-
-name: "crowd count total",
-line: {shape: 'spline',color:"green"},
-type: 'scatter'    }
-)
-// hier die steigungen eingeben
-
-hund = settim.getTime()
-hund += (60*60*1000*2)
-hund = new Date(hund)
-hund2 = settim.getTime()
-hund2 -= (60*60*1000)
-hund2 = new Date(hund2)
-
-//hund3 = count_data.zeit[]
-//hund4 = count_data.zeit
-gr_layout.shapes.push(  {
-                  type: 'line',
-                  x0:  progres.zeit[0],/////hund2,
-                  y0: progres.usage[0],//total_people.usage[settim_slot-4],
-                  x1: progres.zeit[1],
-                  y1: progres.usage[1],
-                  name: "progression",
-                  line: {
-                  color: "green",
-                  dash: 'dashdot',
-                  width: 1.5
-                  }} )
-                  gr_layout.shapes.push(  {
-                  type: 'line',
-                  x0:  progres2.zeit[0],/////hund2,
-                  y0: progres2.usage[0],//total_people.usage[settim_slot-4],
-                  x1: progres2.zeit[1],
-                  y1: progres2.usage[1],
-                  name: "progression",
-                  line: {
-                  color: "green",
-                  dash: 'dashdot',
-                  width: 1.5
-                  }} )
-                  gr_layout.shapes.push(  {
-                  type: 'line',
-                  x0:  progres3.zeit[0],/////hund2,
-                  y0: progres3.usage[0],//total_people.usage[settim_slot-4],
-                  x1: progres3.zeit[1],
-                  y1: progres3.usage[1],
-                  name: "progression",
-                  line: {
-                  color: "green",
-                  dash: 'dashdot',
-                  width: 1.5
-                  }} )
-
-gr_layout.shapes.push(  {
-                  type: 'line',
-                  x0: hund2,
-                  y0: crsum_arr[settim_slot-4],
-                  x1: hund,
-                  y1: crsum_arr[settim_slot]+3*(crsum_arr[settim_slot]),//*ruckschau,
-                  name: "progression2",
-                  line: {
-                  color: "green",
-                  dash: 'dashdot',
-                  width: 1
-                  }} )
-}
-if(welcher_plot=="camcounts"){
-  
-
- 
-data.push(
-  { x: count_data.zeit,
-y: addArrays(count_data.IN,count_data.OUT),
-mode: 'lines',
-
-name: "crowd count total",
-line: {shape: 'spline',color:"green"},
-type: 'scatter'    }
-)
- 
-data.push({
-    x:  count_datain.zeit, //neu graph_data[selected_area.id].data_time,
-    y:   addArrays(count_data.IN,count_data.OUT), //neu graph_data[selected_area.id].data,
-
-        yaxis:"y1",
-    mode: 'lines',
- //   fill: 'tonexty',
-  name: "SUM",
-  line: {shape: 'spline'},
-  type: 'scatter' 
-
-
-    },
-   {
-    x:  count_datain.zeit, //neu graph_data[selected_area.id].data_time,
-    y:  count_datain.usage, //neu graph_data[selected_area.id].data,
-
-        yaxis:"y1",
-    mode: 'lines',
- //   fill: 'tonexty',
-  name: "IN",
-  line: {shape: 'spline'},
-  type: 'scatter'  
-  },   {
-    x:  count_dataout.zeit, //neu graph_data[selected_area.id].data_time,
-    y:  count_dataout.usage, //neu graph_data[selected_area.id].data,
-
-        yaxis:"y1",
-    mode: 'lines',
-   // fill: 'tonexty',
-  name: "OUT",
-  line: {shape: 'spline'},
-  type: 'scatter'  
-  })
-}
-
-
-                
-       
-   
-  
-
-
-
-
-
-        Plotly.newPlot('liu_div', data,gr_layout,{
-          //displayModeBar: false, // this is the line that hides the bar.
-        })
-        //ply = document.getElementById('liu_div')
-          
-
-}
-
 
 
 function initialise_settings(){
@@ -856,384 +657,46 @@ found=0
    }}
    
  return Math.round(found)}
-referens_daten_2_22 = {
-  "usage": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    505.98,
-    505.98,
-    505.98,
-    505.98,
-    1706.8923809523812,
-    2831.880714285715,
-    3456.1976190476184,
-    4001.8174829931977,
-    4277.677239229025,
-    4903.367054988662,
-    5739.090844954649,
-    7868.729963293652,
-    11727.313163128305,
-    15928.878244133442,
-    17017.64922800493,
-    18487.255501656786,
-    23470.994875476445,
-    29851.144369774003,
-    35754.84238713892,
-    36331.786411970184,
-    39850.40721877613,
-    44692.41735937938,
-    48335.65972077878,
-    49699.029111572745,
-    49033.733634908654,
-    48620.05436492436,
-    49500.1960132542,
-    53001.32512577964,
-    53482.74490094044,
-    56206.62953289016,
-    62451.01341508394,
-    63526.0674802561,
-    61923.89421476376,
-    59267.41458166624,
-    51663.93494486174,
-    44647.37950609158,
-    45099.68980513785,
-    42966.728016955625,
-    39863.07264747653,
-    36947.14970712239,
-    30477.9737580872,
-    30210.969999999998,
-    29928.969999999998,
-    29928.969999999998,
-    4446,
-    0,
-    0
-  ],
-  "zeit": [
-    "2023-12-16T12:00:00.000Z",
-    "2023-12-16T12:15:00.000Z",
-    "2023-12-16T12:30:00.000Z",
-    "2023-12-16T12:45:00.000Z",
-    "2023-12-16T13:00:00.000Z",
-    "2023-12-16T13:15:00.000Z",
-    "2023-12-16T13:30:00.000Z",
-    "2023-12-16T13:45:00.000Z",
-    "2023-12-16T14:00:00.000Z",
-    "2023-12-16T14:15:00.000Z",
-    "2023-12-16T14:30:00.000Z",
-    "2023-12-16T14:45:00.000Z",
-    "2023-12-16T15:00:00.000Z",
-    "2023-12-16T15:15:00.000Z",
-    "2023-12-16T15:30:00.000Z",
-    "2023-12-16T15:45:00.000Z",
-    "2023-12-16T16:00:00.000Z",
-    "2023-12-16T16:15:00.000Z",
-    "2023-12-16T16:30:00.000Z",
-    "2023-12-16T16:45:00.000Z",
-    "2023-12-16T17:00:00.000Z",
-    "2023-12-16T17:15:00.000Z",
-    "2023-12-16T17:30:00.000Z",
-    "2023-12-16T17:45:00.000Z",
-    "2023-12-16T18:00:00.000Z",
-    "2023-12-16T18:15:00.000Z",
-    "2023-12-16T18:30:00.000Z",
-    "2023-12-16T18:45:00.000Z",
-    "2023-12-16T19:00:00.000Z",
-    "2023-12-16T19:15:00.000Z",
-    "2023-12-16T19:30:00.000Z",
-    "2023-12-16T19:45:00.000Z",
-    "2023-12-16T20:00:00.000Z",
-    "2023-12-16T20:15:00.000Z",
-    "2023-12-16T20:30:00.000Z",
-    "2023-12-16T20:45:00.000Z",
-    "2023-12-16T21:00:00.000Z",
-    "2023-12-16T21:15:00.000Z",
-    "2023-12-16T21:30:00.000Z",
-    "2023-12-16T21:45:00.000Z",
-    "2023-12-16T22:00:00.000Z",
-    "2023-12-16T22:15:00.000Z",
-    "2023-12-16T22:30:00.000Z",
-    "2023-12-16T22:45:00.000Z",
-    "2023-12-16T23:00:00.000Z",
-    "2023-12-16T23:15:00.000Z",
-    "2023-12-16T23:30:00.000Z",
-    "2023-12-16T23:45:00.000Z",
-    "2023-12-17T00:00:00.000Z",
-    "2023-12-17T00:15:00.000Z",
-    "2023-12-17T00:30:00.000Z",
-    "2023-12-17T00:45:00.000Z",
-    "2023-12-17T01:00:00.000Z"
-  ]
-}
-referens_daten = {
-  "usage": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    241,
-    476,
-    671,
-    1084,
-    1652,
-    2391,
-    4268,
-    7039,
-    8439,
-    10222,
-    13020,
-    16344,
-    23625,
-    27822,
-    31824,
-    36489,
-    39982,
-    42584,
-    44729,
-    50780,
-    55386,
-    68345,
-    71218,
-    73031,
-    79462,
-    78277,
-    73151,
-    72726,
-    72786,
-    72692,
-    66753,
-    66526,
-    65962,
-    69365,
-    68453,
-    66922,
-    60865,
-    55084,
-    51720,
-    48357,
-    44905,
-    39544,
-    34064,
-    28585,
-    17438,
-    11627,
-    5812,
-    0
-  ],
-  "zeit": [
-    "2022-12-15T12:00:00.000Z",
-    "2022-12-15T12:15:00.000Z",
-    "2022-12-15T12:30:00.000Z",
-    "2022-12-15T12:45:00.000Z",
-    "2022-12-15T13:00:00.000Z",
-    "2022-12-15T13:15:00.000Z",
-    "2022-12-15T13:30:00.000Z",
-    "2022-12-15T13:45:00.000Z",
-    "2022-12-15T14:00:00.000Z",
-    "2022-12-15T14:15:00.000Z",
-    "2022-12-15T14:30:00.000Z",
-    "2022-12-15T14:45:00.000Z",
-    "2022-12-15T15:00:00.000Z",
-    "2022-12-15T15:15:00.000Z",
-    "2022-12-15T15:30:00.000Z",
-    "2022-12-15T15:45:00.000Z",
-    "2022-12-15T16:00:00.000Z",
-    "2022-12-15T16:15:00.000Z",
-    "2022-12-15T16:30:00.000Z",
-    "2022-12-15T16:45:00.000Z",
-    "2022-12-15T17:00:00.000Z",
-    "2022-12-15T17:15:00.000Z",
-    "2022-12-15T17:30:00.000Z",
-    "2022-12-15T17:45:00.000Z",
-    "2022-12-15T18:00:00.000Z",
-    "2022-12-15T18:15:00.000Z",
-    "2022-12-15T18:30:00.000Z",
-    "2022-12-15T18:45:00.000Z",
-    "2022-12-15T19:00:00.000Z",
-    "2022-12-15T19:15:00.000Z",
-    "2022-12-15T19:30:00.000Z",
-    "2022-12-15T19:45:00.000Z",
-    "2022-12-15T20:00:00.000Z",
-    "2022-12-15T20:15:00.000Z",
-    "2022-12-15T20:30:00.000Z",
-    "2022-12-15T20:45:00.000Z",
-    "2022-12-15T21:00:00.000Z",
-    "2022-12-15T21:15:00.000Z",
-    "2022-12-15T21:30:00.000Z",
-    "2022-12-15T21:45:00.000Z",
-    "2022-12-15T22:00:00.000Z",
-    "2022-12-15T22:15:00.000Z",
-    "2022-12-15T22:30:00.000Z",
-    "2022-12-15T22:45:00.000Z",
-    "2022-12-15T23:00:00.000Z",
-    "2022-12-15T23:15:00.000Z",
-    "2022-12-15T23:30:00.000Z",
-    "2022-12-15T23:45:00.000Z",
-    "2022-12-16T00:00:00.000Z",
-    "2022-12-16T00:15:00.000Z",
-    "2022-12-16T00:30:00.000Z",
-    "2022-12-16T00:45:00.000Z",
-    "2022-12-16T01:00:00.000Z"
-  ]
-}
-referens_daten2={
-  "usage": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    866.6319617224879,
-    974.9609569377992,
-    1071.3008995215314,
-    1148.7327846889953,
-    1398.5181116427434,
-    2668.713177306903,
-    3329.4426287537026,
-    3827.3198103440423,
-    4717.637628616996,
-    4732.013378719526,
-    6267.097354112553,
-    13666.733373129793,
-    19806.794470762765,
-    25574.01390204805,
-    28665.636331580467,
-    30023.326267837274,
-    34434.9144497081,
-    38024.03695785523,
-    40974.14298676387,
-    37795.28221854539,
-    37183.69762897401,
-    43928.82622279445,
-    50185.46401340246,
-    58112.38038249324,
-    63452.864798774586,
-    69941.51262178672,
-    69790.3758895091,
-    66753.1047267969,
-    66349.29613268121,
-    65255.80942419041,
-    65436.25010114073,
-    66455.55134509185,
-    67370.07350183057,
-    63027.25244199771,
-    66476.26060674543,
-    65080.27167543129,
-    64690.41139382913,
-    61946.02033096403,
-    60713.69265497523,
-    59449.64126063264,
-    17015.21052631579
-  ],
-  "zeit": [
-    "2023-12-14T12:00:00.000Z",
-    "2023-12-14T12:15:00.000Z",
-    "2023-12-14T12:30:00.000Z",
-    "2023-12-14T12:45:00.000Z",
-    "2023-12-14T13:00:00.000Z",
-    "2023-12-14T13:15:00.000Z",
-    "2023-12-14T13:30:00.000Z",
-    "2023-12-14T13:45:00.000Z",
-    "2023-12-14T14:00:00.000Z",
-    "2023-12-14T14:15:00.000Z",
-    "2023-12-14T14:30:00.000Z",
-    "2023-12-14T14:45:00.000Z",
-    "2023-12-14T15:00:00.000Z",
-    "2023-12-14T15:15:00.000Z",
-    "2023-12-14T15:30:00.000Z",
-    "2023-12-14T15:45:00.000Z",
-    "2023-12-14T16:00:00.000Z",
-    "2023-12-14T16:15:00.000Z",
-    "2023-12-14T16:30:00.000Z",
-    "2023-12-14T16:45:00.000Z",
-    "2023-12-14T17:00:00.000Z",
-    "2023-12-14T17:15:00.000Z",
-    "2023-12-14T17:30:00.000Z",
-    "2023-12-14T17:45:00.000Z",
-    "2023-12-14T18:00:00.000Z",
-    "2023-12-14T18:15:00.000Z",
-    "2023-12-14T18:30:00.000Z",
-    "2023-12-14T18:45:00.000Z",
-    "2023-12-14T19:00:00.000Z",
-    "2023-12-14T19:15:00.000Z",
-    "2023-12-14T19:30:00.000Z",
-    "2023-12-14T19:45:00.000Z",
-    "2023-12-14T20:00:00.000Z",
-    "2023-12-14T20:15:00.000Z",
-    "2023-12-14T20:30:00.000Z",
-    "2023-12-14T20:45:00.000Z",
-    "2023-12-14T21:00:00.000Z",
-    "2023-12-14T21:15:00.000Z",
-    "2023-12-14T21:30:00.000Z",
-    "2023-12-14T21:45:00.000Z",
-    "2023-12-14T22:00:00.000Z",
-    "2023-12-14T22:15:00.000Z",
-    "2023-12-14T22:30:00.000Z",
-    "2023-12-14T22:45:00.000Z",
-    "2023-12-14T23:00:00.000Z",
-    "2023-12-14T23:15:00.000Z",
-    "2023-12-14T23:30:00.000Z",
-    "2023-12-14T23:45:00.000Z",
-    "2023-12-15T00:00:00.000Z",
-    "2023-12-15T00:15:00.000Z",
-    "2023-12-15T00:30:00.000Z",
-    "2023-12-15T00:45:00.000Z",
-    "2023-12-15T01:00:00.000Z"
-  ]
-}
-
-function autplay_starten (){
-setTimeout(function(){
-  set_playtime =0
-setInterval(function(){
-
-  settim= new Date("2023-12-16T15:00").getTime()
-          settim += (set_playtime*(60*1000*15))-(60*60*1000)
-          settim_slot = set_playtime-4
-          settim = new Date(settim)
-          set_playtime ++
-
-              refresh()
-
-}
-  ,1000
-)
-
-},15000)}
 polygonLayer = L.polygon([[0,0],[1,1],[1,0],[0,1]])
 coordinatesArray = []
+
+
+
+const updatePolygonCoordinates = () => {
+  const latlngs = polygonLayer.getLatLngs()[0]; // bei einem einfachen Polygon
+  coordinatesArray = latlngs.map(ll => [ll.lat, ll.lng]);
+  console.log("Aktualisierte Koordinaten:", coordinatesArray);
+};
+
 mymap.on('click', function (event) {
-    cord = [event.latlng.lat,lng = event.latlng.lng]
+  const coord = [event.latlng.lat, event.latlng.lng];
+  coordinatesArray.push(coord);
 
-    // Add the coordinates as an object to the array
-    coordinatesArray.push(cord);
+  // Vorherige entfernen
+  if (polygonLayer) {
+    mymap.removeLayer(polygonLayer);
+  }
 
-    // Log the updated array
-    console.log("Updated Coordinates Array:", coordinatesArray);
-    p_geometrie.text(coordinatesArray)
-    if (polygonLayer) {
-        mymap.removeLayer(polygonLayer);
-    }
+  // Neues Polygon zeichnen
+  polygonLayer = L.polygon(coordinatesArray, {
+    color: 'blue',
+    fillColor: 'skyblue',
+    fillOpacity: 0.5,
+  }).addTo(mymap);
 
-    // Draw the updated polygon
-    polygonLayer = L.polygon(coordinatesArray, {
-        color: 'blue', // Polygon border color
-        fillColor: 'skyblue', // Polygon fill color
-        fillOpacity: 0.5, // Polygon transparency
-    }).addTo(mymap);
+  // Polygon bearbeitbar machen
+  polygonLayer.editing.enable();
 
-  });
+  // Koordinaten anzeigen beim Ziehen von Punkten
+  polygonLayer.on('edit', updatePolygonCoordinates);
+
+  // Initial ausgeben
+  updatePolygonCoordinates();
+});
+
+
+
+
     </script>
 
 </html>

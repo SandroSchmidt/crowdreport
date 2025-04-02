@@ -90,40 +90,10 @@ for (i=0;i<288;i++){
 if(graphdata[key][i] == 'x'){graphdata[key][i] = graphdata[key][i-1] }
 
 }}
-
+console.log(graphdata)
 if(mode=="cmd"){  balad_plot_malen(graphdata)  }
 
 
-  
-//  if(daydata[key].zArray(numZeros).fill(0)t[i]==temp) {graphdata.z[key].push(daydata[key].usage[i]*stages_list[key].capcity/100)}else{graphdata.z[key].push("u")}
-
-
-/*
-for(i=0;i<daydata[key].usage.length;i++){
-   
-   }
-
-graphdata={}
-Object.keys(daydata).forEach((key) => {
-for (k=0;k<stages_list.length;k++){
-if (key == stages_list[k].name){capacity= stages_list[k].capacity}
-}
-graphdata[key]=make_graphdata_stages(daydata[key],capacity,tager)
-})
-sum_onsite = new Array(53)//.fill(0)
-timp =[] 
-for(i=0;i<sum_onsite.length;i++){
-pq=0
-Object.keys(graphdata).forEach((key) => {
-if(graphdata[key].usage[i] != undefined) {  
-if(sum_onsite[i] == undefined)[sum_onsite[i] =0]
-sum_onsite[i] += (graphdata[key].usage[i]*stages_list[pq].capacity)/100}
-pq++
-})
-}      
-total_people = {usage:sum_onsite,zeit:graphdata["Big Beast Left"].zeit}
-
-*/
 })
 }
 function draw_arrow(){
@@ -193,7 +163,10 @@ databaseRef = database.ref(namedesevents_short+'/geometry');
          restrooms=snapshot.val().restrooms
       fluchtrouten=snapshot.val().egress
          medstations = snapshot.val().medical
-         totalCapacity = stages_list.reduce((sum, stage) => sum + (stage.capacity || 0), 0);
+          totalCapacity = stages_list.reduce((sum, stage) => {
+          if (stage.hide) return sum; // skip hidden stages
+          return sum + (stage.capacity || 0);
+        }, 0);
         initialise_map()
         if (mode =="cmd") {initialise_settings()}
          })
@@ -212,8 +185,11 @@ databaseRef.once('value')
         if(jetzt < new Date(eventsettings.zeitfenster[0][0]).getTime())
           {heutag = 99;console.log("Event has not started yet!")
             start_graphdata = new Date()
-            start_graphdata.setHours(12)
-            start_graphdata=start_graphdata.getTime()
+            temp = 0 
+            if(start_graphdata.getHours()<12){temp = (24*60*60*1000)}
+            start_graphdata.setHours(12,0,0,0)
+
+            start_graphdata=start_graphdata.getTime()-temp
           }
         else
           {heutag = 1
@@ -411,8 +387,9 @@ if(current==undefined){console.log('no current data')}
 
 total_people_cur =0
 for(i=0;i<stages_list.length;i++){
-    if(current[stages_list[i].name] != undefined){
-        total_people_cur += ((current[stages_list[i].name].usage/100) *stages_list[i].capacity)
+    if(current[stages_list[i].name] != undefined ){
+      if(stages_list[i].hide != true){
+        total_people_cur += ((current[stages_list[i].name].usage/100) *stages_list[i].capacity)}
         let temp = current[stages_list[i].name]
         let  fcol = farbskala[Math.round(temp.usage/10)]
         let col = farbskala[Math.min(10,Math.round(temp.density)*2)]
@@ -1275,19 +1252,18 @@ for(let ip=0;ip<eigensymbole_arr.marker.length;ip++)
 
 
                     if(eigensymbole_arr.marker[ip].farbe =="red"){tempico=redicon}else{tempico = greenicon}
+
                     let tempmarker = L.marker(eigensymbole_arr.marker[ip].ort,{icon:tempico}).bindTooltip(eigensymbole_arr.marker[ip].text+ " - " +  getTimeOfDay (eigensymbole_arr.marker[ip].zeit)).addTo(eigensymbole_layer)//,
-                   if(!overridedisplay9){ tempmarker.openTooltip()
-}                   if(set_name != "demo"){ tempmarker.on('click', function() {
+                    tempmarker.openTooltip()
+                    tempmarker.on('click', function() {
               
                    
                       tempmarker.remove()
              
-                  //    eigensymbole_arr.marker[ip].zeige = false
                      eigensymbole_arr.marker[ip].endzeit = drawjetzt
-                    //console.log(eigensymbole_arr)
                     databaseRef = database.ref(namedesevents_short+'/aux/day' + heutag + '/locations/marker');
                     databaseRef.set(eigensymbole_arr.marker)
-                  })}
+                  })
                 
                   
         }

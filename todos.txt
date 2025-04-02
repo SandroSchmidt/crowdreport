@@ -14,3 +14,23 @@ TODOS für crowdreport
 - die marker werden nicht richtig angezeigt
 - checken, dass es von den Zeitzonen her passt
 - anfangsnull und end null
+- zeitfenster checken
+
+1) from which time to which time should the graph show the Event? (open gates to everybody left)
+18:30 - 08:30.  Scheduled Doors 19:00 - 07:45
+2) do you want to Input the In-Counts in the same way as balad beast or any changes?
+Same is perfect
+3) the sum of the stages capacity is 3120 but you said the Overall cap is 3040?
+* VVIB – 160; VIB B & C – 480, Backstage – 250, VIB – 220, GA – 1,930. Total – 3,040.  For now maybe it works to plot these areas in those 5 breakdowns which bundles a few. Need to confirm with Martin and Marc T breakdowns*
+4) I did not see emergency Exit routes in the updated map, should i include any?
+I can sketch on a map when behind a laptop but essentially back out main entrance, left and right out blow out gates before medical, behind VIP deck along red route
+5) you said "capitalise all words", does the mean "usage" -> "Usage" or "USAGE"
+’Usage’ style works please
+6) which obstacles should i add to the map, in case you do not use the CAD view?
+Current obstacles work well - toilets, med etc.  maybe if we just add the site entry / exit and the emergency exits - blow out gates before medical and just to the rear of the site. Again I can plot this if unclear when at laptop 
+7) do you think a short Video call is helpfull before showstart?
+Yes probably beneficial as Martin is in control, he has interacted with Soundstorm system but not overly familiar with this. Marc T and I are on ground will be familiar. Kris who may at times need to report has likely never seen the system
+
+Future:
+- mapbox
+- 3d

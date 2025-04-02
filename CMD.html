@@ -16,7 +16,7 @@
     <script src="./data.js"></script>
     <script src="./function.js"></script>
     <script src="./js/d3.min.js"></script>
-
+<!---->
 
   </head>
   <style>
@@ -31,7 +31,9 @@
   <div id="lio_div" style="float:left;width:50%;height:60%;"><div id="map_div" style="width:100%;height: 100%"></div></div>
   <div id="reo_div" style="float:left;width:40%;height:60%;text-align: center;">
   <img src="./logo.png" style="width: 60%" ><br>
-  <!--  <img src=".//safe_events_logo-1.png" style="width: 30%" id ="evtlog" onclick="d3.select('#evtlog').remove()" >
+  <!--  
+  
+  <img src=".//safe_events_logo-1.png" style="width: 30%" id ="evtlog" onclick="d3.select('#evtlog').remove()" >
   -->
   </div>
   <div id="liu_div" style="float:left;width:60%;height:50%; ">
@@ -93,32 +95,40 @@ function balad_plot_malen(data){
   
 
   const traces = Object.keys(data)
-    .filter((key) => key !== 'x') // Exclude the x-axis values
-    .map((key) => {
-      tempcol = "red"
-  for (i=0;i<stages_list.length;i++){
-    if(stages_list[i].name == key){tempcol = stages_list[i].farbe}
-  }
-      return {
-        x: xValues,
-        y: data[key],
-        stackgroup: 'one', // Enable stacking
-        name: key, // Legend name
-        type: 'scatter', // Area chart type in Plotly
-        mode: 'none',//'line',
-        hoverinfo: 'skip',
-        fillcolor: tempcol,
-        line: {shape: 'spline'}, // No lines or markers, just filled areas
-      };
-    });
+  .filter((key) => {
+    if (key === 'x') return false;
+    const stage = stages_list.find(s => s.name === key);
+    return !stage || !stage.hide; // exclude if hide is true
+  })
+  .map((key) => {
+    let tempcol = "red";
+    const stage = stages_list.find(s => s.name === key);
+    if (stage && stage.farbe) tempcol = stage.farbe;
 
-    traces.reverse();
-    const ySums = xValues.map((_, index) => {
-    return Object.keys(data)
-      .filter((key) => key !== 'x') // Exclude the x-axis values
-      .reduce((sum, key) => sum + data[key][index], 0); // Sum all y values at the current x
+    return {
+      x: xValues,
+      y: data[key],
+      stackgroup: 'one',
+      name: key,
+      type: 'scatter',
+      mode: 'none',
+      hoverinfo: 'skip',
+      fillcolor: tempcol,
+      line: { shape: 'spline' },
+    };
   });
 
+    traces.reverse();
+// hier werden alle werte zusammen gezählt und das trace für die summe erstellt, ausser bei hide == true
+    const ySums = xValues.map((_, index) => {
+  return Object.keys(data)
+    .filter((key) => {
+      if (key === 'x') return false;
+      const stage = stages_list.find(s => s.name === key);
+      return !stage || !stage.hide; // nur wenn nicht versteckt
+    })
+    .reduce((sum, key) => sum + data[key][index], 0);
+});
   // Add a trace for the sum line
   const sumLineTrace = {
     x: xValues,
@@ -259,13 +269,13 @@ heutag =99
   tabero = reo.append('table').style('width',"100%").style('margin','auto').style('width','95%').style('margin-top',"5px")//.style("font-size", "5px")
   temp = tabero.append('tr').style('background-color',"grey")
   //temp.append("th").text("no.")
-  temp.append("th").text("area").style('width',"30%")
-  temp.append("th").text("usage").style('width',"17%")
+  temp.append("th").text("Area").style('width',"30%")
+  temp.append("th").text("Usage").style('width',"17%")
 
-  temp.append("th").text("density").style('width',"17%")
-  temp.append("th").text("tension").style('width',"17%")
-  temp.append("th").text("capacity").style('width',"17%")
-  temp.append("th").text("people").style('width',"17%")
+  temp.append("th").text("Density").style('width',"17%")
+  temp.append("th").text("Tension").style('width',"17%")
+  temp.append("th").text("Capacity").style('width',"17%")
+  temp.append("th").text("People").style('width',"17%")
   tuc =[]
   ttc = []
   tpc =[]
@@ -275,7 +285,7 @@ heutag =99
 
   // tabelle malen
 
-  for (i=0;i<stages_list.length;i++){let j =i
+  for (i=0;i<stages_list.length;i++){if(stages_list[i].hide != true){let j =i
   temp = tabero.append('tr')
   // temp.append('td').text(i)
  butarr.push( temp.append('td').text(stages_list[i].name)
@@ -288,7 +298,7 @@ heutag =99
   tdc.push(temp.append("td").text("d"+i).style("font-weight",700))
   ttc.push(temp.append("td").text("t"+i).style("font-weight",700))
   temp.append("td").text(stages_list[i].capacity).style("font-weight",700)
-  tpc.push(temp.append("td").text("p"+i).style("font-weight",700))
+  tpc.push(temp.append("td").text("p"+i).style("font-weight",700))}
   }
   /* 
   tpc[5].style('color',"white")
@@ -372,7 +382,7 @@ if (eventsettings.days = 1 && heutag != 99){daytext = ""}else{daytext = " - DAY 
     settim_slot = Math.round(settim_slot/(60*1000*5))
 
   q=0
-  Object.keys(graphdata).forEach((key) => {
+  Object.keys(graphdata).forEach((key,index) => {
   //tempart = current[stages_list[q].name]
   //let  fcol = 
   /*
@@ -398,10 +408,8 @@ if (eventsettings.days = 1 && heutag != 99){daytext = ""}else{daytext = " - DAY 
 
 
 
-  */
-
-if(key != "x")
-
+*/
+if(key != "x") {if(stages_list[index-1].hide != true)
 {
   if (Math.round(tabellen_data[key][settim_slot][0]) == NaN){alert(tabellen_data[key][settim_slot][0])}
   pfeil =" ◄"
@@ -438,7 +446,7 @@ if(key != "x")
   // tpc[q].style('background-color',farbskala[Math.round(graphdata[key].usage[settim_slot]/15)])
   q++
 
-  }})
+  }}})
 
   /*
 
