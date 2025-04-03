@@ -15,6 +15,7 @@ TODOS für crowdreport
 - checken, dass es von den Zeitzonen her passt
 - anfangsnull und end null
 - zeitfenster checken
+- emergency routes
 
 1) from which time to which time should the graph show the Event? (open gates to everybody left)
 18:30 - 08:30.  Scheduled Doors 19:00 - 07:45

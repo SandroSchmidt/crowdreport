@@ -12,7 +12,8 @@ isZooming = false
 swipes_arr =[]
 eventmarkertoggle = false
 locked = true
-imageBounds = [[ 25.00124, 46.49093],[24.99111, 46.5245]];
+//imageBounds = [ [   26.68844,    37.98063  ],  [    26.69171,    37.984  ]]
+imageBounds = [ [   26.68842,    37.97992 ],  [   26.69165,    37.98496 ]]
 currentTimestamp = new Date()
 set_area=0
 swipemode = false
@@ -76,7 +77,8 @@ for (const key in daydata){
   for(o=0;o<daydata[key].usage.length;o++){
     timeslot = daydata[key].zeit[o] - start_graphdata
     timeslot = Math.round(timeslot/(60*1000*5))
-    graphdata[key][timeslot] = cap* daydata[key].usage[o]/100
+    console.log(key)
+    graphdata[key][timeslot] = cap*daydata[key].usage[o]/100
    
     tabellen_data[key][timeslot] = [daydata[key].usage[o],daydata[key].density[o],daydata[key].tension[o] ,(cap* daydata[key].usage[o]/100)]
   }
@@ -355,7 +357,7 @@ database = firebase.database();
 
 
 // reading own locations
-              databaseRef = database.ref(namedesevents_short+'aux/day' + heutag + '/locations');
+              databaseRef = database.ref(namedesevents_short+'/aux/day' + heutag + '/locations');
               // Listen for changes in the database
               databaseRef.on('value', (snapshot) => {
               if (snapshot.exists()) {
@@ -644,19 +646,11 @@ maxZoom: 25
 
 
 //imageUrl ="./25memer.png"
-imageUrl ="./km25mapr.svg"
+imageUrl ="./km25mapg.svg"
 //const imageBounds = [ [25.013,46.4805],[24.988092848232725, 46.53216767460525]];
-imageBounds = imageBounds = [
-  [
-    26.68844,
-    37.98063
-  ],
-  [
-    26.69171,
-    37.984
-  ]
-];//
-// [[ 25.00124, 46.49093],[24.99111, 46.5245]];
+
+//kleine musik 1 ... imageBounds = [ [   26.68844,    37.98063  ],  [    26.69171,    37.984  ]];//
+//alt  [[ 25.00124, 46.49093],[24.99111, 46.5245]];
 
 imageOverlay = L.imageOverlay(imageUrl, imageBounds, { opacity: 1 })
 imageOverlay2 = L.imageOverlay(imageUrl, imageBounds, { opacity: 0.6 }).addTo(mymap);

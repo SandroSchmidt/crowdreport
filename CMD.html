@@ -30,7 +30,7 @@
 
   <div id="lio_div" style="float:left;width:50%;height:60%;"><div id="map_div" style="width:100%;height: 100%"></div></div>
   <div id="reo_div" style="float:left;width:40%;height:60%;text-align: center;">
-  <img src="./logo.png" style="width: 60%" ><br>
+  <img src="./logo.png" style="width: 60%" >
   <!--  
   
   <img src=".//safe_events_logo-1.png" style="width: 30%" id ="evtlog" onclick="d3.select('#evtlog').remove()" >
@@ -62,7 +62,7 @@ infotag = d3.select('#infotag')
 // das folgende ist nur für die Krücke zum eintragen der scan counts
 d3.select('img').on('click',function(){
             // Open a prompt asking for a number
-            let userNumber = prompt("Enter IN-counts at this time:");
+            let userNumber = prompt("Enter Scans at this time:");
 
             // Check if user entered a valid number
             if (!isNaN(userNumber) && userNumber !== null && userNumber.trim() !== '') {
@@ -159,7 +159,7 @@ function balad_plot_malen(data){
             x: camcountarr.x,
             y: camcountarr.y,
             mode: 'lines',
-            name: 'IN-counts',
+            name: 'Scans',
             line: {
                 shape: 'spline',
                 color: 'black',
@@ -264,7 +264,7 @@ heutag =99
   reo.append('br')
   tidi = reo.append('span').style('margin','auto').text("event"+' - DAY 99 - Time 99:99').style("font-size", "3vh").style("font-weight",700)
   //.on('click',function (){nowbutton()}).style('cursor', 'pointer')
-  reo.append('br')
+
   reo.append('br')
   tabero = reo.append('table').style('width',"100%").style('margin','auto').style('width','95%').style('margin-top',"5px")//.style("font-size", "5px")
   temp = tabero.append('tr').style('background-color',"grey")

@@ -64,13 +64,13 @@
 
  "></select>
 
-<span id="capspan">area-capacity: 0</span>
+<span id="capspan">Area-Capacity: 0</span>
 
 </td>
       <td style="width:15%"><span id="lock" style="background-color:yellow">LOCKED</span></td>
     </tr>
     <tr>
-      <td>density:</td>
+      <td>Density:</td>
 
       <td id="hierdensityslider">
         
@@ -92,7 +92,7 @@
      
     <tr>
   
-  <td>tension:</td>
+  <td>Tension:</td>
   <td id="hiertensionslider"> <button>-</button>  <input type="range" style="width:60%" id="tensInput" min="0" max="10" step=1 
     onchange="set_tens= parseInt(this.value);d3.select('#tens_p').text(set_tens)"><button>+</button> </td>
   <td> <input type ="number" style="width:75%" step=1 min=0 max=10 id="tens_p" value=5 onchange="set_tens=this.value;tens_slider.property('value',this.value)"> </td>
@@ -100,7 +100,7 @@
     </tr>
 
     <tr>
-      <td>usage:</td>
+      <td>Usage:</td>
       <td id="hierusageslider"><button>-</button> <input type="range" style="width:60%" id="usageInput" min="0" max="150" step=10 value =50 
         onchange="set_usage= parseInt(this.value);d3.select('#usage_p').text(set_usage + ' %')"><button>+</button> 
       </td>
@@ -116,22 +116,18 @@
 
 </td>
       <td>
-        <button id="swipemodebutton" onclick="swipemode = !swipemode; if(swipemode){d3.select('#swipemodebutton').text('mode: swipe')}else{d3.select('#swipemodebutton').text('mode: zoom')};set_swipemode()">mode: map-zoom</button>
-        <button id="sendrepbut" style="margin-left:10%;padding-left: 5%;padding-right: 5%;" onclick="jetzt = new Date();writeReportToFirebase()"><b>send report</b></button>
+        <button id="swipemodebutton" onclick="swipemode = !swipemode; if(swipemode){d3.select('#swipemodebutton').text('Mode: Swipe')}else{d3.select('#swipemodebutton').text('Mode: Zoom')};set_swipemode()">Mode: Zoom</button>
+        <button id="sendrepbut" style="margin-left:10%;padding-left: 5%;padding-right: 5%;" onclick="jetzt = new Date();writeReportToFirebase()"><b>Send Report</b></button>
         <span id="total_p">total on site: 0</span>
       </td>
       <td>
-        <button onclick="eventmarkertoggle =true;incident_toggle =false;infotag.text('report marker by clicking on map')">marker</button>
-        <button onclick="eventmarkertoggle =true;incident_toggle =true;infotag.text('report marker by clicking on map')">incident!</button>
+        <button onclick="eventmarkertoggle =true;incident_toggle =false;infotag.text('Report marker by clicking on map')">Marker</button>
+        <button onclick="eventmarkertoggle =true;incident_toggle =true;infotag.text('Report marker by clicking on map')">Incident!</button>
       </td>
     </tr>
   </table>
   
-<!--
-<button onclick="newarea =[];nar = L.polygon(newarea).addTo(mymap); mymap.on('click',function(e)
- { newarea.push([e.latlng.lat,e.latlng.lng]);nar.setLatLngs(newarea); console.log(newarea)})">new aera</button>
 
- -->
  
 
   <hr>
@@ -191,6 +187,7 @@ for(i=0;i<stages_list.length;i++){
     .attr('value', i)
     .text(eventsettings.spotters[i]);
 }
+/*
 if (storedName) {
   // If a name is saved in localStorage, set it as the selected option
   const index = eventsettings.spotters.indexOf(storedName);
@@ -216,6 +213,7 @@ if (storedName) {
     }
   }
 }
+*/
 read_current()
 setTimeout(() => {
   select_area(0)
@@ -227,8 +225,7 @@ setTimeout(() => {
     }
 function update_ownpos(){
   
-  if (locked) {
-    infotag.text('can not send own position when -LOCKED-')
+  if (locked) {infotag.text('Can not send own position when -LOCKED-')
     return;
   }
             if (navigator.geolocation) {
@@ -245,7 +242,7 @@ function showPosition(position) {
    infotag.text('status: own loc upt at '+ set_pos +" " + a.getHours()+":"+a.getMinutes()+":"+a.getSeconds())
    a =a.getTime()
    const database = firebase.database()
-     databaseRef = database.ref(namedesevents_short+ 'aux/day' + heutag + '/locations/spotter').child(set_name);
+     databaseRef = database.ref(namedesevents_short+ '/aux/day' + heutag + '/locations/spotter').child(set_name);
     databaseRef.set({zeit:a,ort:set_pos,name:set_name})
            eigensymbole_arr.spotter[set_name] = {zeit:a,ort:set_pos,name:set_name}
         }
@@ -273,7 +270,7 @@ function select_area(set_area){
 console.log("es wurde da gebiet: " + selected_area.name + "ausgewählt " + set_area)
 
 
-      d3.select('#capspan').text('area-capacity: ' +Math.round((current[selected_area.name].usage/100) *stages_list[set_area].capacity).toLocaleString('en-US') +'/' +Math.round(stages_list[set_area].capacity).toLocaleString('en-US'))
+      d3.select('#capspan').text('Area-Capacity: ' +Math.round((current[selected_area.name].usage/100) *stages_list[set_area].capacity).toLocaleString('en-US') +'/' +Math.round(stages_list[set_area].capacity).toLocaleString('en-US'))
       if(current[selected_area.name] == undefined){current[selected_area.name]={tension:0,density:0,usage:0}}
       
 
@@ -327,7 +324,7 @@ dens_slider = d3.select('#hierdensityslider').append('input').style('width','55%
             
     a=new Date().getTime()
 
-        infotag.text("latest report in now " + Math.round((a-current[selected_area.name].zeit)/60000) + " minutes old." )
+        infotag.text("Latest report in now " + Math.round((a-current[selected_area.name].zeit)/60000) + " minutes old." )
         //dens_slider.node().dispatchEvent(new Event('input'));
 
 // das hier brauche ich nur weil die slider sonst nach der ersten user einput nicht mehr upgedatet werden
