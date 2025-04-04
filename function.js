@@ -184,7 +184,7 @@ databaseRef.once('value')
         mymap.setView(eventsettings.setview.center,eventsettings.setview.zoom)
        
         jetzt = new Date().getTime()
-        if(jetzt < new Date(eventsettings.zeitfenster[0][0]).getTime())
+        if(jetzt < new Date(eventsettings.zeitfenster[0][0]).getTime()-(3*60*60*1000))
           {heutag = 99;console.log("Event has not started yet!")
             start_graphdata = new Date()
             temp = 0 
@@ -196,10 +196,10 @@ databaseRef.once('value')
         else
           {heutag = 1
             
-            if(jetzt < new Date(eventsettings.zeitfenster[0][1]).getTime())
-            {heutag = 2}
+//            if(jetzt > new Date(eventsettings.zeitfenster[0][1]).getTime())
+  //          {heutag = 2}
 
-            start_graphdata = new Date(eventsettings.zeitfenster[heutag][1]).getTime()
+            start_graphdata = new Date(eventsettings.zeitfenster[heutag-1][0]).getTime()
         
           }
        

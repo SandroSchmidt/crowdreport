@@ -30,7 +30,7 @@
 
   <div id="lio_div" style="float:left;width:50%;height:60%;"><div id="map_div" style="width:100%;height: 100%"></div></div>
   <div id="reo_div" style="float:left;width:40%;height:60%;text-align: center;">
-  <img src="./logo.png" style="width: 60%" >
+  <img src="./logo.png" style="width: 40%" >
   <!--  
   
   <img src=".//safe_events_logo-1.png" style="width: 30%" id ="evtlog" onclick="d3.select('#evtlog').remove()" >
@@ -170,7 +170,7 @@ function balad_plot_malen(data){
 traces.push(intrace)
 
 
-if (params.get('admin')||heutag ==99){today =new Date()
+if (heutag ==99){today =new Date()
 heutag =99
   startTime = new Date().setHours(0,0,0)
   endTime = new Date().setHours(23,59,0)
@@ -409,6 +409,7 @@ if (eventsettings.days = 1 && heutag != 99){daytext = ""}else{daytext = " - DAY 
 
 
 */
+console.log(key, settim_slot)
 if(key != "x") {if(stages_list[index-1].hide != true)
 {
   if (Math.round(tabellen_data[key][settim_slot][0]) == NaN){alert(tabellen_data[key][settim_slot][0])}
