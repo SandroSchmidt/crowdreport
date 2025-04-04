@@ -174,7 +174,7 @@ databaseRef = database.ref(namedesevents_short+'/geometry');
          })
 
          
-database= database.ref(namedesevents_short+'/eventsettings');
+databaseRef = database.ref(namedesevents_short+'/eventsettings');
 // Read the data once
 databaseRef.once('value')
     .then(snapshot => {
