@@ -38,7 +38,7 @@ function round5min(time){
 const msInFiveMinutes = 5 * 60 * 1000; // 5 minutes in milliseconds
 
   const roundedTime = Math.round(time / msInFiveMinutes) * msInFiveMinutes;
-  console.log(new Date(roundedTime))
+  
 return roundedTime
 }
 
@@ -174,7 +174,7 @@ databaseRef = database.ref(namedesevents_short+'/geometry');
          })
 
          
-databaseRef = database.ref(namedesevents_short+'/eventsettings');
+database= database.ref(namedesevents_short+'/eventsettings');
 // Read the data once
 databaseRef.once('value')
     .then(snapshot => {
@@ -828,6 +828,8 @@ isZooming = false;
 stages_geo=[]
 for(i=0;i<stages_list.length;i++)
 {if(stages_list[i].coords != "donotdraw"){
+  
+  console.log("male" + i)
 let zi =i 
 f = L.polygon(stages_list[i].coords, {color: '#99ff66'}).bindTooltip(stages_list[i].name)
 //.on('mouseover',function(){this.setStyle({color:"red"})})
@@ -1226,8 +1228,6 @@ const database = firebase.database();
 
 
   
-console.log(set_area)
-
        databaseRef = database.ref(namedesevents_short).child('aktuell').child(stages_list[set_area].name);
         databaseRef.set({zeit:jetzt.getTime(), density: set_dens, tension: set_tens,  usage: set_usage})
 
