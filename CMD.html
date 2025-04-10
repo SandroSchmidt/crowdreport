@@ -13,12 +13,9 @@
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
-    <script src="./data.js"></script>
     <script src="./function.js"></script>
-    <script src="./js/d3.min.js"></script>
-<!---->
-
   </head>
+
   <style>
   table, th, td{border:2px solid black;border-collapse: collapse;padding-left: 5px;padding-right: 5px;text-align: center;
     
@@ -26,17 +23,17 @@
     td { font-size: 1.2vh }
       body {font-family: Arial}
   </style>
-  <body style="overflow:hidden">
 
-  <div id="lio_div" style="float:left;width:50%;height:60%;"><div id="map_div" style="width:100%;height: 100%"></div></div>
-  <div id="reo_div" style="float:left;width:40%;height:60%;text-align: center;">
-  <img src="./logo.png" style="width: 40%" >
-  <!--  
-  
-  <img src=".//safe_events_logo-1.png" style="width: 30%" id ="evtlog" onclick="d3.select('#evtlog').remove()" >
-  -->
-  </div>
-  <div id="liu_div" style="float:left;width:60%;height:50%; ">
+  <body style="overflow:hidden">
+    <div id="lio_div" style="float:left;width:50%;height:60%;">
+      <div id="map_div" style="width:100%;height: 100%"></div>
+    </div>
+    
+    <div id="reo_div" style="float:left;width:40%;height:60%;text-align: center;">
+      <img src="./logo.png" style="width: 40%" >
+      <br>
+    </div>
+  <div id="liu_div" style="float:left;width:60%;height:45%; ">
     
   </div>
   <div id="katze"></div>
@@ -256,15 +253,16 @@ heutag =99
   hinterfarbe = true
   settim_slot =0
   layout = 1//0.6
+
   lio =  d3.select('#lio_div').style('width',fenster.breite*0.5+"px").style('height',fenster.hoehe*0.53+"px")
   reo =  d3.select('#reo_div').style('width',fenster.breite*0.5+"px").style('height',fenster.hoehe*0.53+"px").style('overflow',"hidden")
-  liu =  d3.select('#liu_div').style('width',fenster.breite*layout+"px").style('height',fenster.hoehe*0.5+"px")
+  liu =  d3.select('#liu_div').style('width',fenster.breite*layout+"px").style('height',fenster.hoehe*0.49+"px")
 
   // hier geht die Tabelle los
   reo.append('br')
   tidi = reo.append('span').style('margin','auto').text("event"+' - DAY 99 - Time 99:99').style("font-size", "3vh").style("font-weight",700)
   //.on('click',function (){nowbutton()}).style('cursor', 'pointer')
-
+  reo.append('br')
   reo.append('br')
   tabero = reo.append('table').style('width',"100%").style('margin','auto').style('width','95%').style('margin-top',"5px")//.style("font-size", "5px")
   temp = tabero.append('tr').style('background-color',"grey")
@@ -362,14 +360,20 @@ realtime =false
 
   }
   function refresh(){
+  
     if (realtime == true){settim = new Date()}
     temp = settim.getTime()
   currentTimestamp = settim
   draw_arrow()
   draw_marker()
   //slider.property("value",settim_slot)
-
+  Plotly.relayout('liu_div', {'shapes[0].x0': settim, 'shapes[0].x1': settim});
 //hier gehts weiter
+
+
+
+
+
 
   drecks=""
   if(settim.getMinutes()<10){drecks = "0"}
@@ -380,36 +384,11 @@ if (eventsettings.days = 1 && heutag != 99){daytext = ""}else{daytext = " - DAY 
 
   settim_slot = temp - start_graphdata
     settim_slot = Math.round(settim_slot/(60*1000*5))
-
+console.log(settim_slot)
   q=0
+      total_people_cur =0
   Object.keys(graphdata).forEach((key,index) => {
-  //tempart = current[stages_list[q].name]
-  //let  fcol = 
-  /*
-  möglichkeit neue objekte einzufügen und ereignisse 
-  eine ansicht für den nutzer die anders ist als die des desks
-  vlt bekommen die spotter auch die möglichkeit einen grpahen oder zahlen zu sehene. wann ist peakt zb
 
-  mit fingerdruck einen hotspot einzaichnen oder eine zone mit hoher density
-  eine person die die aufgabe hat per kamera daten zu sammeln , vlt bekommt der desk die möglichkeit fragzeichen 
-
-  geplante bzw erwartete bewegungen sollten eingetragenw erden können
-
-  push und pull über bekannte achsen wäre geeignet um per bewegungen vorher zu sehen
-  vlt einzelne dots die 100 personen repräsentieren die über den platz wandern
-
-  feuerwerk einzeichnen
-  timeline befüllen
-
-  isometrische ansicht
-
-  keine frabigen pfeil, oder zumindest kein langes draufbleiben sondern mehrere werden vom system automatisch zusammengefasst
-
-
-
-
-*/
-console.log(key, settim_slot)
 if(key != "x") {if(stages_list[index-1].hide != true)
 {
   if (Math.round(tabellen_data[key][settim_slot][0]) == NaN){alert(tabellen_data[key][settim_slot][0])}
@@ -419,9 +398,10 @@ if(key != "x") {if(stages_list[index-1].hide != true)
 
   tuc[q].text(Math.round(tabellen_data[key][settim_slot][0])+ " %" +pfeil) //*(stages_list[q].capacity/100)))
   tuc[q].style('background-color',farbskala[Math.round(tabellen_data[key][settim_slot][0]/10)]
-
-  //farbskala[(10,Math.round(tabellen_data[key][0].usage[settim_slot]/10))]
+ 
   )
+  
+
   if(isNaN(tabellen_data[key][settim_slot][0])){tuc[q].text("")}
   // ficko
 
@@ -446,37 +426,19 @@ if(key != "x") {if(stages_list[index-1].hide != true)
   //if(isNaN(tabellen_data[key][settim_slot][2])){ttc[q].text("")}
   // tpc[q].style('background-color',farbskala[Math.round(graphdata[key].usage[settim_slot]/15)])
   q++
-
-  }}})
-
-  /*
-
-
-  // tabelle 2 akkuallisieren
-  scan_c = (interpolate_general(ticket_data.tot,ticket_data.time))
-  scan_rate = ticket_data.tot[(ticket_data.tot.length-1)]-ticket_data.tot[ticket_data.tot.length-2]
-
-  l3 = new  Date (ticket_data.time[(ticket_data.tot.length-1)])
-  l4 = new Date (ticket_data.time[(ticket_data.tot.length-2)])
-  l3 = l3.getTime()
-  l4 = l4.getTime()
-  l5 = (l3-l4)/(60*60*1000)            
-  scan_rate = scan_rate / l5          
-
-  l1= (interpolate_general(cr_count.in_tot,cr_count.time))
-  l2 = (interpolate_general(cr_count.out_tot,cr_count.time))
-  onsite_cur = scan_c- graph_data[12].data[settim_slot]
-
-  field_sca.text(scan_c.toLocaleString('en-US'))
-  field_inc.text(l1.toLocaleString('en-US'))
-  field_outc.text(l2.toLocaleString('en-US'))
-
-  field_difc.text((l1-l2).toLocaleString('en-US'))
-  //field_rate.text(scan_rate.toLocaleString('en-US'))
-
-
-*/
+  total_people_cur += Math.round(graphdata[key][settim_slot])
+  console.log(total_people_cur)
+  let  fcol = farbskala[Math.round(tabellen_data[key][settim_slot][0]/10)]
+  let col = farbskala[Math.min(10,Math.round(tabellen_data[key][settim_slot][1])*2)]
+  stages_list[(q-1)].geo.setStyle({fillColor: fcol,
+    color: col,})
   }
+}
+
+
+})
+total_p.text(' Total on Site: ' + Math.round(total_people_cur).toLocaleString('en-US') + " / " + totalCapacity.toLocaleString('en-US'))
+}
   //// diese Funktion ist unter gleichem namen aber mit anderen funktionen in der report ansicht
   function select_area(set_area){
   ;selected_area.name=stages_list[set_area].name;
@@ -573,28 +535,38 @@ if(key != "x") {if(stages_list[index-1].hide != true)
   }}
 
   return Math.round(found)}
-  setInterval(() => {
+  
+  
+
+if(params.get('replay')) {
+  
+  realtime=false;
+  setTimeout(function(){console.log("replay gestartet");autoplay_starten()},1000)
+}
+
+else{  setInterval(() => {
     realtime = true
     refresh()
   
-}, 10000);
-  function autplay_starten (){
-  setTimeout(function(){
-  set_playtime =0
-  setInterval(function(){
+}, 10000);};
 
-  settim= new Date().getTime()
-    settim += (set_playtime*(60*1000*15))-(60*60*1000)
-    settim_slot = set_playtime-4
-    settim = new Date(settim)
-    set_playtime ++
+function autoplay_starten() {
+  settim = new Date(eventsettings.zeitfenster[0][0]);
+  const endTime = new Date(eventsettings.zeitfenster[0][1]);
 
-        refresh()
+  const intervalId = setInterval(function () {
+    settim.setMinutes(settim.getMinutes() + 1);
+    currentTime = settim;
 
-  }
-  ,1000
-  )
+    if (settim > endTime) {
+      clearInterval(intervalId); // Stoppt den Timer
+      console.log("Autoplay beendet – Zeitfenster überschritten");
+      return;
+    }
 
-  },15000)}
+    refresh();
+  }, 100); // alle 100ms = schnell durchlaufen
+}
+
    </script>
 </html>

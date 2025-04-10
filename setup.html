@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="./js/d3.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+    
+  <meta charset="UTF-8">
+  <title>crowdreport (TM)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+     table.spaced-rows {
+    border-collapse: separate;
+    border-spacing: 0 10px; /* 0 horizontal, 10px vertical */
+  }
+  table.spaced-rows td, table.spaced-rows th {
+    background: #e0eaff; /* optional: looks cleaner */
+    padding: 8px;
+    
+  }
+table tr {background: #e0eaff;}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1000px;
+      margin-bottom: 2rem;
+    }
+
+    .header-text {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .logo img {
+      width: 50%;
+      border-radius: 12px;
+      display: block;
+      margin-left: auto;
+    }
+
+    main {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .event {
+      background-color: white;
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .event-title {
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      text-align: center;
+      font-size: 1.2rem;
+    }
+
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .button-group a {
+      text-decoration: none;
+      padding: 0.6rem;
+      text-align: center;
+      background-color: #007acc;
+      color: white;
+      border-radius: 6px;
+      transition: background-color 0.2s ease;
+    }
+
+    .button-group a:hover {
+      background-color: #005fa3;
+    }
+
+    @media (min-width: 768px) {
+      .button-group {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+    .disabled-link {
+  pointer-events: none;
+  color: gray;
+  text-decoration: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-text">Setting up your event.</div>
+    <div class="logo">
+      <img src="logo.png" alt="Logo">
+    </div>
+  </header>
+
+  <main>
+    
+    
+   
+    <div class="event" id="eventdiv">
+     
+      </div>
+<br><br>
+      <div class="event" id="geometrydiv">
+      
+      </div>
+    <!-- Weitere Events hier einfügen -->
+  </main>
+</body>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const namedesevents_short = params.get('event');
+  
+  const firebaseConfig = {
+    apiKey: "AIzaSyBOOdW1SHCwBZSchUJ7DfJZ1a7-dEYTvuQ",
+    authDomain: "crowdcount-678c8.firebaseapp.com",
+    databaseURL: "https://crowdcount-678c8-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "crowdcount-678c8",
+    storageBucket: "crowdcount-678c8.appspot.com",
+    messagingSenderId: "1020533758948",
+    appId: "1:1020533758948:web:23ec6e175dff3b5eedc5f1",
+    measurementId: "G-00674BETEZ"
+  };
+  
+  firebase.initializeApp(firebaseConfig);
+  const database = firebase.database();
+  ref = database.ref(namedesevents_short + '/eventsettings');
+  
+  const defaultSettings = {
+    namelong: "Unnamed Event",
+    spotters: ["nobody"],
+    setview: { center: [0, 0], zoom: [1] },
+    days:1,
+    zeitfenster: [
+      [ "2025-04-24T10:00", "2025-04-24T18:00" ],
+   
+    ]
+  };
+
+  
+  const defaultgeometry = {stage:[{name:"teststage",capacity:999,grids:[[0,0]]}]
+  };
+  
+  let eventsettings = {};
+  
+  ref.once('value', (snapshot) => {
+    eventsettings = snapshot.val() || {};
+    eventsettings = Object.assign({}, defaultSettings, eventsettings);
+    drawSettingsUI(eventsettings);
+  });
+
+  ref2 = database.ref(namedesevents_short + '/geometry');
+  ref2.once('value', (snapshot) => {
+    geometry = snapshot.val() || {};
+    geometry = Object.assign({}, defaultgeometry, geometry);
+   drawgeometryUI(geometry);
+  
+  });
+  function drawgeometryUI(geometry){
+    const container = d3.select("#geometrydiv");
+    container.selectAll('*').remove()
+    container.append('p').text(eventsettings.namelong+ " - Crowd-Areas:").attr("class","event-title")
+  
+    for (i=0;i<geometry.stage.length;i++){
+      let mi = i
+    container.append('p').text('Nr. '+ (i+1))
+    t = container.append('table').attr("class","spaced-rows")
+      th = t.append('tr')
+        th.append("td").text('Name')
+    th.append('td').append('input').attr("value",geometry.stage[i].name).on("change",function(){geometry.stage[mi].name=this.value;drawgeometryUI(geometry)})
+    th = t.append('tr')
+    th.append("td").text('Capacity')
+    th.append('td').append('input').attr("type","number").attr('min',0).attr("value",geometry.stage[i].capacity).on("input",function(){geometry.stage[mi].capacity=this.value})
+    th = t.append('tr')
+    th.append("td").text('Color in graph')
+    th.append('td').append('input').attr("type","color").attr("value",geometry.stage[i].farbe).on("change",function(){geometry.stage[mi].farbe=this.value;drawgeometryUI(geometry)})
+    th = t.append('tr')
+    th.append("td").text('Geometry')
+    th.append('td').append('button').text("Draw Shape").on("click",function(){draw_shape(mi)})
+    }
+    container.append('button').text('Add another area').style("width","30%").on('click',function(){geometry.stage.push({name:"noname"});drawgeometryUI(geometry);})
+  
+    container.append("button")
+      .text("Save areas").style("width","30%")
+      .on("click", () => {
+        ref2.set(geometry).then(() => {
+          alert("Areas saved successfully.");
+        }).catch((error) => {
+          alert("Error saving settings: " + error);
+        });
+      });
+  
+  }
+
+
+  function drawSettingsUI(settings) {
+    const container = d3.select("#eventdiv");
+  container.selectAll('*').remove()
+  container.append('p').text(eventsettings.namelong+" - Settings:").attr("class","event-title")
+  t = container.append('table').attr("class","spaced-rows")
+th = t.append('tr')
+th.append("td").text("Eventdesignation short")
+th.append("td").text(namedesevents_short)
+th = t.append('tr')
+th.append("td").text("Eventname long")
+th.append("td").append("input").attr("value",eventsettings.namelong).on("input",function(){eventsettings.namelong=this.value})
+th = t.append('tr')
+th.append("td").text("Standard mapcenter")
+td = th.append("td")
+td.append("input").attr("value",eventsettings.setview.center[0]).on("input",function(){eventsettings.setview.center[0]=this.value})
+td.append("input").attr("value",eventsettings.setview.center[1]).on("input",function(){eventsettings.setview.center[1]=this.value})
+
+th = t.append('tr')
+th.append("td").text("Standard mapzoom")
+th.append("td").append("input").attr("value",eventsettings.setview.zoom).on("input",function(){eventsettings.setview.zoom=this.value})
+th = t.append('tr')
+th.append("td").text("Crowd Safety Advisors")
+td = th.append("td")
+for(i=0;i<eventsettings.spotters.length;i++){
+  let li =i
+
+td.append("input").attr("value",eventsettings.spotters[i]).on("change",function(){eventsettings.spotters[li]=this.value;console.log(eventsettings)})
+td.append('button').text('Remove').on('click',function(){eventsettings.spotters.splice(li, 1);drawSettingsUI(settings);})
+if(i==eventsettings.spotters.length-1){
+  td.append('br')
+  td.append('button').text('Add another CSA').on('click',function(){eventsettings.spotters.push("nobody");drawSettingsUI(settings);console.log(eventsettings)})
+}
+td.append('br')
+}
+th = t.append('tr')
+//th.append("td").text("Eventdays")
+//th.append("td").append("input").attr("type","number").attr("value",eventsettings.days).attr("min",0).on("input",function(){eventsettings.days=this.value;drawSettingsUI(settings)})
+//th = t.append('tr')
+th.append("td").text("Timewindows")
+th = th.append("td")
+for(i=0;i<eventsettings.zeitfenster.length;i++){
+  console.log(i)
+  let fi =i
+th.append("span").text("Day: "+(i+1)+ " ")
+th.append("input").attr("type","datetime-local").attr("value",eventsettings.zeitfenster[fi][0])
+th.append("input").attr("type","datetime-local").attr("value",eventsettings.zeitfenster[fi][1])
+th.append('button').text('Remove').on('click',function(){eventsettings.zeitfenster.splice(fi, 1);drawSettingsUI(settings);})
+
+if(i==eventsettings.zeitfenster.length-1){
+  th.append('br')
+  th.append('button').text('Add another day').on('click',function(){eventsettings.zeitfenster.push(["",""]);drawSettingsUI(settings);console.log(eventsettings)})
+}
+th.append('br')
+
+}
+    // Save button
+    container.append("button")
+      .text("Save Settings").style("width","30%")
+      .on("click", () => {
+        ref.set(eventsettings).then(() => {
+          alert("Settings saved successfully.");
+        }).catch((error) => {
+          alert("Error saving settings: " + error);
+        });
+      });
+  }
+
+ 
+
+  </script>
+  
+</html>

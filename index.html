@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="./js/d3.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+  <meta charset="UTF-8">
+  <title>crowdreport (TM)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1000px;
+      margin-bottom: 2rem;
+    }
+
+    .header-text {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .logo img {
+      width: 50%;
+      border-radius: 12px;
+      display: block;
+      margin-left: auto;
+    }
+
+    main {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .event {
+      background-color: white;
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .event-title {
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      text-align: center;
+      font-size: 1.2rem;
+    }
+
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .button-group a {
+      text-decoration: none;
+      padding: 0.6rem;
+      text-align: center;
+      background-color: #007acc;
+      color: white;
+      border-radius: 6px;
+      transition: background-color 0.2s ease;
+    }
+
+    .button-group a:hover {
+      background-color: #005fa3;
+    }
+
+    @media (min-width: 768px) {
+      .button-group {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+    .disabled-link {
+  pointer-events: none;
+  color: gray;
+  text-decoration: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-text">Meine Event-Links</div>
+    <div class="logo">
+      <img src="logo.png" alt="Logo">
+    </div>
+  </header>
+
+  <main>
+    
+
+    <div class="event">
+      <div class="event-title">1001 Nights - 24th and 25th April 2025 </div>
+      <div class="button-group">
+        <a  href="CMD.html?event=TON25">Command</a>
+        <a href="CSA.html?event=TON25">CSA</a>
+        <a class="disabled-link" >Review</a>
+        <a  href="setup.html?event=TON25">Setup</a>
+      </div>
+    </div>
+    <div class="event">
+        <div class="event-title">F1 SAGP ARC - 19th and 20th April 2025</div>
+        <div class="button-group">
+            <a  href="CMD.html?event=ARC25">Command</a>
+            <a  href="CSA.html?event=ARC25">CSA</a>
+          <a class="disabled-link" href="evt002/setup.html">Review</a>
+          <a  href="setup.html?event=ARC25">Setup</a>
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-title">Keinemusik 2025 - 4th April 2025</div>
+        <div class="button-group">
+          <a class="disabled-link" href="CMD.html?event=KM25">Command</a>
+          <a class="disabled-link" href="CSA.html?event=KM25">CSA</a>
+          <a href="CMD.html?event=KM25&replay=true">Review</a>
+          <a class="disabled-link" href="evt002/setup.html">Setup</a>
+       
+        </div>
+      </div>
+
+
+    <!-- Weitere Events hier einfügen -->
+  </main>
+</body>
+<script>
+    
+
+const params = new URLSearchParams(window.location.search);
+ adminmode = params.get('admin');
+
+
+if(adminmode){d3.select('body').append("button").text("neues event").on("click",function(){neues_event()})}
+const firebaseConfig = {
+apiKey: "AIzaSyBOOdW1SHCwBZSchUJ7DfJZ1a7-dEYTvuQ",
+authDomain: "crowdcount-678c8.firebaseapp.com",
+databaseURL: "https://crowdcount-678c8-default-rtdb.europe-west1.firebasedatabase.app",
+projectId: "crowdcount-678c8",
+storageBucket: "crowdcount-678c8.appspot.com",
+messagingSenderId: "1020533758948",
+appId: "1:1020533758948:web:23ec6e175dff3b5eedc5f1",
+measurementId: "G-00674BETEZ"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+database = firebase.database();
+
+function neues_event(){
+    
+
+databaseRef = database.ref("TON25")
+
+databaseRef.set({"test":true})
+
+}
+
+
+</script>
+</html>

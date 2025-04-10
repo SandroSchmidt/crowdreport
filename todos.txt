@@ -8,7 +8,12 @@
 - Methods of Sensors - 4 or 5 staff on ground who'll need to be added to report - names to follow closer and ticket scans in
 
 
+ZEITZONE EINSTELLEN UND NCIHT VOM PC NEHMEN!!!!
 
+TESTUMGEBUNG !!!
+andere browser checken, apple
+
+Die eingaben bei in counts editierbar machen
 
 TODOS für crowdreport
 - die marker werden nicht richtig angezeigt

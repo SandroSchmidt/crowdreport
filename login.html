@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Passwortgeschützte Firebase App</title>
+  <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js"></script>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; background: #f5f5f5; }
+    input { margin: 0.5rem 0; padding: 0.4rem; width: 250px; display: block; }
+    button { padding: 0.4rem 1rem; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+  <h1>Geschützte Firebase App</h1>
+
+  <div id="pw-section">
+    <input type="password" id="sharedPassword" placeholder="Passwort eingeben">
+    <button id="accessBtn">Zugang</button>
+    <p id="pwFeedback" style="color: red;"></p>
+  </div>
+
+  <div id="main" class="hidden">
+    <h2>Neues Event</h2>
+    <input type="text" id="eventId" placeholder="Event-ID (z. B. EVT001)">
+    <input type="text" id="eventName" placeholder="Event-Name">
+    <button id="saveBtn">Speichern</button>
+
+    <h3>Alle Events:</h3>
+    <ul id="eventList"></ul>
+  </div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "DEIN_API_KEY",
+      authDomain: "DEIN_PROJEKT.firebaseapp.com",
+      databaseURL: "https://DEIN_PROJEKT.firebaseio.com",
+      projectId: "DEIN_PROJEKT_ID",
+      appId: "DEINE_APP_ID"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    const db = firebase.database();
+    const auth = firebase.auth();
+
+    const SHARED_PASSWORD = "geheim123";  // <-- Dein gemeinsames Passwort
+
+    document.getElementById("accessBtn").onclick = () => {
+      const entered = document.getElementById("sharedPassword").value;
+      if (entered === SHARED_PASSWORD) {
+        loginAnonym();
+      } else {
+        document.getElementById("pwFeedback").textContent = "Falsches Passwort.";
+      }
+    };
+
+    function loginAnonym() {
+      firebase.auth().signInAnonymously().catch(err => {
+        alert("Fehler beim Anmelden: " + err.message);
+      });
+    }
+
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        document.getElementById("pw-section").classList.add("hidden");
+        document.getElementById("main").classList.remove("hidden");
+        loadEvents();
+      }
+    });
+
+    document.getElementById("saveBtn").onclick = () => {
+      const id = document.getElementById("eventId").value;
+      const name = document.getElementById("eventName").value;
+      if (!id || !name) return alert("Bitte ID und Name angeben.");
+      db.ref("events/" + id).set({ name: name, createdAt: Date.now() });
+    };
+
+    function loadEvents() {
+      const list = document.getElementById("eventList");
+      db.ref("events").on("value", snapshot => {
+        const data = snapshot.val();
+        list.innerHTML = "";
+        for (const id in data) {
+          const li = document.createElement("li");
+          li.textContent = `${id}: ${data[id].name}`;
+          list.appendChild(li);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

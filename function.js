@@ -12,10 +12,9 @@ isZooming = false
 swipes_arr =[]
 eventmarkertoggle = false
 locked = true
-//imageBounds = [ [   26.68844,    37.98063  ],  [    26.69171,    37.984  ]]
-imageBounds = [ [   26.68842,    37.97992 ],  [   26.69165,    37.98496 ]]
 currentTimestamp = new Date()
 set_area=0
+settim = new Date()
 swipemode = false
 set_name ="wrong reporter"
 eigensymbole_arr =[]
@@ -43,7 +42,7 @@ return roundedTime
 }
 
 function read_a_day(jahr,tager){
-console.log("reading a day: year: "+ jahr+ " - day " + tager)
+
 
 ref = database.ref(namedesevents_short+'/day'+tager);
 ref.on('value', (snapshot) => {
@@ -72,12 +71,12 @@ for( i = 0;i<(24*60);i += (5)){
 }
 
 for (const key in daydata){
-  //console.log(stages_list[key])
+
  cap = capa_array[key]
   for(o=0;o<daydata[key].usage.length;o++){
     timeslot = daydata[key].zeit[o] - start_graphdata
     timeslot = Math.round(timeslot/(60*1000*5))
-    console.log(key)
+  
     graphdata[key][timeslot] = cap*daydata[key].usage[o]/100
    
     tabellen_data[key][timeslot] = [daydata[key].usage[o],daydata[key].density[o],daydata[key].tension[o] ,(cap* daydata[key].usage[o]/100)]
@@ -92,7 +91,7 @@ for (i=0;i<288;i++){
 if(graphdata[key][i] == 'x'){graphdata[key][i] = graphdata[key][i-1] }
 
 }}
-console.log(graphdata)
+
 if(mode=="cmd"){  balad_plot_malen(graphdata)  }
 
 
@@ -100,7 +99,8 @@ if(mode=="cmd"){  balad_plot_malen(graphdata)  }
 }
 function draw_arrow(){
   movement_layer.clearLayers()  
-if(realtime == true){drawjetzt = new Date().getTime();puffer =0}else{drawjetzt=settim;puffer = (1000*60*7)}
+if(realtime == true){drawjetzt = new Date().getTime();puffer =0}
+else{drawjetzt=settim;puffer = (1000*60*7)}
   
 
     for (let lil=0;lil < swipes_arr.length;lil++){
@@ -137,9 +137,8 @@ if(realtime == true){drawjetzt = new Date().getTime();puffer =0}else{drawjetzt=s
 
 }
 function initialise_firebase(){
-  if (mode == "cmd"){
-    d3.select("title").text(namedesevents_short + " - crowdreport")
-    }else {d3.select("title").text(namedesevents_short + " - spotter")  }
+  if (mode == "cmd"){d3.select("title").text(namedesevents_short + " - crowdreport")}
+  if (mode == "csa") {d3.select("title").text(namedesevents_short + " - CSA")  }
     
 const firebaseConfig = {
 apiKey: "AIzaSyBOOdW1SHCwBZSchUJ7DfJZ1a7-dEYTvuQ",
@@ -180,12 +179,27 @@ databaseRef.once('value')
     .then(snapshot => {
         // Process the snapshot data here
         eventsettings = snapshot.val();
-        if(overridedisplay9==false && deviceversion != eventsettings.version){alert("You are using an old version("+deviceversion+") of the crowdreport app. the current version is "+eventsettings.version+". please reload the site!")}              
+
+     if(overridedisplay9==false && deviceversion != eventsettings.version){alert("You are using an old version("+deviceversion+") of the crowdreport app. the current version is "+eventsettings.version+". please reload the site!")}              
+    if(eventsettings.cad)  {imageUrl ="./cad/"+eventsettings.cad}else{imageUrl =""}
+
+        imageOverlay = L.imageOverlay(imageUrl, eventsettings.imagebounds, { opacity: 1 })
+        imageOverlay2 = L.imageOverlay(imageUrl, eventsettings.imagebounds, { opacity: 0.6 }).addTo(mymap);
+        L.control.layers(
+          {"CAD": imageOverlay,"CAD 50%": imageOverlay2,"dark":Jawg_Matrix ,"light": tl1,"sat":mapboxLayer },
+          {"stages":stages_layer,"blocks":green_layer,"spotter+marker":eigensymbole_layer,"crowdflow" :movement_layer,
+        "medical":aidstations_layer,"Emergency routes":flucht_layer}).addTo(mymap);
+        
         mymap.setView(eventsettings.setview.center,eventsettings.setview.zoom)
        
+if(mode=="map"){d3.select('#imgstr1').attr("value",eventsettings.imagebounds[0][0])
+  d3.select('#imgstr2').attr("value",eventsettings.imagebounds[0][1])
+  d3.select('#imgstr3').attr("value",eventsettings.imagebounds[1][0])
+  d3.select('#imgstr4').attr("value",eventsettings.imagebounds[1][1])}
+
         jetzt = new Date().getTime()
         if(jetzt < new Date(eventsettings.zeitfenster[0][0]).getTime()-(3*60*60*1000))
-          {heutag = 99;console.log("Event has not started yet!")
+          {heutag = 99;
             start_graphdata = new Date()
             temp = 0 
             if(start_graphdata.getHours()<12){temp = (24*60*60*1000)}
@@ -387,23 +401,7 @@ ref.on('value', (snapshot) => {
 current = snapshot.val()
 if(current==undefined){console.log('no current data')}
 
-total_people_cur =0
-for(i=0;i<stages_list.length;i++){
-    if(current[stages_list[i].name] != undefined ){
-      if(stages_list[i].hide != true){
-        total_people_cur += ((current[stages_list[i].name].usage/100) *stages_list[i].capacity)}
-        let temp = current[stages_list[i].name]
-        let  fcol = farbskala[Math.round(temp.usage/10)]
-        let col = farbskala[Math.min(10,Math.round(temp.density)*2)]
-        stages_list[i].geo.setStyle({
-            fillOpacity:0.6,
-            fillColor: fcol,
-            color: col,
-            "weight": 3})
-    }
-}
-console.log(total_people_cur)
-total_p.text(' Total on Site: ' + Math.round(total_people_cur).toLocaleString('en-US') + " / " + totalCapacity.toLocaleString('en-US'))
+update_map()
 /*
 for (i=0;i<parking_list.length;i++){
 temp = current["parking lot "+ (i+1)].usage
@@ -610,10 +608,9 @@ function initialise_map(){
   resticon = L.icon({  iconUrl: './icons/restroom.png',  iconSize:     [20, 20],  iconAnchor:   [10, 10]})
 // Karte und Hintergründe
 
-if (overridedisplay9){ mymap.zoomControl.remove();}
 
-// mymap.on('zoomend', function() {setviewzoom = mymap.getZoom()});
-// mymap.on('moveend', function() { mapaa = (mymap.getCenter(),mymap.getCenter());setviewmap=[mapaa.lat,mapaa.lng]});
+ mymap.on('zoomend', function() {eventsettings.setview.zoom = mymap.getZoom()});
+ mymap.on('moveend', function() {eventsettings.setview.center =mymap.getCenter()});
 
 
 
@@ -622,14 +619,14 @@ opacity: 0.8,      attribution: '&copy; <a href="https://openstreetmap.org/copyr
 maxZoom: 25,
 });
 
-var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+ Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
 attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
 maxZoom: 25,
 
 })
 
-var mapboxToken = 'pk.eyJ1Ijoic2FuZHJvc2NobWlkdCIsImEiOiJjbHg3bTMxYmwxMXZiMmtzY2tlN3RjNGY5In0.2whcv8hzfzdyukPAXWwSPw'; // Ersetze durch deinen eigenen API-Token
-var mapboxLayer = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-v9/tiles/{z}/{x}/{y}?access_token=' + mapboxToken, {
+ mapboxToken = 'pk.eyJ1Ijoic2FuZHJvc2NobWlkdCIsImEiOiJjbHg3bTMxYmwxMXZiMmtzY2tlN3RjNGY5In0.2whcv8hzfzdyukPAXWwSPw'; // Ersetze durch deinen eigenen API-Token
+ mapboxLayer = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-v9/tiles/{z}/{x}/{y}?access_token=' + mapboxToken, {
     attribution: 'Map data &copy; <a href="https://www.mapbox.com/">Mapbox</a>',
    maxZoom: 25, // Unterstützt sehr hohe Zoomstufen
     tileSize: 512,
@@ -638,7 +635,7 @@ var mapboxLayer = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite
 });
 
 
-var Jawg_Matrix =  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+ Jawg_Matrix =  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
 subdomains: 'abcd',
 maxZoom: 25
@@ -646,14 +643,7 @@ maxZoom: 25
 
 
 //imageUrl ="./25memer.png"
-imageUrl ="./km25mapg.svg"
-//const imageBounds = [ [25.013,46.4805],[24.988092848232725, 46.53216767460525]];
 
-//kleine musik 1 ... imageBounds = [ [   26.68844,    37.98063  ],  [    26.69171,    37.984  ]];//
-//alt  [[ 25.00124, 46.49093],[24.99111, 46.5245]];
-
-imageOverlay = L.imageOverlay(imageUrl, imageBounds, { opacity: 1 })
-imageOverlay2 = L.imageOverlay(imageUrl, imageBounds, { opacity: 0.6 }).addTo(mymap);
 
 
 
@@ -737,22 +727,23 @@ fullscreenButton.addTo(mymap);
 //let polygon = L.polygon(inert_arr[f].coords, {color: inert_arr[f].color}).bindTooltip(inert_arr[f].name).addTo(l)}
 
 
-
+if(medstations){
 for (f=0;f<medstations.length;f++) {medstations[f].geo = L.marker(medstations[f].coords,{icon:medicon}).bindTooltip(medstations[f].name)
-//medstations[f].geo .on("mouserover",function(e){this.openPopup()})
-medstations[f].geo.addTo(aidstations_layer)}
+  medstations[f].geo.addTo(aidstations_layer)}
+}//medstations[f].geo .on("mouserover",function(e){this.openPopup()})
+
 //for (f=0;f<greening_arr.length;f++) {let fu = f;L.polygon(greening_arr[f].coords, {color: 'green', "weight": 1,"opacity": 0.65, "fillOpacity":0.5 }).bindTooltip(greening_arr[f].name).addTo(green_layer)}
+if(restrooms){
 for (f=0;f<restrooms.length;f++) {L.marker(restrooms[f],{icon:resticon}).addTo(green_layer)}
 //for (f=0;f<hinter.length;f++)       {let fu = f;L.polygon(hinter[f].coords, {color: 'none' ,"weight": 0,"fillOpacity": 0.7,"fillColor":"grey"}).addTo(green_layer)}
 //for (f=0;f<vib_arr.length;f++)      {let fu = f;L.polygon(vib_arr[f].coords,{fillColor: '#6e737a',fillOpacity:1,color:"black",weight:1}).bindTooltip(vib_arr[f].name).addTo(green_layer)}
-
+}
 // Layercontroll
+if(blocking_arr){
 for (f=0;f<blocking_arr.length;f++) {let fu = f; L.polygon(blocking_arr[f].coords, {fillColor: "grey",color:"black", "weight": 1,"opacity": 1,fillOpacity:0.8}).bindTooltip(blocking_arr[f].name).addTo(green_layer)}
+}
 mymap.addControl(new L.Control.Fullscreen());
-    L.control.layers(
-      {"CAD": imageOverlay,"CAD 50%": imageOverlay2,"dark":Jawg_Matrix ,"light": tl1,"sat":mapboxLayer },
-      {"stages":stages_layer,"blocks":green_layer,"spotter+marker":eigensymbole_layer,"crowdflow" :movement_layer,
-    "medical":aidstations_layer,"Emergency routes":flucht_layer}).addTo(mymap);
+    
       
   
   //  "parking lots":parkinglot_layer,"op-zones":zones_layer
@@ -826,6 +817,7 @@ isZooming = false;
 
 // Bühnen einmalen
 stages_geo=[]
+console.log(stages_list.length)
 for(i=0;i<stages_list.length;i++)
 {if(stages_list[i].coords != "donotdraw"){
   
@@ -1287,7 +1279,7 @@ function getTimeOfDay(milliseconds) {
 
 function set_swipemode(){
   if(swipemode){
-    console.log("swipemodus an")
+ 
     mymap.dragging.disable();
     mymap.touchZoom.disable();
     d3.select(mymap.getContainer())
@@ -1313,7 +1305,7 @@ function set_swipemode(){
       
             if (locked || deviceversion != eventsettings.version) {
               infotag.text('can not send swipes when -LOCKED-')
-              console.log("swipe while locked")
+        
               return;
               }
               else{
@@ -1343,10 +1335,30 @@ function set_swipemode(){
           .on("touchstart", null)
           .on("touchend", null);
         
-          console.log("drag anstelle von swipe")
+
   
 }}
+
+function update_map(){
+  total_people_cur =0
+for(i=0;i<stages_list.length;i++){
+    if(current[stages_list[i].name] != undefined ){
+      if(stages_list[i].hide != true){
+        total_people_cur += ((current[stages_list[i].name].usage/100) *stages_list[i].capacity)}
+        let temp = current[stages_list[i].name]
+        let  fcol = farbskala[Math.round(temp.usage/10)]
+        let col = farbskala[Math.min(10,Math.round(temp.density)*2)]
+        stages_list[i].geo.setStyle({
+            fillOpacity:0.6,
+            fillColor: fcol,
+            color: col,
+            "weight": 3})
+    }
+}
+
+total_p.text(' Total on Site: ' + Math.round(total_people_cur).toLocaleString('en-US') + " / " + totalCapacity.toLocaleString('en-US'))
+}
 // TODO: das hier ist irgendwie wichtig wegen der veränderung der map-fanster. wenn man das raus nimmt wird die map nicht richtig gerendert:
 setTimeout(function() {
   mymap.invalidateSize();
-}, 500);
+}, 5000);

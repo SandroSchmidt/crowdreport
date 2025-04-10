@@ -2,9 +2,9 @@
 <html lang="de">
     <head>
         <meta charset="UTF-8" />
-        <title>MAP-MAP-MAP</title>
+        <title>MAP-EDIT</title>
         <script src="./js/d3.min.js"></script>
-        <script src="./js/plotly-2.16.1.min.js"></script>
+  
         
          <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
          <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
@@ -20,7 +20,7 @@
         <script src="./data.js"></script>
         
         <script src="./function.js"></script>
-       <script src="./js/d3.min.js"></script>
+
 
 
       </head>
@@ -46,15 +46,28 @@
         
         <span id="infotag"></span>
 
-        <input id ="imgstr1" type="number" step=0.00001 onchange="imageBounds[0][0]=this.value;imageOverlay.setBounds(imageBounds);">
-        <input id ="imgstr2" type="number" step=0.00001 onchange="imageBounds[0][1]=this.value;imageOverlay.setBounds(imageBounds);">
-        <input id ="imgstr3" type="number" step=0.00001 onchange="imageBounds[1][0]=this.value;imageOverlay.setBounds(imageBounds);">
-        <input id ="imgstr4" type="number" step=0.00001 onchange="imageBounds[1][1]=this.value;imageOverlay.setBounds(imageBounds); ">
+        <input id ="imgstr1" type="number" step=0.00001 onchange="eventsettings.imagebounds[0][0]=this.value;imageOverlay.setBounds(eventsettings.imagebounds);">
+        <input id ="imgstr2" type="number" step=0.00001 onchange="eventsettings.imagebounds[0][1]=this.value;imageOverlay.setBounds(eventsettings.imagebounds);">
+        <input id ="imgstr3" type="number" step=0.00001 onchange="eventsettings.imagebounds[1][0]=this.value;imageOverlay.setBounds(eventsettings.imagebounds);">
+        <input id ="imgstr4" type="number" step=0.00001 onchange="eventsettings.imagebounds[1][1]=this.value;imageOverlay.setBounds(eventsettings.imagebounds); ">
 
 
      </body>
+
+     
     <script>
-mode = "editor"
+        d3.select('body').append("button")
+      .text("Save Settings").style("width","30%")
+      .on("click", () => {
+        ref = database.ref(namedesevents_short + '/eventsettings');
+  
+        ref.set(eventsettings).then(() => {
+          alert("Settings saved successfully.");
+        }).catch((error) => {
+          alert("Error saving settings: " + error);
+        });
+      });
+mode = "map"
 stages_list = []
 const mymap = L.map('map_div',{zoomSnap: 0.1, dragging: false,minZoom:1,maxZoom:25}).setView([0,0],17.8)
 p_geometrie= d3.select('body').append('p')
@@ -64,11 +77,8 @@ d3.select('body').append('button').text("neu geo").on('click', function(){
   p_geometrie.text(coordinatesArray)
 
 })
-console.log(imageBounds)
-d3.select('#imgstr1').attr("value",imageBounds[0][0])
-d3.select('#imgstr2').attr("value",imageBounds[0][1])
-d3.select('#imgstr3').attr("value",imageBounds[1][0])
-d3.select('#imgstr4').attr("value",imageBounds[1][1])
+
+
 
 total_p = d3.select("body").append('p')
 
@@ -227,16 +237,7 @@ nurwegenneon ="Neon"
       temp2.append("td").text("-").style("width","15%")
    
 
-      slider =  d3.select('#katze').append('input').attr('type','range').style('width',"96%").style('height',"3%").style('margin','auto').style('display', 'block')
-     .attr('max',56).attr('min',0).attr('step',1).on('change',
-         function(){
-          settim= new Date()
-          settim += (this.value*(60*1000*15))-(60*60*1000)
-          settim_slot = this.value-4
-          settim = new Date(settim)
-        
-
-              refresh();})
+     
       
 
       but_div = d3.select('body').append('div')//.style("position", "absolute").style("bottom", "35px")
