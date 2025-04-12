@@ -33,6 +33,8 @@ count_data=[[0]]
 const params = new URLSearchParams(window.location.search);
  namedesevents_short = params.get('event');
 
+ if(!namedesevents_short){alert("No active Event selected.")}
+
 function round5min(time){
 const msInFiveMinutes = 5 * 60 * 1000; // 5 minutes in milliseconds
 
@@ -74,7 +76,7 @@ for (const key in daydata){
 
  cap = capa_array[key]
   for(o=0;o<daydata[key].usage.length;o++){
-    timeslot = daydata[key].zeit[o] - start_graphdata
+    timeslot = daydata[key].zeit[o] - start_graphdata 
     timeslot = Math.round(timeslot/(60*1000*5))
   
     graphdata[key][timeslot] = cap*daydata[key].usage[o]/100
@@ -177,6 +179,7 @@ databaseRef = database.ref(namedesevents_short+'/eventsettings');
 // Read the data once
 databaseRef.once('value')
     .then(snapshot => {
+      console.log("Settings gelesen ")
         // Process the snapshot data here
         eventsettings = snapshot.val();
 
@@ -185,17 +188,14 @@ databaseRef.once('value')
 
         imageOverlay = L.imageOverlay(imageUrl, eventsettings.imagebounds, { opacity: 1 })
         imageOverlay2 = L.imageOverlay(imageUrl, eventsettings.imagebounds, { opacity: 0.6 }).addTo(mymap);
-        L.control.layers(
+        layercontrol = L.control.layers(
           {"CAD": imageOverlay,"CAD 50%": imageOverlay2,"dark":Jawg_Matrix ,"light": tl1,"sat":mapboxLayer },
           {"stages":stages_layer,"blocks":green_layer,"spotter+marker":eigensymbole_layer,"crowdflow" :movement_layer,
         "medical":aidstations_layer,"Emergency routes":flucht_layer}).addTo(mymap);
         
         mymap.setView(eventsettings.setview.center,eventsettings.setview.zoom)
        
-if(mode=="map"){d3.select('#imgstr1').attr("value",eventsettings.imagebounds[0][0])
-  d3.select('#imgstr2').attr("value",eventsettings.imagebounds[0][1])
-  d3.select('#imgstr3').attr("value",eventsettings.imagebounds[1][0])
-  d3.select('#imgstr4').attr("value",eventsettings.imagebounds[1][1])}
+
 
         jetzt = new Date().getTime()
         if(jetzt < new Date(eventsettings.zeitfenster[0][0]).getTime()-(3*60*60*1000))
@@ -220,8 +220,10 @@ if(mode=="map"){d3.select('#imgstr1').attr("value",eventsettings.imagebounds[0][
         
         console.log("heuttag: "+ heutag)
       
-        read_current()
-        read_a_day(25,heutag)
+        if (mode != "map"){read_current()
+           read_a_day(25,heutag)
+        }
+       
       
 namedesevents_long = eventsettings.namelong
       })
@@ -817,12 +819,12 @@ isZooming = false;
 
 // Bühnen einmalen
 stages_geo=[]
-console.log(stages_list.length)
+
 for(i=0;i<stages_list.length;i++)
 {if(stages_list[i].coords != "donotdraw"){
-  
-  console.log("male" + i)
+
 let zi =i 
+if(stages_list[i].coords == undefined){stages_list[i].coords =[]}
 f = L.polygon(stages_list[i].coords, {color: '#99ff66'}).bindTooltip(stages_list[i].name)
 //.on('mouseover',function(){this.setStyle({color:"red"})})
 .on('click',function(){
@@ -834,7 +836,8 @@ select_area(zi)
 stages_list[i].geo = f
 }}
 
-for(i=0;i<fluchtrouten.length;i++)
+if(fluchtrouten)
+{for(i=0;i<fluchtrouten.length;i++)
  { 
 var polyline = L.polyline(fluchtrouten[i], {
   color: 'red',
@@ -842,7 +845,7 @@ var polyline = L.polyline(fluchtrouten[i], {
   opacity: 0.7,
   dash: [0,5]
 }).addTo(flucht_layer);
-
+}
 // Add arrows to the polyline using PolylineDecorator
 var decorator = L.polylineDecorator(polyline, {
   patterns: [

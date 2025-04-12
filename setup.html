@@ -7,7 +7,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
-    
+    <link rel="stylesheet" href="./js/crstyle.css"/>
   <meta charset="UTF-8">
   <title>crowdreport (TM)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -68,55 +68,7 @@ table tr {background: #e0eaff;}
       gap: 1.5rem;
     }
 
-    .event {
-      background-color: white;
-      border-radius: 12px;
-      padding: 1rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-      display: flex;
-      flex-direction: column;
-    }
 
-    .event-title {
-      font-weight: 600;
-      margin-bottom: 0.8rem;
-      text-align: center;
-      font-size: 1.2rem;
-    }
-
-    .button-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .button-group a {
-      text-decoration: none;
-      padding: 0.6rem;
-      text-align: center;
-      background-color: #007acc;
-      color: white;
-      border-radius: 6px;
-      transition: background-color 0.2s ease;
-    }
-
-    .button-group a:hover {
-      background-color: #005fa3;
-    }
-
-    @media (min-width: 768px) {
-      .button-group {
-        flex-direction: row;
-        justify-content: space-between;
-      }
-    }
-    .disabled-link {
-  pointer-events: none;
-  color: gray;
-  text-decoration: none;
-  opacity: 0.5;
-  cursor: not-allowed;
-}
   </style>
 </head>
 <body>
@@ -204,14 +156,19 @@ table tr {background: #e0eaff;}
     th.append('td').append('input').attr("value",geometry.stage[i].name).on("change",function(){geometry.stage[mi].name=this.value;drawgeometryUI(geometry)})
     th = t.append('tr')
     th.append("td").text('Capacity')
-    th.append('td').append('input').attr("type","number").attr('min',0).attr("value",geometry.stage[i].capacity).on("input",function(){geometry.stage[mi].capacity=this.value})
+    th.append('td').append('input').attr("type","number").attr('min',0).attr("value",geometry.stage[i].capacity).on("input",function(){geometry.stage[mi].capacity=parseInt(this.value)})
     th = t.append('tr')
     th.append("td").text('Color in graph')
     th.append('td').append('input').attr("type","color").attr("value",geometry.stage[i].farbe).on("change",function(){geometry.stage[mi].farbe=this.value;drawgeometryUI(geometry)})
     th = t.append('tr')
     th.append("td").text('Geometry')
     th.append('td').append('button').text("Draw Shape").on("click",function(){draw_shape(mi)})
+    container.append('button').text('Remove this area').style("width","30%").on('click',function(){geometry.stage.splice(mi, 1);drawgeometryUI(geometry);})
+   
     }
+    container.append('br')
+    container.append('hr')
+    container.append('br')
     container.append('button').text('Add another area').style("width","30%").on('click',function(){geometry.stage.push({name:"noname"});drawgeometryUI(geometry);})
   
     container.append("button")
@@ -241,8 +198,8 @@ th.append("td").append("input").attr("value",eventsettings.namelong).on("input",
 th = t.append('tr')
 th.append("td").text("Standard mapcenter")
 td = th.append("td")
-td.append("input").attr("value",eventsettings.setview.center[0]).on("input",function(){eventsettings.setview.center[0]=this.value})
-td.append("input").attr("value",eventsettings.setview.center[1]).on("input",function(){eventsettings.setview.center[1]=this.value})
+td.append("input").attr("value",eventsettings.setview.center.lat).on("input",function(){eventsettings.setview.center.lat=this.value})
+td.append("input").attr("value",eventsettings.setview.center.lng).on("input",function(){eventsettings.setview.center.lng=this.value})
 
 th = t.append('tr')
 th.append("td").text("Standard mapzoom")
@@ -271,8 +228,8 @@ for(i=0;i<eventsettings.zeitfenster.length;i++){
   console.log(i)
   let fi =i
 th.append("span").text("Day: "+(i+1)+ " ")
-th.append("input").attr("type","datetime-local").attr("value",eventsettings.zeitfenster[fi][0])
-th.append("input").attr("type","datetime-local").attr("value",eventsettings.zeitfenster[fi][1])
+th.append("input").attr("type","datetime-local").attr("value",eventsettings.zeitfenster[fi][0]).on('change',function(){eventsettings.zeitfenster[fi][0]=this.value})
+th.append("input").attr("type","datetime-local").attr("value",eventsettings.zeitfenster[fi][1]).on('change',function(){eventsettings.zeitfenster[fi][1]=this.value})
 th.append('button').text('Remove').on('click',function(){eventsettings.zeitfenster.splice(fi, 1);drawSettingsUI(settings);})
 
 if(i==eventsettings.zeitfenster.length-1){
