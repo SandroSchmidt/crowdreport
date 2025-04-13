@@ -127,7 +127,34 @@ reo.append("button").text("neu geo").on('click', function(){
       });
 
       layercontrol.addOverlay(imageOverlay2, "CAD 50%");
-}, 500);
+
+
+      welchesareanr = params.get('area');
+      if(welchesareanr){
+              polygonLayer = L.polygon(stages_list[welchesareanr].coords, {
+    color: 'blue',
+    fillColor: 'skyblue',
+    fillOpacity: 0.5,
+  }).addTo(mymap);
+        updatePolygonCoordinates()
+      }
+
+
+
+
+     reo.append("button")
+      .text("Save area").style("width","30%")
+      .on("click", () => {
+        ref3 =    ref2 = database.ref(namedesevents_short + '/geometry/stage/'+welchesareanr+'/coords'); 
+        ref3.set(coordinatesArray).then(() => {
+          alert("Areas saved successfully.");
+        }).catch((error) => {
+          alert("Error saving settings: " + error);
+        });
+      });
+  
+
+}, 1000);
 
      
 /*

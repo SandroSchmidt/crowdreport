@@ -124,7 +124,7 @@ table tr {background: #e0eaff;}
   };
 
   
-  const defaultgeometry = {stage:[{name:"teststage",capacity:999,grids:[[0,0]]}]
+  const defaultgeometry = {stage:[{name:"teststage",capacity:999}]
   };
   
   let eventsettings = {};
@@ -162,7 +162,11 @@ table tr {background: #e0eaff;}
     th.append('td').append('input').attr("type","color").attr("value",geometry.stage[i].farbe).on("change",function(){geometry.stage[mi].farbe=this.value;drawgeometryUI(geometry)})
     th = t.append('tr')
     th.append("td").text('Geometry')
-    th.append('td').append('button').text("Draw Shape").on("click",function(){draw_shape(mi)})
+    td = th.append('td')
+    console.log(geometry.stage[i].coords)
+    td.append('input').attr("value",JSON.stringify(geometry.stage[i].coords))
+    .on('change',function(){geometry.stage[mi].coords=JSON.parse(this.value)})
+    td.append('button').text("Draw Shape").on("click",function(){window.location.href = 'mapeditor.html?event='+namedesevents_short+'&area='+mi;})
     container.append('button').text('Remove this area').style("width","30%").on('click',function(){geometry.stage.splice(mi, 1);drawgeometryUI(geometry);})
    
     }

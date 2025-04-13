@@ -104,7 +104,7 @@
       <td id="hierusageslider"><button>-</button> <input type="range" style="width:60%" id="usageInput" min="0" max="150" step=10 value =50 
         onchange="set_usage= parseInt(this.value);d3.select('#usage_p').text(set_usage + ' %')"><button>+</button> 
       </td>
-      <td> <input type ="number" style="width:75%" step=5 min=0 max=150 id="usage_p" value=55 onchange="set_usage=Math.max(0,Math.min(150,this.value) );this.value =set_usage;usage_slider.property('value',this.value)">% </td>
+      <td> <input type ="number" style="width:75%" step=5 min=0 max=150 id="usage_p" value=55 onchange="set_usage=Math.max(0,Math.min(150,this.value) );this.value =set_usage;usage_slider.property('value',this.value);d3.select('#capspan').text('area-capacity: ' +Math.round((set_usage/100) *stages_list[set_area].capacity).toLocaleString('en-US') +'/' +Math.round(stages_list[set_area].capacity).toLocaleString('en-US'))">% </td>
     </tr>
 
     <tr>

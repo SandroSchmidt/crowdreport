@@ -187,11 +187,11 @@ databaseRef.once('value')
     if(eventsettings.cad)  {imageUrl ="./cad/"+eventsettings.cad}else{imageUrl =""}
 
         imageOverlay = L.imageOverlay(imageUrl, eventsettings.imagebounds, { opacity: 1 })
-        imageOverlay2 = L.imageOverlay(imageUrl, eventsettings.imagebounds, { opacity: 0.6 }).addTo(mymap);
+        imageOverlay2 = L.imageOverlay(imageUrl, eventsettings.imagebounds, { opacity: 0.5 }).addTo(mymap);
         layercontrol = L.control.layers(
-          {"CAD": imageOverlay,"CAD 50%": imageOverlay2,"dark":Jawg_Matrix ,"light": tl1,"sat":mapboxLayer },
+          {"CAD": imageOverlay,"CAD 50%": imageOverlay2,"dark":Jawg_Matrix ,"light": tl1,"Sat-1":mapboxLayer,"Sat-2": sat45,"Sat-3":Esri_WorldImagery },
           {"stages":stages_layer,"blocks":green_layer,"spotter+marker":eigensymbole_layer,"crowdflow" :movement_layer,
-        "medical":aidstations_layer,"Emergency routes":flucht_layer}).addTo(mymap);
+        "medical":aidstations_layer,"Emergency routes":flucht_layer,"CAD 50%": imageOverlay2}).addTo(mymap);
         
         mymap.setView(eventsettings.setview.center,eventsettings.setview.zoom)
        
@@ -401,7 +401,14 @@ ref.on('value', (snapshot) => {//infotag.text("connected to database!");
 ref.on('value', (snapshot) => {
   console.log("änderung in current")
 current = snapshot.val()
-if(current==undefined){console.log('no current data')}
+if(current==undefined){console.log('no current data');current = {};
+  for(i=0;i<stages_list.length;i++)
+
+      { k = stages_list[i].name
+        current[k]={density:0,usage:0,tension:0}
+}
+console.log(current)
+}
 
 update_map()
 /*
@@ -625,8 +632,15 @@ maxZoom: 25,
 attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
 maxZoom: 25,
 
-})
+}).addTo(mymap)
 
+ sat45 = L.tileLayer(
+  'https://tiles.nextgis.com/region/SA/sat/{z}/{x}/{y}.png',
+  {
+    attribution: '© NextGIS / Sentinel-2',
+    maxZoom: 18,
+    minZoom: 5
+  })
  mapboxToken = 'pk.eyJ1Ijoic2FuZHJvc2NobWlkdCIsImEiOiJjbHg3bTMxYmwxMXZiMmtzY2tlN3RjNGY5In0.2whcv8hzfzdyukPAXWwSPw'; // Ersetze durch deinen eigenen API-Token
  mapboxLayer = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-v9/tiles/{z}/{x}/{y}?access_token=' + mapboxToken, {
     attribution: 'Map data &copy; <a href="https://www.mapbox.com/">Mapbox</a>',
