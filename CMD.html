@@ -70,7 +70,7 @@ d3.select('img').on('click',function(){
 console.log("Current Date & Time: ", currentDate);
 
 // Add 1 hour
-currentDate.setHours(currentDate.getHours() + 3);
+//currentDate.setHours(currentDate.getHours() + 3);
                 camcountarr.x.push(currentDate.toISOString())
                 camcountarr.y.push(parseInt(userNumber))
                 console.log("camcount arr" +camcountarr)
@@ -171,7 +171,7 @@ traces.push(intrace)
 
 if (heutag ==99){today =new Date()
 heutag =99
-  startTime = new Date().setHours(0,0,0)
+  startTime = new Date().setHours(7,0,0)
   endTime = new Date().setHours(23,59,0)
  
 }else{
