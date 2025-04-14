@@ -67,16 +67,13 @@ d3.select('img').on('click',function(){
             if (!isNaN(userNumber) && userNumber !== null && userNumber.trim() !== '') {
            //     display.textContent = `You entered: ${userNumber}`;
            let currentDate = new Date();
-console.log("Current Date & Time: ", currentDate);
 
-// Add 1 hour
-//currentDate.setHours(currentDate.getHours() + 3);
-                camcountarr.x.push(currentDate.toISOString())
+
+                camcountarr.x.push(currentDate.getTime())
                 camcountarr.y.push(parseInt(userNumber))
-                console.log("camcount arr" +camcountarr)
                 databaseRef =database.ref(namedesevents_short+'/aux/day' + heutag + '/incounts')
                 databaseRef.set(camcountarr)
-                balad_plot_malen(graphdata)  
+                balad_plot_malen(graphdata)
             } else {
                 display.textContent = "Invalid input. Please enter a valid number.";
             }
@@ -148,14 +145,12 @@ function balad_plot_malen(data){
   // Add the sum line trace to the array of traces
   traces.push(sumLineTrace);
 
-    const currentTime = new Date()//.toISOString();
-    console.log("current time" + currentTime)
-
+  
 // add trace cam in
 
    // Initial trace for the plot
          intrace = {
-            x: camcountarr.x,
+            x: camcountarr.x.map(d => new Date(new Date(d).getTime() + zeitshift * 60 * 60 * 1000)),
             y: camcountarr.y,
             mode: 'lines',
             name: 'Scans',
@@ -176,8 +171,10 @@ heutag =99
  
 }else{
   startTime = new Date(eventsettings.zeitfenster[heutag-1][0])
-  endTime = new Date(eventsettings.zeitfenster[heutag-1][1])
+   endTime = new Date(eventsettings.zeitfenster[heutag-1][1])
 }
+//currentTime = new Date()//.toISOString();
+  
 
   // Layout configuration
   const layout = {
@@ -222,8 +219,8 @@ heutag =99
     shapes: [
       {
         type: 'line',
-        x0: currentTime,
-        x1: currentTime,
+        x0: currentlocaltime,
+        x1: currentlocaltime,
         y0: 0,
         y1: 1,
         xref: 'x',
@@ -363,13 +360,16 @@ realtime =false
   }
   function refresh(){
   
-    if (realtime == true){settim = new Date()}
+    if (realtime == true){settim = new Date()
+      
+      settim.setHours(settim.getHours()+zeitshift)
+    }
     temp = settim.getTime()
   currentTimestamp = settim
   draw_arrow()
   draw_marker()
   //slider.property("value",settim_slot)
-  Plotly.relayout('liu_div', {'shapes[0].x0': settim, 'shapes[0].x1': settim});
+  Plotly.relayout('liu_div', {'shapes[0].x0': currentlocaltime , 'shapes[0].x1': currentlocaltime });
 //hier gehts weiter
 
 
@@ -529,6 +529,7 @@ if(params.get('replay')) {
 
 else{  setInterval(() => {
     realtime = true
+    currentlocaltime = new Date().getTime()+(60*60*1000*zeitshift)  
     refresh()
   
 }, 10000);};

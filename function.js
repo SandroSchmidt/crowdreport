@@ -1,6 +1,7 @@
-graphlinkegrenze = 17
+graphlinkegrenze = 12
 graphbreiteinviertelstunden = 48//(28-graphlinkegrenze)*4
 incident_toggle =true
+
 overridedisplay9 = false
 overridereport = false
 overrideleadership = false
@@ -69,7 +70,7 @@ tabellen_data[stages_list[i].name][0]=[0,0,0,0]
 
 for( i = 0;i<(24*60);i += (5)){
  let temp = (start_graphdata+(i*60000))
-  graphdata.x.push(new Date(temp))
+  graphdata.x.push(new Date(temp+(60*60*1000*zeitshift)))
 }
 
 for (const key in daydata){
@@ -94,7 +95,9 @@ if(graphdata[key][i] == 'x'){graphdata[key][i] = graphdata[key][i-1] }
 
 }}
 
-if(mode=="cmd"){  balad_plot_malen(graphdata)  }
+if(mode=="cmd"){
+  currentlocaltime = new Date().getTime()+(60*60*1000*zeitshift)  
+  balad_plot_malen(graphdata)  }
 
 
 })
@@ -197,7 +200,7 @@ databaseRef.once('value')
         eventsettings.zeitzone = 3
         jetzt = new Date()// + eventsettings.zeitzone
         nutzerzeitzone =   jetzt.getTimezoneOffset()/-60
-        zeitshift = (eventsettings.zeitzone - nutzerzeitzone)*60*1000
+        zeitshift = (eventsettings.zeitzone - nutzerzeitzone) //*60*1000
         jetzt = jetzt.getTime()
 
 
@@ -233,7 +236,7 @@ namedesevents_long = eventsettings.namelong
 
     
   
-         
+ //        if(mode=="cmd"){ refresh()}
 }  
 
 function read_current (){
@@ -305,200 +308,11 @@ console.log(current)
 }
 
 update_map()
-/*
-for (i=0;i<parking_list.length;i++){
-temp = current["parking lot "+ (i+1)].usage
-parking_list.geo[i].setStyle({fillOpacity:temp/100})
-parking_list.tooltip[i].setContent("parking lot "+ (i+1)+ " - " + temp + " %" )
 
-}
-
-for(i=0;i<medstations.length;i++){
-
-medstations[i].geo.setTooltipContent(medstations[i].name )//+"<br>"+current["aid station "+(1+i)].usage + " / " +medstations[i].capacity+" patients")
-temp = (current["aid station "+(1+i)].usage/medstations[i].capacity)
-if(temp > 0.8)
-{medstations[i].geo.setIcon(mediconring)
-}else {medstations[i].geo.setIcon(medicon)
-
-}
-}
-*/
 });
 
 
 
-/*
-swipes_arr = {
-"1702643125700": {
-"dicke": 5,
-"meldender": "sandro",
-"nach": {
-"lat": 24.979989639468105,
-"lng": 46.50658607482911
-},
-"von": {
-"lat": 24.98224586763694,
-"lng": 46.50873184204102
-},
-"zeit": 1702643125700
-},
-"1702645102728": {
-"dicke": 10,
-"meldender": "martin",
-"nach": {
-"lat": 24.993318938600222,
-"lng": 46.51110649152543
-},
-"von": {
-"lat": 24.992917005752865,
-"lng": 46.51087760925293
-},
-"zeit": 1702645102728
-},
-"1702645125931": {
-"dicke": 5,
-"meldender": "martin",
-"nach": {
-"lat": 24.997267612217545,
-"lng": 46.499139741802765
-},
-"von": {
-"lat": 24.99801936367882,
-"lng": 46.499220663790474
-},
-"zeit": 1702645125931
-},
-"1702645157894": {
-"dicke": 10,
-"meldender": "martin",
-"nach": {
-"lat": 24.99736845732333,
-"lng": 46.49940779583645
-},
-"von": {
-"lat": 24.997460134353403,
-"lng": 46.49898801314813
-},
-"zeit": 1702645157894
-},
-"1702646633416": {
-"dicke": 5,
-"meldender": "marc",
-"nach": {
-"lat": 24.995114294353407,
-"lng": 46.51402005813373
-},
-"von": {
-"lat": 24.995908150534202,
-"lng": 46.51431112357859
-},
-"zeit": 1702646633416
-},
-"1702647084524": {
-"dicke": 10,
-"meldender": "martin",
-"nach": {
-"lat": 24.997295115398273,
-"lng": 46.49904364700744
-},
-"von": {
-"lat": 24.997029251129963,
-"lng": 46.5001057476478
-},
-"zeit": 1702647084524
-},
-"1702647113160": {
-"dicke": 10,
-"meldender": "martin",
-"nach": {
-"lat": 24.996941200654543,
-"lng": 46.49882501723715
-},
-"von": {
-"lat": 24.998188487949484,
-"lng": 46.49906739316104
-},
-"zeit": 1702647113160
-},
-"1702647116813": {
-"dicke": 10,
-"meldender": "martin",
-"nach": {
-"lat": 24.997112470639987,
-"lng": 46.49976165615841
-},
-"von": {
-"lat": 24.99731352647193,
-"lng": 46.499063285158265
-},
-"zeit": 1702647116813
-},
-"1702647273239": {
-"dicke": 15,
-"meldender": "anto",
-"nach": {
-"lat": 24.983801862945032,
-"lng": 46.48864746093751
-},
-"von": {
-"lat": 24.98419085869557,
-"lng": 46.48658752441407
-},
-"zeit": 1702647273239
-},
-"1702647274398": {
-"dicke": 5,
-"meldender": "anto",
-"nach": {
-"lat": 24.9966380728667,
-"lng": 46.47834777832032
-},
-"von": {
-"lat": 24.998971785195316,
-"lng": 46.478261947631836
-},
-"zeit": 1702647274398
-},
-"1702647275265": {
-"dicke": 5,
-"meldender": "anto",
-"nach": {
-"lat": 24.985980223297386,
-"lng": 46.49105072021485
-},
-"von": {
-"lat": 24.984113059643928,
-"lng": 46.49173736572266
-},
-"zeit": 1702647275265
-}
-}
-
-ref = database.ref('/soundstorm/swipes');
-
-ref.on('value', (snapshot) => {
-
-//movement_layer.clearLayers();
-swipes_arr = snapshot.val()
-a = new Date()
-a =a.getTime()
-
-
-if(swipes_arr != undefined)
-{Object.keys(swipes_arr).forEach((key) => {
-x = (a -swipes_arr[key].zeit )/1000 // x ist das alter des pfeiles in sekunden
-if(swipes_arr[key].meldender == "sandro"||swipes_arr[key].meldender =="marcel"){y = 0}else{y=20} 
-// die time to live ist 10 min bei pfeilen die ich eingemalt habe, else ist sie 20 sek
-if((y-x)>8){
-
-draw_arrow (swipes_arr[key].von,swipes_arr[key].nach,"green",swipes_arr[key].dicke,y-x,swipes_arr[key].meldender )
-}
-
-})}
-
-})
-*/
 
 }
 
@@ -551,28 +365,6 @@ subdomains: 'abcd',
 maxZoom: 25
 })
 
-
-//imageUrl ="./25memer.png"
-
-
-
-
-
-
-
-
-//const imageUrl = './map1.png';
-
-/*
-
-
-
-const topLeft = [25.00084386674766, 46.49814964591205]; // Coordinates of the top-left corner
-const topRight = [24.998247816188762, 46.518431895543]; // Coordinates of the top-right corner
-const bottomLeft = [24.99492699889193, 46.49684178697793]; // Coordinates of the bottom-left corner
-// 24.99218934000478, 46.51740754735572
-imageOverlay = L.imageOverlay.rotated('./newmap.jpg', topLeft, topRight, bottomLeft).addTo(mymap);
-*/
 
 
 
@@ -833,6 +625,7 @@ temp = new Date(indata.zeit[0])
 //indata.usage[0] = 0 
 temp = temp.setHours(graphlinkegrenze,0,0,0)
 
+
 for (i=0;i<indata.zeit.length;i++){
 
 entfernungzu15uhr = parseInt(Math.round((indata.zeit[i]-temp)/(15*60*1000)))
@@ -935,7 +728,7 @@ return {usage:outdata,zeit:generateTimeArray(temp)}
 
 }
 function generateTimeArray(startTime) {
-
+alert("?23 ")
 const timeArray = [new Date(startTime)]; // Start with the provided time
 
 for (let i = 1; i < 53; i++) {
@@ -964,7 +757,7 @@ resultArray.push(sum);
 return resultArray;
 }
 function make_graphdata_stages(indata,capacity,tager){
-
+alert("?34")
 //die indaten sind ein array mit jeweils den obj zeit und usage
 //outdata = new Array(52).fill(undefined)
 bucket_tension = new Array(52).fill(undefined)
@@ -1272,4 +1065,4 @@ total_p.text(' Total on Site: ' + Math.round(total_people_cur).toLocaleString('e
 // TODO: das hier ist irgendwie wichtig wegen der veränderung der map-fanster. wenn man das raus nimmt wird die map nicht richtig gerendert:
 setTimeout(function() {
   mymap.invalidateSize();
-}, 5000);
+}, 2000);
