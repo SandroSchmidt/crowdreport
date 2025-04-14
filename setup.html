@@ -166,7 +166,7 @@ table tr {background: #e0eaff;}
     console.log(geometry.stage[i].coords)
     td.append('input').attr("value",JSON.stringify(geometry.stage[i].coords))
     .on('change',function(){geometry.stage[mi].coords=JSON.parse(this.value)})
-    td.append('button').text("Draw Shape").on("click",function(){window.location.href = 'mapeditor.html?event='+namedesevents_short+'&area='+mi;})
+    td.append('button').text("Draw Shape").on("click",function(){window.location.href = 'Mapeditor.html?event='+namedesevents_short+'&area='+mi;})
     container.append('button').text('Remove this area').style("width","30%").on('click',function(){geometry.stage.splice(mi, 1);drawgeometryUI(geometry);})
    
     }

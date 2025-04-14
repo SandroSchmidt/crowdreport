@@ -80,8 +80,20 @@ d3.select('img').on('click',function(){
         })
 
 // das ist die sequenz des ladens
-const mymap = L.map('map_div',{attributionControl: false ,zoomSnap: 0.1, dragging: false,minZoom:1,maxZoom:25}).setView([0,0],17.8)
-  
+if(params.get('mapbox')){       mapboxgl.accessToken = 'pk.eyJ1Ijoic2FuZHJvc2NobWlkdCIsImEiOiJjbHg3bTMxYmwxMXZiMmtzY2tlN3RjNGY5In0.2whcv8hzfzdyukPAXWwSPw';
+;
+const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/light-v10',
+    center: [10.0, 50.0],
+    zoom: 15,
+    pitch: 60,
+    bearing: -20,
+    antialias: true
+});}
+else{const mymap = L.map('map_div',{attributionControl: false ,zoomSnap: 0.1, dragging: false,minZoom:1,maxZoom:25}).setView([0,0],17.8)
+  }
+
   initialise_firebase()
 
 

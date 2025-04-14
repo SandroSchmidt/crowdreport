@@ -173,7 +173,10 @@ databaseRef = database.ref(namedesevents_short+'/geometry');
           if (stage.hide) return sum; // skip hidden stages
           return sum + (stage.capacity || 0);
         }, 0);
-        initialise_map()
+
+        if(params.get('mapbox')){ initialise_mapboxmap()}else{
+        initialise_map()}
+
         if (mode =="cmd") {initialise_settings()}
          })
 
@@ -316,8 +319,35 @@ update_map()
 
 }
 
+function initialise_mapboxmap(){
+  map.on('load', () => {
+    map.addSource('crowdzones', {
+        'type': 'geojson',
+        'data': 'crowdzones.geojson' // oder live aus Firebase generiert
+    });
 
+    map.addLayer({
+        'id': 'crowd-3d',
+        'type': 'fill-extrusion',
+        'source': 'crowdzones',
+        'paint': {
+            'fill-extrusion-color': [
+                'interpolate',
+                ['linear'],
+                ['get', 'usage'],
+                0, 'lightblue',
+                100, 'red'
+            ],
+            'fill-extrusion-height': ['get', 'height'], // aus usage berechnet
+            'fill-extrusion-base': 0,
+            'fill-extrusion-opacity': 0.8
+        }
+    });
+});
+}
 function initialise_map(){
+
+  
   medicon = L.icon({  iconUrl: './icons/medicon.png', iconSize:     [20, 20], });
   mediconring = L.icon({  iconUrl: './icons/mediconring.png', iconSize:     [20, 20], });
   greenicon = L.icon({  iconUrl: './icons/green.png',  iconSize:     [40, 40],  iconAnchor:   [20, 40]})
