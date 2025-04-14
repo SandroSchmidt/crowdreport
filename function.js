@@ -471,6 +471,7 @@ for (f=0;f<restrooms.length;f++) {L.marker(restrooms[f],{icon:resticon}).addTo(g
 //for (f=0;f<vib_arr.length;f++)      {let fu = f;L.polygon(vib_arr[f].coords,{fillColor: '#6e737a',fillOpacity:1,color:"black",weight:1}).bindTooltip(vib_arr[f].name).addTo(green_layer)}
 }
 // Layercontroll
+console.log(blocking_arr)
 if(blocking_arr){
 for (f=0;f<blocking_arr.length;f++) {let fu = f; L.polygon(blocking_arr[f].coords, {fillColor: "grey",color:"black", "weight": 1,"opacity": 1,fillOpacity:0.8}).bindTooltip(blocking_arr[f].name).addTo(green_layer)}
 }
