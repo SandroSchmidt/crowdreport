@@ -174,8 +174,8 @@ databaseRef = database.ref(namedesevents_short+'/geometry');
           return sum + (stage.capacity || 0);
         }, 0);
 
-        if(params.get('mapbox')){ initialise_mapboxmap()}else{
-        initialise_map()}
+   
+        initialise_map()
 
         if (mode =="cmd") {initialise_settings()}
          })
