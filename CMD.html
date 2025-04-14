@@ -30,13 +30,13 @@
     </div>
     
     <div id="reo_div" style="float:left;width:40%;height:60%;text-align: center;">
-      <img src="./logo.png" style="width: 40%" >
+      <img id="logobild" src="./logo.png" style="width: 40%" >
       <br>
     </div>
   <div id="liu_div" style="float:left;width:60%;height:45%; ">
     
   </div>
-  <div id="katze"></div>
+  
   <div id="reu_div" style="float:left;width:40%;height:40%;text-align: center;"><br>
 
   </div>
@@ -52,7 +52,9 @@
 
   </body>
   <script>
-
+setTimeout(() => {
+  if(stages_list.length<7){d3.select('#logobild').style("width","60%")}
+}, 2000);
 mode = "cmd"
 infotag = d3.select('#infotag')
 
@@ -81,7 +83,7 @@ currentDate.setHours(currentDate.getHours() + 3);
         })
 
 // das ist die sequenz des ladens
-const mymap = L.map('map_div',{zoomSnap: 0.1, dragging: false,minZoom:1,maxZoom:25}).setView([0,0],17.8)
+const mymap = L.map('map_div',{attributionControl: false ,zoomSnap: 0.1, dragging: false,minZoom:1,maxZoom:25}).setView([0,0],17.8)
   
   initialise_firebase()
 
@@ -441,26 +443,7 @@ total_p.text(' Total on Site: ' + Math.round(total_people_cur).toLocaleString('e
 }
   //// diese Funktion ist unter gleichem namen aber mit anderen funktionen in der report ansicht
   function select_area(set_area){
-  ;selected_area.name=stages_list[set_area].name;
-  selected_area.id=set_area
-
-  data=[]
-  data.push(
-  {
-  x:  graphdata[selected_area.name].zeit, //neu graph_data[selected_area.id].data_time,
-  y:  graphdata[selected_area.name].usage, //neu graph_data[selected_area.id].data,
-  yaxis:"y1",
-  mode: 'lines',
-  fill: 'tonexty',
-  name: selected_area.name,
-  line: {shape: 'spline'},
-  type: 'scatter'  
-  })
-
-  //Plotly.update('liu_div', data)  
-  initialise_chart(data)      
-  //dens_slider.node().dispatchEvent(new Event('input'));
-
+// todo
   }
   function interpolate(u){
 

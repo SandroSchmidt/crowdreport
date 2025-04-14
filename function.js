@@ -189,15 +189,18 @@ databaseRef.once('value')
         imageOverlay = L.imageOverlay(imageUrl, eventsettings.imagebounds, { opacity: 1 })
         imageOverlay2 = L.imageOverlay(imageUrl, eventsettings.imagebounds, { opacity: 0.5 }).addTo(mymap);
         layercontrol = L.control.layers(
-          {"CAD": imageOverlay,"CAD 50%": imageOverlay2,"dark":Jawg_Matrix ,"light": tl1,"Sat-1":mapboxLayer,"Sat-2": sat45,"Sat-3":Esri_WorldImagery },
-          {"stages":stages_layer,"blocks":green_layer,"spotter+marker":eigensymbole_layer,"crowdflow" :movement_layer,
-        "medical":aidstations_layer,"Emergency routes":flucht_layer,"CAD 50%": imageOverlay2}).addTo(mymap);
+          {"CAD": imageOverlay,"CAD 50%": imageOverlay2,"Dark":Jawg_Matrix ,"Light": tl1,"Sat-1":mapboxLayer,"Sat-2": sat45,"Sat-3":Esri_WorldImagery },
+          {"Stages":stages_layer,"Blocks":green_layer,"CSA":eigensymbole_layer,"Crowdflow" :movement_layer,
+        "Medical":aidstations_layer,"Emergency routes":flucht_layer,"CAD 50%": imageOverlay2}).addTo(mymap);
         
         mymap.setView(eventsettings.setview.center,eventsettings.setview.zoom)
-       
+        eventsettings.zeitzone = 3
+        jetzt = new Date()// + eventsettings.zeitzone
+        nutzerzeitzone =   jetzt.getTimezoneOffset()/-60
+        zeitshift = (eventsettings.zeitzone - nutzerzeitzone)*60*1000
+        jetzt = jetzt.getTime()
 
 
-        jetzt = new Date().getTime()
         if(jetzt < new Date(eventsettings.zeitfenster[0][0]).getTime()-(3*60*60*1000))
           {heutag = 99;
             start_graphdata = new Date()
@@ -232,116 +235,7 @@ namedesevents_long = eventsettings.namelong
   
          
 }  
-function initialise_chart(data,plot_title){
-selected_area.name = stages_list[selected_area.id].name
-d3.select("#liu_div").selectAll('*').remove() // nicht unbedingt notwendig
-const margin = {top: 20, right: 40, bottom: 40, left: 40}
-width = fenster.breite*1- margin.left - margin.right
-height = fenster.hoehe*0.3- margin.top - margin.bottom;
 
-
-
-gr_layout= {
-xaxis: {
-type: 'date',
-showgrid: true,
-showline:true,          
-         
-  // Format for displaying date on x-axis
-//range: [a, b],
-range: ['2024-12-14 '+ (graphlinkegrenze-1) +':59:00', '2024-12-15 05:01:00'],
-linecolor: 'black',
-linewidth: 2,
-mirror: true
-},
-yaxis: {
-//title: plot_title,
-autorange: true,
-type: 'linear',
-rangemode: 'tozero',  
-
-zeroline: false,
-showline: true,
-overlaying: 'y2',
-linecolor: 'black',
-linewidth: 2,
-mirror: true,
-//  spikecolor:"green",spikethickness :1,
-side:"left"
-},
-
-showlegend: true,legend: {  x: 1,  xanchor: 'right',  y: 1},
-
-hovermode: "x",  //title: 'Basic Time Series', 
-// font: {size: 40},
-margin: {l: 40,  r: 25,b: 30,t: 10,  pad: 4},  
-shapes:[]
-}
-
-gr_layout.xaxis.dtick=3600000
-
-if (overridedisplay9){ 
-  gr_layout.yaxis.autorange=false,
-  gr_layout.yaxis.range = [0,105000],
-  gr_layout.yaxis.showticklabels= false,
-  gr_layout.yaxis.showticklabels= false,
-  gr_layout.plot_bgcolor= "black"//'#2d2d2d',  // Dark background for the plot area
-  gr_layout.paper_bgcolor= "black"//'#121212',  // Dark background for the entire page
-  gr_layout.showlegend = false,
-  gr_layout.font= {color: '#3a3a3b' ,size:22 }, // White font color for text   
-  gr_layout.xaxis.tickfont= {            color: 'white' },  // White tick labels for x-axis       
-  gr_layout.yaxis.showline = true,
-  gr_layout.yaxis.tickfont={            color: 'white' },// White tick labels for y-axis
-  gr_layout.margin= {l: 40,  r: 0,b: 60,t: 10,  pad: 4}  ,
-  gr_layout.xaxis.gridcolor="#3a3a3b",      
-  gr_layout.xaxis.tickformat="%H:%M"      
-
-
-
-
-
-// gr_layout.title.font={            co
-
- }
-
-
-
-gr_layout.shapes.push(    {
-type: 'line',
-x0: currentTimestamp,
-x1: currentTimestamp,
-y0: 0,
-y1: 1,
-xref: 'x',
-yref: 'paper',
-line: {
-color: 'red',
-width: 2,
-dash: 'dashdot'  // You can customize the line style
-}
-
-})
-
-
-Plotly.newPlot('liu_div', data,gr_layout,{
-//displayModeBar: false, // this is the line that hides the bar.
-})
-//ply = document.getElementById('liu_div')
-}
-function fade_map_element(element, ttl){
-//   fasdestart = new Date().getTime()
-sinkend =1
-k=0
-let z = ttl/10
-intervalId = setInterval(function(){
-
-if(k=10){element.remove();
-clearInterval(intervalId)};
-
-element.setStyle({opacity:(sinkend-(k/10))})
-},z)
-k++
-}
 function read_current (){
 // ich glaube diese funktion wird nur einmal aufgerufen weil connections zu firebas dann automatisch upgedatet werden
 

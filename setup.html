@@ -189,7 +189,7 @@ table tr {background: #e0eaff;}
 
 
   function drawSettingsUI(settings) {
-    const container = d3.select("#eventdiv");
+  const container = d3.select("#eventdiv");
   container.selectAll('*').remove()
   container.append('p').text(eventsettings.namelong+" - Settings:").attr("class","event-title")
   t = container.append('table').attr("class","spaced-rows")
@@ -222,6 +222,23 @@ if(i==eventsettings.spotters.length-1){
 }
 td.append('br')
 }
+th = t.append('tr')
+
+th.append("td").text("Timezone")
+td =th.append("td")
+//td.append("input").attr('type','number').attr('max',12).attr('min',-12).attr("value",eventsettings.zeitzone).on("input",function(){eventsettings.zeitzone=this.value})
+  const select = td.append("select")
+    .attr("id", "myDropdown");
+  select.append("option").text("Berlin" ).attr("value", "Europe/Berlin" );
+  select.append("option").text("London").attr("value", "Europe/London");
+  select.append("option").text("Riyadh").attr("value", "Asia/Riyadh");
+  select.append("option").text("Jeddah").attr("value", "Asia/Jeddah" );
+  select.append("option").text("New York").attr("value", "America/New_York");
+  select.append("option").text("Tokyo").attr("value", "Asia/Tokyo" );
+  select.on("change", function () {
+    eventsettings.zeitzone=this.value;
+    });
+select.property('value',eventsettings.zeitzone)
 th = t.append('tr')
 //th.append("td").text("Eventdays")
 //th.append("td").append("input").attr("type","number").attr("value",eventsettings.days).attr("min",0).on("input",function(){eventsettings.days=this.value;drawSettingsUI(settings)})

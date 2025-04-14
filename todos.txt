@@ -8,6 +8,30 @@
 - Methods of Sensors - 4 or 5 staff on ground who'll need to be added to report - names to follow closer and ticket scans in
 
 
+ //tempart = current[stages_list[q].name]
+  //let  fcol = 
+  /*
+  möglichkeit neue objekte einzufügen und ereignisse 
+  eine ansicht für den nutzer die anders ist als die des desks
+  vlt bekommen die spotter auch die möglichkeit einen grpahen oder zahlen zu sehene. wann ist peakt zb
+
+  mit fingerdruck einen hotspot einzaichnen oder eine zone mit hoher density
+  eine person die die aufgabe hat per kamera daten zu sammeln , vlt bekommt der desk die möglichkeit fragzeichen 
+
+  geplante bzw erwartete bewegungen sollten eingetragenw erden können
+
+  push und pull über bekannte achsen wäre geeignet um per bewegungen vorher zu sehen
+  vlt einzelne dots die 100 personen repräsentieren die über den platz wandern
+
+  feuerwerk einzeichnen
+  timeline befüllen
+
+  isometrische ansicht
+
+  keine frabigen pfeil, oder zumindest kein langes draufbleiben sondern mehrere werden vom system automatisch zusammengefasst
+
+
+
 ZEITZONE EINSTELLEN UND NCIHT VOM PC NEHMEN!!!!
 
 TESTUMGEBUNG !!!
@@ -36,6 +60,20 @@ I can sketch on a map when behind a laptop but essentially back out main entranc
 Current obstacles work well - toilets, med etc.  maybe if we just add the site entry / exit and the emergency exits - blow out gates before medical and just to the rear of the site. Again I can plot this if unclear when at laptop 
 7) do you think a short Video call is helpfull before showstart?
 Yes probably beneficial as Martin is in control, he has interacted with Soundstorm system but not overly familiar with this. Marc T and I are on ground will be familiar. Kris who may at times need to report has likely never seen the system
+
+
+First off, our apologies for late changes to capacities and so on - this might be something we face with relative frequency as MDLBEAST are always trying to sneak extra numbers in and where we can (and if capacity even allows) its nice to get this done pre show that so that we dont have lots of areas over 100% utilisation.  So appreciate the late changes and thanks for the help on this again. 
+
+Some notes:
+- The heat map stopped working on the command view for most of the end of the night.  The internet was very poor in AlUla so it may have been related to this but possibly worth a look on your side to see if it was indeed internet or more. Tried on Chrome, Firefox and Safari and toward the end could not get the map to show on command view. 
+- The reporting on my iPhone 14 Pro Max was very hit and miss - just to test it I at one point found it more consistant using my personal Samsung S24 Ultra which was Hot Spotted off my work iPhone Data so that lead me to believe it was the iPhone having the issue - possibly worth a look 
+- It pretty much never 'remembered' me on iPhone as in pretty much easy time I had to reload the page I'd have to select 'Conor' from drop down. Not too much of an issue but its been more consistant in the past I'd have said. 
+- If there are browsers that work better than others, this isn't a major issue, but do let us know and I'll just include that as part of the briefing we give to staff on ground / so directors in control know. 
+
+Some questions:
+- Can we rename the 'Spotter' view to Crowd Safety Advisor View / CSA View going forward just to keep things aligned - so the page / tab reads as '[Event Acronym] - CSA View' 
+- This might not be possible - but currently when we click the + or - on the utilisation bar it updates the '[number in area] / [total capacity of area]' figure so you can get a representation of how many people you're looking at.  But when you type your % of utilisation in to the box it doesn't - is it possible for it to do so, or not because the number hasn't been entered as such?  I know we can change the utilisation bar to group in blocks of 1% rather than 5%  but generally, especially on larger capacity events, the 5% is more than sufficient so just a query more than any need for change as of now
+
 
 Future:
 - mapbox
