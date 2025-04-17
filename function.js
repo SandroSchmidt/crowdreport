@@ -1036,7 +1036,7 @@ function getTimeOfDay(milliseconds) {
 }
 
 function set_swipemode(){
-  if(swipemode){
+if(!mapbox){  if(swipemode){
  
     mymap.dragging.disable();
     mymap.touchZoom.disable();
@@ -1095,7 +1095,8 @@ function set_swipemode(){
         
 
   
-}}
+}}}
+
 
 function update_map(){
   total_people_cur =0
