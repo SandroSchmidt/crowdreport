@@ -103,7 +103,7 @@ if(mode=="cmd"){
 })
 }
 function draw_arrow(){
-  movement_layer.clearLayers()  
+if(!mapbox){  movement_layer.clearLayers()  
 if(realtime == true){drawjetzt = new Date().getTime();puffer =0}
 else{drawjetzt=settim;puffer = (1000*60*7)}
   
@@ -139,7 +139,7 @@ else{drawjetzt=settim;puffer = (1000*60*7)}
                       
                       }
               }
-
+}
 }
 function initialise_firebase(){
   if (mode == "cmd"){d3.select("title").text(namedesevents_short + " - crowdreport")}
@@ -175,8 +175,9 @@ databaseRef = database.ref(namedesevents_short+'/geometry');
         }, 0);
 
    
+        if (mapbox){initialise_mapboxmap()}else{
         initialise_map()
-
+}
         if (mode =="cmd") {initialise_settings()}
          })
 
@@ -192,14 +193,36 @@ databaseRef.once('value')
      if(overridedisplay9==false && deviceversion != eventsettings.version){alert("You are using an old version("+deviceversion+") of the crowdreport app. the current version is "+eventsettings.version+". please reload the site!")}              
     if(eventsettings.cad)  {imageUrl ="./cad/"+eventsettings.cad}else{imageUrl =""}
 
-        imageOverlay = L.imageOverlay(imageUrl, eventsettings.imagebounds, { opacity: 1 })
+      if(!mapbox) { imageOverlay = L.imageOverlay(imageUrl, eventsettings.imagebounds, { opacity: 1 })
         imageOverlay2 = L.imageOverlay(imageUrl, eventsettings.imagebounds, { opacity: 0.5 }).addTo(mymap);
         layercontrol = L.control.layers(
           {"CAD": imageOverlay,"CAD 50%": imageOverlay2,"Dark":Jawg_Matrix ,"Light": tl1,"Sat-1":mapboxLayer,"Sat-2": sat45,"Sat-3":Esri_WorldImagery },
           {"Stages":stages_layer,"Blocks":green_layer,"CSA":eigensymbole_layer,"Crowdflow" :movement_layer,
         "Medical":aidstations_layer,"Emergency routes":flucht_layer,"CAD 50%": imageOverlay2}).addTo(mymap);
         
-        mymap.setView(eventsettings.setview.center,eventsettings.setview.zoom)
+        mymap.setView(eventsettings.setview.center,eventsettings.setview.zoom)}
+        else{
+          //mapboxverison
+          map.on('load', () => {
+            map.addSource('svg-overlay', {
+              type: 'image',
+              url: imageUrl,
+              coordinates: [
+                [eventsettings.imagebounds[0][1], eventsettings.imagebounds[1][0]], // top-left: [west, north]
+                [eventsettings.imagebounds[1][1], eventsettings.imagebounds[1][0]], // top-right: [east, north]
+                [eventsettings.imagebounds[1][1], eventsettings.imagebounds[0][0]], // bottom-right: [east, south]
+                [eventsettings.imagebounds[0][1], eventsettings.imagebounds[0][0]]  // bottom-left: [west, south]
+              ]
+            });
+          
+            map.addLayer({
+              id: 'svg-layer',
+              type: 'raster',
+              source: 'svg-overlay',
+              paint: {}
+            });
+          });
+        }
         eventsettings.zeitzone = 3
         jetzt = new Date()// + eventsettings.zeitzone
         nutzerzeitzone =   jetzt.getTimezoneOffset()/-60
@@ -961,7 +984,7 @@ const database = firebase.database();
       }
 }
 function draw_marker(){
-  eigensymbole_layer.clearLayers()
+if(!mapbox){  eigensymbole_layer.clearLayers()
   if(realtime == true){drawjetzt = new Date().getTime();puffer =0}else{drawjetzt=settim;puffer = (1000*60*7)}
   
                         
@@ -1001,7 +1024,7 @@ for(let ip=0;ip<eigensymbole_arr.marker.length;ip++)
  })
 });
 
-
+}
 
 }
 function getTimeOfDay(milliseconds) {
@@ -1083,17 +1106,18 @@ for(i=0;i<stages_list.length;i++){
         let temp = current[stages_list[i].name]
         let  fcol = farbskala[Math.round(temp.usage/10)]
         let col = farbskala[Math.min(10,Math.round(temp.density)*2)]
-        stages_list[i].geo.setStyle({
+        if(!mapbox){stages_list[i].geo.setStyle({
             fillOpacity:0.6,
             fillColor: fcol,
             color: col,
-            "weight": 3})
+            "weight": 3})}
     }
 }
 
 total_p.text(' Total on Site: ' + Math.round(total_people_cur).toLocaleString('en-US') + " / " + totalCapacity.toLocaleString('en-US'))
 }
 // TODO: das hier ist irgendwie wichtig wegen der veränderung der map-fanster. wenn man das raus nimmt wird die map nicht richtig gerendert:
-setTimeout(function() {
+/*setTimeout(function() {
   mymap.invalidateSize();
 }, 2000);
+*/

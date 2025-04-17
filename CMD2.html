@@ -1,0 +1,610 @@
+    <!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <title>crowdreport</title>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+    <script src="./js/d3.min.js"></script>
+    <script src="./js/plotly-2.16.1.min.js"></script>
+    <script src="./function.js"></script>
+  </head>
+
+  <style>
+  table, th, td{border:2px solid black;border-collapse: collapse;padding-left: 5px;padding-right: 5px;text-align: center;
+    
+    font-size: 1.4vh}   
+    td { font-size: 1.2vh }
+      body {font-family: Arial}
+  </style>
+
+  <body style="overflow:hidden">
+    <div id="lio_div" style="float:left;width:50%;height:60%;">
+      <div id="map_div" style="width:100%;height: 100%"></div>
+    </div>
+    
+    <div id="reo_div" style="float:left;width:40%;height:60%;text-align: center;">
+      <img id="logobild" src="./logo.png" style="width: 40%" >
+      <br>
+    </div>
+  <div id="liu_div" style="float:left;width:60%;height:45%; ">
+    
+  </div>
+  
+  <div id="reu_div" style="float:left;width:40%;height:40%;text-align: center;"><br>
+
+  </div>
+  <span id="infotag"></span>
+  <!--
+  <input id ="imgstr1" type="number" style ="font-size: 24px" step=0.0001 onchange="imageBounds[0][0]=this.value;imageOverlay.setBounds(imageBounds);">
+  <input id ="imgstr2" type="number" step=0.0001 onchange="imageBounds[0][1]=this.value;imageOverlay.setBounds(imageBounds);">
+  <input id ="imgstr3" type="number" step=0.0001 onchange="imageBounds[1][0]=this.value;imageOverlay.setBounds(imageBounds);">
+  <input id ="imgstr4" type="number" step=0.0001 onchange="imageBounds[1][1]=this.value;imageOverlay.setBounds(imageBounds); ">
+  
+  ffffff
+  -->
+
+  </body>
+  <script>
+
+    mapbox= true
+setTimeout(() => {
+  if(stages_list.length<7){d3.select('#logobild').style("width","60%")}
+}, 2000);
+mode = "cmd"
+infotag = d3.select('#infotag')
+
+// das folgende ist nur für die Krücke zum eintragen der scan counts
+d3.select('img').on('click',function(){
+            // Open a prompt asking for a number
+            let userNumber = prompt("Enter Scans at this time:");
+
+            // Check if user entered a valid number
+            if (!isNaN(userNumber) && userNumber !== null && userNumber.trim() !== '') {
+           //     display.textContent = `You entered: ${userNumber}`;
+           let currentDate = new Date();
+
+
+                camcountarr.x.push(currentDate.getTime())
+                camcountarr.y.push(parseInt(userNumber))
+                databaseRef =database.ref(namedesevents_short+'/aux/day' + heutag + '/incounts')
+                databaseRef.set(camcountarr)
+                balad_plot_malen(graphdata)
+            } else {
+                display.textContent = "Invalid input. Please enter a valid number.";
+            }
+        })
+
+// das ist die sequenz des ladens
+mapboxgl.accessToken = 'pk.eyJ1Ijoic2FuZHJvc2NobWlkdCIsImEiOiJjbHg3bTMxYmwxMXZiMmtzY2tlN3RjNGY5In0.2whcv8hzfzdyukPAXWwSPw';
+    
+    let map = new mapboxgl.Map({
+      container: 'map_div',
+      style: 'mapbox://styles/mapbox/streets-v12',
+      center: [39.104, 21.653], // default view - replace with actual center
+      zoom: 17.8,
+      attributionControl: false
+    });
+
+
+    initialise_firebase()
+
+    // Example: load area polygons from geometry and display on map
+    function drawPolygons() {
+      stages_list.forEach(stage => {
+        if (!stage.coords || stage.hide) return;
+        const geojson = {
+          type: "Feature",
+          geometry: {
+            type: "Polygon",
+            coordinates: [stage.coords.map(c => [c[1], c[0]])] // lat/lng to lng/lat
+          },
+          properties: { name: stage.name }
+        };
+
+        map.addSource(stage.name, {
+          type: "geojson",
+          data: geojson
+        });
+
+        map.addLayer({
+          id: stage.name,
+          type: "fill",
+          source: stage.name,
+          layout: {},
+          paint: {
+            "fill-color": stage.farbe || "#ff0000",
+            "fill-opacity": 0.4
+          }
+        });
+      });
+    }
+
+    map.on('load', () => {
+      drawPolygons();
+    });  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function balad_plot_malen(data){
+  const xValues = data.x;
+  // Prepare the traces for each area
+  
+
+  const traces = Object.keys(data)
+  .filter((key) => {
+    if (key === 'x') return false;
+    const stage = stages_list.find(s => s.name === key);
+    return !stage || !stage.hide; // exclude if hide is true
+  })
+  .map((key) => {
+    let tempcol = "red";
+    const stage = stages_list.find(s => s.name === key);
+    if (stage && stage.farbe) tempcol = stage.farbe;
+
+    return {
+      x: xValues,
+      y: data[key],
+      stackgroup: 'one',
+      name: key,
+      type: 'scatter',
+      mode: 'none',
+      hoverinfo: 'skip',
+      fillcolor: tempcol,
+      line: { shape: 'spline' },
+    };
+  });
+
+    traces.reverse();
+// hier werden alle werte zusammen gezählt und das trace für die summe erstellt, ausser bei hide == true
+    const ySums = xValues.map((_, index) => {
+  return Object.keys(data)
+    .filter((key) => {
+      if (key === 'x') return false;
+      const stage = stages_list.find(s => s.name === key);
+      return !stage || !stage.hide; // nur wenn nicht versteckt
+    })
+    .reduce((sum, key) => sum + data[key][index], 0);
+});
+  // Add a trace for the sum line
+  const sumLineTrace = {
+    x: xValues,
+    y: ySums,
+    name: 'Total', // Name for the legend
+    type: 'scatter',
+    mode: 'lines', // Line mode
+    showlegend: false, 
+    line: {
+      shape:"spline",
+      color: 'blue', // Line color
+      width: 2, // Line width
+      dash: 'solid', // Line style (e.g., dashed, dotted, solid)
+    },
+  };
+
+
+  // Add the sum line trace to the array of traces
+  traces.push(sumLineTrace);
+
+  
+// add trace cam in
+
+   // Initial trace for the plot
+         intrace = {
+            x: camcountarr.x.map(d => new Date(new Date(d).getTime() + zeitshift * 60 * 60 * 1000)),
+            y: camcountarr.y,
+            mode: 'lines',
+            name: 'Scans',
+            line: {
+                shape: 'spline',
+                color: 'black',
+                width: 2
+            }}
+        
+
+traces.push(intrace)
+
+
+if (heutag ==99){today =new Date()
+heutag =99
+  startTime = new Date().setHours(7,0,0)
+  endTime = new Date().setHours(23,59,0)
+ 
+}else{
+  startTime = new Date(eventsettings.zeitfenster[heutag-1][0])
+   endTime = new Date(eventsettings.zeitfenster[heutag-1][1])
+}
+//currentTime = new Date()//.toISOString();
+  
+
+  // Layout configuration
+  const layout = {
+    dragmode: false,
+    margin:{t:0,b:20,r:0,l:40},
+   // title: 'Stacked Area Chart',
+    xaxis: {
+      range: [startTime, endTime],
+      dtick: 3600000,         // 1 hour in milliseconds (for time data)
+    tickformat: '%H:%M', 
+    showgrid: true,   // Show gridlines for the x-axis
+    gridcolor: 'lightgray', // Gridline color
+    gridwidth: 0.5,     // Gridline width
+
+    showline: true,   // Add an axis line
+    linecolor: 'black', // Axis line color
+    linewidth: 2 ,     // Axis line width
+ 
+    
+     // title: 'Timestamp',
+      type: 'date', // Format x-axis as dates
+    },
+    yaxis: {showgrid: true,   // Show gridlines for the y-axis
+    gridcolor: 'lightgray', // Gridline color
+    gridwidth: 0.5,     // Gridline width
+
+    showline: true,   // Add an axis line
+    linecolor: 'black', // Axis line color
+    linewidth: 2 ,     // Axis line width
+  
+      range: [0,totalCapacity*1.2],
+   //   title: 'patrons on site',
+    },
+    showlegend: true, // Show legend
+    
+    legend: { 
+      x: 0,
+      y: 1,
+      xanchor: 'left',
+      yanchor: 'top', 
+    },
+    shapes: [
+      {
+        type: 'line',
+        x0: currentlocaltime,
+        x1: currentlocaltime,
+        y0: 0,
+        y1: 1,
+        xref: 'x',
+        yref: 'paper', // Use 'paper' to scale vertically across the chart
+        line: {
+          color: 'red',
+          width: 1,
+          dash: 'dot', // Make the line dotted
+        },
+      },
+    ],
+  };
+
+  // Render the chart using Plotly
+  if(params.get('admin')) {Plotly.newPlot("liu_div", traces, layout,{displayModeBar:true});
+}else{Plotly.newPlot("liu_div", traces, layout,{displayModeBar:false})}
+}
+  function initialise_settings(){
+  // dies hier sind nur die plot-settings, daher sind sie auch in der main biew html und nicht in settigs.js
+  ruckschau = 2
+  show_event = false
+  show_tensdens = false
+  show_progress23 = false
+  show_progress = false
+  show_cap=false
+  timer = false
+  zoomflip = true
+  liniendicke = 5
+  hinterfarbe = true
+  settim_slot =0
+  layout = 1//0.6
+
+  lio =  d3.select('#lio_div').style('width',fenster.breite*0.5+"px").style('height',fenster.hoehe*0.53+"px")
+  reo =  d3.select('#reo_div').style('width',fenster.breite*0.5+"px").style('height',fenster.hoehe*0.53+"px").style('overflow',"hidden")
+  liu =  d3.select('#liu_div').style('width',fenster.breite*layout+"px").style('height',fenster.hoehe*0.49+"px")
+
+  // hier geht die Tabelle los
+  reo.append('br')
+  tidi = reo.append('span').style('margin','auto').text("event"+' - DAY 99 - Time 99:99').style("font-size", "3vh").style("font-weight",700)
+  //.on('click',function (){nowbutton()}).style('cursor', 'pointer')
+  reo.append('br')
+  reo.append('br')
+  tabero = reo.append('table').style('width',"100%").style('margin','auto').style('width','95%').style('margin-top',"5px")//.style("font-size", "5px")
+  temp = tabero.append('tr').style('background-color',"grey")
+  //temp.append("th").text("no.")
+  temp.append("th").text("Area").style('width',"30%")
+  temp.append("th").text("Usage").style('width',"17%")
+
+  temp.append("th").text("Density").style('width',"17%")
+  temp.append("th").text("Tension").style('width',"17%")
+  temp.append("th").text("Capacity").style('width',"17%")
+  temp.append("th").text("People").style('width',"17%")
+  tuc =[]
+  ttc = []
+  tpc =[]
+  tdc=[]
+  butarr=[]
+
+
+  // tabelle malen
+
+  for (i=0;i<stages_list.length;i++){if(stages_list[i].hide != true){let j =i
+  temp = tabero.append('tr')
+  // temp.append('td').text(i)
+ butarr.push( temp.append('td').text(stages_list[i].name)
+  // .style("cursor", "pointer").style("font-weight",700) .on('click',  function(){ select_area(j)}) 
+       
+       )
+
+  tuc.push(temp.append("td").text("u"+i).style("font-weight",700))
+
+  tdc.push(temp.append("td").text("d"+i).style("font-weight",700))
+  ttc.push(temp.append("td").text("t"+i).style("font-weight",700))
+  temp.append("td").text(stages_list[i].capacity).style("font-weight",700)
+  tpc.push(temp.append("td").text("p"+i).style("font-weight",700))}
+  }
+  /* 
+  tpc[5].style('color',"white")
+  tpc[13].style('color',"white")
+  tpc[14].style('color',"white")
+  tpc[12].style('color',"white")
+     
+  tuc[14].style('color',"white")
+  tuc[14].style('color',"white")
+  ttc[14].style('color',"white")
+  tpc[14].style('color',"white")
+  */
+
+
+  // zweite tabelle die wir bei soundstorm immer genutzt haben
+  /*
+  
+  reo.append('br')
+                        tabero2 = reo.append('table').style('width',"100%").style('margin','auto').style('width','95%')//.style('margin-top',"5px")
+                        temp2 = tabero2.append('tr')
+                        temp2.append("th").text("in-counts").style("width","19%").style('background-color',"grey").on('click',function(){
+                          jetzt_plot_malen("camcounts")
+                        })
+                        field_inc = temp2.append("td").text("000").style("width","15%")
+                        temp2.append("th").text("out-counts").style("width","19%").style('background-color',"grey")
+                        field_outc =temp2.append("td").text("000").style("width","15%")
+                        temp2.append("th").text("count-diff").style("width","19%").style('background-color',"grey")
+                        field_difc =temp2.append("td").text("000").style("width","15%")
+                        temp2 = tabero2.append('tr')
+                        temp2.append("th").text("scans").style("width","19%").style('background-color',"grey")
+                        field_sca = temp2.append("td").text("-").style("width","15%")
+                        temp2.append("th").text("on site").style("width","19%").style('background-color',"grey").on('click',function(){
+                        jetzt_plot_malen("general") 
+                        }
+                        )
+
+                        field_onsite = temp2.append("td").text("000").style("width","15%")
+                        temp2.append("th").text("peak rate").style("width","19%").style('background-color',"grey")
+                        //field_rate = 
+                        temp2.append("td").text("-").style("width","15%")
+*/
+
+reo.append('p').attr('id','total_p').text("count on site: " + 99999).style("font-weight",700)
+total_p = d3.select('#total_p')
+slider =  d3.select('#katze').append('input').attr('type','range').style('width',"96%").style('height',"3%").style('margin','auto').style('display', 'block')
+  .attr("id","timeslider").attr('max',graphbreiteinviertelstunden).attr('min',0).attr('step',1).on('change',
+
+    function(){
+realtime =false
+    settim = new Date()
+    settim.setHours(graphlinkegrenze,0,0,0) 
+    settim = settim.getTime() + this.value*60*1000*15
+          currentTimestamp = settim
+    //settim_slot = this.value
+    settim = new Date(settim)
+
+
+        refresh();})
+
+
+
+  }
+  function refresh(){
+  
+    if (realtime == true){settim = new Date()
+      
+      settim.setHours(settim.getHours()+zeitshift)
+    }
+    temp = settim.getTime()
+  currentTimestamp = settim
+  
+  //slider.property("value",settim_slot)
+  Plotly.relayout('liu_div', {'shapes[0].x0': currentlocaltime , 'shapes[0].x1': currentlocaltime });
+//hier gehts weiter
+
+
+
+
+
+
+  drecks=""
+  if(settim.getMinutes()<10){drecks = "0"}
+if (eventsettings.days = 1 && heutag != 99){daytext = ""}else{daytext = " - DAY "+heutag}
+  
+  
+  tidi.text(namedesevents_long+ daytext +' - Time ' +settim.getHours() +":"+drecks+settim.getMinutes())
+
+  settim_slot = temp - start_graphdata
+    settim_slot = Math.round(settim_slot/(60*1000*5))
+console.log(settim_slot)
+  q=0
+      total_people_cur =0
+  Object.keys(graphdata).forEach((key,index) => {
+
+if(key != "x") {if(stages_list[index-1].hide != true)
+{
+  if (Math.round(tabellen_data[key][settim_slot][0]) == NaN){alert(tabellen_data[key][settim_slot][0])}
+  pfeil =" ◄"
+  if(tabellen_data[key][settim_slot][0]>tabellen_data[key][settim_slot-1][0]){pfeil = " ▲"}
+  if((tabellen_data[key][settim_slot][0])<tabellen_data[key][settim_slot-1][0]){pfeil =" ▼" }
+
+  tuc[q].text(Math.round(tabellen_data[key][settim_slot][0])+ " %" +pfeil) //*(stages_list[q].capacity/100)))
+  tuc[q].style('background-color',farbskala[Math.round(tabellen_data[key][settim_slot][0]/10)]
+ 
+  )
+  
+
+  if(isNaN(tabellen_data[key][settim_slot][0])){tuc[q].text("")}
+  // ficko
+
+  
+  pfeil =" ◄"
+  if(tabellen_data[key][settim_slot][1]>tabellen_data[key][settim_slot-1][1]){pfeil =" ▲"}
+  if(tabellen_data[key][settim_slot][1]<tabellen_data[key][settim_slot-1][1]){pfeil = " ▼" }
+  tdc[q].text(Math.round(tabellen_data[key][settim_slot][1]) +pfeil)
+  tdc[q].style('background-color',farbskala[Math.min(10,Math.round(tabellen_data[key][settim_slot][1])*2)]
+  //farbskala[Math.min(10,Math.round(tabellen_data[key][settim_slot][1]*2))]
+  )
+  if(isNaN(tabellen_data[key][settim_slot][1])){tdc[q].text("")}
+  pfeil =" ◄"
+  if(tabellen_data[key][settim_slot][2]>tabellen_data[key][settim_slot-1][2]){pfeil =" ▲" }
+  if(tabellen_data[key][settim_slot][2]<tabellen_data[key][settim_slot-1][2]){pfeil =" ▼" }
+  ttc[q].text(Math.round(tabellen_data[key][settim_slot][2]) +pfeil)
+  ttc[q].style('background-color',farbskala[Math.round(tabellen_data[key][settim_slot][2])])
+
+  tpc[q].text(Math.round((graphdata[key][settim_slot])).toLocaleString('en-US'))
+  //if(isNaN(graphdata[key][settim_slot]*stages_list[q].capacity)/100){tpc[q].text("")}
+
+  //if(isNaN(tabellen_data[key][settim_slot][2])){ttc[q].text("")}
+  // tpc[q].style('background-color',farbskala[Math.round(graphdata[key].usage[settim_slot]/15)])
+  q++
+  total_people_cur += Math.round(graphdata[key][settim_slot])
+  console.log(total_people_cur)
+  let  fcol = farbskala[Math.round(tabellen_data[key][settim_slot][0]/10)]
+  let col = farbskala[Math.min(10,Math.round(tabellen_data[key][settim_slot][1])*2)]
+ if(!mapbox){ stages_list[(q-1)].geo.setStyle({fillColor: fcol,
+    color: col,})
+  }}
+}
+
+
+})
+total_p.text(' Total on Site: ' + Math.round(total_people_cur).toLocaleString('en-US') + " / " + totalCapacity.toLocaleString('en-US'))
+}
+  //// diese Funktion ist unter gleichem namen aber mit anderen funktionen in der report ansicht
+  function select_area(set_area){
+// todo
+  }
+  function interpolate(u){
+
+  temp=0
+  aa = settim.getTime()
+  for(i=0;i<graph_data[u].data.length;i++){
+
+  bbb = new Date(graph_data[u].data_time[i])
+  ccc = new Date(graph_data[u].data_time[i+1])
+
+
+  bb = bbb.getTime()
+  cc = ccc.getTime()
+
+  //if(aa<bb||aa>cc){temp=0}
+  if (aa==bb){temp = graph_data[u].data[i]; }
+  if (aa==cc){temp = graph_data[u].data[i+1]; }
+  if(aa>bb && aa<cc){
+
+  temp = ((aa-bb)/(cc-bb))*((graph_data[u].data[i+1]-graph_data[u].data[i]))+graph_data[u].data[i]
+
+  }}
+
+
+
+  return Math.round(temp)}
+  function interpolate_dens(u){
+
+  //temp=0
+  aa2 = settim.getTime()
+
+  for(i=0;i<graph_data[u].dens.length-1;i++){  //
+
+  let bbb2 = new Date(graph_data[u].time[i])
+  let ccc2 = new Date(graph_data[u].time[i+1])
+
+  let bb2 = bbb2.getTime()
+  let cc2 = ccc2.getTime()
+
+
+  if (aa2<bb2){temper = 0 }
+  if (aa2==bb2){temper = graph_data[u].dens[i]; }
+  if (aa2==cc2){temper = graph_data[u].dens[i+1]; }
+
+  if(aa2>bb2 && aa2<cc2){   temper = ((aa2-bb2)/(cc2-bb2))*((graph_data[u].dens[i+1]-graph_data[u].dens[i]))+graph_data[u].dens[i]
+  }}      
+
+
+  return Math.round(temper)}
+  function interpolate_general(set,timeset){
+
+
+  searchtime = settim.getTime()
+
+  for(i=0;i<set.length-1;i++){
+
+
+  tim_interv_left = new Date(timeset[i])
+  tim_interv_right = new Date(timeset[i+1])
+
+  tim_interv_left = tim_interv_left.getTime()
+  tim_interv_right = tim_interv_right.getTime()
+
+
+  found=0
+  if (searchtime==tim_interv_left){found = set[i];break }
+  if (searchtime==tim_interv_right){found = set[i+1];break }
+  if(searchtime>tim_interv_left && searchtime<tim_interv_right){
+
+  found = ((searchtime-tim_interv_left)/(tim_interv_right-tim_interv_left))*((set[i+1]-set[i]))+set[i]
+  ;break
+  }}
+
+  return Math.round(found)}
+  
+  
+
+if(params.get('replay')) {
+  
+  realtime=false;
+  setTimeout(function(){console.log("replay gestartet");autoplay_starten()},1000)
+}
+
+else{  setInterval(() => {
+    realtime = true
+    currentlocaltime = new Date().getTime()+(60*60*1000*zeitshift)  
+    refresh()
+  
+}, 10000);};
+
+function autoplay_starten() {
+  settim = new Date(eventsettings.zeitfenster[0][0]);
+  const endTime = new Date(eventsettings.zeitfenster[0][1]);
+
+  const intervalId = setInterval(function () {
+    settim.setMinutes(settim.getMinutes() + 1);
+    currentTime = settim;
+
+    if (settim > endTime) {
+      clearInterval(intervalId); // Stoppt den Timer
+      console.log("Autoplay beendet – Zeitfenster überschritten");
+      return;
+    }
+
+    refresh();
+  }, 100); // alle 100ms = schnell durchlaufen
+}
+
+   </script>
+</html>
