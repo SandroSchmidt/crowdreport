@@ -418,25 +418,7 @@ function initialise_mapboxmap(){
         .addTo(map);
 });
 
-map.addSource('construction-plan', {
-  type: 'image',
-  url: './cad/arc25r.svg',
-  coordinates: [
-    [21.6515, 39.1027],  // top left (lng, lat)
-    [21.6550, 39.1027],  // top right
-    [21.6550, 39.1059],  // bottom right
-    [21.6515, 39.1059]   // bottom left
-  ]
-});
 
-map.addLayer({
-  id: 'construction-plan-layer',
-  type: 'raster',
-  source: 'construction-plan',
-  paint: {
-    'raster-opacity': 1
-  }
-});
   
   });
   ;  
