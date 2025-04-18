@@ -202,7 +202,12 @@ databaseRef.once('value')
         
         mymap.setView(eventsettings.setview.center,eventsettings.setview.zoom)}
         else{
+          map.setCenter(eventsettings.setview.center)
+
+
+    map.setZoom(eventsettings.setview.zoom)
           //mapboxverison
+          /*
           map.on('load', () => {
             map.addSource('svg-overlay', {
               type: 'image',
@@ -222,6 +227,7 @@ databaseRef.once('value')
               paint: {}
             });
           });
+          */
         }
         eventsettings.zeitzone = 3
         jetzt = new Date()// + eventsettings.zeitzone
@@ -343,9 +349,98 @@ update_map()
 }
 
 function initialise_mapboxmap(){
+  mapboxgl.accessToken = 'pk.eyJ1Ijoic2FuZHJvc2NobWlkdCIsImEiOiJjbHg3bTMxYmwxMXZiMmtzY2tlN3RjNGY5In0.2whcv8hzfzdyukPAXWwSPw';
+
+  map = new mapboxgl.Map({
+    container: "map_div",
+   // style: 'mapbox://styles/mapbox/satellite-streets-v12', 
+    style: 'mapbox://styles/mapbox/streets-v12',
+  // style: 'mapbox://styles/mapbox/satellite-v9',
+
+    pitch: 0, // tilt for 3D
+    bearing: -57, // angle to rotate map for better 3D view
+    antialias: true // better 3D rendering
+  });
   map.on('load', () => {
-  
+    drawPolygons();
+
+    const geojson = {
+      type: 'FeatureCollection',
+      features: blocking_arr.map(block => ({
+          type: 'Feature',
+          geometry: {
+              type: 'Polygon',
+              coordinates: [
+                block.coords.map(coord => [coord[1], coord[0]]) // flip lat/lng to lng/lat
+            ]
+          },
+          properties: {
+              name: block.name
+          }
+      }))
+  };
+
+  // Add GeoJSON source
+  map.addSource('block-polygons', {
+      type: 'geojson',
+      data: geojson
+  });
+
+  // Add polygon fill layer (grey, 90% opacity, no outline)
+  map.addLayer({
+      id: 'block-fill',
+      type: 'fill',
+      source: 'block-polygons',
+      paint: {
+          'fill-color': '#888888',
+          'fill-opacity': 0.9
+      }
+  });
+
+  medstations.forEach(marker => {
+    const flippedCoords = [marker.coords[1], marker.coords[0]]; 
+    // Create a custom element for the marker
+    const el = document.createElement('div');
+    el.className = 'custom-marker';
+    el.style.width = '32px';
+    el.style.height = '32px';
+    el.style.backgroundSize = 'contain';
+    el.style.backgroundRepeat = 'no-repeat';
+
+    // Set the icon (use a real image path or switch-case if using different styles)
+    // Example: `icon: 'hospital'` resolves to `icons/hospital.png`
+    el.style.backgroundImage = `url('icons/medicon.png')`;
+
+    // Create and add the marker to the map
+    new mapboxgl.Marker(el)
+        .setLngLat(flippedCoords)
+        .setPopup(new mapboxgl.Popup({ offset: 25 }).setText(marker.name))
+        .addTo(map);
 });
+
+map.addSource('construction-plan', {
+  type: 'image',
+  url: './cad/arc25r.svg',
+  coordinates: [
+    [21.6515, 39.1027],  // top left (lng, lat)
+    [21.6550, 39.1027],  // top right
+    [21.6550, 39.1059],  // bottom right
+    [21.6515, 39.1059]   // bottom left
+  ]
+});
+
+map.addLayer({
+  id: 'construction-plan-layer',
+  type: 'raster',
+  source: 'construction-plan',
+  paint: {
+    'raster-opacity': 1
+  }
+});
+  
+  });
+  ;  
+
 }
 function initialise_map(){
 

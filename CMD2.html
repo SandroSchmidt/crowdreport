@@ -53,12 +53,12 @@
     mapbox= true
 setTimeout(() => {
   if(stages_list.length<7){d3.select('#logobild').style("width","60%")}
-}, 2000);
+}, 5000);
 mode = "cmd"
 infotag = d3.select('#infotag')
 
 // das folgende ist nur für die Krücke zum eintragen der scan counts
-d3.select('img').on('click',function(){
+if(1==2){d3.select('img').on('click',function(){
             // Open a prompt asking for a number
             let userNumber = prompt("Enter Scans at this time:");
 
@@ -76,66 +76,21 @@ d3.select('img').on('click',function(){
             } else {
                 display.textContent = "Invalid input. Please enter a valid number.";
             }
-        })
+        })}
 
 // das ist die sequenz des ladens
-mapboxgl.accessToken = 'pk.eyJ1Ijoic2FuZHJvc2NobWlkdCIsImEiOiJjbHg3bTMxYmwxMXZiMmtzY2tlN3RjNGY5In0.2whcv8hzfzdyukPAXWwSPw';
 
-  const map = new mapboxgl.Map({
-    container: containerId,
-    style: 'mapbox://styles/mapbox/streets-v12',
-    center: setview.center || [11.255, 43.769],
-    zoom: setview.zoom || 13,
-    pitch: 60, // tilt for 3D
-    bearing: -20, // angle to rotate map for better 3D view
-    antialias: true // better 3D rendering
-  });
 
-  map.addControl(new mapboxgl.NavigationControl());
+//  map.addControl(new mapboxgl.NavigationControl());
 
-  map.on('load', () => {
-    // Enable 3D terrain
-    map.addSource('mapbox-dem', {
-      type: 'raster-dem',
-      url: 'mapbox://mapbox.terrain-rgb',
-      tileSize: 512,
-      maxzoom: 14
-    });
-
-    map.setTerrain({ source: 'mapbox-dem', exaggeration: 1.5 });
-
-    // Add 3D buildings layer
-    const layers = map.getStyle().layers;
-    const labelLayerId = layers.find(
-      l => l.type === 'symbol' && l.layout['text-field']
-    )?.id;
-
-    map.addLayer(
-      {
-        id: '3d-buildings',
-        source: 'composite',
-        'source-layer': 'building',
-        filter: ['==', 'extrude', 'true'],
-        type: 'fill-extrusion',
-        minzoom: 15,
-        paint: {
-          'fill-extrusion-color': '#aaa',
-          'fill-extrusion-height': ['get', 'height'],
-          'fill-extrusion-base': ['get', 'min_height'],
-          'fill-extrusion-opacity': 0.6
-        }
-      },
-      labelLayerId
-    );
-  });
-
-  
+ 
 
     initialise_firebase()
 
     // Example: load area polygons from geometry and display on map
     function drawPolygons() {
       stages_list.forEach(stage => {
+        stage.coords.push(stage.coords[0])
         if (!stage.coords || stage.hide) return;
         const geojson = {
           type: "Feature",
@@ -161,13 +116,36 @@ mapboxgl.accessToken = 'pk.eyJ1Ijoic2FuZHJvc2NobWlkdCIsImEiOiJjbHg3bTMxYmwxMXZiM
             "fill-opacity": 0.4
           }
         });
+        map.addLayer({
+  id: stage.name+`-outline`,
+  type: 'line',
+  source: stage.name,
+  layout: {},
+  paint: {
+    'line-color': 'black', // outline color
+    'line-width': 4
+  }
+});
+map.addLayer({
+  id: stage.name+`-label`,
+  type: 'symbol',
+  source: stage.name,
+  layout: {
+    'text-field': ['get', 'name'], // use the `name` from properties
+    'text-size': 14,
+    'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+    'text-anchor': 'center'
+  },
+  paint: {
+    'text-color': '#000000',
+    'text-halo-color': '#ffffff',
+    'text-halo-width': 1
+  }
+});
       });
     }
 
-    map.on('load', () => {
-      drawPolygons();
-    });  
-
+   
 
 
 
@@ -529,7 +507,13 @@ if(key != "x") {if(stages_list[index-1].hide != true)
   let col = farbskala[Math.min(10,Math.round(tabellen_data[key][settim_slot][1])*2)]
  if(!mapbox){ stages_list[(q-1)].geo.setStyle({fillColor: fcol,
     color: col,})
-  }}
+  }else{
+    map.setPaintProperty(stages_list[(q-1)].name, 'fill-color', fcol)
+    map.setPaintProperty(stages_list[(q-1)].name+`-outline`, 'line-color', col);
+  }
+
+
+}
 }
 
 
