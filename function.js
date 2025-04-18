@@ -362,7 +362,7 @@ function initialise_mapboxmap(){
     antialias: true // better 3D rendering
   });
   map.on('load', () => {
-    drawPolygons();
+  
 
     const geojson = {
       type: 'FeatureCollection',
@@ -377,7 +377,10 @@ function initialise_mapboxmap(){
           properties: {
               name: block.name
           }
-      }))
+      })
+    
+    
+    )
   };
 
   // Add GeoJSON source
@@ -395,8 +398,10 @@ function initialise_mapboxmap(){
           'fill-color': '#888888',
           'fill-opacity': 0.9
       }
-  });
 
+   
+  });
+  drawPolygons();
   medstations.forEach(marker => {
     const flippedCoords = [marker.coords[1], marker.coords[0]]; 
     // Create a custom element for the marker
@@ -421,38 +426,9 @@ function initialise_mapboxmap(){
 setTimeout(() => {
   console.log("versuche CAD!!")
   map.triggerRepaint()
-  map.addSource('construction-plan', {
-    type: 'image',
-    url: './cad/arc25r.png',
-    coordinates: [
-      [
-        33.64207269782687,
-        -13.92991618447925
-      ],
-      [
-        37.08288550140177,
-        60.65206986044934
-      ],
-      [
-        -16.75190247304627,
-        64.17008807011578
-      ],
-      [
-        -20.088217458890604,
-        -7.597483407079656
-      ]
-    ]
-  });
-  
-  map.addLayer({
-    id: 'construction-plan-layer',
-    type: 'raster',
-    source: 'construction-plan',
-    paint: {
-      'raster-opacity': 1
-    }
-  });
-  map.moveLayer('construction-plan-layer');
+
+
+
 }, 5000);
   
   });
