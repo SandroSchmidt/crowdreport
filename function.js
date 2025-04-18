@@ -419,6 +419,7 @@ function initialise_mapboxmap(){
 });
 
 setTimeout(() => {
+  console.log("versuche CAD!!")
   map.addSource('construction-plan', {
     type: 'image',
     url: './cad/arc25r.svg',
