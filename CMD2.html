@@ -80,15 +80,56 @@ d3.select('img').on('click',function(){
 
 // das ist die sequenz des ladens
 mapboxgl.accessToken = 'pk.eyJ1Ijoic2FuZHJvc2NobWlkdCIsImEiOiJjbHg3bTMxYmwxMXZiMmtzY2tlN3RjNGY5In0.2whcv8hzfzdyukPAXWwSPw';
-    
-    let map = new mapboxgl.Map({
-      container: 'map_div',
-      style: 'mapbox://styles/mapbox/streets-v12',
-      center: [39.104, 21.653], // default view - replace with actual center
-      zoom: 17.8,
-      attributionControl: false
+
+  const map = new mapboxgl.Map({
+    container: containerId,
+    style: 'mapbox://styles/mapbox/streets-v12',
+    center: setview.center || [11.255, 43.769],
+    zoom: setview.zoom || 13,
+    pitch: 60, // tilt for 3D
+    bearing: -20, // angle to rotate map for better 3D view
+    antialias: true // better 3D rendering
+  });
+
+  map.addControl(new mapboxgl.NavigationControl());
+
+  map.on('load', () => {
+    // Enable 3D terrain
+    map.addSource('mapbox-dem', {
+      type: 'raster-dem',
+      url: 'mapbox://mapbox.terrain-rgb',
+      tileSize: 512,
+      maxzoom: 14
     });
 
+    map.setTerrain({ source: 'mapbox-dem', exaggeration: 1.5 });
+
+    // Add 3D buildings layer
+    const layers = map.getStyle().layers;
+    const labelLayerId = layers.find(
+      l => l.type === 'symbol' && l.layout['text-field']
+    )?.id;
+
+    map.addLayer(
+      {
+        id: '3d-buildings',
+        source: 'composite',
+        'source-layer': 'building',
+        filter: ['==', 'extrude', 'true'],
+        type: 'fill-extrusion',
+        minzoom: 15,
+        paint: {
+          'fill-extrusion-color': '#aaa',
+          'fill-extrusion-height': ['get', 'height'],
+          'fill-extrusion-base': ['get', 'min_height'],
+          'fill-extrusion-opacity': 0.6
+        }
+      },
+      labelLayerId
+    );
+  });
+
+  
 
     initialise_firebase()
 

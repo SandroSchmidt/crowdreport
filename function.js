@@ -344,28 +344,7 @@ update_map()
 
 function initialise_mapboxmap(){
   map.on('load', () => {
-    map.addSource('crowdzones', {
-        'type': 'geojson',
-        'data': 'crowdzones.geojson' // oder live aus Firebase generiert
-    });
-
-    map.addLayer({
-        'id': 'crowd-3d',
-        'type': 'fill-extrusion',
-        'source': 'crowdzones',
-        'paint': {
-            'fill-extrusion-color': [
-                'interpolate',
-                ['linear'],
-                ['get', 'usage'],
-                0, 'lightblue',
-                100, 'red'
-            ],
-            'fill-extrusion-height': ['get', 'height'], // aus usage berechnet
-            'fill-extrusion-base': 0,
-            'fill-extrusion-opacity': 0.8
-        }
-    });
+  
 });
 }
 function initialise_map(){
