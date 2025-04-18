@@ -423,7 +423,7 @@ setTimeout(() => {
   map.triggerRepaint()
   map.addSource('construction-plan', {
     type: 'image',
-    url: './cad/arc25r.svg',
+    url: './cad/arc25r.png',
     coordinates: [
       [21.6515, 39.1027],  // top left (lng, lat)
       [21.6550, 39.1027],  // top right
