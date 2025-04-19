@@ -143,14 +143,19 @@ else{drawjetzt=settim;puffer = (1000*60*7)}
 //draw_mapbox_arrow()
 }}
 
-function draw_mapbox_arrow()
-{ 
+function draw_mapbox_arrow(){
+  for (let lil=0;lil < swipes_arr.length;lil++){
+    farbe = "green"
+    if (swipes_arr[lil].dicke>5){farbe = "lime"}
+    if (swipes_arr[lil].dicke>10){farbe = "red"}
+    if(swipes_arr[lil].meldender == "sandro"){farbe="black"; swipes_arr[lil].dicke=10}
+
 console.log("male pfeil")
-   von = { lat: 21.65330350093849, lng: 39.10412370294712 };
- nach = { lat: 21.659, lng: 39.105 };
+   von = swipes_arr[lil].von
+ nach = swipes_arr[lil].nach
 
 // 1. Quelle für die Linie
-map.addSource('pfeil-linie', {
+map.addSource('pfeil-linie'+lil, {
   type: 'geojson',
   data: {
     type: 'Feature',
@@ -166,7 +171,7 @@ map.addSource('pfeil-linie', {
 
 // 2. Layer für die Linie
 map.addLayer({
-  id: 'pfeil-linie',
+  id: 'pfeil-linie'+lil,
   type: 'line',
   source: 'pfeil-linie',
   layout: {
@@ -184,7 +189,7 @@ map.loadImage('https://docs.mapbox.com/mapbox-gl-js/assets/triangle.png', (error
   if (error) throw error;
   if (!map.hasImage('arrow-head')) map.addImage('arrow-head', image);
 
-  map.addSource('pfeil-spitze', {
+  map.addSource('pfeil-spitze'+lil, {
     type: 'geojson',
     data: {
       type: 'Feature',
@@ -201,9 +206,9 @@ map.loadImage('https://docs.mapbox.com/mapbox-gl-js/assets/triangle.png', (error
   const rotation = Math.atan2(dy, dx) * (180 / Math.PI);
 
   map.addLayer({
-    id: 'pfeil-spitze',
+    id: 'pfeil-spitze'+lil,
     type: 'symbol',
-    source: 'pfeil-spitze',
+    source: 'pfeil-spitze'+lil,
     layout: {
       'icon-image': 'arrow-head',
       'icon-size': 0.5,
@@ -213,7 +218,7 @@ map.loadImage('https://docs.mapbox.com/mapbox-gl-js/assets/triangle.png', (error
   });
 });
 
-}
+}}
 function initialise_firebase(){
   if (mode == "cmd"){d3.select("title").text(namedesevents_short + " - crowdreport")}
   if (mode == "csa") {d3.select("title").text(namedesevents_short + " - CSA")  }
@@ -308,7 +313,7 @@ databaseRef.once('value')
         zeitshift = (eventsettings.zeitzone - nutzerzeitzone) //*60*1000
         jetzt = jetzt.getTime()
 
-        
+        heutag = 1 
         for(i=0;i<eventsettings.zeitfenster.length;i++){
           showtagmittags = new Date ()
           temp =new Date (eventsettings.zeitfenster[i][0])
@@ -316,7 +321,9 @@ databaseRef.once('value')
           if (showtagmittags.getDate()== temp.getDate() &&showtagmittags.getMonth()== temp.getMonth()){heutag = (i+1)}
           console.log(heutag)
         }
-        
+
+
+        heutag = 1
         console.log("TTTTTTT" + heutag)
 
 
