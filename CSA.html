@@ -47,10 +47,11 @@
       <td style="width:60%">
 
         <select id="dropdownrep"  onchange="
-        set_name=eventsettings.spotters[this.value];
+        set_name=this.value;
         infotag.text('new reporting person: '+set_name)
         localStorage.setItem('userName', set_name);
         locked = false; d3.select('#lock').text('UNLOCKED')
+        d3.select('#lock').style('background-color','yellow')
                  setTimeout(function (){d3.select('#lock').style('background-color','green')},800)
 //                 d3.select('sendrepbut').style('width','auto')
 //   mymap.invalidateSize();
@@ -141,7 +142,8 @@
   mapbox= false
   mode="csa"
 total_p = d3.select('#total_p')
-const storedName = localStorage.getItem('userName');
+storedName = localStorage.getItem('userName');
+
 dens_slider = d3.select('#hierdensityslider')
 tens_slider = d3.select('#hiertensionslider')
 usage_slider = d3.select('#hierusageslider')
@@ -185,7 +187,7 @@ for(i=0;i<stages_list.length;i++){
     for (let i = 0; i < eventsettings.spotters.length; i++) {
   d3.select('#dropdownrep')
     .append('option')
-    .attr('value', i)
+    .attr('value', eventsettings.spotters[i])
     .text(eventsettings.spotters[i]);
 }
 /*
@@ -219,9 +221,9 @@ if (storedName) {
 read_current()
 setTimeout(() => {
   select_area(0)
-}, 1000);
+}, 900);
 
-  }, 2000);
+  }, 1000);
 
 
     }
@@ -340,6 +342,15 @@ for (i=0;i<farbskala.length;i++){
   md.append('p').style('background-color',farbskala[i]).text("density:" + i + " / usage: " + i * 10 + " %")
 
 }}
+setTimeout(() => {
+  if(storedName) {set_name = storedName
+console.log(storedName)
+              locked = false; d3.select('#lock').text('UNLOCKED')
+              d3.select('#lock').style('background-color','yellow')
+                 setTimeout(function (){d3.select('#lock').style('background-color','green')},800)
+                 d3.select("#dropdownrep").property("value", storedName);
+}
+}, 1000);
 
   </script>
 

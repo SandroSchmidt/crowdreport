@@ -140,88 +140,80 @@ else{drawjetzt=settim;puffer = (1000*60*7)}
                       }
               }
 }else{
-  function getAngleDeg(a, b) {
-    const dx = b.lng - a.lng;
-    const dy = b.lat - a.lat;
-    return (Math.atan2(dy, dx) * 180 / Math.PI);
-  }
-  
-  function drawSwipesWithArrows() {
-    for (let io = 0; io < swipes_arr.length; io++) {
-      const swipe = swipes_arr[io];
-      const arrowLineId = `arrow-line-${io}`;
-      const arrowPointId = `arrow-point-${io}`;
-      const arrowLayerId = `arrow-icon-${io}`;
-  
-      // Linie von A nach B
-      map.addSource(arrowLineId, {
-        type: 'geojson',
-        data: {
-          type: 'Feature',
-          geometry: {
-            type: 'LineString',
-            coordinates: [
-              [swipe.von.lng, swipe.von.lat],
-              [swipe.nach.lng, swipe.nach.lat]
-            ]
-          }
-        }
-      });
-  
-      map.addLayer({
-        id: arrowLineId,
-        type: 'line',
-        source: arrowLineId,
-        paint: {
-          'line-color': '#000000',
-          'line-width': 2,
-          'line-opacity': 0.5
-        }
-      });
-  
-      // Pfeilsymbol am Startpunkt
-      const angle = getAngleDeg(swipe.von, swipe.nach);
-  
-      map.addSource(arrowPointId, {
-        type: 'geojson',
-        data: {
-          type: 'FeatureCollection',
-          features: [{
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
-              coordinates: [swipe.von.lng, swipe.von.lat]
-            },
-            properties: {
-              rotation: angle
-            }
-          }]
-        }
-      });
-  
-      map.addLayer({
-        id: arrowLayerId,
-        type: 'symbol',
-        source: arrowPointId,
-        layout: {
-          'icon-image': 'arrow',
-          'icon-size': 1,
-          'icon-rotate': ['get', 'rotation'],
-          'icon-rotation-alignment': 'map',
-          'icon-anchor': 'bottom'
-        }
-      });
-  
-      // Nach 60s entfernen
-      setTimeout(() => {
-        [arrowLineId, arrowPointId, arrowLayerId].forEach(id => {
-          if (map.getLayer(id)) map.removeLayer(id);
-          if (map.getSource(id)) map.removeSource(id);
-        });
-      }, 60000);
+//draw_mapbox_arrow()
+}}
+
+function draw_mapbox_arrow()
+{ 
+console.log("male pfeil")
+   von = { lat: 21.65330350093849, lng: 39.10412370294712 };
+ nach = { lat: 21.659, lng: 39.105 };
+
+// 1. Quelle für die Linie
+map.addSource('pfeil-linie', {
+  type: 'geojson',
+  data: {
+    type: 'Feature',
+    geometry: {
+      type: 'LineString',
+      coordinates: [
+        [von.lng, von.lat],
+        [nach.lng, nach.lat]
+      ]
     }
   }
-}}
+});
+
+// 2. Layer für die Linie
+map.addLayer({
+  id: 'pfeil-linie',
+  type: 'line',
+  source: 'pfeil-linie',
+  layout: {
+    'line-cap': 'round',
+    'line-join': 'round'
+  },
+  paint: {
+    'line-color': '#ff0000',
+    'line-width': 4
+  }
+});
+
+// 3. Pfeilspitze als Symbol (z. B. ein gedrehtes Icon)
+map.loadImage('https://docs.mapbox.com/mapbox-gl-js/assets/triangle.png', (error, image) => {
+  if (error) throw error;
+  if (!map.hasImage('arrow-head')) map.addImage('arrow-head', image);
+
+  map.addSource('pfeil-spitze', {
+    type: 'geojson',
+    data: {
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [nach.lng, nach.lat]
+      }
+    }
+  });
+
+  // Richtung des Pfeils berechnen (für Rotation)
+  const dx = nach.lng - von.lng;
+  const dy = nach.lat - von.lat;
+  const rotation = Math.atan2(dy, dx) * (180 / Math.PI);
+
+  map.addLayer({
+    id: 'pfeil-spitze',
+    type: 'symbol',
+    source: 'pfeil-spitze',
+    layout: {
+      'icon-image': 'arrow-head',
+      'icon-size': 0.5,
+      'icon-rotate': rotation,
+      'icon-rotation-alignment': 'map'
+    }
+  });
+});
+
+}
 function initialise_firebase(){
   if (mode == "cmd"){d3.select("title").text(namedesevents_short + " - crowdreport")}
   if (mode == "csa") {d3.select("title").text(namedesevents_short + " - CSA")  }
@@ -760,7 +752,7 @@ var polyline = L.polyline(fluchtrouten[i], {
 }).addTo(flucht_layer);
 }
 // Add arrows to the polyline using PolylineDecorator
-var decorator = L.polylineDecorator(polyline, {
+decorator = L.polylineDecorator(polyline, {
   patterns: [
       {
           offset: '0', // Start offset
@@ -1303,7 +1295,7 @@ function removeLoadingOverlay() {
 
 
 setTimeout(() => {
-  refresh()
+  if (mode != "csa"){ refresh()}
 }, 3000);
 
 // TODO: das hier ist irgendwie wichtig wegen der veränderung der map-fanster. wenn man das raus nimmt wird die map nicht richtig gerendert:

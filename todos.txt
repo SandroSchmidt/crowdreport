@@ -1,15 +1,19 @@
 <Today>
   - lables in die mittee
-  - areas in leaflet werden nicht angezeigt
-  - wann ist heuttag1 oder 2
   - keine pfeile und marker und emergency exits in mapbox
+
 </Today>
 
 <changelog>
 
+<gesagt>
   - there is now a loading screen so it only shows the web-app after everything is loaded
-  - i have made smal gaps inbetween the areas so that the outlines are more visible. also the outlines are drawn over obstacles so they are not hidden.
-
+  - i have made small gaps inbetween the areas so that the outlines are more visible. also the outlines are drawn over obstacles so they are not hidden.
+  - I was not yet able to 
+      move the "VIP" lable to the center
+      add the 3d map to the CSA view
+      add the lables, swipes and markers to the 3d map
+    </gesagt>
 
 </changelog>
 
@@ -25,10 +29,6 @@
 
 style.css nutzen
 
-
- //tempart = current[stages_list[q].name]
-  //let  fcol = 
-  /*
   möglichkeit neue objekte einzufügen und ereignisse 
   eine ansicht für den nutzer die anders ist als die des desks
   vlt bekommen die spotter auch die möglichkeit einen grpahen oder zahlen zu sehene. wann ist peakt zb
@@ -50,8 +50,6 @@ style.css nutzen
 
 
 
-ZEITZONE EINSTELLEN UND NCIHT VOM PC NEHMEN!!!!
-
 TESTUMGEBUNG !!!
 andere browser checken, apple
 
@@ -59,10 +57,15 @@ Die eingaben bei in counts editierbar machen
 
 TODOS für crowdreport
 - die marker werden nicht richtig angezeigt
-- checken, dass es von den Zeitzonen her passt
+
 - anfangsnull und end null
 - zeitfenster checken
 - emergency routes
+
+bei CSA view, die reihenfolge der delays und ladevorgänge
+
+ingesamt sollte der loadingscreen nicht nach 5sek sondern nach ende des ladens kommen
+
 
 1) from which time to which time should the graph show the Event? (open gates to everybody left)
 18:30 - 08:30.  Scheduled Doors 19:00 - 07:45
