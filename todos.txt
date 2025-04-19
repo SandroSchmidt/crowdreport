@@ -1,4 +1,19 @@
-- Project Name - 1001 Nights 25
+<Today>
+  - lables in die mittee
+  - areas in leaflet werden nicht angezeigt
+  - wann ist heuttag1 oder 2
+  - keine pfeile und marker und emergency exits in mapbox
+</Today>
+
+<changelog>
+
+  - there is now a loading screen so it only shows the web-app after everything is loaded
+  - i have made smal gaps inbetween the areas so that the outlines are more visible. also the outlines are drawn over obstacles so they are not hidden.
+
+
+</changelog>
+
+ Project Name - 1001 Nights 25
 - Project - 5 stage show with vip decks in each
 - Show Date - 24th - 25th April 2025, 2 day. 
 - Map: General - will follow with 
@@ -6,6 +21,9 @@
 - Areas Required to be measured - all 5 stage areas, vip decks in each SL & SR, walkways 
 - Capacities - will follow with 
 - Methods of Sensors - 4 or 5 staff on ground who'll need to be added to report - names to follow closer and ticket scans in
+
+
+style.css nutzen
 
 
  //tempart = current[stages_list[q].name]

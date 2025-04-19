@@ -139,8 +139,89 @@ else{drawjetzt=settim;puffer = (1000*60*7)}
                       
                       }
               }
-}
-}
+}else{
+  function getAngleDeg(a, b) {
+    const dx = b.lng - a.lng;
+    const dy = b.lat - a.lat;
+    return (Math.atan2(dy, dx) * 180 / Math.PI);
+  }
+  
+  function drawSwipesWithArrows() {
+    for (let io = 0; io < swipes_arr.length; io++) {
+      const swipe = swipes_arr[io];
+      const arrowLineId = `arrow-line-${io}`;
+      const arrowPointId = `arrow-point-${io}`;
+      const arrowLayerId = `arrow-icon-${io}`;
+  
+      // Linie von A nach B
+      map.addSource(arrowLineId, {
+        type: 'geojson',
+        data: {
+          type: 'Feature',
+          geometry: {
+            type: 'LineString',
+            coordinates: [
+              [swipe.von.lng, swipe.von.lat],
+              [swipe.nach.lng, swipe.nach.lat]
+            ]
+          }
+        }
+      });
+  
+      map.addLayer({
+        id: arrowLineId,
+        type: 'line',
+        source: arrowLineId,
+        paint: {
+          'line-color': '#000000',
+          'line-width': 2,
+          'line-opacity': 0.5
+        }
+      });
+  
+      // Pfeilsymbol am Startpunkt
+      const angle = getAngleDeg(swipe.von, swipe.nach);
+  
+      map.addSource(arrowPointId, {
+        type: 'geojson',
+        data: {
+          type: 'FeatureCollection',
+          features: [{
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [swipe.von.lng, swipe.von.lat]
+            },
+            properties: {
+              rotation: angle
+            }
+          }]
+        }
+      });
+  
+      map.addLayer({
+        id: arrowLayerId,
+        type: 'symbol',
+        source: arrowPointId,
+        layout: {
+          'icon-image': 'arrow',
+          'icon-size': 1,
+          'icon-rotate': ['get', 'rotation'],
+          'icon-rotation-alignment': 'map',
+          'icon-anchor': 'bottom'
+        }
+      });
+  
+      // Nach 60s entfernen
+      setTimeout(() => {
+        [arrowLineId, arrowPointId, arrowLayerId].forEach(id => {
+          if (map.getLayer(id)) map.removeLayer(id);
+          if (map.getSource(id)) map.removeSource(id);
+        });
+      }, 60000);
+    }
+  }
+}}
 function initialise_firebase(){
   if (mode == "cmd"){d3.select("title").text(namedesevents_short + " - crowdreport")}
   if (mode == "csa") {d3.select("title").text(namedesevents_short + " - CSA")  }
@@ -235,9 +316,20 @@ databaseRef.once('value')
         zeitshift = (eventsettings.zeitzone - nutzerzeitzone) //*60*1000
         jetzt = jetzt.getTime()
 
+        
+        for(i=0;i<eventsettings.zeitfenster.length;i++){
+          showtagmittags = new Date ()
+          temp =new Date (eventsettings.zeitfenster[i][0])
+          showtagmittags.setHours(12,0,0,0)
+          if (showtagmittags.getDate()== temp.getDate() &&showtagmittags.getMonth()== temp.getMonth()){heutag = (i+1)}
+          console.log(heutag)
+        }
+        
+        console.log("TTTTTTT" + heutag)
 
-        if(jetzt < new Date(eventsettings.zeitfenster[0][0]).getTime()-(3*60*60*1000))
-          {heutag = 99;
+
+        if(heutag == 99)
+          {
             start_graphdata = new Date()
             temp = 0 
             if(start_graphdata.getHours()<12){temp = (24*60*60*1000)}
@@ -246,17 +338,14 @@ databaseRef.once('value')
             start_graphdata=start_graphdata.getTime()-temp
           }
         else
-          {heutag = 1
+          {
             
-//            if(jetzt > new Date(eventsettings.zeitfenster[0][1]).getTime())
-  //          {heutag = 2}
-
-            start_graphdata = new Date(eventsettings.zeitfenster[heutag-1][0]).getTime()
+           start_graphdata = new Date(eventsettings.zeitfenster[heutag-1][0]).getTime()-(zeitshift+5)*60*60*1000
         
           }
        
         
-        console.log("heuttag: "+ heutag)
+        console.log("heutag: "+ heutag)
       
         if (mode != "map"){read_current()
            read_a_day(25,heutag)
@@ -356,14 +445,17 @@ function initialise_mapboxmap(){
    // style: 'mapbox://styles/mapbox/satellite-streets-v12', 
     style: 'mapbox://styles/mapbox/streets-v12',
   // style: 'mapbox://styles/mapbox/satellite-v9',
-
+  attributionControl: false,
     pitch: 0, // tilt for 3D
     bearing: -57, // angle to rotate map for better 3D view
     antialias: true // better 3D rendering
   });
   map.on('load', () => {
-  
 
+    
+for(i=0;i<blocking_arr.length;i++){
+  blocking_arr[i].coords.push(blocking_arr[i].coords[0])
+}
     const geojson = {
       type: 'FeatureCollection',
       features: blocking_arr.map(block => ({
@@ -375,7 +467,9 @@ function initialise_mapboxmap(){
             ]
           },
           properties: {
-              name: block.name
+            name: block.name,
+            height: block.hi !== undefined ? block.hi : 5,
+            farbe: block.farbe !== undefined ? block.farbe : "grey"
           }
       })
     
@@ -394,10 +488,14 @@ function initialise_mapboxmap(){
       id: 'block-fill',
       type: 'fill',
       source: 'block-polygons',
+      type: "fill-extrusion",
+      layout: {},
       paint: {
-          'fill-color': '#888888',
-          'fill-opacity': 0.9
-      }
+    "fill-extrusion-color": ["get", "farbe"],
+    "fill-extrusion-height": ["get", "height"],
+    "fill-extrusion-base": 0,
+    "fill-extrusion-opacity": 1
+  }
 
    
   });
@@ -423,13 +521,7 @@ function initialise_mapboxmap(){
         .addTo(map);
 });
 
-setTimeout(() => {
-  console.log("versuche CAD!!")
-  map.triggerRepaint()
 
-
-
-}, 5000);
   
   });
   ;  
@@ -1184,8 +1276,40 @@ for(i=0;i<stages_list.length;i++){
 
 total_p.text(' Total on Site: ' + Math.round(total_people_cur).toLocaleString('en-US') + " / " + totalCapacity.toLocaleString('en-US'))
 }
+
+
+function getCentroid(coords) {
+  let area = 0, x = 0, y = 0;
+  const pts = coords[0]; // assuming single polygon, no holes
+
+  for (let i = 0, j = pts.length - 1; i < pts.length; j = i++) {
+    const xi = pts[i][0], yi = pts[i][1];
+    const xj = pts[j][0], yj = pts[j][1];
+    const f = xi * yj - xj * yi;
+    area += f;
+    x += (xi + xj) * f;
+    y += (yi + yj) * f;
+  }
+
+  area *= 0.5;
+  const factor = area !== 0 ? 1 / (6 * area) : 0;
+  return [x * factor, y * factor];
+}
+
+// Function to remove the loading overlay
+function removeLoadingOverlay() {
+  d3.select("#loaderdiv").remove();
+}
+
+
+setTimeout(() => {
+  refresh()
+}, 3000);
+
 // TODO: das hier ist irgendwie wichtig wegen der veränderung der map-fanster. wenn man das raus nimmt wird die map nicht richtig gerendert:
-/*setTimeout(function() {
-  mymap.invalidateSize();
-}, 2000);
-*/
+setTimeout(function() {
+  console.log("resizemap")
+  if(!mapbox){mymap.invalidateSize();}
+  else{map.resize();}
+  removeLoadingOverlay()
+}, 5000);
