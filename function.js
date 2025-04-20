@@ -313,7 +313,7 @@ databaseRef.once('value')
         zeitshift = (eventsettings.zeitzone - nutzerzeitzone) //*60*1000
         jetzt = jetzt.getTime()
 
-        heutag = 1 
+        heutag = 2
         for(i=0;i<eventsettings.zeitfenster.length;i++){
           showtagmittags = new Date ()
           temp =new Date (eventsettings.zeitfenster[i][0])
@@ -323,7 +323,7 @@ databaseRef.once('value')
         }
 
 
-        heutag = 1
+        heutag = 2
         console.log("TTTTTTT" + heutag)
 
 
