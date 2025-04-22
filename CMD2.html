@@ -150,7 +150,9 @@ if(1==1){d3.select('img').on('click',function(){
           
           properties: {
         name: stage.name,
-        height: stage.hi !== undefined ? stage.hi : 5
+        height: stage.hi !== undefined ? stage.hi : 1,
+        base: stage.lo !== undefined ? stage.lo : 0,
+        lable:stage.lable !== undefined ? stage.lable : ""
       }
         };
 
@@ -158,6 +160,7 @@ if(1==1){d3.select('img').on('click',function(){
           type: "geojson",
           data: geojson
         });
+        /*
         map.addLayer({
   id: stage.name+`-outline`,
   type: 'line',
@@ -167,7 +170,7 @@ if(1==1){d3.select('img').on('click',function(){
     'line-color': 'black', // outline color
     'line-width': 6
   }
-});
+});*/
         map.addLayer({
           id: stage.name,
           type: "fill-extrusion",
@@ -176,7 +179,8 @@ if(1==1){d3.select('img').on('click',function(){
           paint: {
         "fill-extrusion-color": stage.farbe || "#ff0000",
         "fill-extrusion-height": ["get", "height"],
-        "fill-extrusion-base": 0,
+
+        "fill-extrusion-base": ["get", "base"],
         "fill-extrusion-opacity": 1
       }
         });
@@ -186,7 +190,7 @@ map.addLayer({
   type: 'symbol',
   source: stage.name,
   layout: {
-    'text-field': ['get', 'name'], // use the `name` from properties
+    'text-field': ['get', 'lable'], // use the `name` from properties
     'text-size': 14,
     'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
     'text-anchor': 'center'

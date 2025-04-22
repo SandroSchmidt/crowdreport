@@ -73,7 +73,10 @@ initialise_firebase()
       titlediv= d3.select('#titlediv')
 polygonLayer = L.polygon([[0,0],[1,1],[1,0],[0,1]])
 coordinatesArray = []
-
+function upd_cad_ovr(){
+  imageOverlay2.setBounds(eventsettings.imagebounds)
+  imageOverlay.setBounds(eventsettings.imagebounds)
+}
 setTimeout(() => {
   console.log(eventsettings)
   titlediv.text(eventsettings.namelong)
@@ -94,19 +97,19 @@ reo.append('hr')
 reo.append('p').text("Background CAD:")
 reo.append('input')  .attr('type', 'number')   // Use correct step format
   .attr('value', eventsettings.imagebounds[0][0])  .on('change', function() {    eventsettings.imagebounds[0][0] = parseFloat(this.value);
-    imageOverlay2.setBounds(eventsettings.imagebounds);
+   upd_cad_ovr();
   });
   reo.append('input')  .attr('type', 'number')    // Use correct step format
   .attr('value', eventsettings.imagebounds[0][1])  .on('change', function() {    eventsettings.imagebounds[0][1] = parseFloat(this.value);
-    imageOverlay2.setBounds(eventsettings.imagebounds);
+    upd_cad_ovr()
   });
   reo.append('input')  .attr('type', 'number')  // Use correct step format
   .attr('value', eventsettings.imagebounds[1][0])  .on('change', function() {    eventsettings.imagebounds[1][0] = parseFloat(this.value);
-    imageOverlay2.setBounds(eventsettings.imagebounds);
+    upd_cad_ovr()
   });
   reo.append('input')  .attr('type', 'number')   // Use correct step format
   .attr('value', eventsettings.imagebounds[1][1])  .on('change', function() {    eventsettings.imagebounds[1][1] = parseFloat(this.value);
-    imageOverlay2.setBounds(eventsettings.imagebounds);
+    upd_cad_ovr()
   });
 reo.append("button").text("neu geo").on('click', function(){
   coordinatesArray =[]

@@ -313,7 +313,7 @@ databaseRef.once('value')
         zeitshift = (eventsettings.zeitzone - nutzerzeitzone) //*60*1000
         jetzt = jetzt.getTime()
 
-        heutag = 2
+        heutag = 99
         for(i=0;i<eventsettings.zeitfenster.length;i++){
           showtagmittags = new Date ()
           temp =new Date (eventsettings.zeitfenster[i][0])
@@ -323,7 +323,7 @@ databaseRef.once('value')
         }
 
 
-        heutag = 2
+        heutag = 99
         console.log("TTTTTTT" + heutag)
 
 
@@ -468,7 +468,9 @@ for(i=0;i<blocking_arr.length;i++){
           properties: {
             name: block.name,
             height: block.hi !== undefined ? block.hi : 5,
-            farbe: block.farbe !== undefined ? block.farbe : "grey"
+            farbe: block.farbe !== undefined ? block.farbe : "grey",
+            base: block.lo !== undefined ? block.lo : 0,
+            //opac: block.opacity !== undefined ? block.opacity : 1
           }
       })
     
@@ -492,8 +494,9 @@ for(i=0;i<blocking_arr.length;i++){
       paint: {
     "fill-extrusion-color": ["get", "farbe"],
     "fill-extrusion-height": ["get", "height"],
-    "fill-extrusion-base": 0,
-    "fill-extrusion-opacity": 1
+
+ "fill-extrusion-base": ["get", "base"],
+    "fill-extrusion-opacity": 1//["get", "opac"]
   }
 
    
@@ -654,7 +657,10 @@ for (f=0;f<restrooms.length;f++) {L.marker(restrooms[f],{icon:resticon}).addTo(g
 // Layercontroll
 console.log(blocking_arr)
 if(blocking_arr){
-for (f=0;f<blocking_arr.length;f++) {let fu = f; L.polygon(blocking_arr[f].coords, {fillColor: "grey",color:"black", "weight": 1,"opacity": 1,fillOpacity:0.8}).bindTooltip(blocking_arr[f].name).addTo(green_layer)}
+for (f=0;f<blocking_arr.length;f++) {
+  if (blocking_arr[f].farbe){fcol = blocking_arr[f].farbe}else{fcol = "grey"}
+  
+  let fu = f; L.polygon(blocking_arr[f].coords, {fillColor: fcol, "weight": 1,"opacity": 1,fillOpacity:0.8}).bindTooltip(blocking_arr[f].name).addTo(green_layer)}
 }
 mymap.addControl(new L.Control.Fullscreen());
     
@@ -1301,9 +1307,17 @@ function removeLoadingOverlay() {
 }
 
 
+
+
 setTimeout(() => {
   if (mode != "csa"){ refresh()}
-}, 3000);
+  map.setPitch(60)
+  bb = -57
+setInterval(() => {
+  map.setBearing(bb)
+  bb -= 0.5
+}, 50);
+}, 10000);
 
 // TODO: das hier ist irgendwie wichtig wegen der veränderung der map-fanster. wenn man das raus nimmt wird die map nicht richtig gerendert:
 setTimeout(function() {

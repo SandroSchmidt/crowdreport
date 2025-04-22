@@ -146,35 +146,76 @@ table tr {background: #e0eaff;}
     const container = d3.select("#geometrydiv");
     container.selectAll('*').remove()
     container.append('p').text(eventsettings.namelong+ " - Crowd-Areas:").attr("class","event-title")
-  
+   t = container.append('table').attr("class","spaced-rows")
+    tr= t.append("tr")
+    tr.append("th")
+    tr.append("th").text('Name')
+    tr.append("th").text('Lable on Map')
+    tr.append("th").text('Capacity')
+    tr.append("th").text('Color in graph')
+    tr.append("th").text('Geometry')
+    tr.append("th").text('Hi')
+    tr.append("th")
     for (i=0;i<geometry.stage.length;i++){
+  
       let mi = i
-    container.append('p').text('Nr. '+ (i+1))
-    t = container.append('table').attr("class","spaced-rows")
-      th = t.append('tr')
-        th.append("td").text('Name')
-    th.append('td').append('input').attr("value",geometry.stage[i].name).on("change",function(){geometry.stage[mi].name=this.value;drawgeometryUI(geometry)})
-    th = t.append('tr')
-    th.append("td").text('Capacity')
-    th.append('td').append('input').attr("type","number").attr('min',0).attr("value",geometry.stage[i].capacity).on("input",function(){geometry.stage[mi].capacity=parseInt(this.value)})
-    th = t.append('tr')
-    th.append("td").text('Color in graph')
-    th.append('td').append('input').attr("type","color").attr("value",geometry.stage[i].farbe).on("change",function(){geometry.stage[mi].farbe=this.value;drawgeometryUI(geometry)})
-    th = t.append('tr')
-    th.append("td").text('Geometry')
-    td = th.append('td')
-    console.log(geometry.stage[i].coords)
-    td.append('input').attr("value",JSON.stringify(geometry.stage[i].coords))
-    .on('change',function(){geometry.stage[mi].coords=JSON.parse(this.value)})
-    td.append('button').text("Draw Shape").on("click",function(){window.location.href = './Mapeditor.html?event='+namedesevents_short+'&area='+mi;})
-    container.append('button').text('Remove this area').style("width","30%").on('click',function(){geometry.stage.splice(mi, 1);drawgeometryUI(geometry);})
-   
+    
+ 
+      tr = t.append('tr')
+      tr.append("td").text('Nr. '+ (i+1))
+      tr.append("td").append('input').attr("value",geometry.stage[i].name).on("change",function(){geometry.stage[mi].name=this.value;drawgeometryUI(geometry)})
+      tr.append("td").append('input').attr("value",geometry.stage[i].lable).on("change",function(){geometry.stage[mi].lable=this.value;drawgeometryUI(geometry)})
+    
+      tr.append("td").append('input').attr("type","number").attr('min',0).style("width", "9ch").style("font-family","monospace").attr("value",geometry.stage[i].capacity).on("input",function(){geometry.stage[mi].capacity=parseInt(this.value)})
+      tr.append("td").append('input').attr("type","color").attr("value",geometry.stage[i].farbe).on("change",function(){geometry.stage[mi].farbe=this.value;drawgeometryUI(geometry)}) 
+      tr.append("td").append('input').attr("value",JSON.stringify(geometry.stage[i].coords)).on('change',function(){geometry.stage[mi].coords=JSON.parse(this.value)})
+      tr.append("td").append('input').style("width", "7ch").style("font-family","monospace").attr("value",geometry.stage[i].hi).on('change',function(){geometry.stage[mi].hi =parseInt(this.value)})
+      tr.append("td").append('button').text('Remove this area').on('click',function(){geometry.stage.splice(mi, 1);drawgeometryUI(geometry);})
+    // td.append('button').text("Draw Shape").on("click",function(){window.location.href = './Mapeditor.html?event='+namedesevents_short+'&area='+mi;})
+      
     }
     container.append('br')
     container.append('hr')
     container.append('br')
     container.append('button').text('Add another area').style("width","30%").on('click',function(){geometry.stage.push({name:"noname"});drawgeometryUI(geometry);})
-  
+    container.append("button")
+      .text("Save areas").style("width","30%")
+      .on("click", () => {
+        ref2.set(geometry).then(() => {
+          alert("Areas saved successfully.");
+        }).catch((error) => {
+          alert("Error saving settings: " + error);
+        });
+      });
+    container.append('hr')
+    container.append('br')
+
+    // hier werdend ie Blocks gemalt
+    container.append('p').text(eventsettings.namelong+ " - Crowd-Areas:").attr("class","event-title")
+   t = container.append('table').attr("class","spaced-rows")
+    tr= t.append("tr")
+    tr.append("th").text('Name')
+    tr.append("th").text('Color on Map')
+    tr.append("th").text('Transparency')
+    tr.append("th").text('Geometry')
+    tr.append("th").text('Hi')
+    tr.append("th").text('Lo')
+    tr.append("th")
+    for (i=0;i<geometry.block.length;i++){
+      let mi = i
+    
+ 
+    tr = t.append('tr')
+    tr.append("td").append('input').attr("value",geometry.block[i].name).on("change",function(){geometry.block[mi].name=this.value;drawgeometryUI(geometry)})
+    tr.append("td").append('input').attr("type","color").attr("value",geometry.block[i].farbe).on("change",function(){geometry.block[mi].farbe=this.value;drawgeometryUI(geometry)}) 
+    tr.append("td").append('input').attr("type","number").attr('min',0.2).attr("max",1).attr("step",0.1).style("width", "9ch").style("font-family","monospace").attr("value",geometry.block[i].opacity).on("input",function(){geometry.block[mi].opacity=parseFloat(this.value)})
+    tr.append("td").append('input').attr("value",JSON.stringify(geometry.block[i].coords)).on('change',function(){geometry.block[mi].coords=JSON.parse(this.value)})
+    tr.append("td").append('input').style("width", "7ch").style("font-family","monospace").attr("value",geometry.block[i].hi).on('change',function(){geometry.block[mi].hi =parseInt(this.value)})
+    tr.append("td").append('input').style("width", "7ch").style("font-family","monospace").attr("value",geometry.block[i].lo).on('change',function(){geometry.block[mi].lo =parseInt(this.value)})
+    tr.append("td").append('button').text('Remove this block').on('click',function(){geometry.block.splice(mi, 1);drawgeometryUI(geometry);})
+
+    }
+    container.append('button').text('Add another block').style("width","30%").on('click',function(){geometry.block.push({name:"noname"});drawgeometryUI(geometry);})
     container.append("button")
       .text("Save areas").style("width","30%")
       .on("click", () => {
@@ -185,6 +226,8 @@ table tr {background: #e0eaff;}
         });
       });
   
+
+
   }
 
 
