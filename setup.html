@@ -155,6 +155,7 @@ table tr {background: #e0eaff;}
     tr.append("th").text('Color in graph')
     tr.append("th").text('Geometry')
     tr.append("th").text('Hi')
+    tr.append("th").text('Lo')
     tr.append("th")
     for (i=0;i<geometry.stage.length;i++){
   
@@ -170,6 +171,8 @@ table tr {background: #e0eaff;}
       tr.append("td").append('input').attr("type","color").attr("value",geometry.stage[i].farbe).on("change",function(){geometry.stage[mi].farbe=this.value;drawgeometryUI(geometry)}) 
       tr.append("td").append('input').attr("value",JSON.stringify(geometry.stage[i].coords)).on('change',function(){geometry.stage[mi].coords=JSON.parse(this.value)})
       tr.append("td").append('input').style("width", "7ch").style("font-family","monospace").attr("value",geometry.stage[i].hi).on('change',function(){geometry.stage[mi].hi =parseInt(this.value)})
+      tr.append("td").append('input').style("width", "7ch").style("font-family","monospace").attr("value",geometry.stage[i].lo).on('change',function(){geometry.stage[mi].lo =parseInt(this.value)})
+
       tr.append("td").append('button').text('Remove this area').on('click',function(){geometry.stage.splice(mi, 1);drawgeometryUI(geometry);})
     // td.append('button').text("Draw Shape").on("click",function(){window.location.href = './Mapeditor.html?event='+namedesevents_short+'&area='+mi;})
       

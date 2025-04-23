@@ -96,6 +96,26 @@ Some questions:
 - This might not be possible - but currently when we click the + or - on the utilisation bar it updates the '[number in area] / [total capacity of area]' figure so you can get a representation of how many people you're looking at.  But when you type your % of utilisation in to the box it doesn't - is it possible for it to do so, or not because the number hasn't been entered as such?  I know we can change the utilisation bar to group in blocks of 1% rather than 5%  but generally, especially on larger capacity events, the 5% is more than sufficient so just a query more than any need for change as of now
 
 
+Qafilah GA 3910
+Qafilah VIP SL 353
+Qafilah VIP SR 353
+
+Sahaab 4,235
+Sahaab VIP SL 252
+Sahaab VIP SR 252
+
+Bizarre Bazzar 1580 [this may change]
+
+Bustan 2376
+Bustan VIP SL 116
+Bustan VIP SR 116
+
+Qasr 8087
+Qasr VIP SL 625
+Qasr VIP SR 625
+
+
+
 Future:
 - mapbox
 - 3d

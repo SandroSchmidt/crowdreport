@@ -54,6 +54,18 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+.modal {
+      position: absolute;
+      background: white;
+      border: 1px solid #ccc;
+      padding: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      display: none;
+    }
+    .modal button {
+      margin-right: 10px;
+    }
   </style>
 
   <body style="overflow:hidden">
@@ -67,7 +79,9 @@
     </div>
     
     <div id="reo_div" style="float:left;width:40%;height:60%;text-align: center;">
-      <img id="logobild" src="./logo.png" style="width: 40%" >
+      <div id ="optionsModal" class="modal"> </div>
+
+      <img id="logobild" src="./logo.png" onclick="showModal()" style="width: 40%" >
       <br>
     </div>
   <div id="liu_div" style="float:left;width:60%;height:45%; ">
@@ -95,9 +109,11 @@ setTimeout(() => {
   if(stages_list.length<7){d3.select('#logobild').style("width","60%")}
 }, 2000);
 mode = "cmd"
+
 infotag = d3.select('#infotag')
 
 // das folgende ist nur für die Krücke zum eintragen der scan counts
+/*
 d3.select('img').on('click',function(){
             // Open a prompt asking for a number
             let userNumber = prompt("Enter Scans at this time:");
@@ -117,7 +133,7 @@ d3.select('img').on('click',function(){
                 display.textContent = "Invalid input. Please enter a valid number.";
             }
         })
-
+*/
 // das ist die sequenz des ladens
 const mymap = L.map('map_div',{attributionControl: false ,zoomSnap: 0.1, dragging: false,minZoom:1,maxZoom:25}).setView([0,0],17.8)
   

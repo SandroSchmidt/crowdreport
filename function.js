@@ -271,8 +271,8 @@ databaseRef.once('value')
      if(overridedisplay9==false && deviceversion != eventsettings.version){alert("You are using an old version("+deviceversion+") of the crowdreport app. the current version is "+eventsettings.version+". please reload the site!")}              
     if(eventsettings.cad)  {imageUrl ="./cad/"+eventsettings.cad}else{imageUrl =""}
 
-      if(!mapbox) { imageOverlay = L.imageOverlay(imageUrl, eventsettings.imagebounds, { opacity: 1 })
-        imageOverlay2 = L.imageOverlay(imageUrl, eventsettings.imagebounds, { opacity: 0.5 }).addTo(mymap);
+      if(!mapbox) { imageOverlay = L.imageOverlay(imageUrl, eventsettings.imagebounds, { opacity: 1 }).addTo(mymap)
+        imageOverlay2 = L.imageOverlay(imageUrl, eventsettings.imagebounds, { opacity: 0.5 });
         layercontrol = L.control.layers(
           {"CAD": imageOverlay,"CAD 50%": imageOverlay2,"Dark":Jawg_Matrix ,"Light": tl1,"Sat-1":mapboxLayer,"Sat-2": sat45,"Sat-3":Esri_WorldImagery },
           {"Stages":stages_layer,"Blocks":green_layer,"CSA":eigensymbole_layer,"Crowdflow" :movement_layer,
@@ -451,7 +451,8 @@ function initialise_mapboxmap(){
   });
   map.on('load', () => {
 
-    
+
+  
 for(i=0;i<blocking_arr.length;i++){
   blocking_arr[i].coords.push(blocking_arr[i].coords[0])
 }
@@ -523,7 +524,25 @@ for(i=0;i<blocking_arr.length;i++){
         .addTo(map);
 });
 
+restrooms.forEach(marker => {
+  const flippedCoords = [marker[1], marker[0]]; 
+  // Create a custom element for the marker
+  const el = document.createElement('div');
+  el.className = 'custom-marker';
+  el.style.width = '32px';
+  el.style.height = '32px';
+  el.style.backgroundSize = 'contain';
+  el.style.backgroundRepeat = 'no-repeat';
 
+  // Set the icon (use a real image path or switch-case if using different styles)
+  // Example: `icon: 'hospital'` resolves to `icons/hospital.png`
+  el.style.backgroundImage = `url('icons/restroom.png')`;
+
+  // Create and add the marker to the map
+  new mapboxgl.Marker(el)
+      .setLngLat(flippedCoords)
+           .addTo(map);
+});
   
   });
   ;  
@@ -660,7 +679,7 @@ if(blocking_arr){
 for (f=0;f<blocking_arr.length;f++) {
   if (blocking_arr[f].farbe){fcol = blocking_arr[f].farbe}else{fcol = "grey"}
   
-  let fu = f; L.polygon(blocking_arr[f].coords, {fillColor: fcol, "weight": 1,"opacity": 1,fillOpacity:0.8}).bindTooltip(blocking_arr[f].name).addTo(green_layer)}
+  let fu = f; L.polygon(blocking_arr[f].coords, {color:"black",fillColor: fcol, "weight": 0,"opacity": 1,fillOpacity:0.8}).bindTooltip(blocking_arr[f].name).addTo(green_layer)}
 }
 mymap.addControl(new L.Control.Fullscreen());
     
@@ -1311,13 +1330,16 @@ function removeLoadingOverlay() {
 
 setTimeout(() => {
   if (mode != "csa"){ refresh()}
+
+  /*
   map.setPitch(60)
   bb = -57
 setInterval(() => {
   map.setBearing(bb)
   bb -= 0.5
 }, 50);
-}, 10000);
+*/
+}, 5000);
 
 // TODO: das hier ist irgendwie wichtig wegen der veränderung der map-fanster. wenn man das raus nimmt wird die map nicht richtig gerendert:
 setTimeout(function() {
@@ -1326,3 +1348,34 @@ setTimeout(function() {
   else{map.resize();}
   removeLoadingOverlay()
 }, 5000);
+
+
+
+// modal hinzufügen
+if(1==1)
+{ 
+  console.log("try modal")
+  modal = d3.select('#optionsModal')
+  modal.remove()
+  modal.style('display','block')
+
+
+
+// Optionen ins Modal
+modal.append("p").text("Optionen:");
+modal.append("button").text("Option 1").on("click", () => alert("Option 1"));
+modal.append("button").text("Option 2").on("click", () => alert("Option 2"));
+modal.append("button").text("Schließen").on("click", () => modal.style("display", "none"));
+
+// Modal anzeigen an Mausposition
+function showModal(x, y) {
+
+
+  modal
+    .style("left", x + "px")
+    .style("top", y + "px")
+    .style("display", "block");
+}
+
+// Klick außerhalb schließt das Modal
+;}
