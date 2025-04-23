@@ -521,7 +521,7 @@ function initialise_mapboxmap(){
   });
   map.on('load', () => {
 
-
+    map.addControl(new mapboxgl.FullscreenControl(), 'top-right');
   
 for(i=0;i<blocking_arr.length;i++){
   blocking_arr[i].coords.push(blocking_arr[i].coords[0])
