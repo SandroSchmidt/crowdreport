@@ -1,7 +1,7 @@
 graphlinkegrenze = 12
 graphbreiteinviertelstunden = 48//(28-graphlinkegrenze)*4
 incident_toggle =true
-
+maprotate = false
 overridedisplay9 = false
 overridereport = false
 overrideleadership = false
@@ -313,43 +313,42 @@ databaseRef.once('value')
         zeitshift = (eventsettings.zeitzone - nutzerzeitzone) //*60*1000
         jetzt = jetzt.getTime()
 
+
         heutag = 99
+        console.log("anzahl der tage: " + eventsettings.zeitfenster.length)
         for(i=0;i<eventsettings.zeitfenster.length;i++){
+          
           showtagmittags = new Date ()
           temp =new Date (eventsettings.zeitfenster[i][0])
-          showtagmittags.setHours(12,0,0,0)
-          if (showtagmittags.getDate()== temp.getDate() &&showtagmittags.getMonth()== temp.getMonth()){heutag = (i+1)}
-          console.log(heutag)
+          temp.setHours(12,0,0,0)
+          console.log(temp)
+          if (showtagmittags.getTime() > temp.getTime()){heutag = (i+1)}
+          console.log("HT : "+heutag)
         }
-
-
-        heutag = 99
-        console.log("TTTTTTT" + heutag)
-
 
         if(heutag == 99)
           {
             start_graphdata = new Date()
-            temp = 0 
-            if(start_graphdata.getHours()<12){temp = (24*60*60*1000)}
-            start_graphdata.setHours(12,0,0,0)
-
-            start_graphdata=start_graphdata.getTime()-temp
+          //  start_graphdata.setHours(12,0,0,0)
+            start_graphdata=start_graphdata.getTime()-(360000)
+           //start_graphdata = new Date(eventsettings.zeitfenster[heutag-1][0]).getTime()-(zeitshift+5)*60*60*1000
+            
           }
         else
           {
-            
-           start_graphdata = new Date(eventsettings.zeitfenster[heutag-1][0]).getTime()-(zeitshift+5)*60*60*1000
-        
+          
+            start_graphdata = new Date(eventsettings.zeitfenster[heutag-1][0])
+            //start_graphdata.setHours(12,0,0,0)
+
+            start_graphdata=start_graphdata.getTime()
           }
        
         
-        console.log("heutag: "+ heutag)
       
         if (mode != "map"){read_current()
            read_a_day(25,heutag)
         }
-       
+        if(eventsettings["graphmax_y"]){chartymax = eventsettings["graphmax_y"]}{chartymax=totalCapacity*1.2}
       
 namedesevents_long = eventsettings.namelong
       })
@@ -435,6 +434,77 @@ update_map()
 
 
 }
+function drawPolygons() {
+  stages_list.forEach(stage => {
+    stage.coords.push(stage.coords[0])
+    if (!stage.coords || stage.hide) return;
+    const geojson = {
+      type: "Feature",
+      geometry: {
+        type: "Polygon",
+        coordinates: [stage.coords.map(c => [c[1], c[0]])] // lat/lng to lng/lat
+      },
+      
+      properties: {
+    name: stage.name,
+    height: stage.hi !== undefined ? stage.hi : 1,
+    base: stage.lo !== undefined ? stage.lo : 0,
+    lable:stage.lable !== undefined ? stage.lable : ""
+    
+  }
+  // ich geb dir gleich
+    };
+
+    map.addSource(stage.name, {
+      type: "geojson",
+      data: geojson
+    });
+    /*
+    map.addLayer({
+id: stage.name+`-outline`,
+type: 'line',
+source: stage.name,
+layout: {},
+paint: {
+'line-color': 'black', // outline color
+'line-width': 6
+}
+});*/
+    map.addLayer({
+      id: stage.name,
+      type: "fill-extrusion",
+      source: stage.name,
+      layout: {},
+      paint: {
+    "fill-extrusion-color": stage.farbe || "#ff0000",
+    "fill-extrusion-height": ["get", "height"],
+
+    "fill-extrusion-base": ["get", "base"],
+    "fill-extrusion-opacity": 1
+  }
+    });
+   
+map.addLayer({
+id: stage.name+`-label`,
+type: 'symbol',
+source: stage.name,
+layout: {
+'text-field': ['get', 'lable'], // use the `name` from properties
+'text-size': 14,
+'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+'text-anchor': 'top'
+},
+
+paint: {
+'text-color': '#000000',
+'text-halo-color': '#ffffff',
+'text-halo-width': 1
+}
+});
+  });
+}
+
+
 
 function initialise_mapboxmap(){
   mapboxgl.accessToken = 'pk.eyJ1Ijoic2FuZHJvc2NobWlkdCIsImEiOiJjbHg3bTMxYmwxMXZiMmtzY2tlN3RjNGY5In0.2whcv8hzfzdyukPAXWwSPw';
@@ -1322,8 +1392,10 @@ function getCentroid(coords) {
 
 // Function to remove the loading overlay
 function removeLoadingOverlay() {
-  d3.select("#loaderdiv").remove();
+  d3.select("#loaderdiv").style("display","none")
+  d3.select("#spintext").remove();
 }
+
 
 
 
@@ -1331,14 +1403,9 @@ function removeLoadingOverlay() {
 setTimeout(() => {
   if (mode != "csa"){ refresh()}
 
-  /*
-  map.setPitch(60)
-  bb = -57
-setInterval(() => {
-  map.setBearing(bb)
-  bb -= 0.5
-}, 50);
-*/
+  
+
+
 }, 5000);
 
 // TODO: das hier ist irgendwie wichtig wegen der veränderung der map-fanster. wenn man das raus nimmt wird die map nicht richtig gerendert:
@@ -1350,32 +1417,12 @@ setTimeout(function() {
 }, 5000);
 
 
+//map.setPitch(60)
+bb = -57
 
-// modal hinzufügen
-if(1==1)
-{ 
-  console.log("try modal")
-  modal = d3.select('#optionsModal')
-  modal.remove()
-  modal.style('display','block')
+setInterval(() => {
 
-
-
-// Optionen ins Modal
-modal.append("p").text("Optionen:");
-modal.append("button").text("Option 1").on("click", () => alert("Option 1"));
-modal.append("button").text("Option 2").on("click", () => alert("Option 2"));
-modal.append("button").text("Schließen").on("click", () => modal.style("display", "none"));
-
-// Modal anzeigen an Mausposition
-function showModal(x, y) {
-
-
-  modal
-    .style("left", x + "px")
-    .style("top", y + "px")
-    .style("display", "block");
-}
-
-// Klick außerhalb schließt das Modal
-;}
+if(maprotate == true){
+    map.setBearing(bb)
+bb -= 0.5}
+}, 50);

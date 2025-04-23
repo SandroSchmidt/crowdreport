@@ -137,78 +137,7 @@ if(1==1){d3.select('img').on('click',function(){
     initialise_firebase()
 
     // Example: load area polygons from geometry and display on map
-    function drawPolygons() {
-      stages_list.forEach(stage => {
-        stage.coords.push(stage.coords[0])
-        if (!stage.coords || stage.hide) return;
-        const geojson = {
-          type: "Feature",
-          geometry: {
-            type: "Polygon",
-            coordinates: [stage.coords.map(c => [c[1], c[0]])] // lat/lng to lng/lat
-          },
-          
-          properties: {
-        name: stage.name,
-        height: stage.hi !== undefined ? stage.hi : 1,
-        base: stage.lo !== undefined ? stage.lo : 0,
-        lable:stage.lable !== undefined ? stage.lable : ""
-        
-      }
-      // ich geb dir gleich
-        };
-
-        map.addSource(stage.name, {
-          type: "geojson",
-          data: geojson
-        });
-        /*
-        map.addLayer({
-  id: stage.name+`-outline`,
-  type: 'line',
-  source: stage.name,
-  layout: {},
-  paint: {
-    'line-color': 'black', // outline color
-    'line-width': 6
-  }
-});*/
-        map.addLayer({
-          id: stage.name,
-          type: "fill-extrusion",
-          source: stage.name,
-          layout: {},
-          paint: {
-        "fill-extrusion-color": stage.farbe || "#ff0000",
-        "fill-extrusion-height": ["get", "height"],
-
-        "fill-extrusion-base": ["get", "base"],
-        "fill-extrusion-opacity": 1
-      }
-        });
-       
-map.addLayer({
-  id: stage.name+`-label`,
-  type: 'symbol',
-  source: stage.name,
-  layout: {
-    'text-field': ['get', 'lable'], // use the `name` from properties
-    'text-size': 14,
-    'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
-    'text-anchor': 'top'
-  },
-  
-  paint: {
-    'text-color': '#000000',
-    'text-halo-color': '#ffffff',
-    'text-halo-width': 1
-  }
-});
-      });
-    }
-
-   
-
+ 
 
 
 
