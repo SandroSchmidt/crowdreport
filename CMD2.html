@@ -1,16 +1,21 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
     <title>crowdreport</title>
-    
+    <script src="./js/d3.min.js"></script>
+
+    <script src="./js/plotly-2.16.1.min.js"></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet-polylinedecorator/dist/leaflet.polylineDecorator.js"></script>
+    <script src="https://unpkg.com/leaflet-fullscreen/dist/Leaflet.fullscreen.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-fullscreen/dist/leaflet.fullscreen.css" />
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
-    <script src="./js/d3.min.js"></script>
-    <script src="./js/plotly-2.16.1.min.js"></script>
     <script src="./function.js"></script>
   </head>
 
@@ -21,19 +26,7 @@
     td { font-size: 1.2vh }
       body {font-family: Arial}
 
-      .loading-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-#loaderdiv {
+      #loaderdiv {
       position: fixed;
       top: 0;
       left: 0;
@@ -63,20 +56,54 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+.menu {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+      text-align: center;
+      width: 30%;
+      color: black;
+    }
+    .menu button {
+      margin: 10px 10px;
+      padding: 20px 20px;
+      font-size: 16px;
+      width: 80%;
+    }
   </style>
 
   <body style="overflow:hidden">
-    <div id="loaderdiv">
+    <div id="loaderdiv"><div id="spintext">
       <div class="spinner"></div>
       <br>
-      loading ...
+      loading ...</div>
+      <div id="centermenudiv" onclick="d3.select('#loaderdiv').style('display','none');d3.select('#centermenudiv').style('display','none')" class="menu" style="display: none;">
+        <h2>Settings:</h2>
+        <button onclick="scan_input_load();d3.select('#loaderdiv').style('display','none');d3.select('#centermenudiv').style('display','none')">Input Scan-counts</button><br>
+        <button onclick="mymap.remove();mapbox= true;initialise_mapboxmap(); 
+
+       
+                d3.select('#loaderdiv').style('display','none');d3.select('#centermenudiv').style('display','none');map.resize()">3d Map (Beta)</button><br>
+        
+        <button onclick="maprotate = !maprotate;d3.select('#loaderdiv').style('display','none');d3.select('#centermenudiv').style('display','none')">Rotate 3d Map (Beta)</button><br>
+        <button onclick="map.remove();mapbox= false;kartenkream();initialise_map();  mymap.setView(eventsettings.setview.center,eventsettings.setview.zoom);d3.select('#loaderdiv').style('display','none');d3.select('#centermenudiv').style('display','none')">2d Map (Standart)</button><br>
+    
+        <button onclick="let userNumber = prompt('Enter Y-Limit for the Graph:')
+         if (!isNaN(userNumber) && userNumber !== null && userNumber.trim() !== '')
+          { Plotly.relayout('liu_div', {'yaxis.range': [0, userNumber] })};
+          d3.select('#loaderdiv').style('display','none');d3.select('#centermenudiv').style('display','none')">Change Graph-Y-Limit</button><br>
+        <button onclick="window.open('https://wa.me/4915222836269', '_blank');d3.select('#loaderdiv').style('display','none');d3.select('#centermenudiv').style('display','none')">Contact Developer</button><br>
+      </div>
     </div>
     <div id="lio_div" style="float:left;width:50%;height:60%;">
-      <div id="map_div" style="width:100%;height: 100%"></div>
+      <div id="map_div" style="width:100%;height: 97%"></div>
     </div>
     
     <div id="reo_div" style="float:left;width:40%;height:60%;text-align: center;">
-      <img id="logobild" src="./logo.png" style="width: 40%" >
+     
+      <img id="logobild" src="./logo.png" onclick="d3.select('#loaderdiv').style('display','flex');d3.select('#centermenudiv').style('display','block')" style="width: 40%" >
       <br>
     </div>
   <div id="liu_div" style="float:left;width:60%;height:45%; ">
@@ -98,25 +125,35 @@
 
   </body>
   <script>
-
+    function kartenkream(){
+      mymap = L.map('map_div',{attributionControl: false ,zoomSnap: 0.1, dragging: false,minZoom:1,maxZoom:25}).setView(eventsettings.setview.center,eventsettings.setview.zoom)
+      imageOverlay = L.imageOverlay(imageUrl, eventsettings.imagebounds, { opacity: 1 }).addTo(mymap)
+        imageOverlay2 = L.imageOverlay(imageUrl, eventsettings.imagebounds, { opacity: 0.5 });
+        layercontrol = L.control.layers(
+          {"CAD": imageOverlay,"CAD 50%": imageOverlay2,"Dark":Jawg_Matrix ,"Light": tl1,"Sat-1":mapboxLayer,"Sat-2": sat45,"Sat-3":Esri_WorldImagery },
+          {"Stages":stages_layer,"Blocks":green_layer,"CSA":eigensymbole_layer,"Crowdflow" :movement_layer,
+        "Medical":aidstations_layer,"Emergency routes":flucht_layer,"CAD 50%": imageOverlay2}).addTo(mymap);
+        
+        
+    }
+setTimeout(removeLoadingOverlay, 5000);
     mapbox= true
+
 setTimeout(() => {
   if(stages_list.length<7){d3.select('#logobild').style("width","60%")}
-}, 5000);
+}, 2000);
 mode = "cmd"
+
 infotag = d3.select('#infotag')
 
 // das folgende ist nur für die Krücke zum eintragen der scan counts
-if(1==1){d3.select('img').on('click',function(){
+function scan_input_load(){
             // Open a prompt asking for a number
             let userNumber = prompt("Enter Scans at this time:");
-
             // Check if user entered a valid number
             if (!isNaN(userNumber) && userNumber !== null && userNumber.trim() !== '') {
            //     display.textContent = `You entered: ${userNumber}`;
            let currentDate = new Date();
-
-
                 camcountarr.x.push(currentDate.getTime())
                 camcountarr.y.push(parseInt(userNumber))
                 databaseRef =database.ref(namedesevents_short+'/aux/day' + heutag + '/incounts')
@@ -125,29 +162,13 @@ if(1==1){d3.select('img').on('click',function(){
             } else {
                 display.textContent = "Invalid input. Please enter a valid number.";
             }
-        })}
+        }
 
 // das ist die sequenz des ladens
+mymap = L.map('map_div',{attributionControl: false ,zoomSnap: 0.1, dragging: false,minZoom:1,maxZoom:25}).setView([0,0],17.8)
+  
 
-
-//  map.addControl(new mapboxgl.NavigationControl());
-
- 
-
-    initialise_firebase()
-
-    // Example: load area polygons from geometry and display on map
- 
-
-
-
-
-
-
-
-
-
-
+  initialise_firebase()
 
 
 function balad_plot_malen(data){
@@ -229,10 +250,11 @@ function balad_plot_malen(data){
 traces.push(intrace)
 
 
-if (heutag ==99){today =new Date()
-heutag =99
-  startTime = new Date().setHours(7,0,0)
-  endTime = new Date().setHours(23,59,0)
+if (heutag ==99){
+  startTime = new Date().getTime()-3600000
+  endTime = new Date(startTime+(12*3600000))
+  startTime = new Date(startTime)
+  
  
 }else{
   startTime = new Date(eventsettings.zeitfenster[heutag-1][0])
@@ -270,7 +292,7 @@ heutag =99
     linecolor: 'black', // Axis line color
     linewidth: 2 ,     // Axis line width
   
-      range: [0,totalCapacity*1.2],
+      range: [0,chartymax],
    //   title: 'patrons on site',
     },
     showlegend: true, // Show legend
@@ -295,7 +317,33 @@ heutag =99
           width: 1,
           dash: 'dot', // Make the line dotted
         },
-      },
+      }, {
+    type: 'line',
+    x0: endTime,
+    x1: endTime,
+    y0: 0,
+    y1: 1,
+    xref: 'x',
+    yref: 'paper',
+    line: {
+      color: 'black',
+      width: 3,
+    },
+  },
+  // Obere Linie (x-Achse oben)
+  {
+    type: 'line',
+    x0: startTime,
+    x1: endTime,
+    y0: 1,
+    y1: 1,
+    xref: 'x',
+    yref: 'paper',
+    line: {
+      color: 'black',
+      width: 3,
+    },
+  }
     ],
   };
 
@@ -431,7 +479,8 @@ realtime =false
     }
     temp = settim.getTime()
   currentTimestamp = settim
-  
+  draw_arrow()
+  draw_marker()
   //slider.property("value",settim_slot)
   Plotly.relayout('liu_div', {'shapes[0].x0': currentlocaltime , 'shapes[0].x1': currentlocaltime });
 //hier gehts weiter
@@ -443,10 +492,10 @@ realtime =false
 
   drecks=""
   if(settim.getMinutes()<10){drecks = "0"}
-if (heutag == 99){daytext = ""}else{daytext = " - DAY "+heutag}
+if (heutag == 99){daytext = "- DAY XXX"}else{daytext = " - DAY "+heutag}
   
   
-  tidi.text(namedesevents_long+ daytext +' - Time ' +settim.getHours() +":"+drecks+settim.getMinutes())
+  tidi.text(namedesevents_long + daytext +' - Time ' +settim.getHours() +":"+drecks+settim.getMinutes())
 
   settim_slot = temp - start_graphdata
     settim_slot = Math.round(settim_slot/(60*1000*5))
@@ -496,15 +545,21 @@ if(key != "x") {if(stages_list[index-1].hide != true)
   console.log(total_people_cur)
   let  fcol = farbskala[Math.round(tabellen_data[key][settim_slot][0]/10)]
   let col = farbskala[Math.min(10,Math.round(tabellen_data[key][settim_slot][1])*2)]
- if(!mapbox){ stages_list[(q-1)].geo.setStyle({fillColor: fcol,
+  if(!mapbox){ stages_list[(q-1)].geo.setStyle({fillColor: fcol,
     color: col,})
   }else{
     map.setPaintProperty(stages_list[(q-1)].name, "fill-extrusion-color", fcol) //vvvvv
-    map.setPaintProperty(stages_list[(q-1)].name+`-outline`, 'line-color', col);
+  //  map.setPaintProperty(stages_list[(q-1)].name+`-outline`, 'line-color', col);
+  map.setPaintProperty(
+  stages_list[(q - 1)].name,
+  'fill-extrusion-height',
+  ["+", ["get", "base"], Math.round(tabellen_data[key][settim_slot][0]/10)]
+);
+    
   }
 
 
-}
+  }
 }
 
 
