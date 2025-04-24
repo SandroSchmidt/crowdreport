@@ -84,13 +84,7 @@
         <button onclick="scan_input_load();d3.select('#loaderdiv').style('display','none');d3.select('#centermenudiv').style('display','none')">Input Scan-counts</button><br>
         <button onclick="mymap.remove();mapbox= true;initialise_mapboxmap(); 
 
-setTimeout(() => {
-  map.jumpTo({ center: [46.502745964006465,24.995586330686724] })
-
-                map.setZoom(17);
-                
-}, 1500);
-        
+       
                 d3.select('#loaderdiv').style('display','none');d3.select('#centermenudiv').style('display','none');map.resize()">3d Map (Beta)</button><br>
         
         <button onclick="maprotate = !maprotate;d3.select('#loaderdiv').style('display','none');d3.select('#centermenudiv').style('display','none')">Rotate 3d Map (Beta)</button><br>

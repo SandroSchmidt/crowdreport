@@ -517,11 +517,13 @@ function initialise_mapboxmap(){
   attributionControl: false,
     pitch: 0, // tilt for 3D
     bearing: -57, // angle to rotate map for better 3D view
-    antialias: true // better 3D rendering
+    antialias: true ,// better 3D rendering
+     center: [46.502745964006465,24.995586330686724],
+    zoom:17
   });
   map.on('load', () => {
 
-    map.addControl(new mapboxgl.FullscreenControl(), 'top-right');
+   // map.addControl(new mapboxgl.FullscreenControl(), 'top-right');
   
 for(i=0;i<blocking_arr.length;i++){
   blocking_arr[i].coords.push(blocking_arr[i].coords[0])
