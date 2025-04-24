@@ -330,7 +330,7 @@ databaseRef.once('value')
           {
             start_graphdata = new Date()
           //  start_graphdata.setHours(12,0,0,0)
-            start_graphdata=start_graphdata.getTime()-(360000)
+            start_graphdata=start_graphdata.getTime()-(3600000)
            //start_graphdata = new Date(eventsettings.zeitfenster[heutag-1][0]).getTime()-(zeitshift+5)*60*60*1000
             
           }
@@ -340,7 +340,7 @@ databaseRef.once('value')
             start_graphdata = new Date(eventsettings.zeitfenster[heutag-1][0])
             //start_graphdata.setHours(12,0,0,0)
 
-            start_graphdata=start_graphdata.getTime()
+            start_graphdata=start_graphdata.getTime()-(3600000)
           }
        
         
