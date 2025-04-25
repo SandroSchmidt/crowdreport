@@ -204,6 +204,31 @@ function balad_plot_malen(data){
   });
 
     traces.reverse();
+
+    traces.push({
+  x: [null], // or x: [0] if you want to use legendonly
+  y: [null],
+  stackgroup: 'one',
+  type: 'scatter',
+  mode: 'none',
+  fillcolor: "red",
+  name: 'VVIB',
+  showlegend: true,
+  //visible: 'legendonly', // this is the key!
+  line: { shape: 'spline',color: "red" },
+},
+{
+  x: [null], // or x: [0] if you want to use legendonly
+  y: [null],
+  stackgroup: 'one',
+  type: 'scatter',
+  mode: 'none',
+  fillcolor: "green",
+  name: 'VIB',
+  showlegend: true,
+  //visible: 'legendonly', // this is the key!
+  line: { shape: 'spline',color: "red" },
+})
 // hier werden alle werte zusammen gezählt und das trace für die summe erstellt, ausser bei hide == true
     const ySums = xValues.map((_, index) => {
   return Object.keys(data)
