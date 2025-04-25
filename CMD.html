@@ -501,6 +501,7 @@ if (heutag == 99){daytext = "- DAY XXX"}else{daytext = " - DAY "+heutag}
     settim_slot = Math.round(settim_slot/(60*1000*5))
 console.log(settim_slot)
   q=0
+  qqq=0
       total_people_cur =0
   Object.keys(graphdata).forEach((key,index) => {
 
@@ -541,25 +542,31 @@ if(key != "x") {if(stages_list[index-1].hide != true)
   //if(isNaN(tabellen_data[key][settim_slot][2])){ttc[q].text("")}
   // tpc[q].style('background-color',farbskala[Math.round(graphdata[key].usage[settim_slot]/15)])
   q++
+
+    
+  }
+  qqq++
   total_people_cur += Math.round(graphdata[key][settim_slot])
   console.log(total_people_cur)
   let  fcol = farbskala[Math.round(tabellen_data[key][settim_slot][0]/10)]
   let col = farbskala[Math.min(10,Math.round(tabellen_data[key][settim_slot][1])*2)]
-  if(!mapbox){ stages_list[(q-1)].geo.setStyle({fillColor: fcol,
+  if(!mapbox){ stages_list[(qqq-1)].geo.setStyle({fillColor: fcol,
     color: col,})
   }else{
-    map.setPaintProperty(stages_list[(q-1)].name, "fill-extrusion-color", fcol) //vvvvv
+    map.setPaintProperty(stages_list[(qqq-1)].name, "fill-extrusion-color", fcol) //vvvvv
   //  map.setPaintProperty(stages_list[(q-1)].name+`-outline`, 'line-color', col);
   map.setPaintProperty(
-  stages_list[(q - 1)].name,
+  stages_list[(qqq - 1)].name,
   'fill-extrusion-height',
   ["+", ["get", "base"], Math.round(tabellen_data[key][settim_slot][0]/10)]
 );
-    
+
   }
 
 
-  }
+
+
+
 }
 
 

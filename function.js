@@ -248,7 +248,7 @@ databaseRef = database.ref(namedesevents_short+'/geometry');
       fluchtrouten=snapshot.val().egress
          medstations = snapshot.val().medical
           totalCapacity = stages_list.reduce((sum, stage) => {
-          if (stage.hide) return sum; // skip hidden stages
+          if (stage.hider) return sum; // skip hidden stages
           return sum + (stage.capacity || 0);
         }, 0);
 
@@ -348,7 +348,8 @@ databaseRef.once('value')
         if (mode != "map"){read_current()
            read_a_day(25,heutag)
         }
-        if(eventsettings["graphmax_y"]){chartymax = eventsettings["graphmax_y"]}{chartymax=totalCapacity*1.2}
+        if(eventsettings["graphmax_y"]){
+          chartymax = eventsettings["graphmax_y"]}else{chartymax=totalCapacity*1.2}
       
 namedesevents_long = eventsettings.namelong
       })
@@ -437,7 +438,7 @@ update_map()
 function drawPolygons() {
   stages_list.forEach(stage => {
     stage.coords.push(stage.coords[0])
-    if (!stage.coords || stage.hide) return;
+    if (!stage.coords ) return;
     const geojson = {
       type: "Feature",
       geometry: {
@@ -1357,7 +1358,7 @@ function update_map(){
   total_people_cur =0
 for(i=0;i<stages_list.length;i++){
     if(current[stages_list[i].name] != undefined ){
-      if(stages_list[i].hide != true){
+      if(1==1){//stages_list[i].hide != true){
         total_people_cur += ((current[stages_list[i].name].usage/100) *stages_list[i].capacity)}
         let temp = current[stages_list[i].name]
         let  fcol = farbskala[Math.round(temp.usage/10)]
