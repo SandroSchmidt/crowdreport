@@ -180,7 +180,7 @@ function balad_plot_malen(data){
   .filter((key) => {
     if (key === 'x') return false;
     const stage = stages_list.find(s => s.name === key);
-    return !stage || !stage.hide; // exclude if hide is true
+    return !stage || !stage.hider; // exclude if hide is true
   })
   .map((key) => {
     let tempcol = "red";
