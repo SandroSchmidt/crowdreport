@@ -186,7 +186,8 @@ function balad_plot_malen(data){
     let tempcol = "red";
     const stage = stages_list.find(s => s.name === key);
     if (stage && stage.farbe) tempcol = stage.farbe;
-
+    
+    const showInLegend = stage?.showlegend ?? true;
     return {
       x: xValues,
       y: data[key],
@@ -195,8 +196,10 @@ function balad_plot_malen(data){
       type: 'scatter',
       mode: 'none',
       hoverinfo: 'skip',
+      showlegend: showInLegend,
       fillcolor: tempcol,
       line: { shape: 'spline' },
+
     };
   });
 
@@ -207,7 +210,7 @@ function balad_plot_malen(data){
     .filter((key) => {
       if (key === 'x') return false;
       const stage = stages_list.find(s => s.name === key);
-      return !stage || !stage.hide; // nur wenn nicht versteckt
+      return !stage || !stage.hiderr; // nur wenn nicht versteckt
     })
     .reduce((sum, key) => sum + data[key][index], 0);
 });
